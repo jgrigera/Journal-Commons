@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <!-- -*- extra stuff goes here -*- -->
+    <permission name="journalcommons.Conference: Add ConferencePaper" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+      <role name="JournalAuthor" />
+    </permission>
+    <permission name="journalcommons.Conference: Add Conference" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
+  </permissions>
+</rolemap>

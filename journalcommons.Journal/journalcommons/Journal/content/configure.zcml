@@ -1,0 +1,60 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="journalcommons.Journal">
+
+  <!-- configure your content components here -->
+  
+  <!-- -*- extra stuff goes here -*- -->
+  <class class=".submissionsfolder.SubmissionsFolder">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.ISubmissionsFolder"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.ISubmissionsFolder"
+        />
+  </class>
+  <class class=".section.Section">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.ISection"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.ISection"
+        />
+  </class>
+  <class class=".article.Article">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IArticle"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IArticle"
+        />
+  </class>
+  <class class=".issue.Issue">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IIssue"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IIssue"
+        />
+  </class>
+  <class class=".journal.Journal">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IJournal"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IJournal"
+        />
+  </class>
+
+</configure>

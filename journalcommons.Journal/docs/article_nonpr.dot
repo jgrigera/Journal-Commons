@@ -1,0 +1,48 @@
+/*
+graphviz
+
+The command line is
+
+  dot -Tps -Grankdir=LR states.dot > states.ps
+
+and the file is:
+*/
+digraph states {
+//    size="3,2";
+    rankdir=TB;
+    node [shape=ellipse];
+  
+    // States
+    idea [label = "Idea"];
+    draft [label = "(Revised) Draft"];
+    eb_draft [label = "Waiting EB Action"];
+    issues [label = "Issues to address"];
+    accepted [label = "Accepted"];
+    rejected [label = "Rejected"];	// R.I.P.
+    published [label = "Published"];
+    
+   
+    // Transitions
+    idea -> draft [label = "To draft"];				// 	User action
+    idea -> rejected [label = "Reject" ];			// 	EB action
+								// trigger: email to author
+    draft -> eb_draft [label = "Submit to EB"];                 // 	User action   [ if r&r, require a new draft ]
+								// trigger: if r&r, email to EB responsible (if it has a responsible assigned)
+    eb_draft -> rejected [label = "Reject"];			// 	EB action
+								// trigger: email to author
+    eb_draft -> accepted [label = "Accept"];			// 	EB action
+								// trigger: email to author
+    eb_draft -> issues [label = "Address issues"];		// 	EB action	[ if submitted comments ]
+								// trigger: email to author
+    eb_draft -> draft [label = "Revise and Resubmit"];		// 	EB action	[ if submitted comments ]
+								// trigger: email to author
+    issues -> eb_draft [label = "Submit to EB"];		// 	User action	[ if submitted comments ]
+								// trigger: email to EB responsible
+    rejected -> eb_draft [label = "Rollback" ];			//	Manager
+    rejected -> idea [label = "Rollback" ];			//	Manager
+    accepted -> published [label = "Publish" ];			//	Publication manager
+								// trigger: email to author
+    accepted -> eb_draft [label = "Retract"];			// 	Manager
+    published -> eb_draft [label = "Retract" ];			//	Manager
+    
+}

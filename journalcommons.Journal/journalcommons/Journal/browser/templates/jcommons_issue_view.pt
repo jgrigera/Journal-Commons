@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="collective.contacts">
+<head>
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('enable_border',1);" />
+</head>
+<body>
+    <div metal:fill-slot="main"
+         tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+                     sections_start request/sections_start | python:0;
+                     sections_size  request/sections_size | python:20;
+                     sections       view/get_sections | python:None;
+                     template_id string:jcommons_article_view">
+
+        <tal:main-macro metal:define-macro="main">
+
+
+	<!-- Issue  -->
+	<h2 tal:content="here/Title" />
+	
+	<p/>&nbsp;<p/>
+
+	<!-- Abstract and Keywords -->
+	<tal:abstract tal:condition="here/Description">
+	<dl id="history" class="collapsible inline"> <!-- not collapsedOnLoad -->
+	    <dt class="collapsibleHeader" i18n:translate="label_abstract">Abstract</dt>
+	    <dd class="collapsibleContent">
+		<div tal:content="here/Description" />
+		<p/><p/>
+		<tal:loop tal:repeat="keyword here/Subject">
+			    <tal:case tal:condition="not: repeat/keyword/start">
+				-
+			    </tal:case><b tal:content="keyword" />
+		</tal:loop>
+	    </dd>
+	</dl>
+	</tal:abstract>
+	
+	
+	<p/>&nbsp;<p/>
+	
+	<!-- Sections first -->
+        <h3 i18n:translate="sections">Contents</h3>
+        
+        <div tal:condition="sections">
+            <tal:batch define="batch_sections python:Batch(sections, sections_size, int(sections_start), orphan=1, b_start_str='sections_start')">
+            <!--
+        	<div metal:use-macro="here/custom_batch_macros/macros/navigation" />
+    	    -->
+    	    
+            <tal:block repeat="section batch_sections">
+    	    <table class="listing" width="100%">
+        	<thead>
+                <tr>
+            	    <th class="nosort" colspan="2"><b tal:content="section/Title" />
+            	</tr>
+            	</thead>
+                                                                                        
+                <tal:articles repeat="article python:view.get_section_articles(section)">
+                <tr>
+            	    <td><a href="" 
+            		    tal:attributes="href article/absolute_url" 
+            		    tal:content="article/getArticle_title" />
+            		<br/>
+            		by <span tal:content="python:' and '.join(article.Creators())"/>
+            	    <td width="20%" tal:content="article/getPages" />
+        	</tr>
+        	</tal:articles>
+	    </table>
+            </tal:block>
+        <!--
+            <div metal:use-macro="here/custom_batch_macros/macros/navigation" />
+            -->
+
+            </tal:batch>
+
+            <br/>
+
+<!--
+download all drafts as zip?            
+            <form action="#" method="post" class="visualNoPrint"
+                    tal:attributes="action string:${context/absolute_url}">
+                <input name="form.button.export_persons" value="Export all persons" type="submit" i18n:attributes="value label_export_all_persons">
+            </form>
+-->
+        </div>
+
+        <br/>
+	
+	<div tal:replace="structure provider:plone.belowcontentbody" />
+    
+
+        </tal:main-macro>
+    </div>
+</body>
+</html>

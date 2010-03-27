@@ -1,0 +1,33 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/jcommons_transition_form/macros/master">
+<body>
+
+
+<div metal:fill-slot="main" i18n:domain="cmf_default">
+
+<h1 i18n:translate="">Submit to Editors</h1> <!-- Editorial Board</h1> -->
+
+<p i18n:translate="">You are about to submit your 
+    <!-- TODO... throws unauthorized
+	<span tal:omit-tag="" tal:content="here/aq_getItemsName" /> 
+    --> piece
+   &#8220;<em><span tal:replace="here/Title">Item</span></em>&#8221; 
+   to be evaluated by the Editors
+</p> <!-- Editorial Board.</p> -->
+
+</div>
+
+<form action="dummy">
+    <div metal:fill-slot="form" i18n:domain="cmf_default">
+     <input type="hidden" name="workflow_action" value="submittoeb" />
+
+     <input type="submit" value="Submit"
+            i18n:attributes="value" />
+
+    </div>
+</form>
+
+</body>
+</html>
+

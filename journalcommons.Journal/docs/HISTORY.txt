@@ -1,0 +1,17 @@
+Changelog
+=========
+
+0.1.3
+-----
+- Added first version of Workflow
+
+0.1.1
+-----
+- Added basic archetypes (Journal, Issue, Section, Article)
+
+0.1dev (unreleased)
+-------------------
+
+- Initial release, only 
+
+

@@ -1,0 +1,11 @@
+# Mac
+.DS_Store
+
+# vi, editors
+*~
+*.swp
+
+# Python pre-compiled
+*.pyc
+
+

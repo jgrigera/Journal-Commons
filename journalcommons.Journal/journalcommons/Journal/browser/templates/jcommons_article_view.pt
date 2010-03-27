@@ -1,0 +1,157 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="collective.contacts">
+<head>
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
+</head>
+<body>
+    <div metal:fill-slot="main"
+         tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+                     drafts_start request/drafts_start | python:0;
+                     drafts_size  request/drafts_size | python:20;
+                     drafts view/get_drafts | python:None;
+                     state_actions	view/get_actions;
+                     template_id string:jcommons_article_view">
+
+        <tal:main-macro metal:define-macro="main">
+
+
+	<!-- Print div with Simple Actions -->
+	<div tal:condition="state_actions"
+	     style="float: right; margin-left: 2em; margin-right: 0em;">
+	     
+	<dl class="portlet">
+	    <span class="portletTopLeft"></span>
+	    <dt class="portletHeader">
+			Actions
+	    </dt>
+	    <span class="portletTopRight"></span>
+		<dd class="portletItem">
+			<ul class="configlets">
+				<tal:loop tal:repeat="action state_actions">
+				    <li>
+					<a href="#" 
+				         tal:attributes="href python:context.absolute_url()+'/'+action['url']">
+				         <img alt="" src="#" tal:attributes="src action/icon" />
+				         <span tal:omit-tag="" tal:content="action/title" />
+				    </a>
+				    </li>
+				</tal:loop>
+			</ul>
+		</dd>
+    	</dl>
+        </div>
+
+	<!-- Article Metadata -->
+	<h2 tal:content="here/Title" />
+	
+	<div id="ContentByline"
+	      i18n:domain="cmf_default">
+	    <em>
+		<tal:case tal:condition="here/listCreators">
+		    <tal:loop tal:repeat="creator here/listCreators">
+			    <tal:case tal:condition="not: repeat/creator/start">
+			    <tal:case tal:condition="not: repeat/creator/end">, </tal:case>          
+			    <tal:case tal:condition="repeat/creator/end"> 
+			    <span tal:omit-tag="" i18n:translate="">and</span> 
+			    </tal:case></tal:case>
+			    <a href="." title="creator"
+                        	    tal:define="user_details	python:view.get_user_details(creator);
+                        			home_url 	user_details/home_url;
+                        			fullname	user_details/fullname;"
+                                    tal:attributes="href home_url; title creator"
+                                    tal:content="fullname">
+                            </a>
+                    </tal:loop>
+                </tal:case>
+		<tal:case tal:condition="not: here/listCreators">
+			    <span tal:omit-tag="" i18n:translate="">unknown</span>
+		</tal:case>
+		<!--
+			    <span tal:omit-tag="" i18n:translate="">Last modified</span>
+			    <tal:span tal:content="here/ModificationDate">Today</tal:span>.
+		-->
+	    </em>
+	</div>
+
+	<p/>&nbsp;<p/>
+
+	<!-- Abstract and Keywords -->
+	<tal:abstract tal:condition="here/Description">
+	<dl  class="collapsible inline"> <!-- not collapsedOnLoad -->
+	    <dt class="collapsibleHeader" i18n:translate="label_abstract">Abstract</dt>
+	    <dd class="collapsibleContent">
+		<div tal:content="here/Description" />
+		<p/><p/>
+		<tal:loop tal:repeat="keyword here/Subject">
+			    <tal:case tal:condition="not: repeat/keyword/start">
+				-
+			    </tal:case><b tal:content="keyword" />
+		</tal:loop>
+	    </dd>
+	</dl>
+	</tal:abstract>
+	
+	
+	<p/>&nbsp;<p/>
+	
+	<!-- Now list the drafts -->
+	<tal:drafts tal:condition="here/aq_stateDraftsAllowed">
+        <div tal:condition="not:drafts">
+            <b i18n:translate="no_drafts_added">No drafts have been added yet for this article.</b>
+        </div>
+        
+        <div tal:condition="drafts">
+            <tal:batch define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')">
+            <h3 i18n:translate="drafts">Drafts:</h3>
+
+            <table class="listing">
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Words</th>
+                    <th>Download</th>
+                </tr>
+                <tal:block repeat="draft batch_drafts">
+
+                <tr tal:define="oddrow repeat/draft/odd;"
+                    tal:attributes="class python:oddrow and 'even' or 'odd'">
+                    
+                    <td tal:content="draft/Title" />
+                    <td tal:content="draft/ModificationDate" />
+                    <td tal:content="python:len(draft.SearchableText())" />
+                    <td>
+			<metal:field use-macro="python:draft.widget('file', mode='view')">
+		            File
+                        </metal:field>
+                    </td>                    
+                </tr>
+                </tal:block>
+            </table>
+            </tal:batch>
+
+            <br/>
+
+<!--
+download all drafts as zip?            
+            <form action="#" method="post" class="visualNoPrint"
+                    tal:attributes="action string:${context/absolute_url}">
+                <input name="form.button.export_persons" value="Export all persons" type="submit" i18n:attributes="value label_export_all_persons">
+            </form>
+-->
+        </div>
+        </tal:drafts>
+
+        <br/>
+	
+
+
+		<div tal:replace="structure provider:plone.belowcontentbody" />
+    
+
+        </tal:main-macro>
+    </div>
+</body>
+</html>

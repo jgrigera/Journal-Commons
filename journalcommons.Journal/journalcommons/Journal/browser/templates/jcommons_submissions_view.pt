@@ -1,0 +1,440 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="journalcommons.Journal">
+<body>
+
+  <metal:block fill-slot="top_slot"
+               tal:define="dummy python:request.set('disable_border',1)" />
+  <metal:block fill-slot="column_two_slot" />
+
+  <div metal:fill-slot="main">
+    <div metal:define-macro="body"
+    		tal:define="isManager python:False;
+                  issueQueryString python:'hoooola'">
+
+<!--
+      tal:define="
+
+                  openStates python:['unconfirmed'] + basicOpenStates;
+                  ignoredStates python:['new'];
+                  pendingStates python:openStates + ['resolved'];
+                  (here.absolute_url(), '&amp;state='.join(openStates),);
+                  issuefolder context/@@issuefolder;
+-->
+
+      <h1 tal:content="here/Title" class="documentFirstHeading" />
+
+	  <!-- Anonymous form -->
+	  <tal:anonymous  tal:condition="isAnon">
+	  <div class="login-required">
+          <tal:block i18n:translate="login_required">
+            You need to register and log in before you can submit an article
+          </tal:block>
+      </div>
+
+      <div tal:content="structure here/helptextanon"/>
+      
+      <div id="jcommons-quick-login-box">				
+			<dl class="portlet portletLogin">
+			    <dt class="portletHeader">
+			        <span class="portletTopLeft"></span>
+			        <a href="#"                         
+			           class="tile"                     
+			           tal:attributes="href view/login_form"
+			           i18n:translate="box_sign_in">Log in</a>
+			        <span class="portletTopRight"></span>     
+			    </dt>                                         
+			
+			    <dd class="portletItem odd"
+			        tal:define="ac_name view/login_name;
+			                    ac_password view/login_password">
+			        <form action="login_form"                    
+			              name="loginform"                       
+			              method="post"                          
+			              tal:attributes="action view/login_form">
+			
+			            <input type="hidden" name="form.submitted" value="1" />
+			            <input type="hidden" name="came_from" value=""         
+			              tal:attributes="value context/@@plone_context_state/current_page_url" />
+			            <input type="hidden" name="js_enabled" id="js_enabled" value="0" />       
+			            <input type="hidden" name="cookies_enabled" id="cookies_enabled" value="" />
+			            <input type="hidden" name="login_name" id="login_name" value="" />          
+			            <input type="hidden" name="pwd_empty" id="pwd_empty" value="0" />           
+			
+			            <div class="field">
+			                <label for=""  
+			                       tal:attributes="for ac_name"
+			                       i18n:translate="label_login_name">Login Name</label>
+			                <br />                                                     
+			                <input type="text"                                         
+			                       size="10"                                           
+			                       alt="Login Name"                                    
+			                       tal:attributes="name ac_name; id ac_name;           
+			                                       value python:request.get(ac_name, '');"
+			                       i18n:attributes="alt label_login_name;"/>              
+			            </div>                                                            
+			                                                                              
+			            <div class="field">                                               
+			                <label for=""                                                 
+			                       tal:attributes="for ac_password"                       
+			                       i18n:translate="label_password">Password</label>       
+			                <br />                                                        
+			                <input type="password"                                        
+			                       size="10"                                              
+			                       alt="Password"                                         
+			                       tal:attributes="name ac_password; id ac_password;"     
+			                       i18n:attributes="alt label_password;"/>                
+			            </div>                                                            
+			
+			            <div i18n:translate="enable_cookies_message_before_login"
+			                 class="cookiesMessage portalMessage"                
+			                 style="display:none">                               
+			                Cookies are not enabled. You must enable cookies before you
+			                can log in.                                                
+			            </div>                                                         
+			                                                                           
+			            <div class="formControls">                                     
+			                                                                           
+			                <input class="context"                                     
+			                       type="submit"                                       
+			                       name="submit"                                       
+			                       value="Log in"                                      
+			                       alt="Log in"                                        
+			                       i18n:attributes="value label_log_in; alt label_log_in;"/>
+			            </div>                                                              
+			        </form>                                                                 
+			    </dd>                                                                       
+			                                                                                
+			    <dd class="portletItem even" tal:condition="view/login_can_request_password">     
+			        <a href="mail_password_form"                                            
+			           class="tile"
+			           tal:attributes="href view/login_mail_password_form">
+			           <tal:block replace="structure context/info_icon.gif"/>
+			           <span tal:omit-tag="" i18n:translate="box_forgot_password_option">Forgot your password?</span>
+			        </a>
+			    </dd>
+			</dl>
+	</div>
+	
+	<div id="jcommons-quick-join-box">
+					<dl class="portlet portletLogin">
+					    <dt class="portletHeader">
+					        <span class="portletTopLeft"></span>
+					        <a href="#"                         
+					           class="tile"                     
+					           tal:attributes="href view/join_form"
+					           i18n:translate="box_sign_in">Register</a>
+					        <span class="portletTopRight"></span>     
+					    </dt>                                         
+					
+					    <dd class="portletItem odd">
+		             
+		             <!-- TODO  tal:condition="view/can_register" issue a warning if cant register -->
+		              <span tal:omit-tag="" i18n:translate="box_new_user_option">New user?</span>
+
+		              <form
+		                  	tal:attributes="action view/join_form">
+		                <div class="formControls">
+
+			            <div class="field">
+			                <label for="email"  
+			                       i18n:translate="label_email_name">E-mail</label>
+			                <br />                                                     
+			                <input type="text"                                         
+			                       size="10"                                           
+			                       alt="email"   
+			                       name="email"
+			                       id="email"
+			                       tal:attributes="value python:request.get('email', '');"
+			                       i18n:attributes="alt label_email_name;"/>              
+			            </div>                                                            
+
+				            <tal:block replace="structure context/user.gif"/>
+
+				            <input type="hidden" name="came_from" value=""         
+				              		tal:attributes="value context/@@plone_context_state/current_page_url" />
+
+		                  <input class="context"
+		                         type="submit"
+		                         value="Register"
+		                         i18n:domain="plone"
+		                         i18n:attributes="value label_register;"
+		                         />
+		                </div>
+		              </form>
+		              
+					        <span class="portletBottomLeft"></span>
+					        <span class="portletBottomRight"></span>
+		              </dd>
+					</dl>		              
+	</div>
+
+      </tal:anonymous>
+      
+	
+	  <tal:not-anonymous  tal:condition="not:isAnon">
+      <!-- 
+      		<div class="documentDescription" tal:content="here/Description" />
+      	-->
+
+      <p class="portalMessage"
+         i18n:translate="description_cannot_add_articles_before_opened"
+         tal:condition="python: is_editable and wtool.getInfoFor(here, 'review_state')=='private'">
+         Nobody can submit articles if this folder is
+         'private'. Please change this using the 'state' drop down in the green bar above.
+      </p>
+
+      <div tal:content="structure here/getHelpText"/>
+
+
+      <div class="formControls">
+        <table>
+          <tr>
+            <td>
+              <form action="createObject" id="submissions-new-article-form">
+                    <!-- tal:condition="python: user.has_permission('Poi: Add Issue', here)" -->
+                <input name="type_name" type="hidden" 
+                		value="#" 
+                		tal:attributes="value here/aq_getItemsType"/>
+                <div class="formControls">
+                  <input class="context" type="submit" i18n:attributes="value" value="#"
+                  		tal:attributes="value python:'Submit '+here.aq_getItemsName()" />
+                </div>
+              </form>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+	  <!--  List of your articles -->
+	  <tal:your_articles 
+	  		tal:define="your_articles view/get_your_articles;"
+	  		tal:condition="your_articles">
+		  		
+	      <h4 tal:content="python:'Your '+here.aq_getItemsName()+'s'">Your articles</h4>
+          <table class="listing">
+               <tr>
+                   <th>Name</th>
+                   <th>State</th>
+                   <th>Comment</th>
+               </tr>
+
+				<tal:article repeat="article your_articles">
+                <tr tal:define="oddrow repeat/article/odd;"
+                    tal:attributes="class python:oddrow and 'even' or 'odd'">
+                    
+                    <td><a href="#" tal:attributes="href article/absolute_url" tal:content="article/Title" /></td>
+                    <td class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
+                    <td tal:content="article/get_state_comments" />
+                </tr>
+		        </tal:article>
+           </table>
+      </tal:your_articles>
+
+		
+      <div class="visualClear"><!---->&nbsp;<br/></div>
+
+<tal:manager condition="isManager">
+      <p i18n:translate="help_pending_articles">
+          Click an area, release or issue state to see all open issues in that
+          category. For more advanced search options, click "search for issues".
+      </p>
+
+	  <!--  Search submissions -->
+      <div id="submissions-quicksearch-box">
+         <form action="jcommons_submissions_quicksearch">
+            <input type="text" name="searchText" size="15" />
+            <input class="searchButton" type="submit" value="Search" i18n:attributes="value"/>
+         </form>
+         <a id="submissions-search-link"
+            tal:attributes="href string:${here/absolute_url}/jcommons_submissions_search_form"
+            i18n:translate="advanced_article_search">Advanced Article search</a>
+      </div>
+
+<!-- 
+      <div id="open-issues-by-area" class="issue-quick-search-box">
+          <h3 i18n:translate="poi_heading_by_area">By area</h3>
+          <ul>
+              <tal:areas repeat="area here/getAvailableAreas">
+                <li tal:define="areaId          area/id;
+                                areaTitle       area/title;
+                                areaDescription area/description;
+                                issues          python:issuefolder.getFilteredIssues(area=areaId, state=openStates)">
+                <a tal:attributes="href string:${issueQueryString}&amp;area=${areaId};
+                                   title areaDescription"
+                   tal:content="areaTitle" /> (<span tal:replace="python:len(issues)" />)
+                </li>
+              </tal:areas>
+          </ul>
+      </div>
+
+      <div id="open-issues-by-release" class="issue-quick-search-box"
+           tal:condition="here/isUsingReleases">
+          <h3 i18n:translate="poi_heading_by_release">By target release</h3>
+          <ul tal:define="releases here/getReleasesVocab;">
+              <tal:releases repeat="release releases">
+                  <li tal:define="issues python:issuefolder.getFilteredIssues(targetRelease=release, state=openStates)">
+                    <a tal:attributes="href string:${issueQueryString}&amp;targetRelease=${release}"
+                       tal:content="python:releases.getValue(release)" /> (<span tal:replace="python:len(issues)" />)
+                  </li>
+              </tal:releases>
+          </ul>
+      </div>
+
+      <div id="open-issues-by-state" class="issue-quick-search-box"
+           tal:define="issueStates here/getIssueWorkflowStates;">
+          <h3 i18n:translate="poi_heading_by_state">By state</h3>
+          <ul>
+             <li tal:define="issues python:issuefolder.getFilteredIssues(state=openStates)">
+                 <a tal:attributes="href string:${issueQueryString}"
+                    i18n:translate="poi_all_pending_issues">All pending issues</a> (<span tal:replace="python:len(issues)" />)
+             </li>
+              <tal:releases repeat="state issueStates">
+                  <tal:block condition="python:state not in ignoredStates">
+                      <li tal:define="issues python:issuefolder.getFilteredIssues(state=state)">
+                        <a tal:attributes="href string:${here/absolute_url}/poi_issue_search?state=${state}"
+                           i18n:translate=""
+                           i18n:domain="plone"
+                           tal:content="python:issueStates.getValue(state)" /> (<span tal:replace="python:len(issues)" />)
+                      </li>
+                  </tal:block>
+              </tal:releases>
+          </ul>
+      </div>
+-->
+      <div class="visualClear"><!----></div>
+
+      <div id="open-issues-by-tag" class="issue-quick-search-box"
+			tal:define="tags python:('a','b')"
+          tal:condition="python:isManager and len(tags) > 0">
+          <h3 i18n:translate="poi_heading_by_tag">By tag</h3>
+          <div>
+            <span tal:repeat="tag tags">
+                <a tal:attributes="href string:${issueQueryString}&amp;tags=${tag}"
+                   tal:content="tag" />
+                <span tal:condition="not:repeat/tag/end"> ~ </span>
+            </span>
+          </div>
+      </div>
+
+      <div style="clear:both"><!----></div>
+
+<!--
+      <tal:manager condition="isManager">
+
+          <div id="unassigned-issues"
+               tal:define="issues python:issuefolder.getFilteredIssues(state='unconfirmed');
+                           rssQueryString python:issuefolder.getIssueSearchQueryString(state='unconfirmed')"
+               tal:condition="nocall:issues">
+
+               <metal:table use-macro="here/poi_issue_search_results/macros/issue_search_results">
+
+                  <div metal:fill-slot="intro-text">
+
+                     <h2 i18n:translate="poi_heading_unconfirmed_issues">Unconfirmed issues</h2>
+                     <p i18n:translate="poi_help_unconfirmed_issues">
+                         The following issues have not yet been confirmed. Please
+                         review them and take the appropriate action.
+                     </p>
+
+                  </div>
+
+                  <div class="issue-search-rss" metal:fill-slot="rss-button">
+                      <a href="" tal:attributes="href string:${here/absolute_url}/poi-issue-search-rss.xml?${rssQueryString}">
+                        <img i18n:attributes="title title_rss_feed_unconfirmed; alt label_rss_feed;"
+                             tal:attributes="src string:$portal_url/rss.gif"
+                             src="rss.gif"
+                             alt="RSS Feed"
+                             title="RSS feed of unconfirmed issues" />
+                      </a>
+                  </div>
+
+               </metal:table>
+
+          </div>
+
+      </tal:manager>
+-->
+      
+
+      <tal:loggedIn condition="not:isAnon">
+<!-- 
+          <div id="my-issues"
+               tal:define="issues python:issuefolder.getMyIssues(manager=False)"
+               tal:condition="nocall:issues">
+
+               <metal:table use-macro="here/poi_issue_search_results/macros/issue_search_results">
+
+                  <div metal:fill-slot="intro-text">
+                     <h2 i18n:translate="poi_heading_my_issues">My issues</h2>
+                     <p tal:condition="isManager" i18n:translate="poi_help_my_issues_manager">
+                         The following open issues were either submitted by you, or have been assigned to you.
+                         Note that the RSS feed for this list will include unconfirmed and orphaned issues as well,
+                         to make it possible to subscribe to a single feed with all the issues you may be interested
+                         in.
+                     </p>
+
+                     <p tal:condition="not:isManager" i18n:translate="poi_help_my_issues_not_manager">
+                         The following open issues were submitted by you.
+                     </p>
+                  </div>
+
+                   <div class="issue-search-rss" metal:fill-slot="rss-button">
+                        <a href="" tal:attributes="href string:${here/absolute_url}/poi-my-issues-rss.xml?memberId=${member/getId}&isManager:boolean=${isManager}">
+                            <img i18n:attributes="title title_rss_feed_my_issues; alt label_rss_feed;"
+                                tal:attributes="src string:$portal_url/rss.gif"
+                                src="rss.gif"
+                                alt="RSS Feed"
+                                title="RSS feed of my issues" />
+                        </a>
+                    </div>
+               </metal:table>
+          </div>
+-->
+      </tal:loggedIn>
+<!-- 
+          <div id="orphaned-issues"
+               tal:define="issues issuefolder/getOrphanedIssues"
+               tal:condition="nocall:issues">
+
+               <metal:table use-macro="here/poi_issue_search_results/macros/issue_search_results">
+
+                   <div metal:fill-slot="intro-text">
+                     <h2 i18n:translate="poi_heading_orphaned_issues">Orphaned issues</h2>
+                     <p i18n:translate="poi_help_orphaned_issues_">
+                         The following open issues are not assigned to anyone.
+                     </p>
+                   </div>
+
+                   <div class="issue-search-rss" metal:fill-slot="rss-button">
+                        <a href="" tal:attributes="href string:${here/absolute_url}/poi-orphaned-issues-rss.xml?memberId=${member/getId}">
+                            <img i18n:attributes="title title_rss_feed_orphaned; alt label_rss_feed;"
+                                tal:attributes="src string:$portal_url/rss.gif"
+                                src="rss.gif"
+                                alt="RSS Feed"
+                                title="RSS feed of orphaned issues" />
+                        </a>
+                    </div>
+               </metal:table>
+          </div>
+-->
+      </tal:manager>
+
+      <div class="poweredBy">
+        <tal:powered i18n:translate="label_powered_by">
+          Powered by
+        </tal:powered>
+        <a class="link-plain"
+           href="http://journal-commons.org">Journal Commons</a>
+      </div>
+
+	</tal:not-anonymous>
+    </div>
+
+  </div>
+</body>
+
+</html>
+
