@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- $Id: propertiestool.xml 108068 2010-01-05 14:18:34Z mborch $ -->
+<object name="portal_properties">
+
+  <object name="navtree_properties">
+    <property name="metaTypesNotToList" type="lines" purge="False">
+      <element value="Article"/>
+    </property>
+
+  </object>
+
+</object>
