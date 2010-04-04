@@ -1,4 +1,6 @@
 # -*- extra stuff goes here -*-
+from researchthread import IResearchThread
+
 from comment import IComment
 
 from draft import IDraft

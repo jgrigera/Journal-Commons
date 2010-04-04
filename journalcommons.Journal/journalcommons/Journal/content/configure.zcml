@@ -6,6 +6,16 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".researchthread.ResearchThread">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IResearchThread"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IResearchThread"
+        />
+  </class>
   <class class=".comment.Comment">
     <require
         permission="zope2.View"

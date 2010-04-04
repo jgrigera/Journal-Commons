@@ -7,6 +7,10 @@
 
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
+    <permission name="journalcommons.Journal: Add ResearchThread" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
     <permission name="journalcommons.Journal: Add Comment" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
