@@ -1,0 +1,2 @@
+recursive-include journalcommons *
+global-exclude *pyc

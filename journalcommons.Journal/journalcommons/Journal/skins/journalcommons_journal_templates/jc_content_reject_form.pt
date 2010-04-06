@@ -1,0 +1,40 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/jcommons_transition_form/macros/master">
+<body>
+
+<div metal:fill-slot="main" i18n:domain="cmf_default">
+
+<h1 i18n:translate="">Reject the article</h1>
+
+<p i18n:translate="">By submitting this form the article 
+   &#8220;<em><span tal:replace="here/Title">Item</span></em>&#8221; 
+   will be rejected and all further modifications to it closed.</p>
+
+</div>
+
+<form action="dummy">
+    <div metal:fill-slot="form" i18n:domain="cmf_default">
+     <input type="hidden" name="workflow_action" value="reject" />
+     <input type="submit" value="Reject and close" i18n:attributes="value" />
+
+	 <div>
+		<input type="checkbox"
+				onclick="javascript:toggleSelect(this, 'user_selection:list', false);"
+				name="email_toggle"   value="#"
+				id="email_toggle"     class="noborder"/>
+		<label for="email_toggle"
+				i18n:translate="jcommons_toggle_send_email">Send email to author</label>
+	                     
+           
+	</div>
+
+    </div>
+</form>
+
+
+
+
+</body>
+</html>
+
