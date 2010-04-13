@@ -9,8 +9,8 @@
 *.pyc
 
 # Python egg build and dist 
-build/*
-dist/*
+*/build/*
+*/dist/*
 
 # Eclipse
 .settings
