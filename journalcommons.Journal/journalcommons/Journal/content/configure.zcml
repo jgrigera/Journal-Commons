@@ -6,14 +6,24 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
-  <class class=".submissionsfolder.SubmissionsFolder">
+  <class class=".comment.Comment">
     <require
         permission="zope2.View"
-        interface="..interfaces.ISubmissionsFolder"
+        interface="..interfaces.IComment"
         />
     <require
         permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.ISubmissionsFolder"
+        set_schema="..interfaces.IComment"
+        />
+  </class>
+  <class class=".journal.Journal">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IJournal"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IJournal"
         />
   </class>
   <class class=".section.Section">
@@ -46,14 +56,37 @@
         set_schema="..interfaces.IIssue"
         />
   </class>
-  <class class=".journal.Journal">
+
+  <class class=".draft.Draft">
     <require
         permission="zope2.View"
-        interface="..interfaces.IJournal"
+        interface="..interfaces.IDraft"
         />
     <require
         permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IJournal"
+        set_schema="..interfaces.IDraft"
+        />
+  </class>
+
+  <class class=".submissionsfolder.SubmissionsFolder">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.ISubmissionsFolder"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.ISubmissionsFolder"
+        />
+  </class>
+
+  <class class=".editorsmeeting.EditorsMeeting">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IEditorsMeeting"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IEditorsMeeting"
         />
   </class>
 

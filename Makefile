@@ -7,7 +7,7 @@
 REPOSITORY=journalcommons
 PYTHON=../../zinstance/Python-2.4/bin/python2.4 
 
-EGGS=journalcommons.Journal journalcommons.Conference
+EGGS=journalcommons.Journal journalcommons.Conference journalcommons.Utils
 
 all:
 	$(MAKE) COMMAND=upload forall
@@ -16,15 +16,16 @@ alldist:
 	$(MAKE) COMMAND=dodist forall
 
 forall:
-	@for egg in $(EGGS);		\
+	for egg in $(EGGS);		\
 	do				\
 	    echo Processing $$egg;	\
-	    cd $$egg;			\
+	    pushd $$egg;			\
 	    make -f ../Makefile $(COMMAND);	\
+	    popd;			\
 	done
 	
 dodist:
-	$(PYTHON) setup.py bdist_egg
+	$(PYTHON) setup.py bdist_egg > /dev/null
 	scp dist/* root@www.historicalmaterialism.org:/opt/plone/dev-eggs
 
 upload:
@@ -36,3 +37,6 @@ register:
 setup:
 	$(EASY_INSTALL) collective.dist
 
+commit:
+	git commit
+	git push origin master

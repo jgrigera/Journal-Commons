@@ -67,6 +67,19 @@ JournalSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
+    atapi.LinesField(        
+        name = 'editors',
+        storage=atapi.AnnotationStorage(),
+        widget = atapi.LinesWidget(            
+            label="Editorial Board",            
+            description="Enter the user ids of the users who compose the EB and are able to manage this journal, one per line.",            
+            label_msgid='jcommons_label_editors',            
+            description_msgid='jcommons_help_editors',            
+            i18n_domain='journalcommons.Journal',        
+        ),        
+        default_method="getDefaultEditors"    
+    ),
+
 ))
 
 # Set storage on fields copied from ATFolderSchema, making sure
@@ -74,7 +87,6 @@ JournalSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
 JournalSchema['title'].storage = atapi.AnnotationStorage()
 JournalSchema['description'].storage = atapi.AnnotationStorage()
-
 schemata.finalizeATCTSchema(
     JournalSchema,
     folderish=True,
@@ -91,8 +103,18 @@ class Journal(folder.ATFolder):
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
-
+    publisher = atapi.ATFieldProperty('publisher')
+    editors = atapi.ATFieldProperty('editors')
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
+
+    """
+    Defaults
+    """
+    def getDefaultEditors(self):        
+        """ 
+        The default list of managers should include the tracker owner
+        """        
+        return (self.Creator(),)
 
     """
     Items to share with jcommons
@@ -105,6 +127,8 @@ class Journal(folder.ATFolder):
         return "Article"
     def aq_stateDraftsAllowed(self):
         return True
+    def aq_getEditorsList(self):
+        return self.editors
     
     def at_post_create_script(self):
         """ Create a folder for Submissions

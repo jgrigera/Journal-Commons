@@ -8,4 +8,12 @@
 # Python pre-compiled
 *.pyc
 
+# Python egg build and dist 
+build/*
+dist/*
+
+# Eclipse
+.settings
+.project
+.pydevproject
 

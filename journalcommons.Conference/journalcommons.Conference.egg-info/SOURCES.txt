@@ -17,7 +17,9 @@ journalcommons/Conference/__init__.py
 journalcommons/Conference/config.py
 journalcommons/Conference/configure.zcml
 journalcommons/Conference/browser/__init__.py
+journalcommons/Conference/browser/conferenceview.py
 journalcommons/Conference/browser/configure.zcml
+journalcommons/Conference/browser/templates/jcommons_conference_view.pt
 journalcommons/Conference/content/__init__.py
 journalcommons/Conference/content/conference.py
 journalcommons/Conference/content/conferencepaper.py
@@ -30,12 +32,14 @@ journalcommons/Conference/portlets/configure.zcml
 journalcommons/Conference/profiles/default/factorytool.xml
 journalcommons/Conference/profiles/default/metadata.xml
 journalcommons/Conference/profiles/default/portlets.xml
+journalcommons/Conference/profiles/default/propertiestool.xml
 journalcommons/Conference/profiles/default/rolemap.xml
 journalcommons/Conference/profiles/default/types.xml
 journalcommons/Conference/profiles/default/workflows.xml
 journalcommons/Conference/profiles/default/types/Conference.xml
 journalcommons/Conference/profiles/default/types/ConferencePaper.xml
 journalcommons/Conference/profiles/default/workflows/conference_paper_workflow/definition.xml
+journalcommons/Conference/profiles/default/workflows/conference_workflow/definition.xml
 journalcommons/Conference/tests/__init__.py
 journalcommons/Conference/tests/base.py
 journalcommons/Conference/tests/test_doctest.py

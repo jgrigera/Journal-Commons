@@ -118,29 +118,6 @@
                     </td>
                 </tr>
 
-               <tr tal:define="contact_email here/contact_email;
-                                contact_name python:context.contact_name() or None;"
-                    tal:condition="python:contact_name or contact_email">
-                    <th i18n:translate="contact_name">Contact Name</th>
-                    <td>
-                        <a id="parent-fieldname-contactEmail"
-                           tal:condition="contact_email"
-                           tal:replace="structure python: here.spamProtect(mailaddress=contact_email, mailname=contact_name, cssclass='email fn')"
-                           />
-                        <span class="fn"
-                              tal:condition="not: contact_email"
-                              tal:content="contact_name" />
-                    </td>
-                </tr>
-                <tr tal:condition="here/contact_phone">
-                    <th i18n:translate="contact_phone">Contact Phone</th>
-                    <td class="tel">
-                        <metal:field use-macro="python:here.widget('contactPhone', mode='view')">
-                        Phone number
-                        </metal:field>
-                    </td>
-                </tr>
-
                 <tr>
                     <th i18n:translate="heading_add_to_calendar">Add event to calendar</th>
                     <td>
@@ -191,8 +168,62 @@
         </div>
         </tal:foldercontents>
         
-        
-        
+
+		<div tal:condition="here/getAgenda">
+			<h3>Agenda</h3>
+			
+			<ul>
+				<tal:block tal:repeat="item here/getAgenda">
+					<li tal:content="item" />
+				</tal:block>
+			</ul>
+		</div>        
+
+		<!--  Reading List -->        
+		<div tal:condition="here/getReadingList"
+		 	tal:define="getInfoFor python:wtool.getInfoFor;">
+
+			<h3>Reading List</h3>
+
+            <ul>
+                    <tal:related tal:repeat="item here/getReadingList"
+                                 tal:define="use_view_action site_properties/typesUseViewActionInListings|python:();">
+                        <li tal:define="
+                                desc                item/Description;
+                                item_type           item/portal_type;
+                                item_icon           python:plone_view.getIcon(item);
+                                item_type_class     python:'contenttype-' + normalizeString(item_type);
+                                item_wf_state       item/review_state|python:getInfoFor(item, 'review_state', '');
+                                item_wf_state_class python: 'state-' + normalizeString(item_wf_state);
+                                item_url            item/absolute_url;">
+                            <span tal:attributes="class item_type_class">
+                                <img tal:replace="structure item_icon/html_tag" />
+                                <a href="" class=""
+                                   tal:attributes="href  item_url;
+                                                   title item/Description;
+                                                   class string:$item_wf_state_class"
+	                             tal:content="item/pretty_title_or_id">
+                                    Related Item
+                                </a>
+                            </span>
+                        </li>
+                    </tal:related>
+              </ul>
+              
+					<dl class="portlet">
+						<dd class="portletItem">
+							<b>Actions</b><br/>
+								<tal:loop tal:repeat="action view/readingListActions">
+									<a href="#" 
+								         tal:attributes="href python:context.absolute_url()+'/'+action['url']">
+								         <img alt="" src="#" tal:attributes="src action/icon" />
+								         <span tal:omit-tag="" tal:content="action/title" />
+								    </a>
+								</tal:loop>
+						</dd>
+					</dl>
+		</div>        
+
 
         <div metal:use-macro="here/document_relateditems/macros/relatedItems">
             show related items if they exist

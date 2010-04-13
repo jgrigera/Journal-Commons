@@ -29,7 +29,7 @@
                <tr tal:define="oddrow repeat/item/odd"
                    tal:attributes="class python:test(oddrow, 'even', 'odd')">
                    
-                   <td tal:content="python:','.join(item.Creators())" />
+                   <td tal:content="python:','.join(item.listCreators)" />
                    <td>
                        <a tal:attributes="href  item/getURL;
                                           title item/Description;"

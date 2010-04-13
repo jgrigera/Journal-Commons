@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.4 - 
+----------------
+
+* Added conference view
+* Removed global_allow for conferencepaper
+* Removed ConferencePaper from navigation
+
 0.1 - Unreleased
 ----------------
 

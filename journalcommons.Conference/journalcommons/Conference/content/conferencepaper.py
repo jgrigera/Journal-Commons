@@ -85,7 +85,13 @@ class ConferencePaper(folder.ATFolder):
         return review_state
     
     def get_state_comments(self):
-        return "Your article is about to xxx"
+        review_state = self.get_review_state()
+        if review_state == 'draft':
+            return "Your need to finish editing your paper and submit it to editors for evaluation"
+        elif review_state == 'eb_draft':
+            return "Your paper is awaiting evaluation by editors"
+        else:
+            return review_state
     
     def get_drafts(self):
         brains = self.listFolderContents(contentFilter={"portal_type" : "File"})

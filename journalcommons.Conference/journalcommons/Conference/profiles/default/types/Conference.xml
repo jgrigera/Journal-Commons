@@ -20,9 +20,9 @@
         <element value="SubmissionsFolder" />
   </property>
 
-  <property name="default_view">base_view</property>
+  <property name="default_view">jcommons_conference_view</property>
   <property name="view_methods">
-    <element value="base_view" />
+    <element value="jcommons_conference_view" />
   </property>
     
   <alias from="(Default)" to="(dynamic view)" />
@@ -37,4 +37,16 @@
     url_expr="string:${object_url}/edit" visible="True">
     <permission value="Modify portal content" />
   </action>
+
+  <action title="iCalendar" action_id="ics" category="document_actions"
+    condition_expr="" url_expr="string:${object_url}/ics_view" visible="True"
+    i18n:attributes="title">
+  <permission value="View"/>
+ </action>
+ <action title="vCalendar" action_id="vcs" category="document_actions"
+    condition_expr="" url_expr="string:${object_url}/vcs_view" visible="True"
+    i18n:attributes="title">
+  <permission value="View"/>
+ </action>
+
 </object>

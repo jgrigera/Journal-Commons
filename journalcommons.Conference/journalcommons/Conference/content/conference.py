@@ -36,6 +36,8 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
+    #
+    # Dates
     atapi.DateTimeField(
         name='startDate',                  
         required=True,                  
@@ -73,6 +75,43 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         expression='context._end_date()',       
     ),
 
+
+    # Contact information
+    atapi.StringField('contactName',                
+                required=False,                
+                searchable=True,                
+                accessor='contact_name',
+#                write_permission = ChangeEvents,               
+                widget = atapi.StringWidget(                        
+                                      description = '',                        
+                                      label = _(u'label_contact_name', 
+                                                default=u'Contact Name')                        
+                )),    
+                
+    atapi.StringField('contactEmail',                
+                required=False,                
+                searchable=True,                
+                accessor='contact_email',
+#                write_permission = ChangeEvents,                
+                validators = ('isEmail',),                
+                widget = atapi.StringWidget(                       
+                                    description = '',                       
+                                    label = _(u'label_contact_email', 
+                                              default=u'Contact E-mail')                        
+                )),    
+    
+    atapi.StringField('contactPhone',                
+                required=False,                
+                searchable=True,               
+                accessor='contact_phone',
+#                write_permission = ChangeEvents,                
+                validators= (),                
+                widget = atapi.StringWidget(                        
+                                      description = '',                        
+                                      label = _(u'label_contact_phone', 
+                                                default=u'Contact Phone')                        
+                )),
+    
 ))
 """
 atapi.ComputedField('duration',        
@@ -112,6 +151,7 @@ class Conference(folder.ATFolder,CalendarSupportMixin):
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
+    venue = atapi.ATFieldProperty('venue')
 
     security       = ClassSecurityInfo()
 
@@ -132,6 +172,15 @@ class Conference(folder.ATFolder,CalendarSupportMixin):
 
     def _duration(self):
         return self.end_date - self.start_date
+    
+    """ Helpers to share interface with Events
+    """
+    def getEventType(self):
+        return ("Conference",)
+    
+    def event_url(self):
+        return self.absolute_url()
+    
 
     """
     Items to share with jcommons

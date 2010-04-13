@@ -12,7 +12,7 @@
   <property name="product">journalcommons.Journal</property>
   <property name="factory">addEditorsMeeting</property>
   <property name="immediate_view">atct_edit</property>
-  <property name="global_allow">True</property>
+  <property name="global_allow">False</property>
   <property name="allow_discussion">True</property>
   
   <property name="filter_content_types">False</property>

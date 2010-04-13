@@ -17,7 +17,7 @@ long_description = (
     'Change history\n'
     '**************\n'
     + '\n' +
-    read('CHANGES.txt')
+    read("docs", "HISTORY.txt")
     + '\n' +
     'Detailed Documentation\n'
     '**********************\n'
@@ -60,12 +60,14 @@ setup(name='journalcommons.Journal',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
-      test_suite='journalcommons.Journal.tests.test_docs.test_suite',
+      test_suite = 'journalcommons.Journal.tests.test_docs.test_suite',
       entry_points="""
-      # -*- entry_points -*-
-      [z3c.autoinclude.plugin]
-      target = plone
+      # -*- entry_points -*- 
+      [distutils.setup_keywords]
+      paster_plugins = setuptools.dist:assert_string_list
+
+      [egg_info.writers]
+      paster_plugins.txt = setuptools.command.egg_info:write_arg
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins=["ZopeSkel"],
+      paster_plugins = ["ZopeSkel"],
       )

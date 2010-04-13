@@ -7,4 +7,14 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="*"
+      name="jcommons_conference_view"
+      class=".conferenceview.ConferenceView"
+      template="templates/jcommons_conference_view.pt"
+      allowed_interface=".conferenceview.IConferenceView"
+      permission="zope.Public"
+      />
+
+
 </configure>

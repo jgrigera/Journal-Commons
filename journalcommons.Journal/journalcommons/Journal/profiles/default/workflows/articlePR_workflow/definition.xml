@@ -272,7 +272,7 @@
 		  category="workflow">Send to Referees</action>
 	<guard>
 		<guard-role>Manager</guard-role>
-		<guard-role>Owner</guard-role>
+		<guard-role>EditorialBoard</guard-role>
 	</guard>
   </transition>
 
@@ -281,12 +281,13 @@
        Who: Editorial Board
        Triggers: email to author
   -->
- <transition transition_id="reject"
-             title="The article is rejected"
-             new_state="rejected" trigger="USER"
-             before_script="" after_script="">
-  <action url="%(content_url)s/jc_content_reject_form"
-          category="workflow">Reject</action>
+<transition transition_id="reject"
+			title="The article is rejected"
+			new_state="rejected" trigger="USER"
+			before_script="" after_script="">
+	<!-- Cant call this 'reject_form' because of awfull patch in Plone for old content_reject_form -->
+	<action url="%(content_url)s/jc_content_artreject_form"
+			category="workflow">Reject</action>
 	<guard>
 		<guard-role>Manager</guard-role>
 		<guard-role>EditorialBoard</guard-role>

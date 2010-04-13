@@ -6,6 +6,7 @@
   <include package="plone.app.contentmenu" />
 
   <!-- -*- extra stuff goes here -*- -->
+
   <!-- Journal views -->
   <browser:page
       for="*"
@@ -26,6 +27,24 @@
       permission="zope.Public"
       />
 
+  <browser:page
+      for="*"
+      name="jcommons_submissionseditors_view"
+      class=".submissionseditorsview.SubmissionsEditorsView"
+      template="templates/jcommons_submissionseditors_view.pt"
+      allowed_interface=".submissionseditorsview.ISubmissionsEditorsView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="jcommons_submissions_search"
+      class=".submissionssearchview.SubmissionsSearchView"
+      template="templates/jcommons_submissions_search.pt"
+      allowed_interface=".submissionssearchview.ISubmissionsSearchView"
+      permission="zope.Public"
+      />
+
 
   <!-- Article views -->
   <browser:page
@@ -37,6 +56,7 @@
       permission="zope2.Public"
       />
 
+
   <!-- Issue views -->
   <browser:page
       for="*"
@@ -47,5 +67,23 @@
       permission="zope.Public"
       />
 
+  <!-- Editors Meeting -->
+  <browser:page
+      for="*"
+      name="jcommons_editorsmeeting_view"
+      class=".editorsmeetingview.EditorsMeetingView"
+      template="templates/jcommons_editorsmeeting_view.pt"
+      allowed_interface=".editorsmeetingview.IEditorsMeetingView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="jcommons_editorsmeeting_aszip_view"
+      class=".editorsmeetingview.MeetingDraftsAsZipView"
+      allowed_interface=".editorsmeetingview.IMeetingDraftsAsZipView"
+      permission="zope2.Public"
+      />
+  
 
 </configure>

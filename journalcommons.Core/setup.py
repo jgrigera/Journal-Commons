@@ -16,7 +16,7 @@ long_description = (
     'Change history\n'
     '**************\n'
     + '\n' +
-    read('CHANGES.txt')
+    read("docs", "HISTORY.txt"),
     + '\n' +
     'Detailed Documentation\n'
     '**********************\n'

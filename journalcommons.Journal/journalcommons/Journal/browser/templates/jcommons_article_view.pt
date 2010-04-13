@@ -5,6 +5,7 @@
 <head>
     <metal:block fill-slot="top_slot"
                  tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
+
 </head>
 <body>
     <div metal:fill-slot="main"
@@ -97,16 +98,68 @@
 	
 	<p/>&nbsp;<p/>
 	
-	<!-- Now list the drafts -->
+	<!-- Now list the other drafts -->
 	<tal:drafts tal:condition="here/aq_stateDraftsAllowed">
         <div tal:condition="not:drafts">
             <b i18n:translate="no_drafts_added">No drafts have been added yet for this article.</b>
         </div>
         
         <div tal:condition="drafts">
-            <tal:batch define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')">
-            <h3 i18n:translate="drafts">Drafts:</h3>
+            <h3 i18n:translate="drafts">Current Draft</h3>
+            <table class="vertical listing"
+            		tal:define="draft here/get_current_draft">
+                <tr>
+                    <th i18n:translate="Title">Title</th>             
+                    <td tal:content="draft/Title" />
+                </tr>
+                <tr>
+                    <th i18n:translate="Title">Date</th>             
+                    <td tal:content="draft/ModificationDate" />
+                </tr>
+                <tr>
+                    <th i18n:translate="Title">Word Count</th>             
+                    <td tal:content="draft/getWordCount" />
+                </tr>
+                <tr>
+                    <th i18n:translate="download">Download file</th>             
+                    <td>
+						<metal:field use-macro="python:draft.widget('file', mode='view')">
+							File
+						</metal:field>
+                    </td>
+                </tr>
+            <tal:comments tal:define="comments python:view.get_comments('current')"
+            			tal:condition="comments">
+                <tr tal:repeat="comment_type comments">
+		            	<th tal:content="comment_type"></th>
+		            	<td>
+		            		<tal:block tal:repeat="comment python:comments[comment_type]">
+		            			<tal:user tal:define="user_details	python:view.get_user_details(comment.listCreators()[0]);
+				                        			home_url 	user_details/home_url;
+				                        			fullname	user_details/fullname;">
+			            			<a href="#" tal:attributes="href comment/absolute_url" 
+			            						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
+			            		</tal:user>
+			            	</tal:block>
+		            	</td>
+		        </tr>
+            </tal:comments>
+            </table>
 
+
+
+			<form method="post" action="createObject" name="addComment">
+				<input type="hidden" name="type_name" value="Comment" />
+	            <input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone">
+			</form>            
+
+
+			<!--  
+			Rest of the drafts
+			 -->            
+            <tal:batch define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')">
+
+            <h4 i18n:translate="drafts">All Drafts</h4>
             <table class="listing">
                 <tr>
                     <th>Name</th>
@@ -121,24 +174,49 @@
                     
                     <td tal:content="draft/Title" />
                     <td tal:content="draft/ModificationDate" />
-                    <td tal:content="python:len(draft.SearchableText())" />
+                    <td tal:content="draft/getWordCount" />
                     <td>
-			<metal:field use-macro="python:draft.widget('file', mode='view')">
-		            File
+						<metal:field use-macro="python:draft.widget('file', mode='view')">
+		            		File
                         </metal:field>
                     </td>                    
                 </tr>
+                <tr tal:define="oddrow repeat/draft/odd;"
+                    tal:attributes="class python:oddrow and 'even' or 'odd'">
+					<td></td>
+                	<td colspan="3">
+			            <tal:comments tal:define="comments python:view.get_comments('current')"
+			            			tal:condition="comments">
+<!-- 
+			                <tr tal:repeat="comment_type comments">
+					            	<th tal:content="comment_type"></th>
+		            <tal:comments tal:define="comments python:view.get_comments('current')"
+		            			tal:condition="comments">
+		            	<b>Comments by </b>
+		            		<tal:block tal:repeat="comment comments">
+		            			<tal:user tal:define="user_details	python:view.get_user_details(comment.listCreators()[0]);
+				                        			home_url 	user_details/home_url;
+				                        			fullname	user_details/fullname;">
+			            			<a href="#" tal:attributes="href comment/absolute_url" 
+			            						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
+			            		</tal:user>
+		            		</tal:block>
+		            </tal:comments>
+-->
+		            </td>
+		        </tr>
+
                 </tal:block>
             </table>
             </tal:batch>
 
             <br/>
 
-<!--
-download all drafts as zip?            
+<!-- 
             <form action="#" method="post" class="visualNoPrint"
                     tal:attributes="action string:${context/absolute_url}">
-                <input name="form.button.export_persons" value="Export all persons" type="submit" i18n:attributes="value label_export_all_persons">
+                <input name="form.button.download_as_zip" value="Download all as a Zip" 
+                		type="submit" i18n:attributes="value label_downlaod_as_zip">
             </form>
 -->
         </div>

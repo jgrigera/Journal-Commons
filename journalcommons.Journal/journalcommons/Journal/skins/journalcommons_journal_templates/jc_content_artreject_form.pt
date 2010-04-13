@@ -16,19 +16,27 @@
 <form action="dummy">
     <div metal:fill-slot="form" i18n:domain="cmf_default">
      <input type="hidden" name="workflow_action" value="reject" />
-     <input type="submit" value="Reject and close" i18n:attributes="value" />
 
 	 <div>
 		<input type="checkbox"
-				onclick="javascript:toggleSelect(this, 'user_selection:list', false);"
-				name="email_toggle"   value="#"
-				id="email_toggle"     class="noborder"/>
+				onclick="javascript:jq('#emailauthor').toggleClass('hiddenStructure').blur();"
+				name="email_toggle" id="email_toggle"
+				value="0" />
+
 		<label for="email_toggle"
 				i18n:translate="jcommons_toggle_send_email">Send email to author</label>
 	                     
-           
+	   <textarea id="emailauthor" name="emailauthor" cols="60" rows="15" wrap="soft"
+	   			 class="hiddenStructure"
+	             style="width: 100%"
+	             tal:content="python:here.get_email_template('transition_reject')">
+			Here comes the default content of the email
+		
+		</textarea>
 	</div>
 
+	<p/>&nbsp;<p/>
+	    <input type="submit" value="Reject and close" i18n:attributes="value" />
     </div>
 </form>
 

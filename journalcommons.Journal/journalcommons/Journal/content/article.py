@@ -81,6 +81,19 @@ ArticleSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
+    atapi.StringField(
+        name='manager',
+        required=False,
+        searchable=False,
+        #default='',
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.StringWidget(
+            label=_(u"Responsible Manager"),
+            description=_(u"Editor in charge of dealing with this article"),
+            visible = {'edit': 'invisible', 'view': 'invisible'},
+        ),
+    ),
+
 ))
 
 
@@ -103,7 +116,7 @@ def finalizeArticleSchema(schema):
     schema.moveField('subject', after='description')
     
     # Hide this fields
-    for field in ('effectiveDate', 'expirationDate',):
+    for field in ('effectiveDate', 'expirationDate', 'allowDiscussion'):
         schema[field].widget.visible = {'edit': 'invisible', 'view': 'invisible'}
     
     # Call ATContentTypes
@@ -146,16 +159,23 @@ class Article(folder.ATFolder):
     
     def _compute_bibreference(self):
     	return "TODO: bibreference"
+
+    def get_responsible_manager(self):
+        if self.manager is not None:
+            return self.manager
+        else:
+            return "UNASSIGNED"
  
     def get_review_state(self):
         review_state = self.portal_workflow.getInfoFor(self, 'review_state');
         return review_state
     
     def get_state_comments(self):
+        
         return "Your article is about to xxx"
     
     def get_drafts(self):
-        brains = self.listFolderContents(contentFilter={"portal_type" : "File"})
+        brains = self.listFolderContents(contentFilter={"portal_type" : ('Draft',)})
         #brains = self.portal_catalog({'portal_type':'File',
         #                     'path':'/'.join(self.context.getPhysicalPath()),
         #                     'sort_on':'sortable_title'})
@@ -165,6 +185,41 @@ class Article(folder.ATFolder):
     def get_no_drafts(self):
         return len( self.get_drafts() )
     
+    def get_last_draft(self):
+        # deprecated
+        logger.warning("deprecated get_last_draft")
+        return self.get_current_draft()
+    
+    def get_current_draft(self):
+
+        brains = self.portal_catalog({
+                    'portal_type':'Draft',
+                    'path':'/'.join(self.getPhysicalPath()),
+                    'sort_on':'getObjPositionInParent'})
+        
+        # Just return first object
+        for brain in brains:
+            return brain.getObject()
+        return None
+        
     	
-		
+    def get_email_template(self, templateid):
+        """
+        """
+        #TODO: we should have a template system and ask for the template
+        # that should check id and content type, to allow you to customize
+        # several types around.
+        return """
+
+Dear ${name},
+
+Thank you for your submission of the paper "${title}". Unfortunately, the Editorial Board has decided that the paper is not suitable for publication in Historical Materialism. We wish you every success in publishing it elsewhere.
+
+Yours sincerely,
+Robert Knox
+
+On Behalf of the Editorial Board, Historical Materialism      
+        
+"""        
+        		
 atapi.registerType(Article, PROJECTNAME)

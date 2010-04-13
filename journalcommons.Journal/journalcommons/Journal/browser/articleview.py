@@ -62,17 +62,17 @@ class ArticleView(BrowserView):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
     def get_user_details(self, user):
-	""" Method to pack details about a user/creator
-	"""
-	details = {}
-	details['home_url'] = self.portal_membership.getHomeUrl(user)
-	member_info = self.portal_membership.getMemberInfo(user)
-	if member_info:
-	    details['fullname'] = member_info['fullname'] or user
-	else:
-	    details['fullname'] = user
-	details['email'] = 'todo@later.com'
-	return details
+    	""" Method to pack details about a user/creator
+    	"""
+    	details = {}
+    	details['home_url'] = self.portal_membership.getHomeUrl(user)
+    	member_info = self.portal_membership.getMemberInfo(user)
+    	if member_info:
+    	    details['fullname'] = member_info['fullname'] or user
+    	else:
+    	    details['fullname'] = user
+    	details['email'] = 'todo@later.com'
+    	return details
 
 
     def get_drafts(self):
@@ -80,7 +80,29 @@ class ArticleView(BrowserView):
         This method returns all drafts for this article
         """
         return self.context.get_drafts()
-
+    
+    def get_comments(self, draftid):
+        """
+        Return comments for draftid, in a dictionary containing
+        type: (list, of, comments)
+        """
+        if draftid == 'current':
+            pass
+            #TODO: fix this
+            
+        # Get comments
+        comments = self.context.listFolderContents(contentFilter={"portal_type" : ('Comment',)})
+                
+        # Order them by type, in a dictionary
+        comments_by_type = {}
+        for c in comments:
+            try:
+                comments_by_type[c.getCommentType()].append(c)
+            except KeyError:
+                comments_by_type[c.getCommentType()] = [c,]
+            
+        return comments_by_type
+        
 
     def get_actions(self):
         """
@@ -95,7 +117,7 @@ class ArticleView(BrowserView):
     	if review_state == 'draft':
             results = []
             if drafts_allowed:
-                results.append( {   'url': 'createObject?type_name=File', 
+                results.append( {   'url': 'createObject?type_name=Draft', 
                     			    'icon':  'upload_icon.gif',
                     			    'title':'Add a draft',} )
                 extra = 'metadata'
@@ -115,11 +137,13 @@ class ArticleView(BrowserView):
             return results
 
     def get_disable_border(self):
-	review_state = self.portal_workflow.getInfoFor(self.context, 'review_state');
-	if review_state == 'draft':
-	    return 1
-	if review_state == 'eb_draft' and not self.portal_membership.checkPermission('Modify Portal Content', self.context):
-	    return 1
-	return 0
+    	review_state = self.portal_workflow.getInfoFor(self.context, 'review_state');
+    	if review_state == 'draft':
+    	    return 1
+    	if review_state == 'eb_draft' and not self.portal_membership.checkPermission('Modify Portal Content', self.context):
+    	    return 1
+    	return 0
 
 	
+
+    

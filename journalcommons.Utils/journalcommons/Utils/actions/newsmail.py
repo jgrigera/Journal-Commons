@@ -13,6 +13,8 @@ from journalcommons.Utils import UtilsMessageFactory as _
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+import logging
+logger = logging.getLogger('journalcommons.Utils.actions.newsmail')
 
 # Python 2.5
 # from email.mime.multipart import MIMEMultipart
@@ -20,6 +22,7 @@ from Products.CMFPlone.utils import safe_unicode
 # Python 2.4
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
+from email.Charset import Charset
 
 
 class INewsMailAction(Interface):
@@ -94,7 +97,9 @@ class NewsMailActionExecutor(object):
         obj = self.event.object
         event_title = safe_unicode(obj.Title())
         event_url = obj.absolute_url()
-        event_text = safe_unicode(obj.getText(), 'ascii')
+        event_text = safe_unicode(obj.getText())
+        # TODO: awful. But this need to be in Ascii AFAIK, MIMEText dies on Unicode
+        event_text = event_text.encode('ascii', 'replace')
         
         message_body = self.element.message.replace("${url}", event_url)
         message_body = message_body.replace("${title}", event_title)
@@ -102,16 +107,13 @@ class NewsMailActionExecutor(object):
         
         # Create message container - the correct MIME type is multipart/alternative.
         msg = MIMEMultipart('alternative')
-        #part1 = MIMEText( u"Please visit %s if you can't see the HTML version." % event_url, 'plain','utf-8')
-        part2 = MIMEText(safe_unicode(message_body), 'html','utf-8')
-        #msg.attach(part1)
+        part1 = MIMEText("Please visit %s if you can't see the HTML version." % event_url, 'plain','utf-8')
+        part2 = MIMEText(message_body, 'html')
+        msg.attach(part1)
         msg.attach(part2)
 
         subject = self.element.subject.replace("${url}", event_url)
         subject = subject.replace("${title}", event_title)
-        
-        a=msg.as_string()
-        a=a.encode('ascii')
         
         for email_recipient in recipients:
             # secureSend will be deprecated in Plone 4
@@ -119,7 +121,7 @@ class NewsMailActionExecutor(object):
             #                    charset=email_charset, debug=False,
             #                    subtype='plain',
             #                    From=source)
-            mailhost.send( msg.as_string().encode('ascii'), mto=email_recipient, mfrom=source,
+            mailhost.send( msg.as_string(), mto=email_recipient, mfrom=source,
                                 subject=subject)
         return True
 

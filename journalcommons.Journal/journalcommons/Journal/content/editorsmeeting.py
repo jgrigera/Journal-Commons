@@ -3,13 +3,21 @@
 
 from zope.interface import implements, directlyProvides
 
+import zipfile
+from cStringIO import StringIO
+
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import ModifyPortalContent, View
+from Products.CMFCore.utils import getToolByName
 
+
+# Archetypes
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
+from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
+# Journal Commons
 from journalcommons.Journal import JournalMessageFactory as _
 from journalcommons.Journal.interfaces import IEditorsMeeting
 from journalcommons.Journal.config import PROJECTNAME
@@ -66,48 +74,36 @@ EditorsMeetingSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
 
-    # Contact information
-"""
-    atapi.StringField('contactName',                
-                required=False,                
-                searchable=True,                
-                accessor='contact_name',
-#                write_permission = ChangeEvents,               
-                widget = atapi.StringWidget(                        
-                                      description = '',                        
-                                      label = _(u'label_contact_name', 
-                                                default=u'Contact Name')                        
-                )),    
-                
-    atapi.StringField('contactEmail',                
-                required=False,                
-                searchable=True,                
-                accessor='contact_email',
-#                write_permission = ChangeEvents,                
-                validators = ('isEmail',),                
-                widget = atapi.StringWidget(                       
-                                    description = '',                       
-                                    label = _(u'label_contact_email', 
-                                              default=u'Contact E-mail')                        
-                )),    
-    
-    atapi.StringField('contactPhone',                
-                required=False,                
-                searchable=True,               
-                accessor='contact_phone',
-#                write_permission = ChangeEvents,                
-                validators= (),                
-                widget = atapi.StringWidget(                        
-                                      description = '',                        
-                                      label = _(u'label_contact_phone', 
-                                                default=u'Contact Phone')                        
-                )),
-"""
+    atapi.LinesField(
+        name='agenda',
+        widget = atapi.LinesWidget(
+            label="Agenda topics",
+            description="Add here proposed topics for the meeting.",
+            i18n_domain='journalcommons.Journal',
+        ),
+        searchable=True,
+    ),
+
+
+    atapi.ReferenceField('readingList',
+        relationship = 'reading',
+        multiValued = True,
+        keepReferencesOnCopy = True,
+        widget = ReferenceBrowserWidget(
+            allow_search = True,
+            allow_browse = True,
+            show_indexes = False,
+            force_close_on_insert = False,
+            #only_for_review_states = 'eb_draft',
+            base_query={'portal_type': ('Article',),        # TODO: restrict this type to journal/conf
+                        'review_state':('eb_draft',)},      
+            label = _(u'label_reading_list', default=u'Reading List'),
+            description = "Please select all the items that will be discussed in this meeting",
+            visible = {'edit' : 'visible', 'view' : 'invisible' }
+        )
+    ),
 
 ))
-
-"""
-"""
 
                                                 
                                                  
@@ -146,6 +142,55 @@ class EditorsMeeting(folder.ATFolder,CalendarSupportMixin):
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
     
+    
+    security.declareProtected(View, 'download_all_as_zip')
+    def download_all_as_zip(self, **kwargs):
+        """
+        """
+        portal_workflow = getToolByName(self.context, 'portal_workflow')
+        data = StringIO()
+        out = zipfile.ZipFile(data, 'w')
+
+        for article in self.getReadingList():
+            # Write latest draft
+            path = '%s.doc' %  article.pretty_title_or_id()
+            latestdraft = article.get_last_draft()
+            if latestdraft is not None:
+                out.writestr(path, latestdraft.get_data())
+        
+            # Write metadata
+            metadata_path = "%s.metadata.txt" % article.pretty_title_or_id()
+            #TODO this could be html, coming from a PT...
+            metadata_contents = """METADATA FOR ARTICLE
+
+Title: %s
+
+Abstract: 
+%s
+
+Keywords: %s
+
+Review History:
+%s
+
+No. of Drafts: %s
+Latest draft title:  
+Word Count: 
+URL: %s
+""" %       (article.Title(), 
+               article.Description(), 
+               ';'.join(article.Subject()),  
+               portal_workflow.getInfoFor(article,'review_history'),
+               article.get_no_drafts(),
+               #latestdraft.Title(),
+               #latestdraft.getWordCount(),
+               article.absolute_url() )            
+            out.writestr(metadata_path, metadata_contents)
+
+        out.close()
+        data.seek(0)
+        return data
+        
     # Helpers for Computed Fields
     # TODO end=start, maybe we could ask for hour duration?
     def end(self):
@@ -164,7 +209,7 @@ class EditorsMeeting(folder.ATFolder,CalendarSupportMixin):
         return DT2dt(value)
 
     def _duration(self):
-        return self.end_date - self.start_date
+        return 0 #self.end_date - self.start_date
     
     """ Helpers to share interface with Events (and thus use vcs_view, ics_view et.al.)
     """

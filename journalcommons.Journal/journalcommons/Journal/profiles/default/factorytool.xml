@@ -10,6 +10,8 @@
 <object name="portal_factory" meta_type="Plone Factory Tool">
   <factorytypes>
     <!-- -*- extra stuff goes here -*- -->
+    <type portal_type="Comment" />
+    <type portal_type="Draft" />
     <type portal_type="SubmissionsFolder" />
     <type portal_type="Section" />
     <type portal_type="Article" />

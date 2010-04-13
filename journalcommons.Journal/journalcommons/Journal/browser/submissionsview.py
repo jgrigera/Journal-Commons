@@ -2,10 +2,13 @@ from zope.interface import implements, Interface
 from zope.component import getMultiAdapter
 from plone.memoize.instance import memoize
 
-from Products.Five import BrowserView
+# CORE
+from journalcommons.Journal.browser import jcommonsView 
 from Products.CMFCore.utils import getToolByName
 
 from journalcommons.Journal import JournalMessageFactory as _
+import logging
+logger = logging.getLogger('journalcommons.Journal.browser.subissionsview')
 
 
 class ISubmissionsView(Interface):
@@ -17,7 +20,7 @@ class ISubmissionsView(Interface):
         """ get list of articles"""
 
 
-class SubmissionsView(BrowserView):
+class SubmissionsView(jcommonsView):
     """
     Submissions browser view
     """
