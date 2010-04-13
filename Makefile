@@ -38,5 +38,5 @@ setup:
 	$(EASY_INSTALL) collective.dist
 
 commit:
-	git commit
+	git commit -a
 	git push origin master
