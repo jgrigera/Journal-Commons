@@ -5,6 +5,7 @@ PROJECTNAME = 'journalcommons.Journal'
 
 ADD_PERMISSIONS = {
     # -*- extra stuff goes here -*-
+    'ResearchThread': 'journalcommons.Journal: Add ResearchThread',
     'Comment': 'journalcommons.Journal: Add Comment',
     'Draft': 'journalcommons.Journal: Add Draft',
     'SubmissionsFolder': 'journalcommons.Journal: Add SubmissionsFolder',

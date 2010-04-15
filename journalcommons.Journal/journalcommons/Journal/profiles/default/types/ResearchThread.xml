@@ -1,28 +1,24 @@
 <?xml version="1.0"?>
-<object name="Journal"
+<object name="ResearchThread"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="journalcommons.Journal" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Journal</property>
+  <property name="title" i18n:translate="">ResearchThread</property>
   <property name="description"
-    i18n:translate="">Root for all files in a journal</property>
-  <property name="content_meta_type">Journal</property>
-
-
-  <property name="content_icon">book_icon.gif</property>
+    i18n:translate="">A research thread of a journal</property>
+  <property name="content_meta_type">ResearchThread</property>
+  <property name="content_icon">jcommons-researchthread.png</property>
   <property name="product">journalcommons.Journal</property>
-  <property name="factory">addJournal</property>
+  <property name="factory">addResearchThread</property>
   <property name="immediate_view">atct_edit</property>
   <property name="global_allow">True</property>
-  <property name="allow_discussion">False</property>
-  
+
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" >
-        <element value="Issue" />
-        <element value="ResearchThread" />
-        <element value="Folder" />
-        <element value="SubmissionsFolder" />
+        <element value="Article" />
+        <element value="Section" />
   </property>
 
+  <property name="allow_discussion">False</property>
   <property name="default_view">base_view</property>
   <property name="view_methods">
     <element value="base_view" />

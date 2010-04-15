@@ -7,6 +7,16 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="*"
+      name="researchthread_view"
+      class=".researchthreadview.ResearchThreadView"
+      template="researchthreadview.pt"
+      allowed_interface=".researchthreadview.IResearchThreadView"
+      permission="zope.Public"
+      />
+
+
   <!-- Journal views -->
   <browser:page
       for="*"
