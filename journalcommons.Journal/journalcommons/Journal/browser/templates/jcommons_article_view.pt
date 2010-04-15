@@ -201,8 +201,9 @@
 			            						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
 			            		</tal:user>
 		            		</tal:block>
-		            </tal:comments>
 -->
+
+		            </tal:comments>
 		            </td>
 		        </tr>
 
