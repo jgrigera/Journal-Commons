@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+
+
+\author{Toni Prug \and Juan Grigera}
+\title{Journal Commons --- Open Process Academic Publishing in Practice}
+\date{OKCon 2010}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{array}
+\usepackage{hhline}
+\usepackage{hyperref}
+\hypersetup{pdftex, colorlinks=true, linkcolor=blue, citecolor=blue, filecolor=blue, pagecolor=blue, urlcolor=blue, pdftitle=, pdfsubject=, pdfkeywords=}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[spanish]{babel}
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\renewcommand{\frame}[3][void]{{\noindent\large\bf #2 -- #3}}
+
+\newcommand\mycomment[1]{\par{\textreferencemark\sf~~ #1~~\textreferencemark}\par }
+
+\renewcommand{\section}[1]{\relax}
+\renewcommand{\subsection}[1]{\relax}
+\renewcommand{\includegraphics}[2][void]{{\bf #2}}
+
+\begin{document}
+
+\maketitle
+
+
+\input Main.tex
+
+\end{document}

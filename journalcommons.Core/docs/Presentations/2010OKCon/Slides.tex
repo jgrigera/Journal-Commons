@@ -1,0 +1,52 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[spanish]{babel}
+\usepackage{fontenc}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\author{Toni Prug \and Juan Grigera}
+
+\title{Journal Commons}
+\subtitle{Open Process Academic Publishing in Practice}
+\date{OKCon 2010}
+\institute{Queen Mary and LSE}
+
+\newcommand\mycomment[1]{\relax}
+
+
+%\usepackage{beamerthemebars}
+\mode<presentation>
+{
+  \usetheme{Berkeley}
+  \usecolortheme{crane}
+  \setbeamercovered{transparent}
+}
+
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+ 
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+   \tableofcontents
+\end{frame}
+
+
+\input Main.tex
+
+\end{document}
