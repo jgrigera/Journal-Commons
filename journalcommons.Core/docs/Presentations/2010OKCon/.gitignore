@@ -1,4 +1,10 @@
+
+# LaTex
+
 *.aux
 *.nav
 *.out
 *.snm
+*.log
+*.toc
+
