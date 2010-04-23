@@ -83,17 +83,25 @@ JOURNAL -> ISSUE -> ARTICLE -> PRINTED COLLECTION}
 \end{frame}
 
 \begin{frame}{Objects}{journalcommons.Conference}
+  
+  Since much of the Journal submission process is similar, we started
+  {\tt Conference}.
+  
  \begin{description}
-  \item [Conference] a journal
-  \item [Paper] a journal
-  \item [Event] a journal
+  \item [Conference] this is Event+Container for Papers, Submission Folder, and others
+  \item [Paper] like an article, but might have no drafts (i.e. just metadata a.k.a. ``abstract'')
+  \item [Event] Sessions, Panels, Plenaries, Socials
+  \item [Bookables] Rooms, equipment, people
  \end{description}
 \end{frame}
 
 \begin{frame}{Objects}{journalcommons.Lab}
 
+This is close to journal, but by default newer features
+come by default.
+
  \begin{description}
-  \item [Thread] a journal
+  \item [Thread] Research thread or special issue
   \mycomment{Time-line of publishing and printed formats
  
 articles are published on the 'outside' site whenever they are ready
@@ -104,8 +112,7 @@ Issue type 1 - Research Threads: 2-3 years deadlines. Continuous online publishi
 
 Issue type 2 - Special Issues: commissioned work, organized as standard commisioned or CfP special issues. Any form of reviewing can be chosen. It can also be used as a part of a Research Thread.}
 
-
-  \item [Paper] explain 
+%  \item [Paper] 
  \end{description}
 \end{frame}
 

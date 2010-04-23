@@ -68,7 +68,7 @@ EditorsMeetingSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         searchable=1,        
         expression='context._end_date()',       
     ),
-    atapi.ComputedField('duration',        
+    atapi.ComputedField('duration',
         searchable=1,        
         expression='context._duration()',       
     ),
@@ -154,7 +154,7 @@ class EditorsMeeting(folder.ATFolder,CalendarSupportMixin):
         for article in self.getReadingList():
             # Write latest draft
             path = '%s.doc' %  article.pretty_title_or_id()
-            latestdraft = article.get_last_draft()
+            latestdraft = article.get_current_draft()
             if latestdraft is not None:
                 out.writestr(path, latestdraft.get_data())
         
@@ -218,6 +218,15 @@ URL: %s
     
     def event_url(self):
         return self.absolute_url()
+
+    def contact_name(self):
+        return None
+    def contact_phone(self):
+        return None
+    def contact_email(self):
+        return None
+    
+
     
 
 atapi.registerType(EditorsMeeting, PROJECTNAME)
