@@ -224,7 +224,7 @@
             	
               <h3 tal:content="item/name" />
               
-              <div tal:content="structure item/description" style="padding:0em 0.5em 1em 0.5em" /> 
+              <div tal:content="structure item/description" style="padding:0em 0.5em 2em 0.5em" /> 
               
               <form action="createObject">
                     <!-- tal:condition="python: user.has_permission('Poi: Add Issue', here)" -->
@@ -249,10 +249,12 @@
 								<p tal:content="structure type/description" />
 	               			</div>
 	               		</tal:subtypes_help>
-               		</tal:subtypes>
-               		
+
 					<p>&nbsp;</p>
 					<h3>Toni, this would be option b (click on the headings):</h3>
+
+               		</tal:subtypes>
+               		
 					
                     <div class="jq_dynamic_msg_list" tal:condition="python:item.has_key('subtypes')"
                     		tal:repeat="type item/subtypes">

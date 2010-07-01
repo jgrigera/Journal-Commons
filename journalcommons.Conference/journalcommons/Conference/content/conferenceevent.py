@@ -228,7 +228,8 @@ class ConferenceEvent(folder.ATFolder):
 
     ###COMMON! (this is 'Submittable item)
     def get_item_subtype(self):
-        return self.getEventType()
+        vocab = self.listConferenceEventTypes()
+        return vocab.getValue( self.getEventType() )
     
     def get_review_state(self):
         review_state = self.portal_workflow.getInfoFor(self, 'review_state');
