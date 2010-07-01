@@ -105,25 +105,25 @@ class NewsMailActionExecutor(object):
         message_body = message_body.replace("${title}", event_title)
         message_body = message_body.replace("${text}", event_text)
         
-        # Create message container - the correct MIME type is multipart/alternative.
-        msg = MIMEMultipart('alternative')
-        part1 = MIMEText("Please visit %s if you can't see the HTML version." % event_url, 'plain','utf-8')
-        part2 = MIMEText(message_body, 'html')
-        msg.attach(part1)
-        msg.attach(part2)
-
         subject = self.element.subject.replace("${url}", event_url)
         subject = subject.replace("${title}", event_title)
         
-        for email_recipient in recipients:
-            # secureSend will be deprecated in Plone 4
-            #mailhost.secureSend(msg.as_string(), email_recipient, source,
-            #                    charset=email_charset, debug=False,
-            #                    subtype='plain',
-            #                    From=source)
-            mailhost.send( msg.as_string(), mto=email_recipient, mfrom=source,
-                                subject=subject)
+        for email_recipient in recipients:                         
+                # Create message container - the correct MIME type is multipart/alternative.
+                msg = MIMEMultipart('alternative')                                          
+                msg['Subject'] = subject
+                msg['From'] = source
+                msg['To'] = email_recipient
+                msg.preamble = 'This is a multi-part message in MIME format.'
+
+                part1 = MIMEText("Please visit %s if you can't see the HTML version." % event_url, 'plain','utf-8')
+                msg.attach(part1)
+                part2 = MIMEText(message_body, 'html')
+                msg.attach(part2)
+
+                mailhost.send( msg.as_string() )
         return True
+                                                                   
 
 class NewsMailAddForm(AddForm):
     """

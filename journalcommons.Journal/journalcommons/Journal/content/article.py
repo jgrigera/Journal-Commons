@@ -171,6 +171,11 @@ class Article(folder.ATFolder):
         else:
             return "UNASSIGNED"
  
+
+
+    def get_item_subtype(self):
+        return "Paper"
+    
     def get_review_state(self):
         review_state = self.portal_workflow.getInfoFor(self, 'review_state');
         #TODO: move to common!

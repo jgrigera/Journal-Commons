@@ -9,12 +9,21 @@
 
   <browser:page
       for="*"
+      name="jcommons_conferenceevent_view"
+      class=".conferenceeventview.ConferenceEventView"
+      template="templates/jcommons_conferenceevent_view.pt"
+      allowed_interface=".conferenceeventview.IConferenceEventView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
+      for="*"
       name="jcommons_conference_view"
       class=".conferenceview.ConferenceView"
       template="templates/jcommons_conference_view.pt"
       allowed_interface=".conferenceview.IConferenceView"
       permission="zope.Public"
       />
-
-
+  
 </configure>

@@ -6,6 +6,16 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".conferenceevent.ConferenceEvent">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IConferenceEvent"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IConferenceEvent"
+        />
+  </class>
   <class class=".conferencepaper.ConferencePaper">
     <require
         permission="zope2.View"

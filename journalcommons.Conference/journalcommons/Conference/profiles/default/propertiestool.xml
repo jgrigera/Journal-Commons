@@ -5,6 +5,7 @@
   <object name="navtree_properties">
     <property name="metaTypesNotToList" type="lines" purge="False">
       <element value="ConferencePaper"/>
+      <element value="ConferenceEvent"/>
     </property>
 
   </object>

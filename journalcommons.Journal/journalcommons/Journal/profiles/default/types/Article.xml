@@ -21,7 +21,6 @@
   
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" >
-        <element value="File" />
         <element value="Draft" />
         <element value="Comment" />
   </property>

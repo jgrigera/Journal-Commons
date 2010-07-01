@@ -22,6 +22,7 @@
   <property name="allowed_content_types" >
         <element value="Article" />
         <element value="ConferencePaper" />
+        <element value="ConferenceEvent" />
         <element value="Folder" />
   </property>
 

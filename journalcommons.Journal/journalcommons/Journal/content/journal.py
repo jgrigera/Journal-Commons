@@ -119,6 +119,9 @@ class Journal(folder.ATFolder):
     """
     Items to share with jcommons
     """
+    def aq_getSubmissionsConfig(self):
+        return Journal.config_Submissions
+    
     def aq_getContainerName(self):
         return "Journal"
     def aq_getItemsName(self):
@@ -136,6 +139,14 @@ class Journal(folder.ATFolder):
         fldid = self.invokeFactory('SubmissionsFolder', 'submit', title = 'Submissions',
         			    description='This folder holds article submissions')
 
-
+    config_Submissions = {
+            'ContainerName':'Journal',
+            'Items': [ { 'name': 'Article',
+                         'type': 'Article',
+                         'description': """Articles...
+                                        """,
+                         },
+            ]
+    }
 
 atapi.registerType(Journal, PROJECTNAME)

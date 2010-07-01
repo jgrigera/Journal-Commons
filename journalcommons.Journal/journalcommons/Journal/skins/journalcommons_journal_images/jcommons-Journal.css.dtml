@@ -78,4 +78,22 @@
 	background: #F5F5F5;
 	margin: 1em 0 1em; 
 }
+
+/* jQuery dynamic message list */
+.jq_dynamic_msg_list {
+	margin: 0px;
+	padding: 0px;
+	width: 383px;
+}
+.jq_dynamic_msg_head {
+	padding: 5px 10px;
+	cursor: pointer;
+	position: relative;
+	background-color: #FFCCCC;
+	margin:1px;
+}
+.jq_dynamic_msg_body {
+	padding: 5px 10px 15px;
+	background-color: #F4F4F8;
+}
 /* </dtml-with> */

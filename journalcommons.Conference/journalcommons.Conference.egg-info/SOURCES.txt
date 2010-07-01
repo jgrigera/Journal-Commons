@@ -22,10 +22,12 @@ journalcommons/Conference/browser/configure.zcml
 journalcommons/Conference/browser/templates/jcommons_conference_view.pt
 journalcommons/Conference/content/__init__.py
 journalcommons/Conference/content/conference.py
+journalcommons/Conference/content/conferenceevent.py
 journalcommons/Conference/content/conferencepaper.py
 journalcommons/Conference/content/configure.zcml
 journalcommons/Conference/interfaces/__init__.py
 journalcommons/Conference/interfaces/conference.py
+journalcommons/Conference/interfaces/conferenceevent.py
 journalcommons/Conference/interfaces/conferencepaper.py
 journalcommons/Conference/portlets/__init__.py
 journalcommons/Conference/portlets/configure.zcml
@@ -37,6 +39,7 @@ journalcommons/Conference/profiles/default/rolemap.xml
 journalcommons/Conference/profiles/default/types.xml
 journalcommons/Conference/profiles/default/workflows.xml
 journalcommons/Conference/profiles/default/types/Conference.xml
+journalcommons/Conference/profiles/default/types/ConferenceEvent.xml
 journalcommons/Conference/profiles/default/types/ConferencePaper.xml
 journalcommons/Conference/profiles/default/workflows/conference_paper_workflow/definition.xml
 journalcommons/Conference/profiles/default/workflows/conference_workflow/definition.xml

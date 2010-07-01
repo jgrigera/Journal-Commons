@@ -11,6 +11,30 @@
  -->               
   <metal:block fill-slot="column_two_slot" />
 
+<metal:javascript fill-slot="javascript_head_slot">
+     <script type="text/javascript" charset="utf-8">
+			jq(document).ready(function() {
+					jq('#subtype').change(function() {
+						if(typeof(lastSelected) != "undefined"){ 
+							jq("#subtype-helper-"+lastSelected).toggleClass('hiddenStructure').blur();
+						}
+						var sel = jq("#subtype").val(); 
+						jq("#subtype-helper-"+sel).toggleClass('hiddenStructure').blur();
+						lastSelected = sel; 
+					});
+					
+					// for option B  
+					// hide the all of the element with class msg_body
+					jq(".jq_dynamic_msg_body").hide();
+  				    // let head manage body
+					jq(".jq_dynamic_msg_head").click(function() {
+					    jq(this).next(".jq_dynamic_msg_body").slideToggle(600);
+					});
+			});
+     </script>
+</metal:javascript>
+
+
   <div metal:fill-slot="main">
     <div metal:define-macro="body">
 
@@ -187,51 +211,109 @@
       <div tal:content="structure here/getHelpText"/>
 
 
+	  <p>&nbsp;</p>
+
+
       <div class="formControls">
-        <table>
+        <table id="submissions-new-items-form" style='table-layout:fixed'>
           <tr>
-            <td>
-              <form action="createObject" id="submissions-new-article-form">
+            <tal:loop tal:repeat="item view/get_addable_items_list">
+            <td	valign="top"
+            	tal:define="len repeat/item/length"
+            	tal:attributes="width python:'%d%%' % (1./int(len)*100);">
+            	
+              <h3 tal:content="item/name" />
+              
+              <div tal:content="structure item/description" style="padding:0em 0.5em 1em 0.5em" /> 
+              
+              <form action="createObject">
                     <!-- tal:condition="python: user.has_permission('Poi: Add Issue', here)" -->
-                <input name="type_name" type="hidden" 
-                		value="#" 
-                		tal:attributes="value here/aq_getItemsType"/>
+                    
+                    <!--
+                    Option A: let users choose here
+                    --> 
+                    <tal:subtypes tal:condition="python:item.has_key('subtypes')">
+                    
+	              		<select id="subtype" name="subtype"> 
+	               			 <option tal:repeat="type item/subtypes" 
+	               			 		 tal:attributes="value type/id"
+	               			 		 tal:content="type/name"
+	               			 		 value="#" />
+	               		</select>
+	               		
+	               		<tal:subtypes_help tal:repeat="type item/subtypes">
+	               			<div id="#" name="#" tal:attributes="id    python:'subtype-helper-'+type['id'];
+	               												 name  python:'subtype-helper-'+type['id'];" 
+	               				 class="hiddenStructure">
+								<h4 tal:content="type/name" />
+								<p tal:content="structure type/description" />
+	               			</div>
+	               		</tal:subtypes_help>
+               		</tal:subtypes>
+               		
+					<p>&nbsp;</p>
+					<h3>Toni, this would be option b (click on the headings):</h3>
+					
+                    <div class="jq_dynamic_msg_list" tal:condition="python:item.has_key('subtypes')"
+                    		tal:repeat="type item/subtypes">
+						<h4 class="jq_dynamic_msg_head" tal:content="type/name" />
+						<div class="jq_dynamic_msg_body"> 
+							<span tal:content="structure type/description" />
+							<span tal:condition="python:type.has_key('requirements')">
+								<b>Requirements:</b>
+								<span tal:omit-tag="" tal:content="structure type/requirements" />
+							</span>
+						</div>
+					</div>
+
+					 
+                <input name="type_name" type="hidden" value="#" 
+                		tal:attributes="value item/type"/>
                 <div class="formControls">
                   <input class="context" type="submit" i18n:attributes="value" value="#"
-                  		tal:attributes="value python:'Submit '+here.aq_getItemsName()" />
+                  		tal:attributes="value python:'Submit '+item['name']" />
                 </div>
               </form>
             </td>
+            </tal:loop>
           </tr>
         </table>
       </div>
 
 
-	  <!--  List of your articles -->
-	  <tal:your_articles 
-	  		tal:define="your_articles view/get_your_articles;"
-	  		tal:condition="your_articles">
-		  		
-	      <h4 tal:content="python:'Your '+here.aq_getItemsName()+'s'">Your articles</h4>
-          <table class="listing">
-               <tr>
-                   <th>Name</th>
-                   <th>State</th>
-                   <th>Comment</th>
-               </tr>
-
-				<tal:article repeat="article your_articles">
-                <tr tal:define="oddrow repeat/article/odd;"
-                    tal:attributes="class python:oddrow and 'even' or 'odd'">
-                    
-                    <td><a href="#" tal:attributes="href article/absolute_url" tal:content="article/Title" /></td>
-                    <td class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
-                    <td tal:content="article/get_state_comments" />
-                </tr>
-		        </tal:article>
-           </table>
-      </tal:your_articles>
-
+	  <!--  List of your articles / panels / events -->
+	  <tal:piece_types
+	  		tal:repeat="piece_type view/get_addable_items_list">
+			  <tal:your_pieces 
+			  		tal:define="your_pieces python:view.get_your_pieces(piece_type['type']);"
+			  		tal:condition="your_pieces">
+				  		
+			      <h4 tal:content="python:'Your '+piece_type['name']+'s'">Your articles</h4>
+		          <table class="listing" width="80%" style='table-layout:fixed'>
+		          	   <col width="23%"/>
+		          	   <col width="30%"/>
+		          	   <col width="10%"/>
+		          	   <col/>
+		               <tr>
+		                   <th>Title</th>
+		                   <th>Type</th>
+		                   <th>State</th>
+		                   <th>Comment</th>
+		               </tr>
+		
+						<tal:article repeat="article your_pieces">
+		                <tr tal:define="oddrow repeat/article/odd;"
+		                    tal:attributes="class python:oddrow and 'even' or 'odd'">
+		                    
+		                    <td><a href="#" tal:attributes="href article/absolute_url" tal:content="article/Title" /></td>
+		                    <td tal:content="article/get_item_subtype" />
+		                    <td class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
+		                    <td tal:content="article/get_state_comments" />
+		                </tr>
+				        </tal:article>
+		           </table>
+		      </tal:your_pieces>
+	  </tal:piece_types>
 		
       <div class="visualClear"><!---->&nbsp;<br/></div>
 
@@ -241,7 +323,7 @@
           Powered by
         </tal:powered>
         <a class="link-plain"
-           href="http://journal-commons.org">Journal Commons</a>
+           href="http://journal-commons.org">jCommons</a>
       </div>
 
 </tal:not-anonymous>

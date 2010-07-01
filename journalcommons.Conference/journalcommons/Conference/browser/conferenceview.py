@@ -10,9 +10,8 @@ class IConferenceView(Interface):
     """
     Conference view interface
     """
-
-    def test():
-        """ test method"""
+    def getFolderContents(self):
+        pass
 
 
 class ConferenceView(BrowserView):

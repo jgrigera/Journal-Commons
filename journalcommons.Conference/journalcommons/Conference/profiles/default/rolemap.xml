@@ -2,6 +2,10 @@
 <rolemap>
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
+    <permission name="journalcommons.Conference: Add ConferenceEvent" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
     <permission name="journalcommons.Conference: Add ConferencePaper" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
@@ -11,5 +15,11 @@
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
+
+<!--
+    <permission name="jcommons.Conference: Change schedule of conference events" acquire="False">
+      <role name="Manager" />
+    </permission>
+-->	
   </permissions>
 </rolemap>

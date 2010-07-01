@@ -44,22 +44,27 @@ class SubmissionsView(jcommonsView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-    def get_your_articles(self):
+    """ List possible piece types here
+    """
+    def get_your_pieces(self, type):
         """
-        This method returns all articles for currently logged in user
+        This method returns all items of type 'type' for currently logged in user
         """
         user = self.portal_membership.getAuthenticatedMember()
         user_id = user.getId()
         # maybe...
         #brains = self.context.listFolderContents(contentFilter={"portal_type" : "Article"})
-        brains = self.portal_catalog({'portal_type': self.context.aq_getItemsType(),
-                             'Creator': user_id,
+        brains = self.portal_catalog({'portal_type': type,
+                             ## unsure 'Creator': user_id,
                              'sort_on':'created',
                              'sort_order': 'reverse'})
         #                     'path':'/'.join(self.context.getPhysicalPath()),
         # TODO: search only in current journal
         return [i.getObject() for i in brains]
     
+    def get_addable_items_list(self):
+        return self.context.aq_getSubmissionsConfig()['Items']
+        
     """ Functions for login 'portlet'
     """
     def login_can_request_password(self):        

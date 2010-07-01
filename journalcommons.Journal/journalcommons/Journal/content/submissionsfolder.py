@@ -33,7 +33,7 @@ SubmissionsFolderSchema = folder.ATBTreeFolderSchema.copy() + atapi.Schema((
             i18n_domain='journalcommons.Journal',
         ),
         default="""
-      h2>Welcome to the registration and paper submission system</h2>
+      <h2>Welcome to the registration and paper submission system</h2>
         <p>
         To register or submit your piece, follow these steps:</p>
         <dl><dt>1. Create account</dt>
@@ -66,15 +66,26 @@ SubmissionsFolderSchema = folder.ATBTreeFolderSchema.copy() + atapi.Schema((
         default="""
         <h2>Welcome to the registration and paper submission system</h2>
 
-        To register or submit your piece, now:
+        You are a registered user. To submit a paper:
 
         <dl><dt>Submit your abstract </dt>
-            Click on 'Submit conference paper' and fill in the details
+            Click on 'Submit conference paper' below and fill in the details
         </dl>
         <dl><dt>Revise your paper and submit</dt>
-                You can edit the submission later, when finished editing click on "Submit to Editors"</dl>
+                You can edit the submission later, when finished editing click on 'Submit to Editors'
+        </dl>
 
-        You are done! Thanks for submitting the product of your work.
+        To submit a panel or session:
+        <dl>
+            <dt>Submit your panel proposal</dt>
+                Click on 'Submit conference event' below and fill in the details. 
+        </dl>
+        <dl><dt>Revise your proposed panel or event and submit</dt>
+                You can edit the submission later, when all required conditions are met, you can click on 'Submit to Editors'
+        </dl>
+
+        
+        Then you will be done! Thanks for submitting the product of your work.
         """,
     ),
 
