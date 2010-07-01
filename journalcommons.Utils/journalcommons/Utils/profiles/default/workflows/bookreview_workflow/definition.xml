@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<dc-workflow workflow_id="articlePR_workflow"
+             title="Peer Reviewed Article [Journal Commons]"
+             state_variable="review_state"
+             initial_state="draft">
+
+ <!-- Permissions -->             
+ <permission>Add portal content</permission>
+ <permission>Access contents information</permission>
+ <permission>Modify portal content</permission>
+ <permission>View</permission>
+ <permission>List folder contents</permission>
+ 
+ <!-- States -->    
+ 
+ <state state_id="draft" title="To be ordered">
+    <exit-transition transition_id="order"/>
+    <exit-transition transition_id="reject"/>
+    <permission-map name="Access contents information"
+                  acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents"
+                  acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content"
+                  acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+ </state>
+ 
+ <state state_id="ordered" title="Ordered">
+    <exit-transition transition_id="arrived"/>
+    <exit-transition transition_id="reject"/>
+    <permission-map name="Access contents information"
+                  acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents"
+                  acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content"
+                  acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+ </state>
+
+ <!-- "Waiting EB Action" -->
+ <state state_id="holded" title="Holded">
+    <exit-transition transition_id="sendtoreviewer"/>
+    <exit-transition transition_id="return"/>
+
+    <permission-map name="Access contents information"
+                  acquired="False">
+		<permission-role>Manager</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+		<permission-role>Manager</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents"
+                  acquired="False">
+		<permission-role>Manager</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content"
+                  acquired="False">
+		<permission-role>Manager</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+		<permission-role>Manager</permission-role>
+    </permission-map>
+ </state>
+
+ <!--  Waiting Author -->
+ <state state_id="reviewer_holds" title="Awaiting Author">
+    <exit-transition transition_id="finish"/>
+    <exit-transition transition_id="returntoeb"/>
+
+    <permission-map name="Access contents information"
+                  acquired="True">
+		<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+		<permission-role>Member</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents"
+                  acquired="True">
+		<permission-role>Anonymous</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content"
+                  acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+	</permission-map>
+    <permission-map name="View" acquired="True">
+		<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+    </permission-map>
+ </state>
+
+
+ <state state_id="done" title="Done">
+	<exit-transition transition_id="retract"/>
+
+	<permission-map name="Access contents information"
+			  acquired="True">
+		<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>Reviewer</permission-role>
+	</permission-map>
+	<permission-map name="Add portal content" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+	</permission-map>
+	<permission-map name="List folder contents"
+			  acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+		<permission-role>Member</permission-role>
+	</permission-map>
+	<permission-map name="Modify portal content"
+			  acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+	</permission-map>
+	<permission-map name="View" acquired="True">
+		<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>Reviewer</permission-role>
+	</permission-map>
+ </state>
+
+    <state state_id="rejected" title="Rejected">
+	<exit-transition transition_id="retract"/>
+
+	<permission-map name="Access contents information"
+			  acquired="True">
+		<permission-role>Manager</permission-role>
+		<permission-role>Reviewer</permission-role>
+		<permission-role>Owner</permission-role>
+	</permission-map>
+	<permission-map name="Add portal content" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+	</permission-map>
+	<permission-map name="List folder contents"
+			  acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+		<permission-role>Member</permission-role>
+	</permission-map>
+	<permission-map name="Modify portal content"
+			  acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+	</permission-map>
+	<permission-map name="PloneHelpCenter: Add Documentation"
+			  acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+	</permission-map>
+	<permission-map name="View" acquired="True">
+		<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>Reviewer</permission-role>
+	</permission-map>
+ </state>
+ 
+ 
+ <!-- Transitions -->
+ <!-- To draft, from Idea. User action -->
+ <transition transition_id="order" title="Order Review Copy"
+		 new_state="draft" trigger="USER"
+		 before_script="" after_script="">
+	<action url="%(content_url)s/jc_bookreview_order_form"
+		  category="workflow">Order</action>
+	<guard>
+		<guard-role>Owner</guard-role>
+	</guard>
+ </transition>
+
+  <!-- Submit to EB
+       From: idea, eb_draft
+       Who: Editorial Board
+       Triggers: email to author
+				 if r&r, email to EB responsible (if it has a responsible assigned)
+	   Guards:  User action   [ if r&r, require a new draft ]
+   --> 
+  <transition transition_id="arrived"
+             title="Book Review Copy arrived to Editorial Board"
+             new_state="eb_draft" trigger="USER"
+             before_script="" after_script="">
+	<action url="%(content_url)s/jc_content_submittoeb_form"
+		  category="workflow">Book Arrival</action>
+	<guard>
+		<guard-role>Manager</guard-role>
+		<guard-role>Owner</guard-role>
+	</guard>
+  </transition>
+
+
+
+  <!-- Send to peer review
+       From: eb_draft
+       Who: Editorial Board
+       Triggers: email to author
+	   Guards:  EB action	[ if submitted comments ]
+   --> 
+  <transition transition_id="reject"
+             title="Reject the proposal"
+             new_state="rejected" trigger="USER"
+             before_script="" after_script="">
+	<action url="%(content_url)s/jc_content_referee_form"
+		  category="workflow">Reject Proposal</action>
+	<guard>
+		<guard-role>Manager</guard-role>
+		<guard-role>EditorialBoard</guard-role>
+	</guard>
+  </transition>
+
+
+ <!--  Reject
+       From: idea, eb_draft
+       Who: Editorial Board
+       Triggers: email to author
+  -->
+<transition transition_id="sendtoreviewer"
+			title="Send to Book Reviewer"
+			new_state="reviewer_holds" trigger="USER"
+			before_script="" after_script="">
+	<!-- Cant call this 'reject_form' because of awfull patch in Plone for old content_reject_form -->
+	<action url="%(content_url)s/jc_content_artreject_form"
+			category="workflow">Send to reviewer</action>
+	<guard>
+		<guard-role>Manager</guard-role>
+		<guard-role>EditorialBoard</guard-role>
+	</guard>
+ </transition>
+
+  <!-- Revise and Resubmit
+       From: eb_draft
+       Who: Editorial Board
+       Triggers: email to author
+	   Guards:  EB action	[ if submitted comments ]
+   --> 
+  <transition transition_id="return"
+             title="Return to Publisher"
+             new_state="rejected" trigger="USER"
+             before_script="" after_script="">
+	<action url="%(content_url)s/jc_content_reviseandresubmit_form"
+		  category="workflow">Return to Publisher</action>
+	<guard>
+		<guard-role>Manager</guard-role>
+		<guard-role>EditorialBoard</guard-role>
+	</guard>
+  </transition>
+
+
+  <!-- Accept
+       From: eb_draft
+       Who: Editorial Board
+       Triggers: email to author
+	   Guards:  EB action	[ONLY if has peer_reviews ]
+   --> 
+  <transition transition_id="finish"
+             title="Review done"
+             new_state="done" trigger="USER"
+             before_script="" after_script="">
+	<action url="%(content_url)s/jc_content_accepted_form"
+		  category="workflow">Finish</action>
+	<guard>
+		<guard-role>Manager</guard-role>
+		<guard-role>EditorialBoard</guard-role>
+	</guard>
+  </transition>
+
+  <!-- Report to EB
+       From: referee_draft
+       Who: Editorial Board Responsible
+	   Guards:  EB action	[ if submitted comments ]
+   --> 
+  <transition transition_id="returntoeb"
+             title="Send back to EB"
+             new_state="holded" trigger="USER"
+             before_script="" after_script="">
+	<action url="%(content_url)s/jc_content_reporttoeb_form"
+		  category="workflow">Returned to EB</action>
+	<guard>
+		<guard-role>Manager</guard-role>
+		<!--  <guard-expression>python: user.has_permission("Review portal content", here) or user.has_role("Owner", here)</guard-expression> -->
+	</guard>
+  </transition>
+
+  <!-- Publish
+       From: accepted
+       Who: Publication Manager
+	   Trigger: emails
+   --> 
+  <transition transition_id="retract"
+             title="Retract"
+             new_state="draft" trigger="USER"
+             before_script="" after_script="">
+	<action url="%(content_url)s/jc_content_publish_form"
+		  category="workflow">Retract</action>
+	<guard>
+		<guard-role>Manager</guard-role>
+	</guard>
+  </transition>
+
+
+
+ 
+ <!-- Worklists -->
+ <worklist worklist_id="reviewer_queue" title="">
+	<description>Reviewer tasks</description>
+	<action url="%(portal_url)s/search?review_state=pending"
+	      category="global">Pending (%(count)d)</action>
+	<guard>
+	<guard-permission>Review portal content</guard-permission>
+	</guard>
+	<match name="review_state" values="pending"/>
+ </worklist>
+ 
+ <!-- Variables -->
+ <variable variable_id="action" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The last transition</description>
+  <default>
+   
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The ID of the user who performed the last transition</description>
+  <default>
+   
+   <expression>user/getId</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Comments about the last transition</description>
+  <default>
+   
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False"
+           for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+   
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Time of the last transition</description>
+  <default>
+   
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+</dc-workflow>
