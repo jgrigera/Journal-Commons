@@ -14,15 +14,6 @@
 <metal:javascript fill-slot="javascript_head_slot">
      <script type="text/javascript" charset="utf-8">
 			jq(document).ready(function() {
-					jq('#subtype').change(function() {
-						if(typeof(lastSelected) != "undefined"){ 
-							jq("#subtype-helper-"+lastSelected).toggleClass('hiddenStructure').blur();
-						}
-						var sel = jq("#subtype").val(); 
-						jq("#subtype-helper-"+sel).toggleClass('hiddenStructure').blur();
-						lastSelected = sel; 
-					});
-					
 					// for option B  
 					// hide the all of the element with class msg_body
 					jq(".jq_dynamic_msg_body").hide();
@@ -224,37 +215,10 @@
             	
               <h3 tal:content="item/name" />
               
-              <div tal:content="structure item/description" style="padding:0em 0.5em 2em 0.5em" /> 
+              <div tal:content="structure item/description" style="padding:0em 0.5em 1em 0.5em" /> 
               
               <form action="createObject">
                     <!-- tal:condition="python: user.has_permission('Poi: Add Issue', here)" -->
-                    
-                    <!--
-                    Option A: let users choose here
-                    --> 
-                    <tal:subtypes tal:condition="python:item.has_key('subtypes')">
-                    
-	              		<select id="subtype" name="subtype"> 
-	               			 <option tal:repeat="type item/subtypes" 
-	               			 		 tal:attributes="value type/id"
-	               			 		 tal:content="type/name"
-	               			 		 value="#" />
-	               		</select>
-	               		
-	               		<tal:subtypes_help tal:repeat="type item/subtypes">
-	               			<div id="#" name="#" tal:attributes="id    python:'subtype-helper-'+type['id'];
-	               												 name  python:'subtype-helper-'+type['id'];" 
-	               				 class="hiddenStructure">
-								<h4 tal:content="type/name" />
-								<p tal:content="structure type/description" />
-	               			</div>
-	               		</tal:subtypes_help>
-
-					<p>&nbsp;</p>
-					<h3>Toni, this would be option b (click on the headings):</h3>
-
-               		</tal:subtypes>
-               		
 					
                     <div class="jq_dynamic_msg_list" tal:condition="python:item.has_key('subtypes')"
                     		tal:repeat="type item/subtypes">
@@ -267,6 +231,9 @@
 							</span>
 						</div>
 					</div>
+
+					<span style="padding:0em 0.5em 2em 0.5em" />
+
 
 					 
                 <input name="type_name" type="hidden" value="#" 

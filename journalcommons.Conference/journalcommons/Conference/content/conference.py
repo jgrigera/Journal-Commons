@@ -117,14 +117,7 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
                 )),
     
 ))
-"""
-atapi.ComputedField('duration',        
-    searchable=1,        
-    expression='context._duration()',       
-),
-"""
-
-                                                
+                                      
                                                  
 # Set storage on fields copied from ATFolderSchema, making sure
 # they work well with the python bridge properties.
@@ -234,7 +227,6 @@ class Conference(folder.ATFolder,CalendarSupportMixin):
         """
         fldid = self.invokeFactory('SubmissionsFolder', 'submit', title = 'Submissions',
                         description='This folder holds paper submissions')
-
 
     # TODO!!! remove this
     # TODO: configurable stuff!

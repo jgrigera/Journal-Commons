@@ -9,6 +9,8 @@ from Products.Archetypes.utils import mapply
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from Products.DataGridField.DataGridWidget import DataGridWidget
+from Products.DataGridField.DataGridField import DataGridField
 
 from journalcommons.Conference import ConferenceMessageFactory as _
 from journalcommons.Conference.interfaces import IConferencePaper
@@ -22,6 +24,20 @@ logger = logging.getLogger('jcommons.Conference.content.ConferencePaper')
 # Schema
 ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     # -*- Your Archetypes field definitions here ... -*-
+    DataGridField(
+        name='authors',
+        default=({'name': 'You', 'institution' : 'University of wakota'},),
+        widget=DataGridWidget(
+            label=_("Authors"),
+            description = _('Authors of the paper or persons responsible for this piece. Please enter a list of names, one per line. The principal creator should come first.'),
+            column_names=('Name', 'Institution',),
+        ),
+        allow_empty_rows=False,
+        required=True,
+#        validators=('isDataGridFilled',),
+        columns=('name', 'institution')
+    ),
+
     atapi.StringField(
         name='specialRequirements',
         required=False,
@@ -85,9 +101,11 @@ def finalizeConferenceSchema(schema):
     schema['description'].widget.label = _('Abstract')
     schema['description'].widget.description = _('A short summary of your article.')
     schema['creators'].storage = atapi.AnnotationStorage()
-    schema['creators'].searchable = True
-    schema['creators'].widget.label = _('Authors')
-    schema['creators'].widget.description = _('Authors of the paper or persons responsible for this piece. Please enter a list of names, one per line. The principal creator should come first.')
+#    schema['creators'].searchable = True
+#    schema['creators'].widget = DataGridWidget (
+#                                            label = _('Authors'),
+#                                            description = _('Authors of the paper or persons responsible for this piece. Please enter a list of names, one per line. The principal creator should come first.')
+#                                            )
     schema['subject'].storage = atapi.AnnotationStorage()
     schema['subject'].widget.label = _('Keywords')
     schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your submission.')
@@ -106,8 +124,7 @@ def finalizeConferenceSchema(schema):
     
     # Fix after ATContentTypes
     # Reorder
-    schema.moveField('creators', after='title')
-    schema.moveField('description', after='creators')
+    schema.moveField('description', after='authors')
     schema.moveField('subject', after='description')
     # Schematas
     schema.changeSchemataForField('creators', 'default')

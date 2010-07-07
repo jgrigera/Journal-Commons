@@ -13,13 +13,17 @@ journalcommons.Conference.egg-info/paster_plugins.txt
 journalcommons.Conference.egg-info/requires.txt
 journalcommons.Conference.egg-info/top_level.txt
 journalcommons/Conference/README.txt
+journalcommons/Conference/SelectDescriptionWidget.py
 journalcommons/Conference/__init__.py
 journalcommons/Conference/config.py
 journalcommons/Conference/configure.zcml
+journalcommons/Conference/permission.py
 journalcommons/Conference/browser/__init__.py
+journalcommons/Conference/browser/conferenceeventview.py
 journalcommons/Conference/browser/conferenceview.py
 journalcommons/Conference/browser/configure.zcml
 journalcommons/Conference/browser/templates/jcommons_conference_view.pt
+journalcommons/Conference/browser/templates/jcommons_conferenceevent_view.pt
 journalcommons/Conference/content/__init__.py
 journalcommons/Conference/content/conference.py
 journalcommons/Conference/content/conferenceevent.py

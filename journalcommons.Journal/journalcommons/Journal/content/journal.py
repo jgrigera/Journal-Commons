@@ -145,6 +145,20 @@ class Journal(folder.ATFolder):
                          'type': 'Article',
                          'description': """Articles...
                                         """,
+                         'subtypes': [ {
+                                  'id': 'bookreview',
+                                  'name': 'Book Review',
+                                  'description':  "A book.... review... "
+                                }, {
+                                  'id': 'article',
+                                  'name': 'Article',
+                                  'description':  "An article...",
+                                }, {
+                                  'id': 'intervention',
+                                  'name': 'Intervention',
+                                  'description':  "An idfasdfpuasofsrticle...",
+                                },                                
+                        ]
                          },
             ]
     }

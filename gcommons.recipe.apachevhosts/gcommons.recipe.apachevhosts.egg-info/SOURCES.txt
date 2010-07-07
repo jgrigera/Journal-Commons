@@ -1,0 +1,16 @@
+README.txt
+setup.cfg
+setup.py
+gcommons/__init__.py
+gcommons.recipe.apachevhosts.egg-info/PKG-INFO
+gcommons.recipe.apachevhosts.egg-info/SOURCES.txt
+gcommons.recipe.apachevhosts.egg-info/dependency_links.txt
+gcommons.recipe.apachevhosts.egg-info/entry_points.txt
+gcommons.recipe.apachevhosts.egg-info/namespace_packages.txt
+gcommons.recipe.apachevhosts.egg-info/not-zip-safe
+gcommons.recipe.apachevhosts.egg-info/requires.txt
+gcommons.recipe.apachevhosts.egg-info/top_level.txt
+gcommons/recipe/__init__.py
+gcommons/recipe/apachevhosts/__init__.py
+gcommons/recipe/apachevhosts/tests/__init__.py
+gcommons/recipe/apachevhosts/tests/test_docs.py

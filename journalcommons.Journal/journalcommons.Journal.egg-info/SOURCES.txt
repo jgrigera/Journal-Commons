@@ -94,6 +94,7 @@ journalcommons/Journal/skins/journalcommons_journal_templates/jcommons_submissio
 journalcommons/Journal/skins/journalcommons_journal_templates/jcommons_transition_form.pt
 journalcommons/Journal/skins/journalcommons_journal_templates/register.cpy
 journalcommons/Journal/skins/journalcommons_journal_templates/register.cpy.metadata
+journalcommons/Journal/skins/journalcommons_journal_templates/selectdescription.pt
 journalcommons/Journal/tests/__init__.py
 journalcommons/Journal/tests/base.py
 journalcommons/Journal/tests/base_articlelistportlet.py
