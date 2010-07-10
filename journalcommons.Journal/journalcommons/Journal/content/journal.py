@@ -122,12 +122,6 @@ class Journal(folder.ATFolder):
     def aq_getSubmissionsConfig(self):
         return Journal.config_Submissions
     
-    def aq_getContainerName(self):
-        return "Journal"
-    def aq_getItemsName(self):
-        return "Article"
-    def aq_getItemsType(self):
-        return "Article"
     def aq_stateDraftsAllowed(self):
         return True
     def aq_getEditorsList(self):

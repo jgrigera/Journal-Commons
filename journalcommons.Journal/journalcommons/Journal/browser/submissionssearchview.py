@@ -40,12 +40,13 @@ class SubmissionsSearchView(BrowserView):
 
     def getFilteredSubmissions(self,request):
         
-        submissions_search = { 
-             'portal_type': self.context.aq_getItemsType(),
-             'sort_on':'created',
-             'sort_order': 'reverse',
-             'path': '/'.join(self.context.getPhysicalPath())
-        }
+        raise AttributeError("not implemented here")
+#        submissions_search = { 
+#             'portal_type': self.context.aq_config ... get items type(),
+#             'sort_on':'created',
+#             'sort_order': 'reverse',
+#             'path': '/'.join(self.context.getPhysicalPath())
+#        }
         state = request.get('state')
         if state is not None:
             submissions_search['review_state'] = state

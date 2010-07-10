@@ -187,19 +187,19 @@ class ConferenceEvent(folder.ATFolder):
     
     def listConferenceEventTypes(self, extended=False):
         context = aq_inner(self)
-        config = context.aq_getSubmissionsConfig()
-        for type in config['Items']:
-            if type['type'] == 'ConferenceEvent':
-                break
+        config = context.aq_getConfig()
+        
+        type = config.getItemType_byPortalType('ConferenceEvent')
+            
         if not extended:
-            return atapi.DisplayList([(subtype['id'],subtype['name']) for subtype in  type['subtypes'] ])
+            return atapi.DisplayList([(subtype.id(),subtype.name()) for subtype in  type.subtypes() ])
         else:
             dic = {}
-            for subtype in  type['subtypes']:
-                text = "<b>Description:</b> %s" % subtype['description']
-                if subtype.has_key('requirements'):
-                    text = text + "<br/><b>Requirements:</b> %s" % subtype['requirements']
-                dic[subtype['id']] = text
+            for subtype in  type.subtypes():
+                text = "<b>Description:</b> %s" % subtype.description()
+                if subtype.requirements():
+                    text = text + "<br/><b>Requirements:</b> %s" % subtype.requirements()
+                dic[subtype.id()] = text
             return dic 
 
 

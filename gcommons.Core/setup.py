@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the tool of journalcommons.Core
+This module contains the tool of gcommons.Core
 """
 import os
 from setuptools import setup, find_packages
@@ -8,7 +8,8 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.1'
+version = read('version.txt')
+
 
 long_description = (
     read('README.txt')
@@ -16,12 +17,12 @@ long_description = (
     'Change history\n'
     '**************\n'
     + '\n' +
-    read("docs", "HISTORY.txt"),
+    read("docs", "HISTORY.txt")
     + '\n' +
     'Detailed Documentation\n'
     '**********************\n'
     + '\n' +
-    read('journalcommons', 'Core', 'README.txt')
+    read('gcommons', 'Core', 'README.txt')
     + '\n' +
     'Contributors\n'
     '************\n'
@@ -34,9 +35,9 @@ long_description = (
 
 tests_require=['zope.testing']
 
-setup(name='journalcommons.Core',
+setup(name='gcommons.Core',
       version=version,
-      description="Core components of journalCommons Suite",
+      description="Core components of gCommons Suite",
       long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
@@ -45,13 +46,13 @@ setup(name='journalcommons.Core',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
-      keywords='journalcommons',
+      keywords='gcommons',
       author='Juan Grigera',
       author_email='juan@grigera.com.ar',
-      url='http://www.journal-commons.org',
-      license='GPL',
+      url='http://www.gcommons.org',
+      license='AGPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['journalcommons', ],
+      namespace_packages=['gcommons', ],
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
@@ -59,7 +60,7 @@ setup(name='journalcommons.Core',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
-      test_suite = 'journalcommons.Core.tests.test_docs.test_suite',
+      test_suite = 'gcommons.Core.tests.test_docs.test_suite',
       entry_points="""
       # -*- entry_points -*- 
       [distutils.setup_keywords]

@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.1'
+version = read('version.txt')
 
 long_description = (
     read('README.txt')
@@ -38,7 +38,7 @@ tests_require=['zope.testing', 'zc.buildout']
 
 setup(name='gcommons.recipe.apachevhosts',
       version=version,
-      description="Recipe to build vhosts",
+      description="buildout recipe that writes apache.conf virtual hosts",
       long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[

@@ -57,6 +57,7 @@ setup(name='journalcommons.Journal',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
+			'Products.DataGridField<1.6.4',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

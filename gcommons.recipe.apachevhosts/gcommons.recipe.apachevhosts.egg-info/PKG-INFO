@@ -1,7 +1,7 @@
 Metadata-Version: 1.0
 Name: gcommons.recipe.apachevhosts
-Version: 0.1dev
-Summary: Recipe to build vhosts
+Version: 0.2
+Summary: buildout recipe that writes apache.conf virtual hosts
 Home-page: http://www.gcommons.org
 Author: Juan Grigea
 Author-email: juan@grigera.com.ar

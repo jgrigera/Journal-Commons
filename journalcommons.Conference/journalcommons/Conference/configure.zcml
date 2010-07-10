@@ -30,5 +30,6 @@
 	    class=".SelectDescriptionWidget.ManageDescription"
 	    permission="zope.Public"
 	    />
+	    
 
 </configure>

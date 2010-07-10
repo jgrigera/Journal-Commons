@@ -63,7 +63,7 @@ class SubmissionsView(jcommonsView):
         return [i.getObject() for i in brains]
     
     def get_addable_items_list(self):
-        return self.context.aq_getSubmissionsConfig()['Items']
+        return self.context.aq_getConfig().getItems()
         
     """ Functions for login 'portlet'
     """

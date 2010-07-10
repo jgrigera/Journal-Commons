@@ -219,23 +219,5 @@ class Article(folder.ATFolder):
         return None
         
     	
-    def get_email_template(self, templateid):
-        """
-        """
-        #TODO: we should have a template system and ask for the template
-        # that should check id and content type, to allow you to customize
-        # several types around.
-        return """
-
-Dear ${name},
-
-Thank you for your submission of the paper "${title}". Unfortunately, the Editorial Board has decided that the paper is not suitable for publication in Historical Materialism. We wish you every success in publishing it elsewhere.
-
-Yours sincerely,
-Robert Knox
-
-On Behalf of the Editorial Board, Historical Materialism      
-        
-"""        
         		
 atapi.registerType(Article, PROJECTNAME)

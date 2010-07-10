@@ -49,7 +49,10 @@ class SubmissionsEditorsView(jcommonsView):
     def portal_workflow(self):
         return getToolByName(self.context, 'portal_workflow')
 
-
+    def getSubmissionsByType(self):
+        pass
+    
+    
     def getSubmissionsByState(self):
         """ Return a list of available states for item contained
             and the quantity

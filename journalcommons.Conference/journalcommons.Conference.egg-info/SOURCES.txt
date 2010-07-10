@@ -18,6 +18,7 @@ journalcommons/Conference/__init__.py
 journalcommons/Conference/config.py
 journalcommons/Conference/configure.zcml
 journalcommons/Conference/permission.py
+journalcommons/Conference/subscribers.py
 journalcommons/Conference/browser/__init__.py
 journalcommons/Conference/browser/conferenceeventview.py
 journalcommons/Conference/browser/conferenceview.py
@@ -26,9 +27,11 @@ journalcommons/Conference/browser/templates/jcommons_conference_view.pt
 journalcommons/Conference/browser/templates/jcommons_conferenceevent_view.pt
 journalcommons/Conference/content/__init__.py
 journalcommons/Conference/content/conference.py
+journalcommons/Conference/content/conference.xcfg
 journalcommons/Conference/content/conferenceevent.py
 journalcommons/Conference/content/conferencepaper.py
 journalcommons/Conference/content/configure.zcml
+journalcommons/Conference/content/test.py
 journalcommons/Conference/interfaces/__init__.py
 journalcommons/Conference/interfaces/conference.py
 journalcommons/Conference/interfaces/conferenceevent.py
@@ -50,3 +53,5 @@ journalcommons/Conference/profiles/default/workflows/conference_workflow/definit
 journalcommons/Conference/tests/__init__.py
 journalcommons/Conference/tests/base.py
 journalcommons/Conference/tests/test_doctest.py
+journalcommons/Conference/validators/XMLValidator.py
+journalcommons/Conference/validators/__init__.py

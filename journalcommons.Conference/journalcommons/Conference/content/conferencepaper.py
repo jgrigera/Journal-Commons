@@ -62,8 +62,8 @@ ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         mutator = 'setPanelRef',
         storage=atapi.AnnotationStorage(),
         widget=atapi.SelectionWidget(
-            label=_(u"Panel"),
-            description=_(u"Choose a panel from above if your paper is part of a panel proposal. Leave blank if you have not checked with the panel organizers."),
+            label=_(u"Session"),
+            description=_(u"Choose a conference session from above if your paper is part of a session proposal. Leave blank otherwise."),
         ),
     ),
     

@@ -27,8 +27,8 @@ default_template = """
         Allow from all
     </Proxy>
 
-    ProxyPass / http://%(httpaddress)s/VirtualHostBase/http/%(url)s:80/%(path)s/VirtualHostRoot/
-    ProxyPassReverse / http://%(httpaddress)s/VirtualHostBase/http/%(url)s:80/%(path)s/VirtualHostRoot/
+    ProxyPass / http://%(httpaddress)s/VirtualHostBase/http/%(url)s:80%(path)s/VirtualHostRoot/
+    ProxyPassReverse / http://%(httpaddress)s/VirtualHostBase/http/%(url)s:80%(path)s/VirtualHostRoot/
 
     <Directory />
         Options FollowSymLinks

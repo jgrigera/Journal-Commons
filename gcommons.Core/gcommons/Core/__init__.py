@@ -2,7 +2,7 @@
 """
 
 from zope.i18nmessageid import MessageFactory
-from journalcommons.Core import config
+from gcommons.Core import config
 
 from Products.Archetypes import atapi
 from Products.CMFCore import utils
@@ -12,7 +12,7 @@ from Products.CMFCore.permissions import setDefaultRoles
 # This will be imported with the special name "_" in most modules. Strings
 # like _(u"message") will then be extracted by i18n tools for translation.
 
-CoreMessageFactory = MessageFactory('journalcommons.Core')
+CoreMessageFactory = MessageFactory('gcommons.Core')
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
