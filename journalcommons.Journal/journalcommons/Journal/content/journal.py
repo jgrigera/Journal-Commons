@@ -1,6 +1,7 @@
 """Definition of the Journal content type
 """
 
+import os
 from zope.interface import implements
 
 from Products.Archetypes import atapi
@@ -12,6 +13,16 @@ from journalcommons.Journal import JournalMessageFactory as _
 from journalcommons.Journal.interfaces import IJournal
 from journalcommons.Journal.config import PROJECTNAME
 
+from gcommons.Core.lib.gcommonsConfiguration import gcommonsConfiguration, readFile
+
+# Validation
+import gcommons.Core.validators  
+from Products.validation import V_REQUIRED
+
+
+#
+# Schema
+#
 JournalSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
@@ -80,6 +91,23 @@ JournalSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         default_method="getDefaultEditors"    
     ),
 
+
+    atapi.FileField(
+        name='configuration',
+        required = False,
+        searchable = False,
+        languageIndependent = True,                   
+        storage = atapi.AnnotationStorage(),
+        default = readFile(os.path.dirname(__file__), 'journal.xcfg'),
+        validators = (('isNonEmptyFile', V_REQUIRED), 
+                      ('checkFileMaxSize', V_REQUIRED), # This comes from ATContentType.file
+                      ('isValidXML', V_REQUIRED)),  
+        widget=atapi.FileWidget (
+                description='Configuration XML, please leave empty if you dont know what this means',
+                label= 'Configuration XML'
+        ),                 
+    ),
+
 ))
 
 # Set storage on fields copied from ATFolderSchema, making sure
@@ -119,13 +147,18 @@ class Journal(folder.ATFolder):
     """
     Items to share with jcommons
     """
-    def aq_getSubmissionsConfig(self):
-        return Journal.config_Submissions
+    def parseConfiguration(self):
+        xmlstring = str(self.configuration)
+        dom = XMLParseString(xmlstring)
+        self.parsedConfiguration = dom.documentElement
+        
+    def aq_getConfig(self):
+        # TODO: Cache this parsing, by providing setter for configuration 
+        self.parseConfiguration()
+        return gcommonsConfiguration(parsedxml=self.parsedConfiguration)
     
     def aq_stateDraftsAllowed(self):
         return True
-    def aq_getEditorsList(self):
-        return self.editors
     
     def at_post_create_script(self):
         """ Create a folder for Submissions
@@ -133,28 +166,5 @@ class Journal(folder.ATFolder):
         fldid = self.invokeFactory('SubmissionsFolder', 'submit', title = 'Submissions',
         			    description='This folder holds article submissions')
 
-    config_Submissions = {
-            'ContainerName':'Journal',
-            'Items': [ { 'name': 'Article',
-                         'type': 'Article',
-                         'description': """Articles...
-                                        """,
-                         'subtypes': [ {
-                                  'id': 'bookreview',
-                                  'name': 'Book Review',
-                                  'description':  "A book.... review... "
-                                }, {
-                                  'id': 'article',
-                                  'name': 'Article',
-                                  'description':  "An article...",
-                                }, {
-                                  'id': 'intervention',
-                                  'name': 'Intervention',
-                                  'description':  "An idfasdfpuasofsrticle...",
-                                },                                
-                        ]
-                         },
-            ]
-    }
 
 atapi.registerType(Journal, PROJECTNAME)

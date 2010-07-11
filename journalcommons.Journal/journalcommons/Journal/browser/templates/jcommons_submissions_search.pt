@@ -20,7 +20,7 @@
 
          <div metal:fill-slot="intro-text">
 
-             <h2 tal:content="python:here.aq_getItemsType()+'s on state '+request.get('state')" />
+             <h2 tal:content="request/title" />
 
              <a href=""
                    class="link-parent visualNoPrint"

@@ -1,6 +1,7 @@
 """Definition of the SubmissionsFolder content type
 """
 
+import logging
 from zope.interface import implements, directlyProvides
 
 from Products.Archetypes import atapi
@@ -15,6 +16,9 @@ from plone.portlets.interfaces import IPortletManager
 from plone.portlets.constants import USER_CATEGORY
 from plone.app.portlets.interfaces import IDefaultDashboard
 from plone.app.portlets import portlets
+
+logger = logging.getLogger('gcommons.Core.content.SubmissionsFolder')
+
 
 #TODO: move this to jcommons
 
@@ -130,5 +134,35 @@ class SubmissionsFolder(folder.ATBTreeFolder):
     helptext = atapi.ATFieldProperty('helpText')
     helptextanon  = atapi.ATFieldProperty('helpTextAnon')
     
+    
+    # Helpers
+    def getSubmittablePortalTypes(self):
+        # Acquire config from container
+        config = self.aq_getConfig()
+        return [item.portal_type() for item in config.getSubmittableItems()]
+
+    def searchSubmissions(self, portal_type=None, state=None, **kw):
+        # maybe...
+        #brains = self.context.listFolderContents(contentFilter={"portal_type" : "Article"})
+        criteria = {
+            'sort_on':'created',
+            'sort_order': 'reverse',
+            'path': '/'.join(self.context.getPhysicalPath())
+        }
+        if portal_type is not None:
+            criteria['portal_type'] = portal_type
+        else:
+            criteria['portal_type'] = self.getSubmittablePortalTypes()
+
+        if state is not None:
+            criteria['review_state'] = state
+            
+        for item in kw.keys():
+            if kw[item] is not None:
+                criteria[item] = kw[item]
+        
+        logger.info("Searching %s " % criteria)
+        return self.portal_catalog(criteria)
+        
     
 atapi.registerType(SubmissionsFolder, PROJECTNAME)

@@ -172,6 +172,9 @@ class Article(folder.ATFolder):
             return "UNASSIGNED"
  
 
+    # Common...
+    def get_container(self):
+        return None
 
     def get_item_subtype(self):
         return "Paper"

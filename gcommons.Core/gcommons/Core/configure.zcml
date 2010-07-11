@@ -10,6 +10,7 @@
   <include package=".browser" />
   <include package=".content" />
   <include package=".portlets" />
+  <include package=".widgets" />
   
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile

@@ -24,20 +24,38 @@ logger = logging.getLogger('jcommons.Conference.content.ConferencePaper')
 # Schema
 ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     # -*- Your Archetypes field definitions here ... -*-
+    atapi.StringField(
+        name='primaryAuthor',
+        searchable=True,
+        default_method ='_compute_author',
+        vocabulary = 'vocabAuthor',
+        storage = atapi.AnnotationStorage(),
+        widget = atapi.ComputedWidget(
+            name = 'Primary Author',
+            description = _('Principal creator or responsible of the paper.'),
+            visible = {'edit' : 'visible', 'view' : 'visible' },
+        ),
+    ),
+    
     DataGridField(
-        name='authors',
-        default=({'name': 'You', 'institution' : 'University of wakota'},),
+        name='extraAuthors',
         widget=DataGridWidget(
-            label=_("Authors"),
-            description = _('Authors of the paper or persons responsible for this piece. Please enter a list of names, one per line. The principal creator should come first.'),
+            label=_("Other Authors"),
+            description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
             column_names=('Name', 'Institution',),
         ),
         allow_empty_rows=False,
-        required=True,
-#        validators=('isDataGridFilled',),
+        required=False,
         columns=('name', 'institution')
     ),
 
+    atapi.ComputedField(
+        name='creators',
+        storage = atapi.AnnotationStorage(),
+        searchable = True,
+        expression = 'context._compute_creators()',
+    ),
+    
     atapi.StringField(
         name='specialRequirements',
         required=False,
@@ -82,13 +100,13 @@ ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
     atapi.BooleanField('isPanel',
-	required = False,
-	languageIndependent = True,
-	widget = atapi.BooleanWidget(
-            visible = {'edit' : 'invisible', 'view' : 'invisible' },
-	        label= _(u"Is this a panel?"),
-	        description = _(u"Consider this proposal a panel rather than a paper."),
-	),
+    	required = False,
+    	languageIndependent = True,
+    	widget = atapi.BooleanWidget(
+                visible = {'edit' : 'invisible', 'view' : 'invisible' },
+    	        label= _(u"Is this a panel?"),
+    	        description = _(u"Consider this proposal a panel rather than a paper."),
+    	),
     ),
 ))
 
@@ -100,12 +118,6 @@ def finalizeConferenceSchema(schema):
     schema['description'].required = True
     schema['description'].widget.label = _('Abstract')
     schema['description'].widget.description = _('A short summary of your article.')
-    schema['creators'].storage = atapi.AnnotationStorage()
-#    schema['creators'].searchable = True
-#    schema['creators'].widget = DataGridWidget (
-#                                            label = _('Authors'),
-#                                            description = _('Authors of the paper or persons responsible for this piece. Please enter a list of names, one per line. The principal creator should come first.')
-#                                            )
     schema['subject'].storage = atapi.AnnotationStorage()
     schema['subject'].widget.label = _('Keywords')
     schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your submission.')
@@ -124,7 +136,7 @@ def finalizeConferenceSchema(schema):
     
     # Fix after ATContentTypes
     # Reorder
-    schema.moveField('description', after='authors')
+    schema.moveField('description', after='extraAuthors')
     schema.moveField('subject', after='description')
     # Schematas
     schema.changeSchemataForField('creators', 'default')
@@ -144,6 +156,33 @@ class ConferencePaper(folder.ATFolder):
     description = atapi.ATFieldProperty('description')
     specialRequirements = atapi.ATFieldProperty('specialRequirements')
 
+    #
+    # Computed fields
+    def _compute_author(self):
+        user = self.portal_membership.getAuthenticatedMember()
+        return user.getId()
+    
+    def _compute_creators(self):
+        """ Join values of author and extra authors
+        
+        Caveat: order of evaluation in schema is relevant.
+        """
+        creators = [self._compute_author(),]
+        for author in self.getExtraAuthors():
+            try:
+                creators.append("%s (%s)" % (author['name'], author['institution']))
+            except KeyError:
+                pass
+        return creators
+        
+    def vocabAuthor(self):
+        user = self.portal_membership.getAuthenticatedMember()
+        list = atapi.DisplayList()
+        list.add(user.getId(), user.fullname)
+        return list
+        
+        
+    # Vocabulary
     def listAvailablePanels(self):
         context = aq_inner(self)
         panels = context.aq_getAvailablePanels()
@@ -152,6 +191,7 @@ class ConferencePaper(folder.ATFolder):
         for panel in panels:
             list.add(panel['uid'], "'%s' proposed by %s" % (panel['title'],panel['creator'])) 
         return list
+    
     
     def setPanelRef(self, value, **kw):
         """
@@ -173,6 +213,9 @@ class ConferencePaper(folder.ATFolder):
         
         
     ###COMMON!
+    def get_container(self):
+        return self.getRefPanel()
+    
     def get_item_subtype(self):
         return "Paper"
     
@@ -199,5 +242,7 @@ class ConferencePaper(folder.ATFolder):
         
     def get_no_drafts(self):
         return len( self.get_drafts() )
+
+
 
 atapi.registerType(ConferencePaper, PROJECTNAME)

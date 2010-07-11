@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+   This just holds default values for journal
+  -->
+<config>
+ 	<Container>
+ 		<name>Journal</name>
+ 		<type>Journal</type>
+ 	</Container>
+ 	
+ 	<Items>
+ 	
+		<Item>
+			<name>Article</name>
+			<type>Article</type>
+			<description>
+				Some description here on articles
+			</description>
+			
+			<subtypes>
+				<subtype>
+					<id>bookreview</id>
+					<name>Book Review</name>
+					<description>
+						A book.... review... 
+					</description>
+				</subtype>
+				<subtype>
+					<id>article</id>
+					<name>Article</name>
+					<description>
+						An article...
+					</description>
+				</subtype>
+				<subtype>
+					<id>intervention</id>
+					<name>Intervention</name>
+					<description>
+						An intervention...
+					</description>
+				</subtype>
+				
+
+			<notifications>
+				<notification>
+					<id>created</id>
+					<type>mail</type>
+					<template>
+To: "%(userfullname)s" %(useremail)s
+Subject: Draft %(title)s
+
+Dear %(userfullname)s,
+
+Thank you for your submission of your article paper "%(title)s". Please note that we consider your submission a draft.
+You can now edit this at your convenience, visiting %(url)s
+and clicking on 'Submit to editors' when you are done.
+
+Yours sincerely,
+Robert Petruza
+
+On Behalf of the Organizing Comitte,
+CSA      
+
+					</template>
+				</notification>
+
+				<notification>
+					<id>workflow:submittoeb</id>
+					<type>mail</type>
+					<template>
+To: "%(userfullname)s" %(useremail)s
+Subject: Submitted %(title)s
+
+
+Dear %(userfullname)s,
+
+Thank you for your submission of your article "%(title)s". We confirm its reception and we will get back to you at
+the earliest convenience.
+
+Yours sincerely,
+Robert Petruza
+
+On Behalf of the Organizing Comitte,
+CSA      
+					
+					</template>
+				</notification>
+			
+			</notifications>
+		</Item>
+
+

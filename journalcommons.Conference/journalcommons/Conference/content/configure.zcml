@@ -6,16 +6,17 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
-  <class class=".conferenceevent.ConferenceEvent">
+  <class class=".conference.Conference">
     <require
         permission="zope2.View"
-        interface="..interfaces.IConferenceEvent"
+        interface="..interfaces.IConference"
         />
     <require
         permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IConferenceEvent"
+        set_schema="..interfaces.IConference"
         />
   </class>
+
   <class class=".conferencepaper.ConferencePaper">
     <require
         permission="zope2.View"
@@ -26,14 +27,15 @@
         set_schema="..interfaces.IConferencePaper"
         />
   </class>
-  <class class=".conference.Conference">
+
+  <class class=".conferenceevent.ConferenceEvent">
     <require
         permission="zope2.View"
-        interface="..interfaces.IConference"
+        interface="..interfaces.IConferenceEvent"
         />
     <require
         permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IConference"
+        set_schema="..interfaces.IConferenceEvent"
         />
   </class>
 

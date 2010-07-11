@@ -77,7 +77,7 @@
 	    </em>
 	</div>
 
-	<p/>&nbsp;<p/>
+	<span class="visualClear"><!-- -->&nbsp;<br/></span>
 
 	<!-- Abstract and Keywords -->
 	<tal:abstract tal:condition="here/Description">
@@ -95,6 +95,18 @@
 	</dl>
 	</tal:abstract>
 	
+	
+	<!-- Is this article part of special issue/dossier/panel? -->
+	<tal:containers tal:condition="here/get_container"
+					tal:define="container here/get_container">
+		
+		<span class="visualClear"><!-- -->&nbsp;<br/></span>
+					
+		<b>This article is part of</b> <a href="#" 
+				tal:content="container/Title" 
+				tal:attributes="href container/absolute_url"/> 
+				<span class="discreet">(<span tal:replace="container/Description"/>)</span>
+	</tal:containers>
 	
 	<p/>&nbsp;<p/>
 	

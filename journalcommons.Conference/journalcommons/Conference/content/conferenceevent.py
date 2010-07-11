@@ -7,7 +7,7 @@ from Acquisition import aq_inner
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
-from journalcommons.Conference.SelectDescriptionWidget import SelectDescriptionWidget
+from gcommons.Core.widgets.SelectDescriptionWidget import SelectDescriptionWidget
 #from journalcommons.Conference.permission import ChangeConferenceSchedule
 
 from journalcommons.Conference import ConferenceMessageFactory as _
@@ -121,6 +121,7 @@ ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
                 searchable=True,                
                 accessor='contact_name',
 #                write_permission = ChangeEvents,               
+                visible = {'edit' : 'invisible', 'view' : 'invisible' },
                 widget = atapi.StringWidget(                        
                                       description = '',                        
                                       label = _(u'label_contact_name', 
@@ -132,6 +133,7 @@ ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
                 searchable=True,                
                 accessor='contact_email',
 #                write_permission = ChangeEvents,                
+                visible = {'edit' : 'invisible', 'view' : 'invisible' },
                 validators = ('isEmail',),                
                 widget = atapi.StringWidget(                       
                                     description = '',                       
@@ -144,6 +146,7 @@ ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
                 searchable=True,               
                 accessor='contact_phone',
 #                write_permission = ChangeEvents,                
+                visible = {'edit' : 'invisible', 'view' : 'invisible' },
                 validators= (),                
                 widget = atapi.StringWidget(                        
                                       description = '',                        

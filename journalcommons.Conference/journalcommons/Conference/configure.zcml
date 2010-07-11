@@ -1,6 +1,5 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="journalcommons.Conference">
@@ -21,15 +20,6 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   
-  <!-- -*- extra stuff goes here -*- -->
-
-  <!--TODO: move to Core -->
-  <browser:view
-	    name="widget_manage_description"
-	    for="Products.Archetypes.interfaces.IBaseObject"
-	    class=".SelectDescriptionWidget.ManageDescription"
-	    permission="zope.Public"
-	    />
-	    
+  <!-- -*- extra stuff goes here -*- -->	    
 
 </configure>

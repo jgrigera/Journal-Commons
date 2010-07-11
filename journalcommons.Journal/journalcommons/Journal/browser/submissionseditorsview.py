@@ -49,9 +49,34 @@ class SubmissionsEditorsView(jcommonsView):
     def portal_workflow(self):
         return getToolByName(self.context, 'portal_workflow')
 
+    def getSubmittablePortalTypes(self):
+        """
+        Read container configuration
+        """
+        config = self.context.aq_getConfig()
+        return [item.portal_type() for item in config.getSubmittableItems()]
+    #
+    # portal_catalog queries
     def getSubmissionsByType(self):
-        pass
+        types = []
+        config = self.context.aq_getConfig()
+        for item in config.getSubmittableItems():
+            types.append({'id': item.portal_type(),
+                           'title': item.name(),
+                           'description': item.description(),
+                           'quantity': len(self.getSubmissions(portal_type=item.portal_type()))})
+        return types    
     
+    def getSubmissionsBySubtype(self, type):
+        subtypes = []
+        config = self.context.aq_getConfig()
+        for item in config.getItemType_byPortalType(type).subtypes():
+            subtypes.append({'id': item.id(),
+                           'title': item.name(),
+                           'description': item.description(),
+                           'quantity': 0}) #len(self.getSubmissions(portal_type=item.portal_type()))})
+        return subtypes    
+        
     
     def getSubmissionsByState(self):
         """ Return a list of available states for item contained
@@ -59,9 +84,15 @@ class SubmissionsEditorsView(jcommonsView):
         """
         # Get the workflow of the items added here
         states = []
-        # getChainForPortalType returns a list of workflow ids applicable
-        workflows = self.portal_workflow.getChainForPortalType(self.context.aq_getItemsType())
-        for wf_id in workflows:
+        
+        # Get a list of all relevant states
+        # getChainForPortalType returns a list of workflow ids applicable to portal_type
+        wf_states = {}
+        for portal_type in self.getSubmittablePortalTypes():
+            for state in self.portal_workflow.getChainForPortalType(portal_type):
+                wf_states[state] = state
+        
+        for wf_id in wf_states.keys():
             workflow = self.portal_workflow.getWorkflowById(wf_id)
             for strstate in workflow.states:
                 state = workflow.states.get(strstate)
@@ -77,33 +108,33 @@ class SubmissionsEditorsView(jcommonsView):
         states = []
         # Action is either by
         #TODO: improve this logic
-        workflows = self.portal_workflow.getChainForPortalType(self.context.aq_getItemsType())
-        for wf_id in workflows:
+        wf_states = []
+        for portal_type in self.getSubmittablePortalTypes():
+            for state in self.portal_workflow.getChainForPortalType(portal_type):
+                wf_states.append(state)
+        wf_states.sort()
+        
+        for wf_id in wf_states:
             workflow = self.portal_workflow.getWorkflowById(wf_id)
             for strstate in workflow.states:
                 state = workflow.states.get(strstate)
                 if strstate=='eb_draft':
                     title='Editorial Board'
+                    description="Awaiting action from the EB"
                 elif strstate=='draft':
                     title='Author'
+                    description="Awaiting action from the author"
                 elif strstate=='referee_draft':
                     title='Referees'
+                    description="Awaiting action from the referees"
                 else:
                     continue
                 states.append({'id': state.getId(),
                            'title': title,
-                           'description': state.description,
+                           'description': description,
                            'quantity': len(self.getSubmissions(state=state.getId()))})
                     
         return states
     
-    def getSubmissions(self, state=None):
-        # maybe...
-        #brains = self.context.listFolderContents(contentFilter={"portal_type" : "Article"})
-        brains = self.portal_catalog({'portal_type': self.context.aq_getItemsType(),
-                             'review_state': state,
-                             'sort_on':'created',
-                             'sort_order': 'reverse',
-                             'path': '/'.join(self.context.getPhysicalPath())
-                             })
-        return brains
+    def getSubmissions(self, state=None, portal_type=None):
+        return self.context.searchSubmissions(state=state, portal_type=portal_type)

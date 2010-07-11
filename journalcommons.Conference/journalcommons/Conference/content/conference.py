@@ -1,8 +1,8 @@
 """Definition of the Conference content type
 """
 
-import logging
 import os
+import logging
 from zope.interface import implements, directlyProvides
 from Acquisition import aq_inner
 from AccessControl import ClassSecurityInfo
@@ -30,18 +30,16 @@ from Products.ATContentTypes.lib.calendarsupport import CalendarSupportMixin
 from Products.ATContentTypes.interfaces import ICalendarSupport
 
 # Validation
-#from Products.validation.config import validation 
 from Products.validation import V_REQUIRED
-import journalcommons.Conference.validators  
+import gcommons.Core.validators  
 
-from gcommons.Core.lib.gcommonsConfiguration import gcommonsConfiguration 
+# gcommons Config
+from gcommons.Core.lib.gcommonsConfiguration import gcommonsConfiguration, readFile 
 
 
 logger = logging.getLogger('jcommons.Conference.content.Conference')
 
 
-def readFile(*rnames): 
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
                                                                                                                                                                                                         
                                                                                                                                                                                                                                                                                                                   
 ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
@@ -65,7 +63,7 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         searchable = False,
         languageIndependent = True,                   
         storage = atapi.AnnotationStorage(),
-        default = readFile('conference.xcfg'),
+        default = readFile(os.path.dirname(__file__), 'conference.xcfg'),
         validators = (('isNonEmptyFile', V_REQUIRED), 
                       ('checkFileMaxSize', V_REQUIRED), # This comes from ATContentType.file
                       ('isValidXML', V_REQUIRED)),  

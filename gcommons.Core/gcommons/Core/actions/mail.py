@@ -75,7 +75,11 @@ class mail(Action):
         logger.info(email_text)
         
         # Parse template, extracting Subject and To
-        email_subject = RE_MATCH_SUBJECT.search(email_text).group(1)
+        match = RE_MATCH_SUBJECT.search(email_text)
+        if match:
+            email_subject = match.group(1)
+        else:
+            email_subject = safe_unicode(self.object.Title())
         email_text = RE_MATCH_SUBJECT.sub("", email_text)
         email_text = RE_MATCH_TO.sub("", email_text)
 

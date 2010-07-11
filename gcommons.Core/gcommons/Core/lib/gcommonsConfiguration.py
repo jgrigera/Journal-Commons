@@ -1,6 +1,7 @@
 
 
 
+import os
 import logging
 
 # XML
@@ -9,6 +10,10 @@ from xml.dom.minidom import parseString as XMLParseString
 from xml.parsers.expat import ExpatError as XMLError
 
 logger = logging.getLogger('gcommons.Core.lib.gcommonsConfiguration')
+
+
+def readFile(*rnames): 
+    return open(os.path.join(*rnames)).read()
 
 
 def xmlgetchild_text(xmlnode, name):
