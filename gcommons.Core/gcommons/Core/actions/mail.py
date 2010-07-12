@@ -72,7 +72,6 @@ class mail(Action):
         values.set('date', 'TODO')
         
         email_text = safe_unicode(self.template % values)
-        logger.info(email_text)
         
         # Parse template, extracting Subject and To
         match = RE_MATCH_SUBJECT.search(email_text)
@@ -110,6 +109,9 @@ class mail(Action):
                 msg.attach(part1)
                 # part2 = MIMEText(message_body, 'html')
                 # msg.attach(part2)
+                
+                logger.info(msg.as_string())
+                logger.info("Mail to %s, from %s, subject %s" % (email_recipient, source, email_subject))
                 mailhost.send( msg.as_string() )
         return True
         
