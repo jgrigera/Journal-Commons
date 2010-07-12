@@ -108,12 +108,15 @@
 				<span class="discreet">(<span tal:replace="container/Description"/>)</span>
 	</tal:containers>
 	
-	<tal:temp tal:condition="here/getIsPanel">
-	    ispanel: <span tal:content="here/getIsPanel"/><br/>
-	</tal:temp>
-	<tal:temp tal:condition="here/getIsPartPanel">
-	    ipartpanel: <span tal:content="here/getIsPartPanel"/><br/>
-	</tal:temp>
+	<!-- REMOVE THIS AWFULL CODE -->
+	<tal:cpaper tal:condition="python:here.portal_type == 'ConferencePaper'">
+    	    <tal:temp tal:condition="here/getIsPanel">
+		ispanel: <span tal:content="here/getIsPanel"/><br/>
+	   </tal:temp>
+	    <tal:temp tal:condition="here/getIsPartPanel">
+		ipartpanel: <span tal:content="here/getIsPartPanel"/><br/>
+	    </tal:temp>
+	</tal:cpaper>
 	
 	<p/>&nbsp;<p/>
 	
