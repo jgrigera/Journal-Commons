@@ -11,6 +11,7 @@
 # Python egg build and dist 
 */build/*
 */dist/*
+*/SOURCES.txt
 
 # Eclipse
 .settings
