@@ -108,6 +108,13 @@
 				<span class="discreet">(<span tal:replace="container/Description"/>)</span>
 	</tal:containers>
 	
+	<tal:temp tal:condition="here/getIsPanel">
+	    ispanel: <span tal:content="here/getIsPanel"/><br/>
+	</tal:temp>
+	<tal:temp tal:condition="here/getIsPartPanel">
+	    ipartpanel: <span tal:content="here/getIsPartPanel"/><br/>
+	</tal:temp>
+	
 	<p/>&nbsp;<p/>
 	
 	<!-- Now list the other drafts -->

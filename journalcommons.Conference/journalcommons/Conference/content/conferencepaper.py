@@ -2,7 +2,7 @@
 """
 
 from zope.interface import implements, directlyProvides
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_parent
 
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import mapply  
@@ -243,6 +243,14 @@ class ConferencePaper(folder.ATFolder):
     def get_no_drafts(self):
         return len( self.get_drafts() )
 
+    # Migration code
+    def migrate_to_panel(self):
+	"""
+	temp
+	"""
+	parent = aq_parent(aq_inner(self))
+	fldid = parent.invokeFactory('ConferenceEvent', 'panel_%s' % self.getId(), title = self.title,
+                        description=self.description, text=self.description, creators=self.creators)
 
 
 atapi.registerType(ConferencePaper, PROJECTNAME)
