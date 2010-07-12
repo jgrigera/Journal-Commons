@@ -13,7 +13,6 @@ journalcommons.Journal.egg-info/paster_plugins.txt
 journalcommons.Journal.egg-info/requires.txt
 journalcommons.Journal.egg-info/top_level.txt
 journalcommons/Journal/README.txt
-journalcommons/Journal/Templates.txt
 journalcommons/Journal/__init__.py
 journalcommons/Journal/config.py
 journalcommons/Journal/configure.zcml
@@ -42,6 +41,7 @@ journalcommons/Journal/content/draft.py
 journalcommons/Journal/content/editorsmeeting.py
 journalcommons/Journal/content/issue.py
 journalcommons/Journal/content/journal.py
+journalcommons/Journal/content/journal.xcfg
 journalcommons/Journal/content/section.py
 journalcommons/Journal/content/submissionsfolder.py
 journalcommons/Journal/interfaces/__init__.py

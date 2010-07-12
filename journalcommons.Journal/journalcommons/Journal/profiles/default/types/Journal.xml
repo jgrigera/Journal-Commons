@@ -20,6 +20,7 @@
         <element value="Issue" />
         <element value="Folder" />
         <element value="SubmissionsFolder" />
+        <element value="Document" />
   </property>
 
   <property name="default_view">base_view</property>

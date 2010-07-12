@@ -15,14 +15,15 @@
   
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" >
-        <element value="Folder" />
-        <element value="Page" />
-        <element value="SubmissionsFolder" />
+		<element value="Folder" />
+		<element value="Page" />
+		<element value="SubmissionsFolder" />
+		<element value="Document" />
   </property>
 
   <property name="default_view">jcommons_conference_view</property>
   <property name="view_methods">
-    <element value="jcommons_conference_view" />
+		<element value="jcommons_conference_view" />
   </property>
     
   <alias from="(Default)" to="(dynamic view)" />

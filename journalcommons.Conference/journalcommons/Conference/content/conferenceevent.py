@@ -26,6 +26,7 @@ ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         name='eventType',
         required=True,
         searchable=1,
+        index=("FieldIndex:brains"),
         storage=atapi.AnnotationStorage(),
         vocabulary='listConferenceEventTypes',
         enforceVocabulary=True,
@@ -230,9 +231,16 @@ class ConferenceEvent(folder.ATFolder):
         return self.absolute_url()
 
     ###COMMON! (this is 'Submittable item)
-    def get_item_subtype(self):
-        vocab = self.listConferenceEventTypes()
-        return vocab.getValue( self.getEventType() )
+    def get_item_subtype(self, name=False):
+        """
+        name: return enduser string if true, else
+        returns id
+        """
+        if name:
+            vocab = self.listConferenceEventTypes()
+            return vocab.getValue( self.getEventType() )
+        else:
+            return self.getEventType()
     
     def get_review_state(self):
         review_state = self.portal_workflow.getInfoFor(self, 'review_state');

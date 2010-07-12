@@ -15,6 +15,11 @@ from journalcommons.Journal.config import PROJECTNAME
 
 from gcommons.Core.lib.gcommonsConfiguration import gcommonsConfiguration, readFile
 
+# XML
+# rename to allow other implementations in the future 
+from xml.dom.minidom import parseString as XMLParseString
+from xml.parsers.expat import ExpatError as XMLError
+
 # Validation
 import gcommons.Core.validators  
 from Products.validation import V_REQUIRED
@@ -133,6 +138,7 @@ class Journal(folder.ATFolder):
     description = atapi.ATFieldProperty('description')
     publisher = atapi.ATFieldProperty('publisher')
     editors = atapi.ATFieldProperty('editors')
+    configuration = atapi.ATFieldProperty('configuration')
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
 
     """

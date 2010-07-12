@@ -40,7 +40,9 @@ class SubmissionsSearchView(BrowserView):
 
         
     def getFilteredSubmissions(self, request):
-        state = request.get('state')
-        portal_type = request.get('portal_type')
-        SearchableText = request.get('SearchableText')
-        return self.context.searchSubmissions(state=state, portal_type=portal_type, SearchableText=SearchableText)
+        kw = {}
+        kw['state'] = request.get('state')
+        kw['portal_type'] = request.get('portal_type')
+        kw['get_item_subtype'] = request.get('get_item_subtype')
+        kw['SearchableText'] = request.get('SearchableText')
+        return self.context.searchSubmissions(**kw)

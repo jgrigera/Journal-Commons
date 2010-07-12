@@ -61,7 +61,9 @@
                    
                    <ul tal:repeat="subtype python:view.getSubmissionsBySubtype(type['id'])">
                    		<li>
-                   			<span tal:content="subtype/title" /> (<span tal:replace="subtype/quantity" />) 
+                   			<a tal:attributes="href string:${searchResultsForm}?portal_type=${type/id}&get_item_subtype=${subtype/id}&title=${subtype/title} Items;
+                                   title subtype/description"
+                   			   tal:content="subtype/title" /> (<span tal:replace="subtype/quantity" />) 
                    		</li>
                    </ul>
                    

@@ -16,6 +16,9 @@ gcommons/Core/README.txt
 gcommons/Core/__init__.py
 gcommons/Core/config.py
 gcommons/Core/configure.zcml
+gcommons/Core/subscribers.py
+gcommons/Core/actions/__init__.py
+gcommons/Core/actions/mail.py
 gcommons/Core/browser/__init__.py
 gcommons/Core/browser/configure.zcml
 gcommons/Core/content/__init__.py
@@ -36,3 +39,8 @@ gcommons/Core/profiles/default/types.xml
 gcommons/Core/tests/__init__.py
 gcommons/Core/tests/base.py
 gcommons/Core/tests/test_doctest.py
+gcommons/Core/validators/XMLValidator.py
+gcommons/Core/validators/__init__.py
+gcommons/Core/widgets/SelectDescriptionWidget.py
+gcommons/Core/widgets/__init__.py
+gcommons/Core/widgets/configure.zcml

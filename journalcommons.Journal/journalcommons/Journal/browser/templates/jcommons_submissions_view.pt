@@ -275,7 +275,7 @@
 		                    tal:attributes="class python:oddrow and 'even' or 'odd'">
 		                    
 		                    <td><a href="#" tal:attributes="href article/absolute_url" tal:content="article/Title" /></td>
-		                    <td tal:content="article/get_item_subtype" />
+		                    <td tal:content="python:article.get_item_subtype(name=True)" />
 		                    <td class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
 		                    <td tal:content="article/get_state_comments" />
 		                </tr>
@@ -288,11 +288,8 @@
 
 
       <div class="poweredBy">
-        <tal:powered i18n:translate="label_powered_by">
-          Powered by
-        </tal:powered>
-        <a class="link-plain"
-           href="http://journal-commons.org">jCommons</a>
+        <tal:powered i18n:translate="label_powered_by">Powered by</tal:powered>
+        <a class="link-plain" href="http://gcommons.org">gcomm(o)ns</a>
       </div>
 
 </tal:not-anonymous>

@@ -161,7 +161,6 @@ class SubmissionsFolder(folder.ATBTreeFolder):
             if kw[item] is not None:
                 criteria[item] = kw[item]
         
-        logger.info("Searching %s " % criteria)
         return self.portal_catalog(criteria)
         
     

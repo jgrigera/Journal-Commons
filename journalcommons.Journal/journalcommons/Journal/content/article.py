@@ -176,7 +176,7 @@ class Article(folder.ATFolder):
     def get_container(self):
         return None
 
-    def get_item_subtype(self):
+    def get_item_subtype(self, name=False):
         return "Paper"
     
     def get_review_state(self):

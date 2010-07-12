@@ -74,7 +74,8 @@ class SubmissionsEditorsView(jcommonsView):
             subtypes.append({'id': item.id(),
                            'title': item.name(),
                            'description': item.description(),
-                           'quantity': 0}) #len(self.getSubmissions(portal_type=item.portal_type()))})
+                           'quantity': len(self.getSubmissions(portal_type=type, get_item_subtype=item.id()))
+            })
         return subtypes    
         
     
@@ -136,5 +137,5 @@ class SubmissionsEditorsView(jcommonsView):
                     
         return states
     
-    def getSubmissions(self, state=None, portal_type=None):
-        return self.context.searchSubmissions(state=state, portal_type=portal_type)
+    def getSubmissions(self, **kw):
+        return self.context.searchSubmissions(**kw)

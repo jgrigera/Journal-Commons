@@ -216,7 +216,7 @@ class ConferencePaper(folder.ATFolder):
     def get_container(self):
         return self.getRefPanel()
     
-    def get_item_subtype(self):
+    def get_item_subtype(self, name=False):
         return "Paper"
     
     def get_review_state(self):

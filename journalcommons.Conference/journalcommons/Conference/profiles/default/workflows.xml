@@ -6,6 +6,9 @@
 		<type type_id="ConferencePaper">
 			<bound-workflow workflow_id="conference_paper_workflow" />
 		</type>
+		<type type_id="ConferenceEvent">
+			<bound-workflow workflow_id="conference_paper_workflow" />
+		</type>
 	</bindings>
 
 <!--
