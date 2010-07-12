@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<!-- TODO: move to gcommons.Core -->
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+    <index name="get_item_subtype" meta_type="FieldIndex">
+        <indexed_attr value="get_item_subtype"/>
+    </index>
+    <column value="get_item_subtype" name="gcommons_subtype" />
+</object>
