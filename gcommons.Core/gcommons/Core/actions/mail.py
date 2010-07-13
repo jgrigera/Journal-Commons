@@ -64,13 +64,20 @@ class mail(Action):
         values.set('url', self.object.absolute_url())
                 
         # user 
-        user = self.context.portal_membership.getAuthenticatedMember()
-        values.set('userid', user.getId())
-        logger.info("userid is %s"  % user.getId())
-        values.set('userfullname', user.getFullname())
-        logger.info("userfullname is %s"  % user.getFullname())
-        values.set('useremail', user.getEmail())
-        logger.info("useremail is %s"  % user.getEmail())
+        try:
+            user = self.context.portal_membership.getAuthenticatedMember()
+            values.set('userid', user.getId())
+            logger.info("userid is %s"  % user.getId())
+            values.set('userfullname', user.getFullname())
+            logger.info("userfullname is %s"  % user.getFullname())
+            values.set('useremail', user.getEmail())
+            logger.info("useremail is %s"  % user.getEmail())
+        except AttributeError, e:
+            logger.error("WTF!!!")
+            logger.error("class %s" % user.__class__)
+            logger.error(" %s" % dir(user) )
+            raise e
+
         
         values.set('date', 'TODO')
         

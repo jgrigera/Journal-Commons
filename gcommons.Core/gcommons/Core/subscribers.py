@@ -4,6 +4,7 @@ import logging
 import zope.thread                                
 from Acquisition import aq_inner, aq_parent                       
 
+from smtplib import SMTPRecipientsRefused
 from Products.CMFCore.interfaces import ISiteRoot          
 from Products.CMFCore.utils import getToolByName                                                                                     
 from Products.Archetypes.interfaces import IBaseObject                                                                    
@@ -68,8 +69,13 @@ def triggerActions(context, eventid, object):
         if notification is not None:
             logger.info("NOTIFICATION : %s" % notification.type())
             # notification.type() ... only mail now
-            action = actions.mail(context=context, object=object, template=notification.template())
-            action.execute()
+            try:
+        	action = actions.mail(context=context, object=object, template=notification.template())
+        	action.execute()
+            except AttributeError, e:
+        	logger.error("Some error here, %s" % e)
+            except SMTPRecipientsRefused, e:
+        	logger.error("wrong email address %s" % e)
                 
 
 def archetypes_initialized(event):        
