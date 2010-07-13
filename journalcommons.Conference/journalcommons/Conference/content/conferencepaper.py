@@ -4,6 +4,7 @@
 from zope.interface import implements, directlyProvides
 from Acquisition import aq_inner, aq_parent
 
+from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import mapply  
 from Products.ATContentTypes.content import folder
@@ -251,6 +252,9 @@ class ConferencePaper(folder.ATFolder):
 	parent = aq_parent(aq_inner(self))
 	fldid = parent.invokeFactory('ConferenceEvent', 'panel_%s' % self.getId(), title = self.title,
                         description=self.description, text=self.description, creators=self.creators)
+        obj = parent[fldid]
+        obj.changeOwnership( self.getOwner(), 0 )
+
 
 
 atapi.registerType(ConferencePaper, PROJECTNAME)
