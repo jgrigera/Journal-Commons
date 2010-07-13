@@ -66,8 +66,8 @@ class mail(Action):
         # user 
         user = self.context.portal_membership.getAuthenticatedMember()
         values.set('userid', user.getId())
-        values.set('userfullname', user.fullname)
-        values.set('useremail', user.email)
+        values.set('userfullname', user.getFullname())
+        values.set('useremail', user.getEmail())
         
         values.set('date', 'TODO')
         
@@ -86,7 +86,7 @@ class mail(Action):
         # Now send the email        
         logger.info("1")
         logger.info(email_text)
-        recipients = ["%s <%s>" % (user.fullname, user.email),]
+        recipients = ["%(userfullname)s <%(useremail)s>" % values,]
 
         # Get From Address
         email_charset = portal.getProperty('email_charset')

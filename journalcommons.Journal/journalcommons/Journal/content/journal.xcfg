@@ -50,6 +50,7 @@
 To: "%(userfullname)s" %(useremail)s
 Subject: Draft %(title)s
 
+USERID: %(userid)s
 Dear %(userfullname)s,
 
 Thank you for your submission of your article paper "%(title)s". Please note that we consider your submission a draft.
