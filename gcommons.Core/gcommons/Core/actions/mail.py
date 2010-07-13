@@ -68,12 +68,11 @@ class mail(Action):
             user = self.context.portal_membership.getAuthenticatedMember()
             values.set('userid', user.getId())
             logger.info("userid is %s"  % user.getId())
-            values.set('userfullname', user.getFullname())
-            logger.info("userfullname is %s"  % user.getFullname())
-            values.set('useremail', user.getEmail())
-            logger.info("useremail is %s"  % user.getEmail())
+            values.set('userfullname', user.getProperty('fullname'))
+            logger.info("userfullname is %s"  % values['userfullname'])
+            values.set('useremail', user.getProperty('email'))
+            logger.info("useremail is %s"  % values['useremail'])
         except AttributeError, e:
-            logger.error("WTF!!!")
             logger.error("class %s" % user.__class__)
             logger.error(" %s" % dir(user) )
             raise e
