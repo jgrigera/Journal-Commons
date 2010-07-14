@@ -23,10 +23,36 @@ from Products.ATContentTypes.interfaces import ICalendarSupport
 
 ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.StringField(
+        name='primaryAuthor',
+        index=("FieldIndex:brains"),
+        searchable=True,
+        default_method ='_compute_author',
+        vocabulary = 'vocabAuthor',
+        storage = atapi.AnnotationStorage(),
+        widget = atapi.StringWidget(
+            name = 'Primary Author',
+            description = _('Principal creator or responsible of the panel (for notifications).'),
+        ),
+    ),
+    
+    DataGridField(
+        name='extraAuthors',
+        widget=DataGridWidget(
+            label=_("Other Authors"),
+            description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
+            column_names=('Name', 'Institution','email',),
+        ),
+        allow_empty_rows=False,
+        required=False,
+        columns=('name', 'institution', 'email')
+    ),
+
+
+
+    atapi.StringField(
         name='eventType',
         required=True,
         searchable=1,
-        index=("FieldIndex:brains"),
         storage=atapi.AnnotationStorage(),
         vocabulary='listConferenceEventTypes',
         enforceVocabulary=True,
@@ -36,7 +62,7 @@ ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             #label_msgid="jcommons_event_title",            
             #description_msgid="jcommons_help_draft_title",            
         ),
-    ),                                                                        
+    ),
 
     atapi.TextField('text',              
         required=False,              

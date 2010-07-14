@@ -28,6 +28,7 @@ ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='primaryAuthor',
         searchable=True,
+        index='FieldIndex:brains',
         default_method ='_compute_author',
         vocabulary = 'vocabAuthor',
         storage = atapi.AnnotationStorage(),
@@ -140,7 +141,6 @@ def finalizeConferenceSchema(schema):
     schema.moveField('description', after='extraAuthors')
     schema.moveField('subject', after='description')
     # Schematas
-    schema.changeSchemataForField('creators', 'default')
     schema.changeSchemataForField('subject', 'default')
     return schema
     
@@ -251,7 +251,8 @@ class ConferencePaper(folder.ATFolder):
 	"""
 	parent = aq_parent(aq_inner(self))
 	fldid = parent.invokeFactory('ConferenceEvent', 'panel_%s' % self.getId(), title = self.title,
-                        description=self.description, text=self.description, creators=self.creators)
+                        description=self.description, text=self.description, creators=self.creators, 
+                        primaryAuthor=self.listCreators()[0], extraAuthors=','.join(self.listCreators()) )
         obj = parent[fldid]
         obj.changeOwnership( self.getOwner(), 0 )
 
