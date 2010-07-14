@@ -5,5 +5,9 @@
     <index name="get_item_subtype" meta_type="FieldIndex">
         <indexed_attr value="get_item_subtype"/>
     </index>
+
+    <index name="getPrimaryAuthor" meta_type="FieldIndex">
+        <indexed_attr value="getPrimaryAuthor"/>
+    </index>
     <column value="get_item_subtype" name="gcommons_subtype" />
 </object>

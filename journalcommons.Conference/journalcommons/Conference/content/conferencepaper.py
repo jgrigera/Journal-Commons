@@ -28,7 +28,7 @@ ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='primaryAuthor',
         searchable=True,
-        index='FieldIndex:brains',
+        index='FieldIndex',
         default_method ='_compute_author',
         vocabulary = 'vocabAuthor',
         storage = atapi.AnnotationStorage(),
@@ -190,7 +190,7 @@ class ConferencePaper(folder.ATFolder):
         list = atapi.DisplayList()
         list.add('0',"None, let Organizers decide")
         for panel in panels:
-            list.add(panel['uid'], "'%s' proposed by %s" % (panel['title'],panel['creator'])) 
+            list.add(panel['uid'], "%s, proposed by %s" % (panel['description'],panel['creator'])) 
         return list
     
     

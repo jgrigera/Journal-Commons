@@ -52,10 +52,9 @@ class SubmissionsView(jcommonsView):
         """
         user = self.portal_membership.getAuthenticatedMember()
         user_id = user.getId()
-        # maybe...
-        #brains = self.context.listFolderContents(contentFilter={"portal_type" : "Article"})
-        brains = self.portal_catalog({'portal_type': type,
-                             ## unsure 'Creator': user_id,
+        
+	brains = self.portal_catalog({'portal_type': type,
+                             'getPrimaryAuthor': user_id,
                              'sort_on':'created',
                              'sort_order': 'reverse'})
         #                     'path':'/'.join(self.context.getPhysicalPath()),

@@ -7,6 +7,8 @@ from Acquisition import aq_inner
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
+from Products.DataGridField.DataGridWidget import DataGridWidget
+from Products.DataGridField.DataGridField import DataGridField
 from gcommons.Core.widgets.SelectDescriptionWidget import SelectDescriptionWidget
 #from journalcommons.Conference.permission import ChangeConferenceSchedule
 
@@ -24,7 +26,7 @@ from Products.ATContentTypes.interfaces import ICalendarSupport
 ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='primaryAuthor',
-        index=("FieldIndex:brains"),
+        index='FieldIndex',
         searchable=True,
         default_method ='_compute_author',
         vocabulary = 'vocabAuthor',
@@ -188,10 +190,10 @@ ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 def finalizeConferenceEventSchema(schema):
     schema['title'].storage = atapi.AnnotationStorage()
     schema['description'].storage = atapi.AnnotationStorage()
-    schema['creators'].storage = atapi.AnnotationStorage()
-    schema['creators'].searchable = True
-    schema['creators'].widget.label = _('Authors')
-    schema['creators'].widget.description = _('Names of those responsible for this proposal. Please enter a list of names, one per line. The principal creator should come first.')
+    #schema['creators'].storage = atapi.AnnotationStorage()
+    #schema['creators'].searchable = True
+    #schema['creators'].widget.label = _('Authors')
+    #schema['creators'].widget.description = _('Names of those responsible for this proposal. Please enter a list of names, one per line. The principal creator should come first.')
 
     # Call ATContentTypes
     schemata.finalizeATCTSchema(
@@ -232,6 +234,9 @@ class ConferenceEvent(folder.ATFolder):
                 dic[subtype.id()] = text
             return dic 
 
+    def _compute_author(self):
+        user = self.portal_membership.getAuthenticatedMember()
+        return user.getId()
 
     def _compute_description(self):
         return "A %s on '%s'" % (self.eventType, self.title)
