@@ -2,12 +2,19 @@
 """
 
 import logging
+from cStringIO import StringIO
 from zope.interface import implements, directlyProvides
 
+from AccessControl import ClassSecurityInfo
+from Products.CMFCore.permissions import ModifyPortalContent, View
+from Products.CMFCore.utils import getToolByName
+
+# Archetypes
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 
+# gcommons.Journal
 from journalcommons.Journal import JournalMessageFactory as _
 from journalcommons.Journal.interfaces import ISubmissionsFolder
 from journalcommons.Journal.config import PROJECTNAME
@@ -126,6 +133,7 @@ class SubmissionsFolder(folder.ATBTreeFolder):
 
     meta_type = "SubmissionsFolder"
     schema = SubmissionsFolderSchema
+    security  = ClassSecurityInfo()
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
@@ -162,6 +170,59 @@ class SubmissionsFolder(folder.ATBTreeFolder):
                 criteria[item] = kw[item]
         
         return self.portal_catalog(criteria)
+
+
+    security.declareProtected(View, 'download_all_as_excel')
+    def download_all_as_excel(self, **kwargs):
+	"""
         
+	"""
+	data = StringIO()
+
+	try:
+	    import pyExcelerator as xls
+	except ImportError:
+	    data.write("Sorry, low level error, no pyExcelerator. Cant generate XLSs.")
+	    data.seek(0)
+	    return data
+        
+        # Open Excel
+	wb = xls.Workbook()
+	ws0 = wb.add_sheet('Abstracts')
+	
+	Fields = [ 
+	    { 'column': 0, 'title': 'Author',           'value': 'primaryAuthor' },
+	    { 'column': 1, 'title': 'Authors',          'value': 'extraAuthors' },
+	    { 'column': 2, 'title': 'Title',           'value': 'title' },
+	    { 'column': 3, 'title': 'Abstract',        'value': 'description' },
+	    { 'column': 4, 'title': 'Requirements',    'value': 'specialRequirements' },
+#	    { 'column': 3, 'title': 'Part of Panel?',  'value': 'isPartPanel' },
+	]
+	
+	# Header
+	for field in Fields:
+	    ws0.write(0, field['column'], field['title'])
+
+	n=0
+	for item in self.searchSubmissions():
+	    n = n + 1
+	    for field in Fields:
+		try:
+		    obj = item.getObject()
+		    schemafield = obj.Schema().getField( field['value'] )
+		    if schemafield is None:
+			logger.info("Wrong field %s in item type %s" % (field['value'], item.portal_type))
+			continue
+		    
+		    value = schemafield.getAccessor(obj)()
+		    if value is not None:
+			ws0.write(n, field['column'], unicode(value))
+		except UnicodeDecodeError:
+		    ws0.write(n,field['column'], "ERROR!!")
+
+	wb.save(data)
+	data.seek(0)
+	return data
+
     
 atapi.registerType(SubmissionsFolder, PROJECTNAME)

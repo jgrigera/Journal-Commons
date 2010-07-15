@@ -103,6 +103,19 @@
 
       <div style="clear:both"><!----></div>
 
+	<dl class="portlet">
+		<dd class="portletItem">
+			<b>Actions</b><br/>
+			<tal:loop tal:repeat="action view/extraActions">
+				<a href="#" 
+				         tal:attributes="href python:context.absolute_url()+'/'+action['url']">
+				         <img alt="" src="#" tal:attributes="src action/icon" />
+				         <span tal:omit-tag="" tal:content="action/title" />
+			    </a>
+			</tal:loop>
+		</dd>
+	</dl>
+
 
 <!--  
       <div id="unassigned-articles">

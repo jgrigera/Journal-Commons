@@ -20,6 +20,10 @@ class ISubmissionsEditorsView(Interface):
             and the quantity
         """
 
+class ISubmissionsAsExcelView(Interface):
+    """
+    SubmissionsEditors view interface
+    """
 
 
 class SubmissionsEditorsView(jcommonsView):
@@ -139,3 +143,29 @@ class SubmissionsEditorsView(jcommonsView):
     
     def getSubmissions(self, **kw):
         return self.context.searchSubmissions(**kw)
+
+
+    def extraActions(self):
+        results = []
+        results.append( {   'url': 'gcommons_submissions_asxls_view', 
+                            'icon':  'download_icon.gif',
+                            'title':'Download XLS with submissions',} )
+        return results
+
+
+class SubmissionsAsExcelView(jcommonsView):
+    implements(ISubmissionsAsExcelView)
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        """
+        This method gets called everytime the template needs to be rendered
+        """
+        self.request.RESPONSE.setHeader('Content-Type','application/excel')
+        self.request.RESPONSE.addHeader("Content-Disposition","filename=%s.xls" % self.context.Title())
+        self.request.RESPONSE.write( self.context.download_all_as_excel().getvalue() )
+        return 
+    

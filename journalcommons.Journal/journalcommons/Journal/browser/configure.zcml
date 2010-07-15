@@ -45,6 +45,14 @@
       permission="zope.Public"
       />
 
+  <browser:page
+      for="*"
+      name="gcommons_submissions_asxls_view"
+      class=".submissionseditorsview.SubmissionsAsExcelView"
+      allowed_interface=".submissionseditorsview.ISubmissionsAsExcelView"
+      permission="zope2.Public"
+      />
+
 
   <!-- Article views -->
   <browser:page
