@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="conference_paper_workflow"
-             title="Conference Paper [Journal Commons]"
+<dc-workflow workflow_id="conference_workflow"
+             title="Conference [gcommons]"
              state_variable="review_state"
              initial_state="draft">
 
@@ -11,310 +11,216 @@
  <permission>View</permission>
  <permission>List folder contents</permission>
  
+
  <!-- States -->    
- 
  <state state_id="private" title="Private">
     <exit-transition transition_id="opentoabstracts"/>
-    <permission-map name="Access contents information"
-                  acquired="False">
+    
+    <!-- View -->
+    <permission-map name="Access contents information" acquired="False">
 	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
+	<permission-role>EditorialBoard</permission-role>
     </permission-map>
-    <permission-map name="Add portal content" acquired="False">
+    <permission-map name="List folder contents" acquired="False">
 	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
-    </permission-map>
-    <permission-map name="List folder contents"
-                  acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
-    </permission-map>
-    <permission-map name="Modify portal content"
-                  acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
+	<permission-role>EditorialBoard</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
 	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+
+    <!-- Add papers -->
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
     </permission-map>
  </state>
+
 
  <!-- Open for abstracts -->
  <state state_id="open_abstracts" title="Open for Abstracts">
     <exit-transition transition_id="retract"/>
-    <exit-transition transition_id="open"/>
-    <exit-transition transition_id="reviseandresubmit"/>
-    <exit-transition transition_id="accept"/>
+    <exit-transition transition_id="opentopapers"/>
+    <exit-transition transition_id="close"/>
 
-    <permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
-    </permission-map>
-    <permission-map name="List folder contents"
-                  acquired="False">
-		<permission-role>Manager</permission-role>
-    </permission-map>
-    <permission-map name="Modify portal content"
-                  acquired="False">
-		<permission-role>Manager</permission-role>
-    </permission-map>
-
-    <!-- View, also Owner -->
-    <permission-map name="Access contents information"
-                  acquired="False">
+    <!-- View -->
+    <permission-map name="Access contents information" acquired="False">
 	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
 	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
+
+    <!-- Add papers -->
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
     </permission-map>
  </state>
 
 
- <state state_id="accepted" title="Accepted">
-	<exit-transition transition_id="publish"/>
-	<exit-transition transition_id="retract"/>
+ <state state_id="open_papers" title="Open for Papers">
+    <exit-transition transition_id="close"/>
+    <exit-transition transition_id="retract"/>
 
-	<permission-map name="Access contents information"
-			  acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
-	</permission-map>
-	<permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="List folder contents"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-		<permission-role>Member</permission-role>
-	</permission-map>
-	<permission-map name="Modify portal content"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="View" acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
-	</permission-map>
- </state>
- 
+    <!-- View -->
+    <permission-map name="Access contents information" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
 
- <state state_id="published" title="Published">
-	<exit-transition transition_id="retract"/>
-
-	<permission-map name="Access contents information"
-			  acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
-	</permission-map>
-	<permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="List folder contents"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-		<permission-role>Member</permission-role>
-	</permission-map>
-	<permission-map name="Modify portal content"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="View" acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
-	</permission-map>
+    <!-- Add papers -->
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+    </permission-map>
  </state>
 
- <state state_id="rejected" title="Rejected">
-	<exit-transition transition_id="retract"/>
 
-	<permission-map name="Access contents information"
-			  acquired="True">
-		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="List folder contents"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-		<permission-role>Member</permission-role>
-	</permission-map>
-	<permission-map name="Modify portal content"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="PloneHelpCenter: Add Documentation"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="View" acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
-	</permission-map>
+ <state state_id="closed" title="Closed">
+    <exit-transition transition_id="retract"/>
+
+    <!-- View -->
+    <permission-map name="Access contents information" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Anonymous</permission-role>
+    </permission-map>
+
+    <!-- Add papers -->
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+    </permission-map>
  </state>
  
  
  <!-- Transitions -->
 
-  <!-- Submit to EB
-       From: idea, eb_draft
+  <!-- Retract
+       From: any
        Who: Editorial Board
-       Triggers: email to author
-				 if r&r, email to EB responsible (if it has a responsible assigned)
-	   Guards:  User action   [ if r&r, require a new draft ]
+       Triggers: nothing
    --> 
-  <transition transition_id="submittoeb"
-             title="Submit the draft to Editorial Board"
-             new_state="eb_draft" trigger="USER"
+  <transition transition_id="retract"
+             title="Make conference private again"
+             new_state="private" trigger="USER"
              before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_submittoeb_form"
-		  category="workflow">Submit to Editorial Board</action>
+	<action url="" 
+		  category="workflow">Make private again</action>
 	<guard>
 		<guard-role>Manager</guard-role>
 		<guard-role>Owner</guard-role>
 	</guard>
   </transition>
 
-  <!-- Send to peer review
-       From: eb_draft
+  <!-- Close
+       From: open_papers
        Who: Editorial Board
-       Triggers: email to author
-	   Guards:  EB action	[ if submitted comments ]
+       Triggers: nothing
    --> 
-  <transition transition_id="referee"
-             title="Send to peer review"
-             new_state="referee_draft" trigger="USER"
+  <transition transition_id="close"
+             title="Close"
+             new_state="closed" trigger="USER"
              before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_referee_form"
-		  category="workflow">Send to Referees</action>
+	<action url=""
+		  category="workflow">Close all Submissions</action>
 	<guard>
 		<guard-role>Manager</guard-role>
 	</guard>
   </transition>
 
- <!--  Reject
-       From: idea, eb_draft
+ <!--  Open to Abstracts
+       From: private
        Who: Editorial Board
-       Triggers: email to author
+       Triggers: maybe CFP?
   -->
- <transition transition_id="reject"
-             title="The article is rejected"
-             new_state="rejected" trigger="USER"
+ <transition transition_id="opentoabstracts"
+             title="Open abstracts submission"
+             new_state="open_abstracts" trigger="USER"
              before_script="" after_script="">
-  <action url="%(content_url)s/jc_content_reject_form"
-          category="workflow">Reject</action>
+  <action url=""
+          category="workflow">Open for abstracts</action>
 	<guard>
 		<guard-role>Manager</guard-role>
 		<guard-role>EditorialBoard</guard-role>
 	</guard>
  </transition>
 
-  <!-- Revise and Resubmit
-       From: eb_draft
+  <!-- Open to Papers
+       From: open_abstracts
        Who: Editorial Board
-       Triggers: email to author
-	   Guards:  EB action	[ if submitted comments ]
+       Triggers: maybe email to those with abstracts
    --> 
-  <transition transition_id="reviseandresubmit"
-             title="Author(s) should Revise and Resubmit"
-             new_state="draft" trigger="USER"
+  <transition transition_id="opentopapers"
+             title="Open paper submission"
+             new_state="open_papers" trigger="USER"
              before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_reviseandresubmit_form"
-		  category="workflow">Revise and Resubmit</action>
+	<action url=""
+		  category="workflow">Open paper</action>
 	<guard>
 		<guard-role>Manager</guard-role>
 		<guard-role>EditorialBoard</guard-role>
 	</guard>
   </transition>
-
-  <!-- Accept
-       From: eb_draft
-       Who: Editorial Board
-       Triggers: email to author
-	   Guards:  EB action	[ONLY if has peer_reviews ]
-   --> 
-  <transition transition_id="accept"
-             title="Accept for publication"
-             new_state="accepted" trigger="USER"
-             before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_accepted_form"
-		  category="workflow">Accept</action>
-	<guard>
-		<guard-role>Manager</guard-role>
-		<guard-role>EditorialBoard</guard-role>
-	</guard>
-  </transition>
-
-  <!-- Report to EB
-       From: referee_draft
-       Who: Editorial Board Responsible
-	   Guards:  EB action	[ if submitted comments ]
-   --> 
-  <transition transition_id="reporttoeb"
-             title="Send back to EB"
-             new_state="eb_draft" trigger="USER"
-             before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_reporttoeb_form"
-		  category="workflow">Report to EB</action>
-	<guard>
-		<guard-role>Manager</guard-role>
-		<!--  <guard-expression>python: user.has_permission("Review portal content", here) or user.has_role("Owner", here)</guard-expression> -->
-	</guard>
-  </transition>
-
-  <!-- Publish
-       From: accepted
-       Who: Publication Manager
-	   Trigger: emails
-   --> 
-  <transition transition_id="publish"
-             title="Publish in an issue"
-             new_state="published" trigger="USER"
-             before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_publish_form"
-		  category="workflow">Publish</action>
-	<guard>
-		<guard-role>Manager</guard-role>
-	</guard>
-  </transition>
-
-
-  <!-- Rollback
-       From: accepted, published, rejected
-       Who: Manager
-   --> 
-  <transition transition_id="retract"
-             title="Rollback to EB draft"
-             new_state="eb_draft" trigger="USER"
-             before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_retract_form"
-		  category="workflow">Retract</action>
-	<guard>
- 	    <guard-permission>Modify portal content</guard-permission>
-		<guard-role>Manager</guard-role>
-	</guard>
-  </transition>
-    
-
 
  
  
@@ -382,4 +288,6 @@
   <guard>
   </guard>
  </variable>
+
+
 </dc-workflow>

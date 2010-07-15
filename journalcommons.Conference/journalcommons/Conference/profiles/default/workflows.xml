@@ -9,14 +9,9 @@
 		<type type_id="ConferenceEvent">
 			<bound-workflow workflow_id="conference_paper_workflow" />
 		</type>
-	</bindings>
-
-<!--
-	<bindings>
 		<type type_id="Conference">
 			<bound-workflow workflow_id="conference_workflow" />
 		</type>
 	</bindings>
--->
 
 </object>
