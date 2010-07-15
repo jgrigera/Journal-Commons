@@ -76,7 +76,8 @@ ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
         multiValued = False,
         searchable=1,
-        
+        #TODO: this should be a proper permission, not generic one
+        write_permission='Manage Portal',
         vocabulary = 'listAvailablePanels',
         enforceVocabulary = True,
         mutator = 'setPanelRef',
