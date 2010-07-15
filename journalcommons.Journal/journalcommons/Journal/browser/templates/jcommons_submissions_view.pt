@@ -6,9 +6,6 @@
 
   <metal:block fill-slot="top_slot"
                tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
-<!-- 
-               tal:define="dummy python:request.set('disable_border',1)" />
- -->               
   <metal:block fill-slot="column_two_slot" />
 
 <metal:javascript fill-slot="javascript_head_slot">
@@ -31,6 +28,11 @@
 
 
       <h1 tal:content="here/Title" class="documentFirstHeading" />
+
+      <!--
+       <div class="documentDescription" tal:content="here/Description" />
+       -->
+
 
 <!-- Anonymous form -->
 <tal:anonymous  tal:condition="isAnon">
@@ -180,10 +182,21 @@
 </tal:anonymous>
       
 	
-<tal:not-anonymous  tal:condition="not:isAnon">
-      <!-- 
-      		<div class="documentDescription" tal:content="here/Description" />
-      	-->
+<tal:not-anonymous  
+	tal:condition="not:isAnon">
+	
+	
+<tal:closed
+      tal:condition="python:not user.has_permission('Add portal content', here)" >
+
+      <div class="portalMessage">
+            Submissions are now closed. <a href="/contact-info">Contact us</a> if you have any queries.
+      </div>
+</tal:closed>
+
+
+<tal:submit
+        tal:condition="python:user.has_permission('Add portal content', here)" >
 
       <p class="portalMessage"
          i18n:translate="description_cannot_add_articles_before_opened"
@@ -199,11 +212,9 @@
          current submissions and their status.
       </p>
 
+      <p>&nbsp;</p>
+
       <div tal:content="structure here/getHelpText"/>
-
-
-	  <p>&nbsp;</p>
-
 
       <div class="formControls">
         <table id="submissions-new-items-form" style='table-layout:fixed'>
@@ -218,7 +229,6 @@
               <div tal:content="structure item/description" style="padding:0em 0.5em 1em 0.5em" /> 
               
               <form action="createObject">
-                    <!-- tal:condition="python: user.has_permission('Poi: Add Issue', here)" -->
 					
                     <div class="jq_dynamic_msg_list" tal:condition="item/subtypes"
                     		tal:repeat="type item/subtypes">
@@ -248,16 +258,15 @@
           </tr>
         </table>
       </div>
+</tal:submit>
 
-
-	  <!--  List of your articles / panels / events -->
-	  <tal:piece_types
-	  		tal:repeat="piece_type view/get_addable_items_list">
-			  <tal:your_pieces 
-			  		tal:define="your_pieces python:view.get_your_pieces(piece_type.portal_type() );"
-			  		tal:condition="your_pieces">
-				  		
-			      <h4 tal:content="python:'Your '+piece_type.name()+'s'">Your articles</h4>
+   <!--  List of your articles / panels / events -->
+   <tal:piece_types  tal:repeat="piece_type view/get_addable_items_list">
+	  <tal:your_pieces 
+	  		tal:define="your_pieces python:view.get_your_pieces(piece_type.portal_type() );"
+	  		tal:condition="your_pieces">
+		
+	      <h4 tal:content="python:'Your '+piece_type.name()+'s'">Your articles</h4>
 		          <table class="listing" width="80%" style='table-layout:fixed'>
 		          	   <col width="23%"/>
 		          	   <col width="30%"/>

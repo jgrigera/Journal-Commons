@@ -2,14 +2,16 @@
 <dc-workflow workflow_id="conference_workflow"
              title="Conference [gcommons]"
              state_variable="review_state"
-             initial_state="draft">
+             initial_state="private">
 
  <!-- Permissions -->             
  <permission>Add portal content</permission>
- <permission>Access contents information</permission>
- <permission>Modify portal content</permission>
  <permission>View</permission>
  <permission>List folder contents</permission>
+
+ <permission>Access contents information</permission>
+ <permission>Modify portal content</permission>
+ <!-- Manage keywords? -->
  
 
  <!-- States -->    
