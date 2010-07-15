@@ -149,7 +149,7 @@ class SubmissionsEditorsView(jcommonsView):
         results = []
         results.append( {   'url': 'gcommons_submissions_asxls_view', 
                             'icon':  'download_icon.gif',
-                            'title':'Download XLS with submissions',} )
+                            'title':'Download list of submissions as Excel',} )
         return results
 
 
