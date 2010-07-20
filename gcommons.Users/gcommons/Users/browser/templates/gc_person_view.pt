@@ -1,0 +1,214 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="FacultyStaffDirectory">
+
+  <head></head>
+  
+  <body>
+  
+    <metal:fill fill-slot="main">
+        <div id="hcard" class="vcard facultyStaffDirectory personView" >
+
+            <div class="caption">
+              <div class="headshot"
+                 tal:condition="context/image_normal|nothing">
+                
+
+	<img src="" alt="" tal:replace="structure python:context.getWrappedField('image').tag(context, scale='normal',  css_class='photo')" />
+    
+            </div>
+                <div metal:use-macro="context/document_actions/macros/document_actions">
+                    [Document actions (print, sendto etc)]
+                </div>
+
+
+<h1 class="fn n">
+  <span class="given-name" tal:content="context/getFirstName">[First Name]</span>
+  <span class="additional-name" tal:content="context/getMiddleName | nothing">[Middle Name]</span>
+  <span class="family-name" tal:content="context/getLastName">[Last Name]</span>
+  <span class="honorific-suffix" tal:content="context/getSuffix">[ suffix i.e. Dr]</span>
+</h1>
+
+	<!--  maybe later -->                             
+	<span class="adr" tal:condition="python:False">
+		<span class="street-address" tal:content="structure python:context.getOfficeAddress().replace('\n', '<br />')" /><br />
+		<span class="locality" tal:content="context/getOfficeCity" >[office city]</span>
+		<tal:block tal:condition="context/getOfficeState">, </tal:block>
+		<span class="region" tal:content="context/getOfficeState">[office state]</span> 
+		<span class="postal-code" tal:content="context/getOfficePostalCode">[postal zip code]</span>
+	</span>
+
+
+<tal:comment tal:replace="nothing">***** I put the class=email in a span before the a tag since the microformat spec doesn't say i can't do that </tal:comment>
+                <div tal:condition="context/getEmail">
+                    <span>Email</span>:
+                    <span tal:attributes="class string:email" tal:content="structure view/getSpamProtectedEmail" />
+                </div>
+<!-- later -->
+<tal:later tal:condition="python:False">
+	<span tal:condition="context/getOfficePhone" class="tel officePhone">
+		<span class="type" i18n:translate="FacultyStaffDirectory_label_officePhone">Work</span>:
+		<span class="value" tal:content="context/getOfficePhone">[office phone number]</span>
+	</span>
+
+     <div tal:condition="context/getWebsites" class="websites">
+         <h3 i18n:translate="FacultyStaffDirectory_label_websites">Websites:</h3>
+         <ul>
+             <li tal:repeat="website context/getWebsites">
+                 <a class='url' href="" 
+                    tal:attributes="href website"
+                    tal:content="website" />
+             </li>
+         </ul>              
+     </div>
+</tal:later>
+</div>
+
+            <div class="visualClear"><!-- --></div>
+
+
+			<!--  List of your articles / panels / events -->
+			<tal:piece_types  tal:repeat="piece_type view/get_addable_items_list">
+				<tal:your_pieces 
+			  		tal:define="your_pieces python:view.get_your_contributions(piece_type.portal_type() );"
+			  		tal:condition="your_pieces">
+				
+			      <h4 tal:content="python:'Your '+piece_type.name()+'s'">Your articles</h4>
+				          <table class="listing" width="80%" style='table-layout:fixed'>
+				          	   <col width="23%"/>
+				          	   <col width="30%"/>
+				          	   <col width="10%"/>
+				          	   <col/>
+				               <tr>
+				                   <th>Title</th>
+				                   <th>Type</th>
+				                   <th>State</th>
+				                   <th>Comment</th>
+				               </tr>
+				
+								<tal:article repeat="article your_pieces">
+				                <tr tal:define="oddrow repeat/article/odd;"
+				                    tal:attributes="class python:oddrow and 'even' or 'odd'">
+				                    
+				                    <td><a href="#" tal:attributes="href article/absolute_url" tal:content="article/Title" /></td>
+				                    <td tal:content="python:article.get_item_subtype(name=True)" />
+				                    <td class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
+				                    <td tal:content="article/get_state_comments" />
+				                </tr>
+						        </tal:article>
+				           </table>
+				</tal:your_pieces>
+			</tal:piece_types>
+
+
+			<!--  List of open CFPs -->
+			<tal:cfps tal:define="site_cfps view/get_cfps">
+				
+			      <h4>Open CFPs</h4>
+				          <table class="listing" width="80%" style='table-layout:fixed'>
+				          	   <col width="23%"/>
+				          	   <col width="30%"/>
+				          	   <col width="10%"/>
+				          	   <col/>
+				               <tr>
+				                   <th>Type</th>
+				                   <th>Title</th>
+				               </tr>
+				
+								<tal:article repeat="cfp site_cfps">
+				                <tr tal:define="oddrow repeat/cfp/odd;"
+				                    tal:attributes="class python:oddrow and 'even' or 'odd'">
+				                    
+				                    <td tal:content="cfp/portal_type" />
+				                    <td><a href="#" tal:attributes="href cfp/absolute_url" tal:content="cfp/Title" /></td>
+				                    <!-- 
+									<td class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
+									-->
+				                </tr>
+						        </tal:article>
+				           </table>
+			</tal:cfps>
+
+
+            
+<tal:later tal:condition="python:False">
+            <div tal:condition="context/getEducation" class="education">
+                <h3 i18n:translate="FacultyStaffDirectory_label_education">Education:</h3>
+                <ol>
+                    <li tal:repeat="degree context/getEducation">
+                        <span tal:content="degree" />
+                    </li>
+                </ol>
+            </div>
+
+            <div tal:condition="here/getBiography" class="biography">
+                <h3 i18n:translate="FacultyStaffDirectory_label_biography">Biography:</h3>
+                <span tal:content="structure context/getBiography" />
+            </div>
+
+            <div class="specialties" tal:define="specialtyTuples context/getSpecialties" tal:condition="specialtyTuples">
+                <h3 i18n:translate="FacultyStaffDirectory_label_researchInterests">Research Interests:</h3>
+                <dl>
+                    <tal:block tal:repeat="eachSpecialtyTuple specialtyTuples">
+                        <tal:block tal:define="specialtyBrain python:eachSpecialtyTuple[0];
+                                               personSpecialtyData python:eachSpecialtyTuple[1].getContentObject();">
+                            <dt>
+                                <a tal:attributes="href specialtyBrain/getURL">
+                                  <span tal:content="specialtyBrain/Title" />:
+                                </a>
+                            </dt>
+                            <dd tal:define="researchTopic personSpecialtyData/getResearchTopic">
+                                <tal:block tal:condition="researchTopic"
+                                           tal:replace="structure researchTopic">
+                                </tal:block>
+                                <span tal:condition="python:checkPermission('Modify portal content', context)"
+                                      class="discreet">[
+                                    <a tal:attributes="href python:'%s/edit' % personSpecialtyData.absolute_url()">
+                                       <tal:block tal:condition="researchTopic" i18n:translate="FacultyStaffDirectory_editResearchTopic">Edit research topic</tal:block>
+                                       <tal:block tal:condition="not:researchTopic" i18n:translate="FacultyStaffDirectory_assignResearchTopic">Assign a research topic</tal:block>
+                                    </a>
+                                ]</span>
+                            </dd>
+                        </tal:block>
+                    </tal:block>
+                </dl>
+            </div>
+
+            <div class="departments" tal:define="departmentsList context/getDepartments" tal:condition="departmentsList">
+                <h3 i18n:translate="FacultyStaffDirectory_label_departments">Departments:</h3>
+                <dl>
+                    <tal:block tal:repeat="eachDepartment departmentsList">
+                        <dt>
+                            <a tal:attributes="href python:eachDepartment.absolute_url()">
+                                <span tal:content="eachDepartment/Title" />:
+                            </a>
+                        </dt>
+                            <dd tal:define="personMembershipInformation python:eachDepartment.getMembershipInformation(context);">
+                                <tal:block tal:condition="personMembershipInformation/getPosition" 
+                                           tal:replace="structure personMembershipInformation/getPosition">               
+                                </tal:block>                                
+                                <span tal:condition="python:checkPermission('Modify portal content', context)"
+                                      class="discreet">[
+                                    <a tal:attributes="href python:'%s/edit' % personMembershipInformation.absolute_url()">
+                                       <tal:block tal:condition="personMembershipInformation/getPosition" i18n:translate="FacultyStaffDirectory_editPosition">Edit position</tal:block>
+                                       <tal:block tal:condition="not:personMembershipInformation/getPosition" i18n:translate="FacultyStaffDirectory_assignPosition">Assign a position</tal:block>
+                                    </a>
+                                ]</span>                           
+                            </dd>
+                    </tal:block>
+                </dl>
+            </div>
+</tal:later>        
+
+
+
+        </div>
+    </metal:fill>
+  
+  </body>
+</html>

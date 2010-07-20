@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<componentregistry>
+  <adapters/>
+  <utilities>
+
+    <utility
+       interface="Products.membrane.interfaces.IUserAdder"
+       factory="gcommons.Users.membrane.selfregistration.UserAdder"
+       name="gcommons_users" />
+       
+  </utilities>
+</componentregistry>

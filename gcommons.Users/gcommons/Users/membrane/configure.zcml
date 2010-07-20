@@ -1,0 +1,26 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
+           i18n_domain="FacultyStaffDirectory">
+
+  <adapter for="..interfaces.gcperson.IgcPerson"
+           provides="Products.membrane.interfaces.IUserRelated"
+           factory=".person.UserRelated" />
+  <adapter for="..interfaces.gcperson.IgcPerson"
+           provides="Products.membrane.interfaces.IUserRoles"
+           factory=".person.UserRoles" />
+
+  <!-- User Management -->
+  <adapter for="..interfaces.gcperson.IgcPerson"
+           provides="Products.membrane.interfaces.IMembraneUserManagement"
+           factory=".person.UserManagement" />
+  <adapter for="..interfaces.gcperson.IgcPerson"
+           provides="Products.membrane.interfaces.IMembraneUserDeleter"
+           factory=".person.UserManagement" />
+
+  <!--   -->
+  <adapter for="..interfaces.gcperson.IgcPerson"
+           provides="Products.membrane.interfaces.IUserAuthentication"
+           factory=".person.UserAuthentication" />
+
+</configure>

@@ -35,3 +35,8 @@ class ConferenceView(BrowserView):
     def getFolderContents(self):
         brains = self.context.listFolderContents()
         return brains
+
+    def debug_show_user_roles(self):
+        portal_membership = getToolByName(self.context, 'portal_membership')
+        user = portal_membership.getAuthenticatedMember()
+        return 'Debug: Roles %s for %s' % (str(user.getRoles()), user.getId())

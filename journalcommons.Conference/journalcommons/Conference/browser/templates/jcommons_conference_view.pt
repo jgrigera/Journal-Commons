@@ -17,7 +17,9 @@
 
         <div class="vevent">
 
-        <h1 class="documentFirstHeading summary"> 
+        <h1 class="documentFirstHeading summary"
+        	title="#"
+        	tal:attributes="title view/debug_show_user_roles" >
             <metal:field use-macro="python:here.widget('title', mode='view')">
             Title
             </metal:field>

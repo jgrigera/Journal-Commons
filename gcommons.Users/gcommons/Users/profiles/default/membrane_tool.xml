@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<object name="membrane_tool" meta_type="MembraneTool">
+  <membrane-type name="gcPerson">
+    <active-workflow-state name="published" />
+    <active-workflow-state name="private" />
+    <active-workflow-state name="active" />
+    <active-workflow-state name="hiddenactive" />
+  </membrane-type>
+
+  <query_index_map>
+      <index name="fullname">Title</index>
+      <index name="email">getEmail</index>
+  </query_index_map>
+</object>

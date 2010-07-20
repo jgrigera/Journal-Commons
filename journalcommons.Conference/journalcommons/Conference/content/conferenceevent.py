@@ -12,45 +12,21 @@ from Products.DataGridField.DataGridField import DataGridField
 from gcommons.Core.widgets.SelectDescriptionWidget import SelectDescriptionWidget
 #from journalcommons.Conference.permission import ChangeConferenceSchedule
 
-from journalcommons.Conference import ConferenceMessageFactory as _
-from journalcommons.Conference.interfaces import IConferenceEvent
-from journalcommons.Conference.config import PROJECTNAME
-
 # Event support
 from DateTime import DateTime
 from Products.ATContentTypes.utils import DT2dt
 from Products.ATContentTypes.lib.calendarsupport import CalendarSupportMixin
 from Products.ATContentTypes.interfaces import ICalendarSupport
 
-
-ConferenceEventSchema = folder.ATFolderSchema.copy() + atapi.Schema((
-    atapi.StringField(
-        name='primaryAuthor',
-        index='FieldIndex',
-        searchable=True,
-        default_method ='_compute_author',
-        vocabulary = 'vocabAuthor',
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.StringWidget(
-            name = 'Primary Author',
-            description = _('Principal creator or responsible of the panel (for notifications).'),
-        ),
-    ),
-    
-    DataGridField(
-        name='extraAuthors',
-        widget=DataGridWidget(
-            label=_("Other Authors"),
-            description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
-            column_names=('Name', 'Institution','email',),
-        ),
-        allow_empty_rows=False,
-        required=False,
-        columns=('name', 'institution', 'email')
-    ),
+# gcommons
+from gcommons.Core.lib.schemata import gcAuthorsSchema
+from journalcommons.Conference import ConferenceMessageFactory as _
+from journalcommons.Conference.interfaces import IConferenceEvent
+from journalcommons.Conference.config import PROJECTNAME
 
 
 
+ConferenceEventSchema = folder.ATFolderSchema.copy() + gcAuthorsSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='eventType',
         required=True,

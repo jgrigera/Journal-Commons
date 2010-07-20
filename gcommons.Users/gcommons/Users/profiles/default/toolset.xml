@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<tool-setup>
+
+  <required tool_id="portal_gcommons_users"
+            class="gcommons.Users.tools.gcUserContainer.gcUserContainer"/>
+<!--
+  <required tool_id="portal_registration"
+            class="Products.remember.tools.registration.RegistrationTool"/>
+-->            
+</tool-setup>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_skins" meta_type="Plone Skins Tool">
+ <object name="gcommons_users" 
+	meta_type="Filesystem Directory View"
+	directory="gcommons.Users:skins/gcommons_users"/>
+	
+ <skin-path name="*">
+  <layer name="gcommons_users" insert-after="custom" />
+ </skin-path>
+</object>

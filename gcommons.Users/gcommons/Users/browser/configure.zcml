@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="gcommons.Users">
+
+  <include package="plone.app.contentmenu" />
+
+  <!-- -*- extra stuff goes here -*- -->
+
+  <browser:page
+      for="*"
+      name="gc_person_view"
+      class=".gcPersonView.gcPersonView"
+      template="templates/gc_person_view.pt"
+      allowed_interface=".gcPersonView.IgcPersonView"
+      permission="zope.Public"
+      />
+
+
+</configure>

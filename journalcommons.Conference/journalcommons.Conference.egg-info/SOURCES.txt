@@ -35,6 +35,8 @@ journalcommons/Conference/interfaces/conferenceevent.py
 journalcommons/Conference/interfaces/conferencepaper.py
 journalcommons/Conference/portlets/__init__.py
 journalcommons/Conference/portlets/configure.zcml
+journalcommons/Conference/profiles/default/actions.xml
+journalcommons/Conference/profiles/default/catalog.xml
 journalcommons/Conference/profiles/default/factorytool.xml
 journalcommons/Conference/profiles/default/metadata.xml
 journalcommons/Conference/profiles/default/portlets.xml

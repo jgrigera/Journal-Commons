@@ -10,9 +10,9 @@ from Products.Archetypes.utils import mapply
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
-from Products.DataGridField.DataGridWidget import DataGridWidget
-from Products.DataGridField.DataGridField import DataGridField
 
+# gcommons
+from gcommons.Core.lib.schemata import gcAuthorsSchema
 from journalcommons.Conference import ConferenceMessageFactory as _
 from journalcommons.Conference.interfaces import IConferencePaper
 from journalcommons.Conference.config import PROJECTNAME
@@ -21,43 +21,11 @@ import logging
 logger = logging.getLogger('jcommons.Conference.content.ConferencePaper')
 
 
+
 #####################################
 # Schema
-ConferencePaperSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+ConferencePaperSchema = folder.ATFolderSchema.copy() + gcAuthorsSchema.copy() + atapi.Schema((
     # -*- Your Archetypes field definitions here ... -*-
-    atapi.StringField(
-        name='primaryAuthor',
-        searchable=True,
-        index='FieldIndex',
-        default_method ='_compute_author',
-        vocabulary = 'vocabAuthor',
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.ComputedWidget(
-            name = 'Primary Author',
-            description = _('Principal creator or responsible of the paper.'),
-            visible = {'edit' : 'visible', 'view' : 'visible' },
-        ),
-    ),
-    
-    DataGridField(
-        name='extraAuthors',
-        widget=DataGridWidget(
-            label=_("Other Authors"),
-            description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
-            column_names=('Name', 'Institution',),
-        ),
-        allow_empty_rows=False,
-        required=False,
-        columns=('name', 'institution')
-    ),
-
-    atapi.ComputedField(
-        name='creators',
-        storage = atapi.AnnotationStorage(),
-        searchable = True,
-        expression = 'context._compute_creators()',
-    ),
-    
     atapi.StringField(
         name='specialRequirements',
         required=False,
@@ -244,6 +212,19 @@ class ConferencePaper(folder.ATFolder):
         
     def get_no_drafts(self):
         return len( self.get_drafts() )
+    
+    ###TODO:
+    # this is not the place for this func. Maybe a tool.. or a lib, comes from common schemata, awfull
+    # same with _compute users, creator, etc
+    def SearchAllUsers_refbrowser(self):
+        """ return a query dictionary to limit the search parameters for a reference browser                                                                            
+            widget query.                                                                                                 
+        """                                                                                                                                                             
+        return {'portal_type': 'gcPerson',                                                                                                                             
+                'sort_on': sort_on,                                                                                                                                     
+                'path': {'query': self.getPhysicalPath()}
+        }                                                                                                                                
+
 
     # Migration code
     def migrate_to_panel(self):
@@ -257,6 +238,16 @@ class ConferencePaper(folder.ATFolder):
         obj = parent[fldid]
         obj.changeOwnership( self.getOwner(), 0 )
 
-
+    def migrate_author(self):
+	"""
+	temp
+	"""
+	extra = []
+	for name in self.listCreators()[1:]:
+	    extra.append({'name': "%s" % str(name) })
+	self.setExtraAuthors( extra )
+	#self.setExtraAuthors({})
+	self.setPrimaryAuthor( "%s" % self.getOwner() )
+	return self.listCreators()
 
 atapi.registerType(ConferencePaper, PROJECTNAME)
