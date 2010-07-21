@@ -234,8 +234,14 @@ class ConferencePaper(folder.ATFolder):
 	parent = aq_parent(aq_inner(self))
 	fldid = parent.invokeFactory('ConferenceEvent', 'panel_%s' % self.getId(), title = self.title,
                         description=self.description, text=self.description, creators=self.creators, 
-                        primaryAuthor=self.listCreators()[0], unconfirmedExtraAuthors=','.join(self.listCreators()) )
+                        primaryAuthor=self.listCreators()[0] )
         obj = parent[fldid]
+	extra = []
+	
+	for name in self.listCreators()[1:]:
+	    extra.append({'name': "%s" % str(name) })
+	obj.setUnconfirmedExtraAuthors( extra )
+	
         obj.changeOwnership( self.getOwner(), 0 )
 
     def migrate_author(self):

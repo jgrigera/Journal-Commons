@@ -111,8 +111,8 @@
 	<!-- REMOVE THIS AWFULL CODE -->
 	<tal:cpaper tal:condition="python:here.portal_type == 'ConferencePaper'">
     	    <tal:temp tal:condition="here/getIsPanel">
-		ispanel: <span tal:content="here/getIsPanel"/><br/>
-		<a href="migrate_to_panel">Convert to panel (YOU SHOULD KNOW WHAT YOU ARE DOING. DO IT ONLY ONCE)</a>
+		ispanel: <span tal:content="here/getIsPanel"/><p/>
+		<a href="migrate_to_panel">Convert to panel (YOU SHOULD KNOW WHAT YOU ARE DOING. DO IT ONLY ONCE)</a><p/>
 		<a href="migrate_authors">Migrate authors mess (YOU SHOULD KNOW WHAT YOU ARE DOING. DO IT ONLY ONCE)</a>
 	   </tal:temp>
 	    <tal:temp tal:condition="here/getIsPartPanel">
