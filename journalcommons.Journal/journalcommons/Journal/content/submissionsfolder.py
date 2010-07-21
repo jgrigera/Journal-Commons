@@ -230,7 +230,7 @@ class SubmissionsFolder(folder.ATBTreeFolder):
         just DELETE ME , TODO
 	"""
 	for item in self.searchSubmissions(portal_type='ConferencePaper'):
-	    item.migrate_author()
+	    item.getObject().migrate_author()
 
     
 atapi.registerType(SubmissionsFolder, PROJECTNAME)
