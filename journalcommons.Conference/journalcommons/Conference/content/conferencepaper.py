@@ -107,7 +107,7 @@ def finalizeConferenceSchema(schema):
     
     # Fix after ATContentTypes
     # Reorder
-    schema.moveField('description', after='extraAuthors')
+    schema.moveField('description', before='specialRequirements')
     schema.moveField('subject', after='description')
     # Schematas
     schema.changeSchemataForField('subject', 'default')
@@ -234,7 +234,7 @@ class ConferencePaper(folder.ATFolder):
 	parent = aq_parent(aq_inner(self))
 	fldid = parent.invokeFactory('ConferenceEvent', 'panel_%s' % self.getId(), title = self.title,
                         description=self.description, text=self.description, creators=self.creators, 
-                        primaryAuthor=self.listCreators()[0], extraAuthors=','.join(self.listCreators()) )
+                        primaryAuthor=self.listCreators()[0], unconfirmedExtraAuthors=','.join(self.listCreators()) )
         obj = parent[fldid]
         obj.changeOwnership( self.getOwner(), 0 )
 

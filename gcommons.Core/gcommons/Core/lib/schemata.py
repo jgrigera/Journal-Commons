@@ -30,7 +30,7 @@ gcAuthorsSchema_basic = atapi.Schema ((
         widget=DataGridWidget(
             label=_("Other Authors"),
             description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
-            column_names=('Name', 'Institution',),
+            column_names=('Name', 'Institution', 'email'),
         ),
         allow_empty_rows=False,
         required=False,
