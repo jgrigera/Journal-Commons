@@ -191,8 +191,8 @@ class SubmissionsFolder(folder.ATBTreeFolder):
 	ws0 = wb.add_sheet('Abstracts')
 	
 	Fields = [ 
-	    { 'column': 0, 'title': 'Author',           'value': 'primaryAuthor' },
-	    { 'column': 1, 'title': 'Authors',          'value': 'extraAuthors' },
+	    { 'column': 0, 'title': 'Author',          'value': 'primaryAuthor' },
+	    { 'column': 1, 'title': 'Authors',         'value': 'unconfirmedExtraAuthors' },
 	    { 'column': 2, 'title': 'Title',           'value': 'title' },
 	    { 'column': 3, 'title': 'Abstract',        'value': 'description' },
 	    { 'column': 4, 'title': 'Requirements',    'value': 'specialRequirements' },
@@ -218,11 +218,19 @@ class SubmissionsFolder(folder.ATBTreeFolder):
 		    if value is not None:
 			ws0.write(n, field['column'], unicode(value))
 		except UnicodeDecodeError:
-		    ws0.write(n,field['column'], "ERROR!!")
-
+		    ws0.write(n,field['column'], "UNICODE ERROR!!")
+	
 	wb.save(data)
 	data.seek(0)
 	return data
+
+
+    def migrate_them_all(self, **kwargs):
+	"""
+        just DELETE ME , TODO
+	"""
+	for item in self.searchSubmissions(portal_type='ConferencePaper'):
+	    item.migrate_author()
 
     
 atapi.registerType(SubmissionsFolder, PROJECTNAME)
