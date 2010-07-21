@@ -147,7 +147,7 @@ class EditorsMeeting(folder.ATFolder,CalendarSupportMixin):
     def download_all_as_zip(self, **kwargs):
         """
         """
-        portal_workflow = getToolByName(self.context, 'portal_workflow')
+        portal_workflow = getToolByName(self, 'portal_workflow')
         data = StringIO()
         out = zipfile.ZipFile(data, 'w')
 

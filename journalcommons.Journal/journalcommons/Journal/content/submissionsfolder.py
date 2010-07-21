@@ -155,7 +155,7 @@ class SubmissionsFolder(folder.ATBTreeFolder):
         criteria = {
             'sort_on':'created',
             'sort_order': 'reverse',
-            'path': '/'.join(self.context.getPhysicalPath())
+            'path': '/'.join(self.getPhysicalPath())
         }
         if portal_type is not None:
             criteria['portal_type'] = portal_type
