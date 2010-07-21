@@ -37,24 +37,24 @@ gcAuthorsSchema_basic = atapi.Schema ((
         columns=('name', 'institution', 'email')
     ),
 
-    atapi.ReferenceField(
-        name='refExtraAuthors',
-        relationship = 'refExtraAuthors',
-        required = False,
-        multiValued = True,
-        searchable=1,
-        allowed_types=('gcPerson',),
-        storage=atapi.AnnotationStorage(),
-        
-        widget = ReferenceBrowserWidget(
-            label=_("Other Authors"),
-            description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
-            allow_browse=0,
-            allow_search=1,
-            show_results_without_query=1, 
-#            startup_directory_method="_get_gcommons_users_tool",
-        ),            
-    ),
+#    atapi.ReferenceField(
+#        name='refExtraAuthors',
+#        relationship = 'refExtraAuthors',
+#        required = False,
+#        multiValued = True,
+#        searchable=1,
+#        allowed_types=('gcPerson',),
+#        storage=atapi.AnnotationStorage(),
+#        
+#        widget = ReferenceBrowserWidget(
+#            label=_("Other Authors"),
+#            description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
+#            allow_browse=0,
+#            allow_search=1,
+#            show_results_without_query=1, 
+##            startup_directory_method="_get_gcommons_users_tool",
+#        ),            
+#    ),
     
 
 #    atapi.ComputedField(
@@ -94,6 +94,7 @@ def finalizeAuthorsSchema(schema):
 	#return Schema
 
 
-gcAuthorsSchema = finalizeAuthorsSchema(gcAuthorsSchema_basic)
+#gcAuthorsSchema = finalizeAuthorsSchema(gcAuthorsSchema_basic)
+gcAuthorsSchema = gcAuthorsSchema_basic
 
 

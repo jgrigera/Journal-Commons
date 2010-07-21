@@ -245,7 +245,7 @@ class ConferencePaper(folder.ATFolder):
 	extra = []
 	for name in self.listCreators()[1:]:
 	    extra.append({'name': "%s" % str(name) })
-	self.setExtraAuthors( extra )
+	self.setUnconfirmedExtraAuthors( extra )
 	#self.setExtraAuthors({})
 	self.setPrimaryAuthor( "%s" % self.getOwner() )
 	return self.listCreators()
