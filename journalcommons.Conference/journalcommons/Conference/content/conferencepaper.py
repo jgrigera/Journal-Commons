@@ -233,7 +233,7 @@ class ConferencePaper(folder.ATFolder):
 	"""
 	parent = aq_parent(aq_inner(self))
 	htmltext = self.description
-	htmltext = htmltext.replace("\n", "<br/>")
+	#htmltext = htmltext.replace("\n", "<br/>")
 	fldid = parent.invokeFactory('ConferenceEvent', 'panel_%s' % self.getId(), title = self.title,
                         description=self.description, text=htmltext, creators=self.creators, 
                         primaryAuthor=self.listCreators()[0] )
@@ -242,8 +242,15 @@ class ConferencePaper(folder.ATFolder):
 	extra = []
 	for name in self.listCreators()[1:]:
 	    extra.append({'name': "%s" % str(name) })
+
+	portal_catalog = getToolByName(self, 'portal_catalog')
+	brains = self.portal_catalog({'UID': self.UID(),})
+	moreCreators = brains[0].listCreators
+	for name in moreCreators:
+	    extra.append({'name': "%s" % str(name) })
+
 	obj.setUnconfirmedExtraAuthors( extra )
-	
+
         obj.changeOwnership( self.getOwner(), 0 )
         return self.listCreators()
 

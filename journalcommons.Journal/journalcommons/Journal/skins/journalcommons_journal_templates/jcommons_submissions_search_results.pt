@@ -32,7 +32,8 @@
                    <td tal:define="authors item/listCreators">
                    		<!--  first author is userid -->
                    		<span tal:condition="authors" 
-                   				tal:replace="python:context.portal_membership.getMemberById(authors[0]).fullname" /><span 
+                   				tal:define="member context.portal_membership.getMemberById(authors[0])"
+                   				tal:replace="member/fullname|authors" /><span 
                    				tal:condition="python:len(authors) > 1" tal:replace="python:', '+', '.join(authors[1:])" />  	
                    </td> 
                    <td>
