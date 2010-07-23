@@ -52,8 +52,8 @@ class mail(Action):
 
         portal_url = getToolByName(aq_inner(self.context), "portal_url")
         portal = portal_url.getPortalObject()
-        mailhost = getToolByName(aq_inner(self.context), "MailHost")
-        if not mailhost:
+        self.mailhost = getToolByName(aq_inner(self.context), "MailHost")
+        if not self.mailhost:
             raise ComponentLookupError, 'You must have a Mailhost utility to execute this action'
 
         # first construct all replacement variables
@@ -66,12 +66,19 @@ class mail(Action):
         # user 
         try:
             user = self.context.portal_membership.getAuthenticatedMember()
-            values.set('userid', user.getId())
-            logger.info("userid is %s"  % user.getId())
-            values.set('userfullname', user.getProperty('fullname'))
-            logger.info("userfullname is %s"  % values['userfullname'])
-            values.set('useremail', user.getProperty('email'))
-            logger.info("useremail is %s"  % values['useremail'])
+            values.set('loggeduserid', user.getId())
+            values.set('loggeduserfullname', user.getProperty('fullname'))
+            values.set('loggeduseremail', user.getProperty('email'))
+        except AttributeError, e:
+            logger.error("class %s" % user.__class__)
+            logger.error(" %s" % dir(user) )
+            raise e
+            
+        try:
+            user = self.context.portal_membership.getMemberById(self.object.getPrimaryAuthor())
+            values.set('creatorid', user.getId())
+            values.set('creatorfullname', user.getProperty('fullname'))
+            values.set('creatoremail', user.getProperty('email'))
         except AttributeError, e:
             logger.error("class %s" % user.__class__)
             logger.error(" %s" % dir(user) )
@@ -93,9 +100,8 @@ class mail(Action):
 
 
         # Now send the email        
-        logger.info("1")
         logger.info(email_text)
-        recipients = ["%(userfullname)s <%(useremail)s>" % values,]
+        recipients = ["%(creatorfullname)s <%(creatoremail)s>" % values,]
 
         # Get From Address
         email_charset = portal.getProperty('email_charset')
@@ -106,23 +112,39 @@ class mail(Action):
         source = "%s <%s>" % (from_name, from_address)
 
 
-        for email_recipient in recipients:                         
-                # Create message container - the correct MIME type is multipart/alternative.
-                msg = MIMEMultipart('alternative')                                          
-                msg['Subject'] = email_subject
-                msg['From'] = source
-                msg['To'] = email_recipient
-                msg.preamble = 'This is a multi-part message in MIME format.'
-
-                part1 = MIMEText(email_text, 'plain','utf-8')
-                msg.attach(part1)
-                # part2 = MIMEText(message_body, 'html')
-                # msg.attach(part2)
-                
-                logger.info(msg.as_string())
-                logger.info("Mail to %s, from %s, subject %s" % (email_recipient, source, email_subject))
-                mailhost.send( msg.as_string() )
+        # email Author(s) of the piece
+        for email_recipient in recipients:
+                self.send_email(mfrom=source, mto=email_recipient, msubject=email_subject, 
+                                 mplain_text=email_text)
+                                 
+        # if author and logged in user are different, send logged in user a copy
+        if values['creatorid'] != values['loggeduserid']:
+                admin_email_text = "The following message has been sent:\n\n %s " % email_text
+                email_recipient = "%(loggeduserfullname)s <%(loggeduseremail)s>" % values
+                self.send_email(mfrom=source, mto=email_recipient, msubject="Notify: %s" % email_subject, 
+                                 mplain_text=admin_email_text)
         return True
+
+
+    def send_email(self, mfrom=None, mto=None, msubject=None, mplain_text=None):
+        """ Send a single email
+        """
+        # Create message container - the correct MIME type is multipart/alternative.
+        msg = MIMEMultipart('alternative')                                          
+        msg['Subject'] = msubject
+        msg['From'] = mfrom
+        msg['To'] = mto
+        msg.preamble = 'This is a multi-part message in MIME format.'
+
+        part1 = MIMEText(mplain_text, 'plain','utf-8')
+        msg.attach(part1)
+        # part2 = MIMEText(message_body, 'html')
+        # msg.attach(part2)
+
+        #logger.info(msg.as_string())
+        logger.info("Mail to %s, from %s, subject %s" % (mto, mfrom, msubject))
+        self.mailhost.send( msg.as_string() )
+
         
         
         

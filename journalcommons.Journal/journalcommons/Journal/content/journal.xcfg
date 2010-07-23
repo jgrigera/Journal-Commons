@@ -47,11 +47,11 @@
 					<id>created</id>
 					<type>mail</type>
 					<template>
-To: "%(userfullname)s" %(useremail)s
+To: "%(creatorfullname)s" %(creatoremail)s
 Subject: Draft %(title)s
 
-USERID: %(userid)s
-Dear %(userfullname)s,
+creatorID: %(creatorid)s
+Dear %(creatorfullname)s,
 
 Thank you for your submission of your article paper "%(title)s". Please note that we consider your submission a draft.
 You can now edit this at your convenience, visiting %(url)s
@@ -70,11 +70,11 @@ CSA
 					<id>workflow:submittoeb</id>
 					<type>mail</type>
 					<template>
-To: "%(userfullname)s" %(useremail)s
+To: "%(creatorfullname)s" %(creatoremail)s
 Subject: Submitted %(title)s
 
 
-Dear %(userfullname)s,
+Dear %(creatorfullname)s,
 
 Thank you for your submission of your article "%(title)s". We confirm its reception and we will get back to you at
 the earliest convenience.
