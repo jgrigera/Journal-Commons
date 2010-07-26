@@ -61,20 +61,6 @@ class ArticleView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-    def get_user_details(self, user):
-    	""" Method to pack details about a user/creator
-    	"""
-    	details = {}
-    	details['home_url'] = self.portal_membership.getHomeUrl(user)
-    	member_info = self.portal_membership.getMemberInfo(user)
-    	if member_info:
-    	    details['fullname'] = member_info['fullname'] or user
-    	else:
-    	    details['fullname'] = user
-    	details['email'] = 'todo@later.com'
-    	return details
-
-
     def get_drafts(self):
         """
         This method returns all drafts for this article

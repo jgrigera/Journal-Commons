@@ -23,6 +23,23 @@
     color: #cc00cc  !important;
 }
 
+/* Relators in two columns */
+#relatorsTwoColumns {
+}
+
+#relatorsTwoColumns .column {
+    position: relative;
+    width: 40%;
+}
+
+#relatorsTwoColumns .left {
+    float: left;
+}
+
+#relatorsTwoColumns .right {
+    float: right;
+}
+
 
 /* Submissions folder */
 .submissions-bycriteria-box {    

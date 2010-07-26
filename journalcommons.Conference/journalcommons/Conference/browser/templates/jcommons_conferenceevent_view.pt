@@ -23,15 +23,17 @@
             </metal:field>
         </h1>
 
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
-
         <p class="documentDescription">
             <metal:field use-macro="python:here.widget('description', mode='view')">
             Description
             </metal:field>
         </p>
+
+        <div tal:replace="structure provider:gcommons.relatorsprovider" />
                 
         <div tal:replace="structure provider:plone.abovecontentbody" />
+
+        <span class="visualClear">&nbsp;<p/><!-- --></span>
 
         <div class="eventDetails vcard">
         <table class="vertical listing"

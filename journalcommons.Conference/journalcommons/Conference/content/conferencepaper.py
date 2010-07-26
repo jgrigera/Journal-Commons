@@ -12,7 +12,7 @@ from Products.ATContentTypes.content import schemata
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 # gcommons
-from gcommons.Core.lib.schemata import gcAuthorsSchema
+from gcommons.Core.lib.relators import RelatorsMixin
 from journalcommons.Conference import ConferenceMessageFactory as _
 from journalcommons.Conference.interfaces import IConferencePaper
 from journalcommons.Conference.config import PROJECTNAME
@@ -24,7 +24,7 @@ logger = logging.getLogger('jcommons.Conference.content.ConferencePaper')
 
 #####################################
 # Schema
-ConferencePaperSchema = folder.ATFolderSchema.copy() + gcAuthorsSchema.copy() + atapi.Schema((
+ConferencePaperSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + atapi.Schema((
     # -*- Your Archetypes field definitions here ... -*-
     atapi.StringField(
         name='specialRequirements',
@@ -114,7 +114,7 @@ def finalizeConferenceSchema(schema):
     return schema
     
 
-class ConferencePaper(folder.ATFolder):
+class ConferencePaper(folder.ATFolder, RelatorsMixin):
     """A paper submitted to a conference"""
     implements(IConferencePaper)
 
@@ -126,31 +126,6 @@ class ConferencePaper(folder.ATFolder):
     description = atapi.ATFieldProperty('description')
     specialRequirements = atapi.ATFieldProperty('specialRequirements')
 
-    #
-    # Computed fields
-    def _compute_author(self):
-        user = self.portal_membership.getAuthenticatedMember()
-        return user.getId()
-    
-    def _compute_creators(self):
-        """ Join values of author and extra authors
-        
-        Caveat: order of evaluation in schema is relevant.
-        """
-        creators = [self._compute_author(),]
-        for author in self.getExtraAuthors():
-            try:
-                creators.append("%s (%s)" % (author['name'], author['institution']))
-            except KeyError:
-                pass
-        return creators
-        
-    def vocabAuthor(self):
-        user = self.portal_membership.getAuthenticatedMember()
-        list = atapi.DisplayList()
-        list.add(user.getId(), user.fullname)
-        return list
-        
         
     # Vocabulary
     def listAvailablePanels(self):
@@ -213,18 +188,6 @@ class ConferencePaper(folder.ATFolder):
     def get_no_drafts(self):
         return len( self.get_drafts() )
     
-    ###TODO:
-    # this is not the place for this func. Maybe a tool.. or a lib, comes from common schemata, awfull
-    # same with _compute users, creator, etc
-    def SearchAllUsers_refbrowser(self):
-        """ return a query dictionary to limit the search parameters for a reference browser                                                                            
-            widget query.                                                                                                 
-        """                                                                                                                                                             
-        return {'portal_type': 'gcPerson',                                                                                                                             
-                'sort_on': sort_on,                                                                                                                                     
-                'path': {'query': self.getPhysicalPath()}
-        }                                                                                                                                
-
 
     # Migration code
     def migrate_to_panel(self):
@@ -255,21 +218,21 @@ class ConferencePaper(folder.ATFolder):
         return self.listCreators()
 
     def migrate_author(self):
-	"""
-	temp
-	"""
-	extra = []
-	for name in self.listCreators()[1:]:
-	    extra.append({'name': "%s" % str(name) })
-
-	portal_catalog = getToolByName(self, 'portal_catalog')
-	brains = self.portal_catalog({'UID': self.UID(),})
-	moreCreators = brains[0].listCreators
-	for name in moreCreators:
-	    extra.append({'name': "%s" % str(name) })
-	
-	self.setUnconfirmedExtraAuthors( extra )
-	self.setPrimaryAuthor( "%s" % self.getOwner() )
-	return self.listCreators() + moreCreators
+    	"""
+    	temp
+    	"""
+    	extra = []
+    	for name in self.listCreators()[1:]:
+    	    extra.append({'name': "%s" % str(name) })
+    
+    	portal_catalog = getToolByName(self, 'portal_catalog')
+    	brains = self.portal_catalog({'UID': self.UID(),})
+    	moreCreators = brains[0].listCreators
+    	for name in moreCreators:
+    	    extra.append({'name': "%s" % str(name) })
+    	
+    	self.setUnconfirmedExtraAuthors( extra )
+    	self.setPrimaryAuthor( "%s" % self.getOwner() )
+    	return self.listCreators() + moreCreators
 
 atapi.registerType(ConferencePaper, PROJECTNAME)

@@ -4,6 +4,7 @@
 	meta_type="Filesystem Directory View"
 	directory="gcommons.Users:skins/gcommons_users"/>
 	
+
  <skin-path name="*">
   <layer name="gcommons_users" insert-after="custom" />
  </skin-path>

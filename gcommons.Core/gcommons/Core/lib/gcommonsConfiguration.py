@@ -4,6 +4,7 @@
 import os
 import logging
 
+
 # XML
 # rename to allow other implementations in the future 
 from xml.dom.minidom import parseString as XMLParseString
@@ -22,6 +23,23 @@ def xmlgetchild_text(xmlnode, name):
         return string
     except IndexError:
         return None
+
+
+
+class gcommonsRelatorType:
+    def __init__(self, xmlnode = None):
+        self._id = xmlgetchild_text(xmlnode, 'marccode')
+        self._name = xmlgetchild_text(xmlnode, 'name')
+        self._description = xmlgetchild_text(xmlnode, 'description')
+        self._displayorder = xmlgetchild_text(xmlnode, 'displayorder')
+    def id(self):
+        return self._id
+    def name(self):
+        return self._name
+    def description(self):
+        return self._description
+    def displayorder(self):
+        return int(self._displayorder)
 
 
 class gcommonsSubmittableSubtype:
@@ -57,6 +75,8 @@ class gcommonsSubmittableItem:
     def __init__(self, name=None, portal_type = None, description=None, xmlnode=None):
         
         if xmlnode is None:
+            # TODO: this construction sounds deprecated
+            logger.info("Deprecated construction of gcommonsSubmittableItem") 
             self._name = name
             self._portal_type = portal_type
             self._description = description
@@ -65,6 +85,12 @@ class gcommonsSubmittableItem:
             self._portal_type = xmlgetchild_text(xmlnode, 'type')
             self._description = xmlgetchild_text(xmlnode, 'description')
             self._subtypes = {}
+            self._relators = {}
+            # Relators
+            xmlrelators = xmlnode.getElementsByTagName('relators')
+            if xmlrelators.length:
+                self._readRelators(xmlrelators[0])
+                
             # Subtypes?
             xmlsubtypes = xmlnode.getElementsByTagName('subtypes')
             if xmlsubtypes.length:
@@ -75,6 +101,11 @@ class gcommonsSubmittableItem:
             if xmlnotifications.length:
                 self._readNotifications(xmlnotifications[0])
         
+    def _readRelators(self, xmlnode):
+        for item in xmlnode.getElementsByTagName('relator'):
+            relator = gcommonsRelatorType(xmlnode=item)
+            self._relators[ relator.id() ] = relator
+
     def _readSubtypes(self, xmlnode):
         for item in xmlnode.getElementsByTagName('subtype'):
             subtype = gcommonsSubmittableSubtype(xmlnode=item)
@@ -93,6 +124,15 @@ class gcommonsSubmittableItem:
     
     def description(self):
         return self._description
+    
+    def relators(self):
+        return sorted(self._relators.values(), key=gcommonsRelatorType.displayorder)
+
+    def getRelator_byId(self, id):
+        if self._relators.has_key(id):
+            return self._relators[id]
+        else:
+            return None        
     
     def subtypes(self):
         # reverse this to left as they came in XML
@@ -130,8 +170,8 @@ class gcommonsConfiguration:
         """
         config = {}
         container = self.parsedxml.getElementsByTagName('Container')[0]
-        config['name'] = xmlgetchild_text('name')
-        config['type'] = xmlgetchild_text('type')
+        config['name'] = xmlgetchild_text(container, 'name')
+        config['type'] = xmlgetchild_text(container, 'type')
         return config
         
     def getContainerName(self):

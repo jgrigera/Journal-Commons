@@ -7,7 +7,7 @@ from zope.app.container.constraints import containers
 
 
 
-class IjcommonsContainers(Interface):
+class IgcommonsContainer(Interface):
     """Any kind of item that can be handled in a Submissions Folder"""
     def aq_getConfig(self):
         """

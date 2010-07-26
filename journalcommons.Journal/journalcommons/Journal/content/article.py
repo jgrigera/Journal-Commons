@@ -8,16 +8,17 @@ from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.CMFCore.utils import getToolByName
 
+from gcommons.Core.lib.relators import RelatorsMixin
 from journalcommons.Journal import JournalMessageFactory as _
 from journalcommons.Journal.interfaces import IArticle
 from journalcommons.Journal.config import PROJECTNAME
+
+
 import logging
 logger = logging.getLogger('journalcommons.Journal.content.article')
 
 
-
-
-ArticleSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+ArticleSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
     atapi.ComputedField(        
@@ -107,17 +108,13 @@ def finalizeArticleSchema(schema):
     schema['description'].required = True
     schema['description'].widget.label = _('Abstract')
     schema['description'].widget.description = _('A short summary of your article.')
-    schema['creators'].storage = atapi.AnnotationStorage()
-    schema['creators'].searchable = True
-    schema['creators'].widget.label = _('Authors')
-    schema['creators'].widget.description = _('Authors of the article or persons responsible for this piece. Please enter a list of names, one per line. The principal creator should come first.')
     schema['subject'].storage = atapi.AnnotationStorage()
     schema['subject'].widget.label = _('Keywords')
     schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your article.')
 
     # Reorder
-    schema.moveField('creators', after='article_title')
-    schema.moveField('description', after='creators')
+    schema.moveField('article_title', before=RelatorsMixin.firstField)
+    schema.moveField('description', after=RelatorsMixin.lastField)
     schema.moveField('subject', after='description')
     
     # Hide this fields
@@ -132,12 +129,11 @@ def finalizeArticleSchema(schema):
     )
     
     # Fix after ATContentTypes
-    schema.changeSchemataForField('creators', 'default')
     schema.changeSchemataForField('subject', 'default')
     return schema
 
 
-class Article(folder.ATFolder):
+class Article(folder.ATFolder, RelatorsMixin):
     """An article in an issue of a journal"""
     implements(IArticle)
     

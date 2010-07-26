@@ -19,6 +19,33 @@
 
                 Proposals for papers should include: the title of the paper; the name, title, affiliation, and email address for the author; and an abstract of the 20 minute paper (less than 500 words).
 			</description>
+
+			<relators>
+				<!--
+					Try to keep them in sync with marcrelator terms
+					http://www.loc.gov/marc/relators/relaterm.html
+				 -->		
+				<relator>
+					<marccode>aut</marccode>
+					<name>Author</name>
+					<description>Use for a person or organization chiefly responsible for the intellectual or artistic content of a work, usually printed text. This term may also be used when more than one person or body bears such responsibility.</description>
+					<displayorder>10</displayorder>
+				</relator>
+				
+				<relator>
+					<marccode>ctb</marccode>
+					<name>Contributor</name>
+					<description>Use for a person or organization one whose work has been contributed to a larger work, such as an anthology, serial publication, or other compilation of individual works. Do not use if the sole function in relation to a work is as author, editor, compiler or translator.</description>
+					<displayorder>20</displayorder>
+				</relator>
+
+				<relator>
+					<marccode>trl</marccode>
+					<name>Translator</name>
+					<description>Use for a person or organization who renders a text from one language into another, or from an older form of a language into the modern form.</description>
+					<displayorder>100</displayorder>
+				</relator>
+			</relators>
 			
 			<notifications>
 				<notification>
@@ -76,6 +103,48 @@ CSA
      		<description>
 				There are different types of this sessions:
 			</description>
+
+			<relators>
+				<!--
+					Try to keep them in sync with marcrelator terms
+					http://www.loc.gov/marc/relators/relaterm.html
+				 -->		
+				<relator>
+					<marccode>edt</marccode>
+					<name>Chair</name>
+					<description>Chair of session.</description>
+					<displayorder>5</displayorder>
+				</relator>
+
+				<relator>
+					<marccode>aut</marccode>
+					<name>Author</name>
+					<description>Use for a person or organization chiefly responsible for the intellectual or artistic content of a work, usually printed text. This term may also be used when more than one person or body bears such responsibility.</description>
+					<displayorder>10</displayorder>
+				</relator>
+				
+				<relator>
+					<marccode>ctb</marccode>
+					<name>Contributor</name>
+					<description>Use for a person or organization one whose work has been contributed to a larger work, such as an anthology, serial publication, or other compilation of individual works. Do not use if the sole function in relation to a work is as author, editor, compiler or translator.</description>
+					<displayorder>20</displayorder>
+				</relator>
+				
+				<relator>
+					<marccode>cmm</marccode>	<!-- marc commentator -->
+					<name>Discussant</name>
+					<description>Use for a person or organization who provides interpretation, analysis, or a discussion of the subject matter on a recording, motion picture, or other audiovisual medium.</description>
+					<displayorder>20</displayorder>
+				</relator>
+			
+				<relator>
+					<marccode>trl</marccode>
+					<name>Translator</name>
+					<description>Use for a person or organization who renders a text from one language into another, or from an older form of a language into the modern form.</description>
+					<displayorder>100</displayorder>
+				</relator>
+			</relators>
+
 			<subtypes>
 				<subtype>
 					<id>panel</id>
@@ -222,4 +291,5 @@ CSA
 	</Items>
 
 </config>
-	
+
+

@@ -29,12 +29,9 @@
                <tr tal:define="oddrow repeat/item/odd"
                    tal:attributes="class python:test(oddrow, 'even', 'odd')">
                    
-                   <td tal:define="authors item/listCreators">
-                   		<!--  first author is userid -->
-                   		<span tal:condition="authors" 
-                   				tal:define="member python:context.portal_membership.getMemberById(authors[0])"
-                   				tal:replace="member/fullname|authors" /><span 
-                   				tal:condition="python:len(authors) > 1" tal:replace="python:', '+', '.join(authors[1:])" />  	
+                   <td tal:define="relators item/listCreators">
+                   		<a tal:attributes="href item/getURL"
+                   			tal:content="python:', '.join(relators)" />  	
                    </td> 
                    <td>
                        <a tal:attributes="href  item/getURL;

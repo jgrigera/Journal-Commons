@@ -1,0 +1,49 @@
+
+<div id="relators"
+      i18n:domain="cmf_default">
+	<tal:case tal:condition="here/getRelators">
+		<tal:loop tal:repeat="relator here/getRelators">
+			<div>
+			<!-- 
+				<div tal:define="oddrow repeat/relator/odd;"
+							tal:attributes="class python:oddrow and 'right column' or 'left column'">
+			 -->							
+			<tal:url tal:condition="relator/homeurl">
+				<a href="#" title="#"
+					tal:define="fullname relator/name"
+					tal:attributes="href relator/homeurl; 
+									title relator/id"
+					tal:content="fullname">
+				</a>
+			</tal:url>
+			<tal:nourl tal:condition="not:relator/homeurl">
+				<span title="#"
+					tal:define="fullname relator/name"
+					tal:attributes="title relator/id"
+					tal:content="fullname">
+				</span>
+			</tal:nourl><br/>
+			
+			<tal:email tal:condition="relator/email">
+				&nbsp;&nbsp;<span class="discreet" tal:content="relator/email" /><br/>
+			</tal:email>
+			
+			&nbsp;&nbsp;<span class="discreet" tal:content="relator/institution" />
+			<tal:relationship tal:condition="python:relator['relationship']!='Author'">
+				<br/>
+				&nbsp;&nbsp;<span class="discreet"  
+					tal:content="relator/relationship" />
+			</tal:relationship>
+			</div>
+		</tal:loop>
+	</tal:case>
+	<tal:case tal:condition="not: here/getRelators">
+		    <span tal:omit-tag="" i18n:translate="" tal:content="here/listCreators" />
+	</tal:case>
+
+    <!-- 
+    <span tal:omit-tag="" i18n:translate="">Last modified</span>
+	    <tal:span tal:content="here/ModificationDate">Today</tal:span>.
+	-->
+</div>
+

@@ -2,6 +2,7 @@
 
 import logging
 import re
+from zope.component.interfaces import ComponentLookupError
 from gcommons.Core.actions import Action
 from Acquisition import aq_inner, aq_parent      
 
@@ -75,10 +76,10 @@ class mail(Action):
             raise e
             
         try:
-            user = self.context.portal_membership.getMemberById(self.object.getPrimaryAuthor())
-            values.set('creatorid', user.getId())
-            values.set('creatorfullname', user.getProperty('fullname'))
-            values.set('creatoremail', user.getProperty('email'))
+            user = self.object.getRelators()[0]
+            values.set('creatorid', user['id'])
+            values.set('creatorfullname', user['name'])
+            values.set('creatoremail', user['email'])
         except AttributeError, e:
             logger.error("class %s" % user.__class__)
             logger.error(" %s" % dir(user) )

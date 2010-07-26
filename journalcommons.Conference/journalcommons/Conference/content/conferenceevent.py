@@ -19,14 +19,14 @@ from Products.ATContentTypes.lib.calendarsupport import CalendarSupportMixin
 from Products.ATContentTypes.interfaces import ICalendarSupport
 
 # gcommons
-from gcommons.Core.lib.schemata import gcAuthorsSchema
+from gcommons.Core.lib.relators import RelatorsMixin
 from journalcommons.Conference import ConferenceMessageFactory as _
 from journalcommons.Conference.interfaces import IConferenceEvent
 from journalcommons.Conference.config import PROJECTNAME
 
 
 
-ConferenceEventSchema = folder.ATFolderSchema.copy() + gcAuthorsSchema.copy() + atapi.Schema((
+ConferenceEventSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + atapi.Schema((
     atapi.StringField(
         name='eventType',
         required=True,
@@ -166,10 +166,6 @@ ConferenceEventSchema = folder.ATFolderSchema.copy() + gcAuthorsSchema.copy() + 
 def finalizeConferenceEventSchema(schema):
     schema['title'].storage = atapi.AnnotationStorage()
     schema['description'].storage = atapi.AnnotationStorage()
-    #schema['creators'].storage = atapi.AnnotationStorage()
-    #schema['creators'].searchable = True
-    #schema['creators'].widget.label = _('Authors')
-    #schema['creators'].widget.description = _('Names of those responsible for this proposal. Please enter a list of names, one per line. The principal creator should come first.')
 
     # Call ATContentTypes
     schemata.finalizeATCTSchema(
@@ -180,7 +176,8 @@ def finalizeConferenceEventSchema(schema):
     return schema
 
 
-class ConferenceEvent(folder.ATFolder):
+
+class ConferenceEvent(folder.ATFolder, RelatorsMixin):
     """An event within a Conference"""
     implements(IConferenceEvent)
 
@@ -210,9 +207,6 @@ class ConferenceEvent(folder.ATFolder):
                 dic[subtype.id()] = text
             return dic 
 
-    def _compute_author(self):
-        user = self.portal_membership.getAuthenticatedMember()
-        return user.getId()
 
     def _compute_description(self):
         return "A %s on '%s'" % (self.eventType, self.title)

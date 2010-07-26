@@ -47,35 +47,9 @@
 
 	<!-- Article Metadata -->
 	<h2 tal:content="here/Title" />
-	
-	<div id="ContentByline"
-	      i18n:domain="cmf_default">
-	    <em>
-		<tal:case tal:condition="here/listCreators">
-		    <tal:loop tal:repeat="creator here/listCreators">
-			    <tal:case tal:condition="not: repeat/creator/start">
-			    <tal:case tal:condition="not: repeat/creator/end">, </tal:case>          
-			    <tal:case tal:condition="repeat/creator/end"> 
-			    <span tal:omit-tag="" i18n:translate="">and</span> 
-			    </tal:case></tal:case>
-			    <a href="." title="creator"
-                        	    tal:define="user_details	python:view.get_user_details(creator);
-                        			home_url 	user_details/home_url;
-                        			fullname	user_details/fullname;"
-                                    tal:attributes="href home_url; title creator"
-                                    tal:content="fullname">
-                            </a>
-                    </tal:loop>
-                </tal:case>
-		<tal:case tal:condition="not: here/listCreators">
-			    <span tal:omit-tag="" i18n:translate="">unknown</span>
-		</tal:case>
-		<!--
-			    <span tal:omit-tag="" i18n:translate="">Last modified</span>
-			    <tal:span tal:content="here/ModificationDate">Today</tal:span>.
-		-->
-	    </em>
-	</div>
+
+	<!-- Authors and contributors -->	
+    <div tal:replace="structure provider:gcommons.relatorsprovider" />
 
 	<span class="visualClear"><!-- -->&nbsp;<br/></span>
 
