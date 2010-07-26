@@ -1,16 +1,18 @@
 
 import logging
 
+# Zope
 from AccessControl import ClassSecurityInfo
 from AccessControl.requestmethod import postonly       
+from Globals import InitializeClass
+from zope.interface import implements
 
 # Plone
 from Products.Archetypes import public as atapi
+from Products.CMFPlone.interfaces import IHideFromBreadcrumbs
+
 
 # ??
-from sets import Set
-from Globals import InitializeClass
-from zope.interface import implements
 from Products.CMFCore.interfaces import IMemberDataTool
 from Products.CMFCore.ActionProviderBase import ActionProviderBase
 from Products.CMFCore import permissions as cmfcore_permissions
@@ -39,13 +41,14 @@ gcUserContainerSchema = atapi.BaseFolderSchema.copy() + atapi.Schema((
 
 search_catalog = 'membrane_tool'
 
+
 class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
     """
     Default container for remember Member objects.  Members don't
     actually need to live here any more, but for BBB reasons we are
     still storing them here.
     """
-    implements(IMemberDataTool,IgcUserContainer)    
+    implements(IMemberDataTool,IgcUserContainer,IHideFromBreadcrumbs)    
     security = ClassSecurityInfo()
 
     id = 'portal_memberdata'

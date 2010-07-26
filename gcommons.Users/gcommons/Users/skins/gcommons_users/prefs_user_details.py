@@ -5,7 +5,7 @@
 ##bind namespace=
 ##bind script=script
 ##bind subpath=traverse_subpath
-##parameters=type_name=None
+##parameters=userid=None
 from Products.CMFCore.utils import getToolByName
 
 portal = context.portal_url.getPortalObject() 
@@ -14,19 +14,19 @@ membrane_tool = getToolByName(context, 'membrane_tool')
 
 #
 # No easy way of doing this cleanly. 
-# We are now delivering a copy of Plone 3.x personalize_form as plone_... awfull.
+# We are now delivering a copy of Plone 3.x pref_user_details as plone_... awfull.
 # 
-member = membership_tool.getAuthenticatedMember()
+member = membership_tool.getMemberById(userid)
 user = member.getUser()
 
 try:
     foundUser = membrane_tool.searchResults(getUserName=user.getUserName())[0] # grab the first match
     realUser = foundUser.getObject()
     #context.portal_gcommons_users.me(realUser)
-    url = "%s/portal_gcommons_users/%s/view" % (context.portal_url(),member.getId() )
+    url = "%s/portal_gcommons_users/%s/edit" % (context.portal_url(),member.getId() )
 except IndexError:
     # Probably not a Membrane Type
-    url = "%s/plone_personalize_form" % context.portal_url()
+    url = "%s/plone_prefs_user_details?userid=%s" % (context.portal_url(),userid)
 
 
 context.REQUEST.RESPONSE.redirect(url)
