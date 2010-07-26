@@ -5,6 +5,12 @@
 
 /* <dtml-with base_properties> */
 
+/* List of folder content */
+
+#nobullets ul,li { 
+  list-style-type: none !important; 
+  list-style-image: none !important;
+}
 
 /* States for things */
 .state-draft {

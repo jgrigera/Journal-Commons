@@ -4,12 +4,102 @@
       i18n:domain="journalcommons.Journal">
 <body>
     <div metal:fill-slot="main">
-        <tal:main-macro metal:define-macro="main"
-                        tal:define="testview view/test">
 
-            <span tal:content="testview/dummy">test</span>
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        </tal:main-macro>
+        <div class="vevent">
+
+        <h1 class="documentFirstHeading summary" title="#">
+            <metal:field use-macro="python:here.widget('title', mode='view')">Title</metal:field>
+        </h1>
+
+	<div tal:replace="structure provider:plone.belowcontenttitle" />
+
+	<metal:field use-macro="python:here.widget('description', mode='view')"></metal:field>
+
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
+        <div class="eventDetails vcard">
+        <table class="vertical listing"
+               summary="Event details" i18n:attributes="summary summary_event_details;">
+            <tbody>
+                <tr>
+                    <th i18n:translate="journal_editors">Editorial Board</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('editors', mode='view')"></metal:field>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="journal_issn">ISSN</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('issn', mode='view')"></metal:field>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="journal_doi">DOI</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('doiBase', mode='view')"></metal:field>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="journal_publisher">Publisher</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('publisher', mode='view')"></metal:field>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+	<tal:foldercontents
+	   tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+		       contents_start request/contents_start | python:0;
+		       contents_size request/contents_size | python:20;
+		       contents view/getFolderContents | python:None;
+		       template_id string:exampleview.pt">
+          
+	  <div class="nobullets" tal:condition="contents">
+	    <tal:batch define="batch_contents python:Batch(contents, contents_size, int(contents_start), orphan=1, b_start_str='contents_start')">
+
+	      <h3 i18n:translate="contents">Issues</h3>
+      
+	      <ul>
+		<tal:block repeat="item batch_contents">
+		  <li tal:condition="python: item.portal_type == 'Issue'"><img width="16" height="16" tal:attributes="src item/getIcon" />
+		    <a href="#"
+		       tal:content="item/Title"
+		       tal:attributes="href item/absolute_url"/> <br/>
+		    <span class="discreet" tal:content="item/Description" />
+		  </li>
+		</tal:block>
+	      </ul>
+
+	      <h3 i18n:translate="contents">Other</h3>
+      
+	      <ul>
+		<tal:block repeat="item batch_contents">
+		  <li tal:condition="python: item.portal_type != 'Issue'"><img width="16" height="16" tal:attributes="src item/getIcon" />
+		    <a href="#"
+		       tal:content="item/Title"
+	       tal:attributes="href item/absolute_url"/> <br/>
+		    <span class="discreet" tal:content="item/Description" />
+		  </li>
+		</tal:block>
+	      </ul>
+              
+	    </tal:batch>
+	  </div>
+<!--         <metal:use_footer use-macro="footer_macro" /> -->
+	</tal:foldercontents>
+	</div>
+
+	<div metal:use-macro="here/document_relateditems/macros/relatedItems">
+          show related items if they exist
+	</div>
+    
+	<div tal:replace="structure provider:plone.belowcontentbody" />
     </div>
+
+
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -33,10 +34,11 @@ class JournalView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-    def test(self):
-        """
-        test method
-        """
-        dummy = _(u'a dummy string')
+    def getFolderContents(self):
+        brains = self.context.listFolderContents()
+        return brains
 
-        return {'dummy': dummy}
+    def debug_show_user_roles(self):
+        portal_membership = getToolByName(self.context, 'portal_membership')
+        user = portal_membership.getAuthenticatedMember()
+        return 'Debug: Roles %s for %s' % (str(user.getRoles()), user.getId())
