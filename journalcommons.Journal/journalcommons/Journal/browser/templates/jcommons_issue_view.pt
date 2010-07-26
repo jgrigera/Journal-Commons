@@ -16,9 +16,34 @@
 
         <tal:main-macro metal:define-macro="main">
 
-
 	<!-- Issue  -->
 	<h2 tal:content="here/Title" />
+
+        <div class="eventDetails vcard">
+        <table class="vertical listing"
+               summary="Issue details" i18n:attributes="summary summary_issue_details;">
+            <tbody>
+                <tr>
+                    <th i18n:translate="issue_volume">Volume</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('volume', mode='view')"></metal:field>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="issue_number">Number</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('number', mode='view')"></metal:field>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="issue_date">Date</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('date', mode='view')"></metal:field>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
 	
 	<p/>&nbsp;<p/>
 
