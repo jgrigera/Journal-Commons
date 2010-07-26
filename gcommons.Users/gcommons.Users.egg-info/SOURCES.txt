@@ -49,8 +49,14 @@ gcommons/Users/profiles/default/types/gcPerson.xml
 gcommons/Users/skins/gcommons_users/logged_in.cpy
 gcommons/Users/skins/gcommons_users/logged_in.cpy.metadata
 gcommons/Users/skins/gcommons_users/personalize_form.py
+gcommons/Users/skins/gcommons_users/plone_personalize_form.cpt
+gcommons/Users/skins/gcommons_users/plone_personalize_form.cpt.metadata
+gcommons/Users/skins/gcommons_users/plone_prefs_user_details.cpt
+gcommons/Users/skins/gcommons_users/plone_prefs_user_details.cpt.metadata
+gcommons/Users/skins/gcommons_users/prefs_user_details.py
 gcommons/Users/skins/gcommons_users/register.cpy
 gcommons/Users/skins/gcommons_users/register.cpy.metadata
+gcommons/Users/skins/gcommons_users/user_icon.png
 gcommons/Users/tests/__init__.py
 gcommons/Users/tests/base.py
 gcommons/Users/tests/test_doctest.py
