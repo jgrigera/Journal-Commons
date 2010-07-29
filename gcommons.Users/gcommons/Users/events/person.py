@@ -9,6 +9,7 @@ from Products.membrane.interfaces import IUserRelated
 
 logger = logging.getLogger("gcommons.Users.events.person")
 
+
 def modifyPersonOwnership(event):
     """Let people own their own objects and modify their own user preferences.
     

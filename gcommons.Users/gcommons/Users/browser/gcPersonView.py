@@ -40,14 +40,12 @@ class gcPersonView(BrowserView):
         """
         email = self.context.getEmail()
         
-        # if obfuscate:                                                                                                                                    
-        email = email.replace('.', ' [ DOT ] ')                                                                                                                             
-        email = email.replace('@', ' [ AT ] ')                                                                                                                              
-        email = email.replace('-', ' [ DASH ] ')                                                                                                                            
-        email = email.replace('_', ' [ UNDERSCORE ] ')                                                                                                                      
-        return email                                                                                                                                                        
-        #else:                                                                                                                                                                   
-        #    return self.context.spamProtect(email)                                                                                                                                   
+        # if obfuscate:
+        email = email.replace('.', ' [ DOT ] ')
+        email = email.replace('@', ' [ AT ] ')
+        email = email.replace('-', ' [ DASH ] ')
+        email = email.replace('_', ' [ UNDERSCORE ] ')
+        return email
 
     def get_your_contributions(self, type):
         """
@@ -61,7 +59,7 @@ class gcPersonView(BrowserView):
                                         'sort_on':'created',
                                         'sort_order': 'reverse'})
         return [i.getObject() for i in brains]
-                                                                                                                                                                        
+
     def get_addable_items_list(self):
         # TODO: this searches should be all in one place...
         #

@@ -1,0 +1,4 @@
+
+Dirty things to improve:
+    1. clean gcPerson_view
+    

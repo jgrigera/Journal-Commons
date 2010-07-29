@@ -50,7 +50,6 @@ try:
     realUser = foundUser.getObject()
 
     if hasattr(realUser, "getLoginRedirect"):
-        context.plone_utils.addPortalMessage(_(u'You are now logged in. Welcome!'), 'info') # This message is in Plone i18n domain
         # Go to a custom page after login
         REQUEST.RESPONSE.redirect(realUser.getLoginRedirect())
         return 

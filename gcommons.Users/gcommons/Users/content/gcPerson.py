@@ -11,9 +11,10 @@ from cStringIO import StringIO
 
 # zope
 from zope.event import notify
-from zope.interface import implements, directlyProvides, classImplements
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
+from zope.interface import implements, directlyProvides, classImplements
+from zope.app.annotation.interfaces import IAttributeAnnotatable, IAnnotations
 
 # Plone
 from Products.Archetypes import atapi
@@ -22,17 +23,15 @@ from Products.ATContentTypes.content import schemata
 from Products.CMFCore.permissions import View, ModifyPortalContent, SetOwnPassword, SetOwnProperties
 from Products.CMFCore.utils import getToolByName
 
-# membrane
-from Products.membrane.interfaces import IUserAuthProvider, IPropertiesProvider, IGroupsProvider, IGroupAwareRolesProvider, IUserChanger
-
-
-from zope.app.annotation.interfaces import IAttributeAnnotatable, IAnnotations
+# Calendar
 from Products.ATContentTypes.lib.calendarsupport import n2rn, foldLine
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
-from Products.CMFPlone.CatalogTool import getObjPositionInParent
-from Products.CMFPlone.utils import safe_unicode
-from Products.validation import validation
 
+# membrane
+from Products.membrane.interfaces import IUserAuthProvider
+from Products.membrane.interfaces import IPropertiesProvider
+from Products.membrane.interfaces import IGroupsProvider
+from Products.membrane.interfaces import IGroupAwareRolesProvider
+from Products.membrane.interfaces import IUserChanger
 
 # gcommons
 from gcommons.Users import UsersMessageFactory as _
@@ -48,10 +47,14 @@ logger = logging.getLogger('gcommons.Users.content.gcPerson')
 
 
 gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
+    #
+    # Schemata: Basic Information
+    #    
     atapi.StringField(
         name='firstName',
         widget=atapi.StringWidget(
-            label=u"First Name",
+            label=_(u"First Name"),
+            i18n_domain='gcommons.Users',
         ),
         required=True,
         schemata="Basic Information",
@@ -61,8 +64,8 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='middleName',
         widget=atapi.StringWidget(
-            label=_(u"FacultyStaffDirectory_label_middleName", default=u"Middle Name"),
-            i18n_domain='FacultyStaffDirectory',
+            label=_(u"Middle Name"),
+            i18n_domain='gcommons.Users',
         ),
         required=False,
         schemata="Basic Information",
@@ -72,8 +75,8 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='lastName',
         widget=atapi.StringWidget(
-            label=_(u"FacultyStaffDirectory_label_lastName", default=u"Last Name"),
-            i18n_domain='FacultyStaffDirectory',
+            label=_(u"Last Name"),
+            i18n_domain='gcommons.Users',
         ),
         required=True,
         schemata="Basic Information",
@@ -83,9 +86,9 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='suffix',
         widget=atapi.StringWidget(
-            label=_(u"FacultyStaffDirectory_label_suffix", default=u"Suffix"),
-            description=_(u"FacultyStaffDirectory_description_suffix", default=u"Academic, professional, honorary, and social suffixes."),
-            i18n_domain='FacultyStaffDirectory',
+            label=_(u"gcommonsUsers_label_suffix", default=u"Suffix"),
+            description=_(u"gcommonsUsers_description_suffix", default=u"Academic, professional, honorary, and social suffixes."),
+            i18n_domain='gcommons.Users',
         ),
         schemata="Basic Information",
         searchable=True
@@ -96,20 +99,69 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         required = True,
         user_property=True,
         widget=atapi.StringWidget(
-            label=_(u"FacultyStaffDirectory_label_email", default=u"Email"),
-            i18n_domain='FacultyStaffDirectory',
+            label=_(u"gcommonsUsers_label_email", default=u"Email"),
+            i18n_domain='gcommons.Users',
         ),
         schemata="Basic Information",
         searchable=True,
         validators=('isEmail',)
     ),
+
+    #
+    # Schemata: Professional Information
+    #    
+    atapi.LinesField(
+        name='jobTitles',
+        widget=atapi.LinesField._properties['widget'](
+            label = _(u"Job Titles"),
+            description=_(u"One per line"),
+            i18n_domain='gcommons.Users',
+            
+        ),
+        schemata="Professional Information",
+        searchable=True
+    ),
+
+    atapi.TextField(
+        name='biography',
+        widget=atapi.RichWidget(
+            label=_(u"Biography"),
+            i18n_domain='gcommons.Users',
+        ),
+        schemata="Professional Information",
+        searchable=True,
+        validators=('isTidyHtmlWithCleanup',),
+        default_output_type='text/x-html-safe',
+        user_property='description'
+    ),
+
     
-#    
+    atapi.LinesField(
+        name='education',
+        widget=atapi.LinesField._properties['widget'](
+            label=_(u"FacultyStaffDirectory_label_education", default=u"Education"),
+            i18n_domain='gcommons.Users',
+        ),
+        schemata="Professional Information",
+        searchable=True
+    ),
+    
+    atapi.LinesField(
+        name='websites',
+        widget=atapi.LinesField._properties['widget'](
+            label=_(u"FacultyStaffDirectory_label_websites", default=u"Web Sites"),
+            description=_(u"FacultyStaffDirectory_description_websites", default=u"One per line. Example: http://www.example.com/"),
+            i18n_domain='gcommons.Users',
+        ),
+        schemata="Professional Information",
+        #validators = (fsd:for each...) SequenceValidator('isURLs', validation.validatorFor('isURL'))
+    ),
+
 #    atapi.StringField(
 #        name='officeAddress',
 #        widget=atapi.TextAreaWidget(
 #            label=_(u"FacultyStaffDirectory_label_officeAddress", default=u"Office Street Address"),
-#            i18n_domain='FacultyStaffDirectory',
+#            i18n_domain='gcommons.Users',
 #        ),
 #        schemata="Contact Information",
 #        searchable=True
@@ -169,18 +221,6 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         allowable_content_types=('image/gif','image/jpeg','image/png'),
     ),
     
-#    atapi.TextField(
-#        name='biography',
-#        widget=atapi.RichWidget(
-#            label=_(u"FacultyStaffDirectory_label_biography", default=u"Biography"),
-#            i18n_domain='FacultyStaffDirectory',
-#        ),
-#        schemata="Professional Information",
-#        searchable=True,
-#        validators=('isTidyHtmlWithCleanup',),
-#        default_output_type='text/x-html-safe',
-#        user_property='description'
-#    ),
     
     
     
@@ -207,7 +247,9 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         required=True,
         user_property=True,
         schemata="Basic Information",
+# TODO: Permissions
 #        write_permission=CHANGE_PERSON_IDS,
+        write_permission='Manage Portal',
     ),
 
     atapi.StringField('password',
@@ -219,7 +261,6 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u"gcUser_label_password", default=u"Password"),
             description=_(u"gcUser_description_password", default=u"Password for this person (Leave blank if you don't want to change the password.)"),
             i18n_domain='gcommons.User',
-            #condition="python:here.facultystaffdirectory_tool.getUseInternalPassword() and 'FSDPerson' in here.facultystaffdirectory_tool.getEnableMembraneTypes()"
         ),
         schemata="Basic Information",
     ),
@@ -293,9 +334,13 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 def finalizegcPersonSchema(Schema):
     Schema['title'].storage = atapi.AnnotationStorage()
     Schema['description'].storage = atapi.AnnotationStorage()
-    
+
+    # Hide this fields
+    for field in ('effectiveDate', 'expirationDate', 'allowDiscussion', 'description', 'excludeFromNav'):
+        Schema[field].widget.visible = {'edit': 'invisible', 'view': 'invisible'}
+
     schemata.finalizeATCTSchema(Schema, moveDiscussion=False)
-    
+
     Schema.changeSchemataForField('description', 'metadata')    
     return Schema
 
@@ -316,9 +361,6 @@ class gcPerson(base.ATCTContent):
     security = ClassSecurityInfo()
     meta_type = "gcPerson"
     schema = finalizegcPersonSchema(gcPersonSchema)
-
-    title = atapi.ATFieldProperty('title')
-    description = atapi.ATFieldProperty('description')
     
     implements(IgcPerson,
                IUserAuthProvider,
@@ -328,7 +370,23 @@ class gcPerson(base.ATCTContent):
                IAttributeAnnotatable,
                IUserChanger)
     
+    title = atapi.ATFieldProperty('title')
+    description = atapi.ATFieldProperty('description')
 
+
+    def getLoginRedirect(self):
+        """ Redirect after login
+        """
+        plone_utils = getToolByName(self, 'plone_utils')
+        if self.jobTitles is None or len(self.jobTitles) == 0:
+            plone_utils.addPortalMessage(_(u'Thanks for registering, now complete your registration by filling Professional Information.'), 'info')
+            return self.absolute_url() + '/edit?fieldset=Professional%20Information'
+        else:
+            plone_utils.addPortalMessage(_(u'You are now logged in. Welcome!'), 'info')
+            return self.absolute_url() + '/view'
+        
+    #
+    # Most of this below comes from FSD code
     """
     Methods to support notifications
     """
@@ -350,9 +408,8 @@ class gcPerson(base.ATCTContent):
     def __call__(self, *args, **kwargs): 
         #  member like behaviour (return string)    
         return self.getId()
-    
-    
-    
+
+
     security.declareProtected(View, 'vcard_view')
     def vcard_view(self, REQUEST, RESPONSE):
         """vCard 3.0 output
@@ -360,7 +417,7 @@ class gcPerson(base.ATCTContent):
         RESPONSE.setHeader('Content-Type', 'text/x-vcard')
         RESPONSE.setHeader('Content-Disposition', 'attachment; filename="%s.vcf"' % self.getId())
         out = StringIO()
-        
+
         # Get the fields using the accessors, so they're properly Unicode encoded.
         out.write("BEGIN:VCARD\nVERSION:3.0\n")
         out.write("FN:%s\n" % self.Title())
@@ -369,7 +426,7 @@ class gcPerson(base.ATCTContent):
         out.write(foldLine("ADR;TYPE=dom,postal,parcel,work:;;%s;%s;%s;%s\n" % (self.getOfficeAddress().replace('\r\n','\\n'), self.getOfficeCity(), self.getOfficeState(), self.getOfficePostalCode())))
         out.write("TEL;WORK:%s\n" % self.getOfficePhone())
         out.write("EMAIL;TYPE=internet:%s\n" % self.getEmail())
-        
+
         #Add the Person page to the list of URLs
         urls = list(self.getWebsites())
         urls.append(self.absolute_url())
@@ -383,7 +440,7 @@ class gcPerson(base.ATCTContent):
         out.write("REV:%s\n" % DateTime(self.ModificationDate()).ISO8601())
         out.write("PRODID:WebLion Faculty/Staff Directory\nEND:VCARD")
         return n2rn(out.getvalue())
-    
+
     security.declareProtected(View, 'getSortableName')
     def getSortableName(self):
         """
@@ -427,9 +484,6 @@ class gcPerson(base.ATCTContent):
         props = getToolByName(self, 'portal_properties')
         return props.availableLanguages()
 
-    def getLoginRedirect(self):
-        logger.info("Redirecting!")
-        return self.absolute_url() + '/view'
         
 #    security.declareProtected(View, 'tag')
 #    def tag(self, **kwargs):
@@ -483,17 +537,7 @@ class gcPerson(base.ATCTContent):
         # Do nothing - this value is used for verification only
         pass
 
-    
-    security.declarePrivate('validate_officePhone')
-    def validate_officePhone(self, value=None):
-        """ Make sure the phone number fits the regex defined in the configuration. """
-        if value:
-            fsd_tool = getToolByName(self, TOOLNAME)
-            regexString = fsd_tool.getPhoneNumberRegex()
-            if regexString and not re.match(regexString, value):
-                return "Please provide the phone number in the format %s" % fsd_tool.getPhoneNumberDescription()
 
-    
     security.declarePrivate('post_validate')
     def post_validate(self, REQUEST, errors):
         form = REQUEST.form
