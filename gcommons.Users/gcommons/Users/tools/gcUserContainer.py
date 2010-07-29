@@ -43,23 +43,28 @@ search_catalog = 'membrane_tool'
 
 
 class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
+    """Tool for gcommons Users."""
     """
     Default container for remember Member objects.  Members don't
     actually need to live here any more, but for BBB reasons we are
     still storing them here.
     """
-    implements(IMemberDataTool,IgcUserContainer,IHideFromBreadcrumbs)    
-    security = ClassSecurityInfo()
-
-    id = 'portal_memberdata'
+    id = 'portal_gcommons_users'
     archetype_name = meta_type = portal_type = 'gcUserContainer'
     schema = gcUserContainerSchema
+    toolicon = 'user.gif'
 
+    implements(IgcUserContainer,
+		IHideFromBreadcrumbs)    
+    security = ClassSecurityInfo()
+
+    manage_options=(
+        {'label': 'Types', 'action': 'manage_membranetypes'},
+        ) + atapi.BaseBTreeFolder.manage_options 
 
     filter_content_types = 1
     allowed_content_types = ['gcPerson',]
     global_allow = 0
-    content_icon = 'user.gif'
     actions = ()
     aliases = {
        '(Default)': 'pre_edit_setup',
@@ -69,10 +74,6 @@ class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
        'base_view': 'pre_edit_setup'
     }   
 
-#    _description = None
-#
-#    manage_options = atapi.BaseBTreeFolder.manage_options + \
-#                     ActionProviderBase.manage_options
 
     def __init__(self, **kwargs):
         atapi.BaseBTreeFolder.__init__(self, self.id, **kwargs)

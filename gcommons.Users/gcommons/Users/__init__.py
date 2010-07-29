@@ -35,6 +35,13 @@ def initialize(context):
         atapi.listTypes(config.PROJECTNAME),
         config.PROJECTNAME)
 
+
+    from tools.gcUserContainer import gcUserContainer
+    utils.ToolInit(config.PROJECTNAME+ ' Tool',
+             tools = (gcUserContainer, ),
+             icon = gcUserContainer.toolicon,
+             ).initialize(context)
+                 
     # Now initialize all these content types. The initialization process takes
     # care of registering low-level Zope 2 factories, including the relevant
     # add-permission. These are listed in config.py. We use different
