@@ -17,7 +17,7 @@
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
-      title="gcommons.Users"
+      title="gCommons.Users"
       directory="profiles/default"
       description="User package for gcommons"
       provides="Products.GenericSetup.interfaces.EXTENSION"
