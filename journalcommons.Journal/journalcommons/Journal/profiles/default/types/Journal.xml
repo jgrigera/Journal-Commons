@@ -23,7 +23,7 @@
         <element value="Document" />
   </property>
 
-  <property name="default_view">jcommons_issue_view</property>
+  <property name="default_view">jcommons_journal_view</property>
   <property name="view_methods">
     <element value="jcommons_journal_view" />
     <element value="base_view" />
