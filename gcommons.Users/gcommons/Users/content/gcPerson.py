@@ -112,6 +112,7 @@ gcPersonSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     #    
     atapi.LinesField(
         name='jobTitles',
+        storage = atapi.AnnotationStorage(),
         widget=atapi.LinesField._properties['widget'](
             label = _(u"Job Titles"),
             description=_(u"One per line"),
@@ -372,6 +373,7 @@ class gcPerson(base.ATCTContent):
     
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
+    jobTitles = atapi.ATFieldProperty('jobTitles')
 
 
     def getLoginRedirect(self):
