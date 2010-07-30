@@ -70,6 +70,7 @@ gcRelatorsSchema_base = atapi.Schema ((
         storage=atapi.AnnotationStorage(),
         
         widget = ReferenceBrowserWidget(
+            condition="here/condition_registered",
             label=_("Other Authors"),
             description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author. NOTE that they must be already registered with the site.'),
             allow_browse=0,
@@ -215,7 +216,7 @@ class RelatorsMixin:
 
 
     def condition_registered(self):
-        """ 
+        """ Only show the Referenced relators field if gcommons.Users installed
         """
         if self.is_gcommons_Users_installed():
             return True

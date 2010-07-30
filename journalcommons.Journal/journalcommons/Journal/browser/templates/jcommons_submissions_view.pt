@@ -77,7 +77,7 @@
 			                       i18n:translate="label_login_name">Login Name</label>
 			                <br />                                                     
 			                <input type="text"                                         
-			                       size="10"                                           
+			                       size="40"                                           
 			                       alt="Login Name"                                    
 			                       tal:attributes="name ac_name; id ac_name;           
 			                                       value python:request.get(ac_name, '');"
@@ -90,7 +90,7 @@
 			                       i18n:translate="label_password">Password</label>       
 			                <br />                                                        
 			                <input type="password"                                        
-			                       size="10"                                              
+			                       size="40"                                              
 			                       alt="Password"                                         
 			                       tal:attributes="name ac_password; id ac_password;"     
 			                       i18n:attributes="alt label_password;"/>                
@@ -151,7 +151,7 @@
 			                       i18n:translate="label_email_name">E-mail</label>
 			                <br />                                                     
 			                <input type="text"                                         
-			                       size="10"                                           
+			                       size="40"                                           
 			                       alt="email"   
 			                       name="email"
 			                       id="email"

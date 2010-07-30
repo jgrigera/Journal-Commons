@@ -97,6 +97,15 @@ class SubmissionsView(jcommonsView):
         if not passwd:           
             passwd = '__ac_password'        
         return passwd
+        
+    def get_enable_self_reg(self):
+        # I should learn how to call plone.app.controlpanel.security, but this is a quick fix
+        app_perms = self.portal.rolesOfPermission(permission='Add portal member')
+        for appperm in app_perms: 
+            if appperm['name'] == 'Anonymous' and \
+               appperm['selected'] == 'SELECTED':
+                return True
+        return False
 
     
     @memoize    

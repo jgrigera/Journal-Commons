@@ -1,14 +1,8 @@
 
 
 from StringIO import StringIO
-import transaction
 from Products.CMFCore.utils import getToolByName
-from Products.ExternalMethod.ExternalMethod import ExternalMethod
-from zExceptions import NotFound
 
-from Products.CMFQuickInstallerTool.QuickInstallerTool import AlreadyInstalled
-
-from Products.Poi.config import PROJECTNAME
 
 import logging
 logger = logging.getLogger("Uninstall")
