@@ -126,7 +126,13 @@
 			</dl>
 	</div>
 	
-	<div id="jcommons-quick-join-box">
+	<!--
+	    registration
+	    
+	    only if self registration there
+	    -->
+	<div id="jcommons-quick-join-box"
+		 tal:condition="view/get_enable_self_reg">
 					<dl class="portlet portletLogin">
 					    <dt class="portletHeader">
 					        <span class="portletTopLeft"></span>
@@ -139,7 +145,6 @@
 					
 					    <dd class="portletItem odd">
 		             
-		             <!-- TODO  tal:condition="view/can_register" issue a warning if cant register -->
 		              <span tal:omit-tag="" i18n:translate="box_new_user_option">New user?</span>
 
 		              <form
@@ -203,6 +208,14 @@
          tal:condition="python: is_editable and wtool.getInfoFor(here, 'review_state')=='private'">
          Nobody can submit articles if this folder is
          'private'. Please change this using the 'state' drop down in the green bar above.
+      </p>
+
+      <p class="portalMessage"
+         i18n:translate="description_cannot_add_articles_before_opened"
+         tal:condition="not:view/get_enable_self_reg">
+         Self-registration is disabled. Users will NOT be able to register themselves!
+         Fix it going to <a href="#"
+        		    tal:attributes="href python:'%s/@@security-controlpanel' % context.portal_url();">Security Control Panel</a>
       </p>
 
       <p class="portalMessage"
