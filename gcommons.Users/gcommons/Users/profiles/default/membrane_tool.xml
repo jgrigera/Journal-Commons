@@ -2,10 +2,11 @@
 
 <object name="membrane_tool" meta_type="MembraneTool">
   <membrane-type name="gcPerson">
+    <active-workflow-state name="active" />
+
+    <!-- leave these two right now, while some objects are still with broken workflow status -->
     <active-workflow-state name="published" />
     <active-workflow-state name="private" />
-    <active-workflow-state name="active" />
-    <active-workflow-state name="hiddenactive" />
   </membrane-type>
 
   <query_index_map>
