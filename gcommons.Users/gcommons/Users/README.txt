@@ -61,7 +61,7 @@ basic operations like adding, updadating and deleting gcPerson content
 items.
 
 Adding a new gcPerson content item
---------------------------------
+----------------------------------
 
 We use the 'Add new' menu to add a new content item.
 
@@ -85,7 +85,7 @@ Now we fill the form and submit it.
 And we are done! We added a new 'gcPerson' content item to the portal.
 
 Updating an existing gcPerson content item
----------------------------------------
+------------------------------------------
 
 Let's click on the 'edit' tab and update the object attribute values.
 
@@ -101,7 +101,7 @@ We check that the changes were applied.
     True
 
 Removing a/an gcPerson content item
---------------------------------
+-----------------------------------
 
 If we go to the home page, we can see a tab with the 'New gcPerson
 Sample' title in the global navigation tabs.
@@ -131,7 +131,7 @@ Sample' tab.
     False
 
 Adding a new gcPerson content item as contributor
-------------------------------------------------
+-------------------------------------------------
 
 Not only site managers are allowed to add gcPerson content items, but
 also site contributors.
@@ -184,7 +184,7 @@ basic operations like adding, updadating and deleting gcUserFolder content
 items.
 
 Adding a new gcUserFolder content item
---------------------------------
+---------------------------------------
 
 We use the 'Add new' menu to add a new content item.
 
@@ -208,7 +208,7 @@ Now we fill the form and submit it.
 And we are done! We added a new 'gcUserFolder' content item to the portal.
 
 Updating an existing gcUserFolder content item
----------------------------------------
+----------------------------------------------
 
 Let's click on the 'edit' tab and update the object attribute values.
 
@@ -224,7 +224,7 @@ We check that the changes were applied.
     True
 
 Removing a/an gcUserFolder content item
---------------------------------
+----------------------------------------
 
 If we go to the home page, we can see a tab with the 'New gcUserFolder
 Sample' title in the global navigation tabs.
@@ -254,7 +254,7 @@ Sample' tab.
     False
 
 Adding a new gcUserFolder content item as contributor
-------------------------------------------------
+--------------------------------------------------------
 
 Not only site managers are allowed to add gcUserFolder content items, but
 also site contributors.

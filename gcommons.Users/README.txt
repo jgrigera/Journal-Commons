@@ -1,7 +1,7 @@
 .. contents::
 
 .. Note!
-   -----
+   ------
    Update the following URLs to point to your:
 
    - code repository

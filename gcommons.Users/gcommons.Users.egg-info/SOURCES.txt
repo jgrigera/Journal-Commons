@@ -13,9 +13,13 @@ gcommons.Users.egg-info/paster_plugins.txt
 gcommons.Users.egg-info/requires.txt
 gcommons.Users.egg-info/top_level.txt
 gcommons/Users/README.txt
+gcommons/Users/TODO.txt
 gcommons/Users/__init__.py
 gcommons/Users/config.py
 gcommons/Users/configure.zcml
+gcommons/Users/user.gif
+gcommons/Users/Extensions/Install.py
+gcommons/Users/Extensions/__init__.py
 gcommons/Users/browser/__init__.py
 gcommons/Users/browser/configure.zcml
 gcommons/Users/browser/gcPersonView.py
@@ -23,7 +27,6 @@ gcommons/Users/browser/templates/gc_person_view.pt
 gcommons/Users/content/__init__.py
 gcommons/Users/content/configure.zcml
 gcommons/Users/content/gcPerson.py
-gcommons/Users/content/gcUserFolder.py
 gcommons/Users/events/__init__.py
 gcommons/Users/events/configure.zcml
 gcommons/Users/events/person.py
@@ -45,7 +48,9 @@ gcommons/Users/profiles/default/rolemap.xml
 gcommons/Users/profiles/default/skins.xml
 gcommons/Users/profiles/default/toolset.xml
 gcommons/Users/profiles/default/types.xml
+gcommons/Users/profiles/default/workflows.xml
 gcommons/Users/profiles/default/types/gcPerson.xml
+gcommons/Users/profiles/default/workflows/gcommons_person_workflow/definition.xml
 gcommons/Users/skins/gcommons_users/logged_in.cpy
 gcommons/Users/skins/gcommons_users/logged_in.cpy.metadata
 gcommons/Users/skins/gcommons_users/personalize_form.py
