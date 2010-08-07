@@ -8,3 +8,5 @@
 *.log
 *.toc
 
+*.backup
+*.zip
