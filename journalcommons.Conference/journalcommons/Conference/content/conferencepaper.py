@@ -222,17 +222,10 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
     	temp
     	"""
     	extra = []
-    	for name in self.listCreators()[1:]:
-    	    extra.append({'name': "%s" % str(name) })
+    	for name in self.getUnconfirmedExtraAuthors():
+    	    extra.append(name)
     
-    	portal_catalog = getToolByName(self, 'portal_catalog')
-    	brains = self.portal_catalog({'UID': self.UID(),})
-    	moreCreators = brains[0].listCreators
-    	for name in moreCreators:
-    	    extra.append({'name': "%s" % str(name) })
-    	
-    	self.setUnconfirmedExtraAuthors( extra )
-    	self.setPrimaryAuthor( "%s" % self.getOwner() )
-    	return self.listCreators() + moreCreators
+    	self.setUnregisteredRelators( extra )
+    	return self.getUnconfirmedExtraAuthors()
 
 atapi.registerType(ConferencePaper, PROJECTNAME)
