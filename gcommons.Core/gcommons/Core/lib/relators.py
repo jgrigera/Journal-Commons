@@ -15,7 +15,11 @@ from Products.DataGridField.SelectColumn import SelectColumn
 #from gcommons.Core.widgets.ReferenceColumn import ReferenceColumn
 from Products.DataGridField.HelpColumn import HelpColumn
 
+# Maybe temp:
+from gcommonsConfiguration import gcommonsRelatorType
+
 from gcommons.Core import CoreMessageFactory as _
+
 
 logger = logging.getLogger("gcommons.Core.lib.creators")
 
@@ -277,14 +281,18 @@ class RelatorsMixin:
         primaryAuthor = self.getPrimaryAuthor() 
         member = portal_membership.getMemberById(primaryAuthor)
         homeUrl = portal_membership.getHomeUrl(primaryAuthor)
+
+        # TODO this is quick fix if no relationship is found
+        # probably a 'default' one could be specified in the XCFG
+        default_relationship = gcommonsRelatorType(xmlnode = None, values={'marccode': 'aut', 'name':'Author', 'description':'Author', 'displayorder':0})
         
         relators.append({'id': primaryAuthor,
                          'name': member.getProperty('fullname'),
                          'homeurl': homeUrl,
-                         'institution': '?',
-                         'relationship': 'Author',
+                         'institution': "", #TODO: maybe this can be known if it is a gcUser
+                         'relationship': default_relationship.name(),
                          'email': member.getProperty('email'),
-                         'order': 0
+                         'order': default_relationship.displayorder()
                          })
 
         user = self.portal_membership.getAuthenticatedMember()
@@ -298,6 +306,9 @@ class RelatorsMixin:
                 continue
             
             relationship = self.vocabRelationship(relator['relationship'])
+            if relationship is None:
+                relationship = default_relationship
+            
             relators.append({'id': relator['name'].replace(' ', '_'),
                              'name': relator['name'], 
                              'institution': relator['institution'],
@@ -309,14 +320,15 @@ class RelatorsMixin:
         
         # registered
         for relator in self.getRefRegisteredRelators():
-            
+            # TODO: this should be fixed
+            relationship = default_relationship
             relators.append({'id': relator.getId(),
                              'name': relator.Title(), 
-                             'institution': 'TODO',#relator['institution'],
+                             'institution': "",#relator['institution'],
                              'homeurl': relator.absolute_url(),
-                             'relationship': 'Author',# relationship.name(),
+                             'relationship': relationship.name(),
                              'email':  relator.getEmail(),
-                             'order': 10,#relationship.displayorder()
+                             'order': relationship.displayorder()
                             })
             
 
