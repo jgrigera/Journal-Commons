@@ -27,11 +27,18 @@ def xmlgetchild_text(xmlnode, name):
 
 
 class gcommonsRelatorType:
-    def __init__(self, xmlnode = None):
-        self._id = xmlgetchild_text(xmlnode, 'marccode')
-        self._name = xmlgetchild_text(xmlnode, 'name')
-        self._description = xmlgetchild_text(xmlnode, 'description')
-        self._displayorder = xmlgetchild_text(xmlnode, 'displayorder')
+    def __init__(self, xmlnode = None, values=None):
+        if xmlnode is None:
+            self._id = values['marccode']
+            self._name = values['name']
+            self._description = values['description']
+            self._displayorder = values['displayorder']
+        
+        else:
+            self._id = xmlgetchild_text(xmlnode, 'marccode')
+            self._name = xmlgetchild_text(xmlnode, 'name')
+            self._description = xmlgetchild_text(xmlnode, 'description')
+            self._displayorder = xmlgetchild_text(xmlnode, 'displayorder')
     def id(self):
         return self._id
     def name(self):
