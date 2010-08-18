@@ -126,7 +126,7 @@
        Triggers: nothing
    --> 
   <transition transition_id="retract"
-             title="Make conference private again"
+             title="Make journal submissions private again"
              new_state="private" trigger="USER"
              before_script="" after_script="">
 	<action url="" 
