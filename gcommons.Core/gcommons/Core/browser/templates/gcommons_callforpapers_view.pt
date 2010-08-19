@@ -66,8 +66,7 @@
                                            +here.end().toZone('UTC').ISO8601().replace('-','').replace(':','').split('+')[0]+'Z'
                                            +'&details='+here.getRawDescription()+'<br />'
                                            +'&trp=true'
-                                           +'&sprop=website:'+here.event_url()
-                                           +'&sprop=name:'+here.contact_name();"
+                                           +'&sprop=website:'+here.event_url();"
                            title="Add this event to Google Calendar"
                            target="_blank"
                            style="background-image: none; padding: 0px;">
