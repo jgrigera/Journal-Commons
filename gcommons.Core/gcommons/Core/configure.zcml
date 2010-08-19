@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="gcommons.Core">
@@ -36,6 +37,6 @@
 		handler=".subscribers.workflow_action"
 		/>
 
-
+  <cmf:registerDirectory name="gcommons_core"/>
 
 </configure>

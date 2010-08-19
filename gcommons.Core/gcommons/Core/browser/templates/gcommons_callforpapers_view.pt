@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Core">
+<body>
+    <div metal:fill-slot="main">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <div class="vevent">
+
+        <h1 class="documentFirstHeading summary" title="#">
+            <metal:field use-macro="python:here.widget('title', mode='view')">Title</metal:field>
+        </h1>
+
+	<div tal:replace="structure provider:plone.belowcontenttitle" />
+
+	<metal:field use-macro="python:here.widget('description', mode='view')"></metal:field>
+
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
+        <div class="eventDetails vcard">
+        <table class="vertical listing"
+               summary="Event details" i18n:attributes="summary summary_event_details;">
+            <tbody>
+                <tr>
+                    <th i18n:translate="cfp_call_start">Call Opens</th>
+                    <td>
+		      <metal:field use-macro="python:here.widget('startDate', mode='view')"></metal:field>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="font-weight: bolder" i18n:translate="cfp_call_end">Deadline</th>
+                    <td class="state-private">
+		      <metal:field use-macro="python:here.widget('endDate', mode='view')"></metal:field>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="cfp_duration">Duration</th>
+                    <td>
+			  <metal:field use-macro="python:here.widget('duration_months', mode='view')"></metal:field>
+			  <span i18n:translate="cfp_duration_months"> months </span>
+			  <metal:field use-macro="python:here.widget('duration_days', mode='view')"></metal:field>
+			  <span i18n:translate="cfp_duration_days"> days</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th i18n:translate="heading_add_to_calendar">Add to calendar</th>
+                    <td>
+                        <a href="#"
+                           tal:attributes="href string:$here_url/vcs_view"
+                           title="Download this event in vCal format"
+                           i18n:attributes="title title_add_to_vcal;">
+                            <img tal:replace="structure here/icon_export_vcal.png" src="" alt="" />
+                            <span i18n:translate="label_add_to_vcal">vCal</span></a>&nbsp;
+                        <a href="#"
+                           tal:attributes="href string:$here_url/ics_view"
+                           title="Download this event in iCal format"
+                           i18n:attributes="title title_add_to_ical;">
+                            <img tal:replace="structure here/icon_export_ical.png" src="" alt="" />
+                            <span i18n:translate="label_add_to_ical">iCal</span></a>&nbsp;
+			<a href="#"
+                           tal:attributes="href python:'http://www.google.com/calendar/event?action=TEMPLATE'
+                                           +'&text='+here.title
+                                           +'&dates='+here.start().toZone('UTC').ISO8601().replace('-','').replace(':','').split('+')[0]+'Z/'
+                                           +here.end().toZone('UTC').ISO8601().replace('-','').replace(':','').split('+')[0]+'Z'
+                                           +'&details='+here.getRawDescription()+'<br />'
+                                           +'&trp=true'
+                                           +'&sprop=website:'+here.event_url()
+                                           +'&sprop=name:'+here.contact_name();"
+                           title="Add this event to Google Calendar"
+                           target="_blank"
+                           style="background-image: none; padding: 0px;">
+                            <img tal:replace="structure here/icon_export_google.png" src="" alt="" />
+                            <span i18n:translate="label_add_to_gcal">gCal</span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    
+	<metal:field use-macro="python:here.widget('body', mode='view')"></metal:field>
+
+	<div tal:replace="structure provider:plone.belowcontentbody" />
+	</div>
+    </div>
+
+
+</body>
+</html>
+
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" -->
+<!--       lang="en" -->
+<!--       metal:use-macro="here/main_template/macros/master" -->
+<!--       i18n:domain="gcommons.Core"> -->
+<!-- <body> -->
+<!--     <div metal:fill-slot="main"> -->
+<!--         <tal:main-macro metal:define-macro="main" -->
+<!--                         tal:define="testview view/test"> -->
+
+<!--             <span tal:content="testview/dummy">test</span> -->
+
+<!--         </tal:main-macro> -->
+<!--     </div> -->
+<!-- </body> -->
+<!-- </html> -->

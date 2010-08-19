@@ -38,5 +38,8 @@
     <permission name="journalcommons.Journal: Add Journal" acquire="False">
       <role name="Manager" />
     </permission>
+    <permission name="journalcommons.Journal: Add CallForPapers" acquire="False">
+      <role name="Manager" />
+    </permission>
   </permissions>
 </rolemap>

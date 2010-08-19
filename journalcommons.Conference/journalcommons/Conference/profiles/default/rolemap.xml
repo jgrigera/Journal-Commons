@@ -16,6 +16,9 @@
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
+    <permission name="journalcommons.Conference: Add CallForPapers" acquire="False">
+      <role name="Manager" />
+    </permission>
 
 <!--
     <permission name="jcommons.Conference: Change schedule of conference events" acquire="False">

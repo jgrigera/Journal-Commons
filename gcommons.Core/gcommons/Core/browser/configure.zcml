@@ -7,6 +7,16 @@
 	<include package="plone.app.contentmenu" />
 
 	<!-- -*- extra stuff goes here -*- -->
+
+  <browser:page
+      for="*"
+      name="gcommons_callforpapers_view"
+      class=".CallForPapersView.CallForPapersView"
+      template="templates/gcommons_callforpapers_view.pt"
+      allowed_interface=".CallForPapersView.ICallForPapersView"
+      permission="zope.Public"
+      />
+
 	<browser:page
 	    for="*"
 	    name="gcommons_container_config_view"
