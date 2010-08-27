@@ -18,4 +18,6 @@
 .project
 .pydevproject
 
+*/Products.DataGrid*/*
+*/Products.DataGridField-*/*
 

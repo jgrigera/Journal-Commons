@@ -1,0 +1,33 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/gcommons_transition_form/macros/master">
+<body>
+
+<div metal:fill-slot="main" i18n:domain="cmf_default">
+	<h1 i18n:translate="">Revise and Resubmit</h1>
+	
+	<p i18n:translate="">Ask the author to revise and resubmit 
+	   &#8220;<em><span tal:replace="here/Title">Item</span></em>&#8221; 
+	   before it is considered again by the Editorial Board.</p>
+</div>
+
+
+<div metal:fill-slot="comments" i18n:domain="cmf_default">
+    <strong><em i18n:translate="">Comments</em></strong><br/>
+    <span>Comments should include ??</span>
+</div>	    
+
+
+<form action="dummy">
+    <div metal:fill-slot="form" i18n:domain="cmf_default">
+     <input type="hidden" name="workflow_action" value="reviseandresubmit" />
+
+     <input type="submit" value="Revise and Resubmit"
+            i18n:attributes="value" />
+
+    </div>
+</form>
+
+</body>
+</html>
+

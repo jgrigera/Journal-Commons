@@ -11,5 +11,6 @@
   <factorytypes>
     <!-- -*- extra stuff goes here -*- -->
     <type portal_type="CallForPapers" />
+    <type portal_type="SubmissionsFolder" />
   </factorytypes>
 </object>

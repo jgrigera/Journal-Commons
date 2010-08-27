@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+
+<object name="portal_skins" allow_any="False" cookie_persistence="False">
+
+ <object name="gcommons_journal_images"
+    meta_type="Filesystem Directory View"
+    directory="gcommons.Journal:skins/gcommons_journal_images"/>
+
+ <object name="gcommons_journal_templates"
+    meta_type="Filesystem Directory View"
+    directory="gcommons.Journal:skins/gcommons_journal_templates"/>
+
+ <skin-path name="*">
+  <layer name="gcommons_journal_images" insert-after="custom"/>
+  <layer name="gcommons_journal_templates" insert-after="custom"/>
+ </skin-path>
+
+</object>

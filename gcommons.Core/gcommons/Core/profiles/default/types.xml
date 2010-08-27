@@ -10,4 +10,7 @@
   <!-- -*- extra stuff goes here -*- -->
   <object name="CallForPapers"
     meta_type="Factory-based Type Information with dynamic views" />
+
+  <object name="SubmissionsFolder"
+    meta_type="Factory-based Type Information with dynamic views" />
 </object>

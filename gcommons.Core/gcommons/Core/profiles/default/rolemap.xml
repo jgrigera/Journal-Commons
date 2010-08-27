@@ -5,5 +5,8 @@
     <permission name="gcommons.Core: Add CallForPapers" acquire="False">
       <role name="Manager" />
     </permission>
+    <permission name="gcommons.Core: Add SubmissionsFolder" acquire="False">
+      <role name="Manager" />
+    </permission>
   </permissions>
 </rolemap>

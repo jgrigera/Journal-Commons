@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<rolemap>
+    <roles>
+		<role name="EditorialBoard"/>    
+		<role name="JournalAuthor"/>    
+    </roles>
+
+  <permissions>
+    <!-- -*- extra stuff goes here -*- -->
+    <permission name="gcommons.Journal: Add Comment" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
+    <permission 
+	    name="gcommons.Journal: Add Section" acquire="False">
+      <role name="Manager" />
+    </permission>
+    <permission 
+	    name="gcommons.Journal: Add Article" acquire="False">
+		<role name="Manager" />
+		<role name="Contributor" />
+		<role name="EditorialBoard"/>    
+		<role name="JournalAuthor"/>    
+    </permission>
+    <permission name="gcommons.Journal: Add Draft" acquire="False">
+		<role name="Manager" />
+		<role name="Contributor" />
+		<role name="EditorialBoard"/>    
+		<role name="JournalAuthor"/>    
+    </permission>
+    <permission 
+	    name="gcommons.Journal: Add Issue" acquire="False">
+      <role name="Manager" />
+    </permission>
+    <permission name="gcommons.Journal: Add Journal" acquire="False">
+      <role name="Manager" />
+    </permission>
+  </permissions>
+</rolemap>

@@ -6,6 +6,16 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".submissionsfolder.SubmissionsFolder">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.ISubmissionsFolder"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.ISubmissionsFolder"
+        />
+  </class>
   <class class=".callforpapers.CallForPapers">
     <require
         permission="zope2.View"

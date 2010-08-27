@@ -17,7 +17,7 @@
       permission="zope.Public"
       />
 
-	<browser:page
+    <browser:page
 	    for="*"
 	    name="gcommons_container_config_view"
 	    class=".ContainerConfigView.gcContainerConfigView"
@@ -27,7 +27,7 @@
 	    />
 
     <!-- Provider to render authors of documents -->                                                                                                                         
-	<browser:viewletManager                                                                                                                                     
+    <browser:viewletManager                                                                                                                                     
 		name="gcommons.relatorsprovider"                                                                                                                          
 		provides=".interfaces.IgcommonsRelatorProvider"                                                                                                               
 		permission="zope2.View"                                                                                                                                 
@@ -40,6 +40,44 @@
         class=".providers.AllRelatortsViewlet"                                                                                                                  
         permission="zope2.View"                                                                                                                                 
         />                                                                                                                                                      
-           
+
+
+  <!-- Submissions views -->
+  <browser:page
+      for="*"
+      name="gcommons_submissions_view"
+      class=".submissionsview.SubmissionsView"
+      template="templates/gcommons_submissions_view.pt"
+      allowed_interface=".submissionsview.ISubmissionsView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gcommons_submissionseditors_view"
+      class=".submissionseditorsview.SubmissionsEditorsView"
+      template="templates/gcommons_submissionseditors_view.pt"
+      allowed_interface=".submissionseditorsview.ISubmissionsEditorsView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gcommons_submissions_search"
+      class=".submissionssearchview.SubmissionsSearchView"
+      template="templates/gcommons_submissions_search.pt"
+      allowed_interface=".submissionssearchview.ISubmissionsSearchView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gcommons_submissions_asxls_view"
+      class=".submissionseditorsview.SubmissionsAsExcelView"
+      allowed_interface=".submissionseditorsview.ISubmissionsAsExcelView"
+      permission="zope2.Public"
+      />
+
+  
 
 </configure>

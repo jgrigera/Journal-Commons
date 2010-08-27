@@ -31,9 +31,13 @@ gcommons/Core/browser/templates/gcommons_relators_provider.pt
 gcommons/Core/content/__init__.py
 gcommons/Core/content/callforpapers.py
 gcommons/Core/content/configure.zcml
+gcommons/Core/content/submissionsfolder.py
 gcommons/Core/interfaces/__init__.py
 gcommons/Core/interfaces/callforpapers.py
 gcommons/Core/interfaces/gcommonsContainer.py
+gcommons/Core/interfaces/jcommonsEvent.py
+gcommons/Core/interfaces/jcommonsSubmittable.py
+gcommons/Core/interfaces/submissionsfolder.py
 gcommons/Core/lib/__init__.py
 gcommons/Core/lib/gcommonsConfiguration.py
 gcommons/Core/lib/jcommonsEventMixin.py
@@ -47,6 +51,7 @@ gcommons/Core/profiles/default/rolemap.xml
 gcommons/Core/profiles/default/skins.xml
 gcommons/Core/profiles/default/types.xml
 gcommons/Core/profiles/default/types/CallForPapers.xml
+gcommons/Core/profiles/default/types/SubmissionsFolder.xml
 gcommons/Core/skins/gcommons_core/cfp_icon.png
 gcommons/Core/skins/gcommons_core/cfp_icon.png.metadata
 gcommons/Core/skins/gcommons_core/icon_export_google.png
@@ -56,6 +61,7 @@ gcommons/Core/tests/base.py
 gcommons/Core/tests/test_doctest.py
 gcommons/Core/validators/XMLValidator.py
 gcommons/Core/validators/__init__.py
+gcommons/Core/widgets/ReferenceColumn.py
 gcommons/Core/widgets/SelectDescriptionWidget.py
 gcommons/Core/widgets/__init__.py
 gcommons/Core/widgets/configure.zcml

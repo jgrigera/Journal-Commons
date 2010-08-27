@@ -1,4 +1,6 @@
 # -*- extra stuff goes here -*-
+from submissionsfolder import ISubmissionsFolder
+
 
 from callforpapers import ICallForPapers
 
@@ -7,4 +9,4 @@ from callforpapers import ICallForPapers
 # from jcommonsSubmittable import IjcommonsSubmittable
 from gcommonsContainer import IgcommonsContainer
 
-                                                                                                                                                               
+
