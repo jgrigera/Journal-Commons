@@ -16,9 +16,9 @@
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
-      title="gCommons.Core"
+      title="gcommons.Core"
       directory="profiles/default"
-      description="Core components of gCommons Suite"
+      description="Core components of gcommons Suite"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   

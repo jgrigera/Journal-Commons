@@ -12,7 +12,7 @@ def beforeUninstall(self, reinstall, product, cascade):
         method 'beforeUninstall'
     """
     
-    logger.info("Problem: Uninstalling gCommons.Users but leaving stuff behind!")
+    logger.info("Problem: Uninstalling gcommons.Users but leaving stuff behind!")
     
     # Cascade contains the items that should be removed
     # keep types, workflows and portalobjects (i.e. tool)

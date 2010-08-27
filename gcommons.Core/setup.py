@@ -37,7 +37,7 @@ tests_require=['zope.testing']
 
 setup(name='gcommons.Core',
       version=version,
-      description="Core components of gCommons Suite",
+      description="Core components of gcommons Suite",
       long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
