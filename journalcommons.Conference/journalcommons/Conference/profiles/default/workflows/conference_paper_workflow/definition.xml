@@ -54,7 +54,6 @@
  <!-- "Waiting EB Action" -->
  <state state_id="eb_draft" title="Editorial Board Draft">
     <exit-transition transition_id="reject"/>
-    <exit-transition transition_id="referee"/>
     <exit-transition transition_id="reviseandresubmit"/>
     <exit-transition transition_id="accept"/>
 
@@ -95,7 +94,8 @@
 
 
  <state state_id="accepted" title="Accepted">
-	<exit-transition transition_id="publish"/>
+	<exit-transition transition_id="confirm"/>
+	<exit-transition transition_id="decline"/>
 	<exit-transition transition_id="retract"/>
 
     <!-- View -->
@@ -132,7 +132,46 @@
  </state>
  
 
- <state state_id="published" title="Published">
+ <state state_id="confirmed" title="Confirmed">
+	<exit-transition transition_id="retract"/>
+
+    <!-- View -->
+    <permission-map name="Access contents information" acquired="False">
+	<permission-role>Anonymous</permission-role>
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Owner</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents"  acquired="False">
+	<permission-role>Anonymous</permission-role>
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<!-- maybe this just for panels... -->
+	<permission-role>JournalAuthor</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+	<permission-role>Anonymous</permission-role>
+	<permission-role>Manager</permission-role>
+	<permission-role>Owner</permission-role>
+	<permission-role>JournalAuthor</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+
+    <!-- Modify -->
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Manager</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+
+ </state>
+
+ <state state_id="declined" title="Declined">
 	<exit-transition transition_id="retract"/>
 
     <!-- View -->
@@ -224,22 +263,6 @@
 	</guard>
   </transition>
 
-  <!-- Send to peer review
-       From: eb_draft
-       Who: Editorial Board
-       Triggers: email to author
-	   Guards:  EB action	[ if submitted comments ]
-   --> 
-  <transition transition_id="referee"
-             title="Send to peer review"
-             new_state="referee_draft" trigger="USER"
-             before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_referee_form"
-		  category="workflow">Send to Referees</action>
-	<guard>
-		<guard-role>Manager</guard-role>
-	</guard>
-  </transition>
 
  <!--  Reject
        From: idea, eb_draft
@@ -294,36 +317,37 @@
 	</guard>
   </transition>
 
-  <!-- Report to EB
-       From: referee_draft
-       Who: Editorial Board Responsible
-	   Guards:  EB action	[ if submitted comments ]
+  <!-- Confirm attendance
+       From: accepted
+       Who: Owner
+	   Trigger: emails
    --> 
-  <transition transition_id="reporttoeb"
-             title="Send back to EB"
-             new_state="eb_draft" trigger="USER"
+  <transition transition_id="confirm"
+             title="Confirm attendance"
+             new_state="confirmed" trigger="USER"
              before_script="" after_script="">
-	<action url="%(content_url)s/jc_content_reporttoeb_form"
-		  category="workflow">Report to EB</action>
+	<action url="%(content_url)s/jc_content_publish_form"
+		  category="workflow">Confirm Attendance</action>
 	<guard>
 		<guard-role>Manager</guard-role>
-		<!--  <guard-expression>python: user.has_permission("Review portal content", here) or user.has_role("Owner", here)</guard-expression> -->
+		<guard-role>Owner</guard-role>
 	</guard>
   </transition>
 
-  <!-- Publish
+  <!-- Decline attendance
        From: accepted
-       Who: Publication Manager
+       Who: Owner
 	   Trigger: emails
    --> 
-  <transition transition_id="publish"
-             title="Publish in an issue"
-             new_state="published" trigger="USER"
+  <transition transition_id="decline"
+             title="Decline attendance"
+             new_state="declined" trigger="USER"
              before_script="" after_script="">
 	<action url="%(content_url)s/jc_content_publish_form"
-		  category="workflow">Publish</action>
+		  category="workflow">Decline Attendance</action>
 	<guard>
 		<guard-role>Manager</guard-role>
+		<guard-role>Owner</guard-role>
 	</guard>
   </transition>
 
