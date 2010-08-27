@@ -216,8 +216,43 @@ Description: .. contents::
         >>> browser.getControl(name='submit').click()
         >>> browser.open(portal_url)
         
+        Let's fetch book info from Worldcat and check what we get back.
         
+        >>> from journalcommons.Utils.gcommonsWorldcat import gcommonsWorldcat
+        >>> b = gcommonsWorldcat('0-596-00287-4')
+        >>> b.status()
+        u'ok'
+        >>> b.title()
+        u"Free as in freedom : Richard Stallman's crusade for free software"
+        >>> b.publisher()
+        u"O'Reilly"
+        >>> b.year()
+        u'2002'
+        >>> b.language() == "eng"
+        True
+        >>> b.author()
+        u'Sam Williams.'
         
+        Let's fetch book info from Worldcat with a wrong ISBN.
+        
+        >>> b = gcommonsWorldcat('0-596-0028')
+        Traceback (most recent call last):
+        ...
+        IsbnError: Worldcat invalid isbn: 0-596-0028
+        
+        Let's fetch book info from an unreachable host.
+        
+        >>> b = gcommonsWorldcat('0-596-00287-4','test')
+        Traceback (most recent call last):
+        ...
+        NetworkError: Sever not reachable (-2, 'Name or service not known'), URL=http://test/webservices/xid/isbn/0-596-00287-4?method=getMetadata&format=json&fl=*
+        
+        Let's fetch book info from an incorrect URL.
+        
+        >>> b = gcommonsWorldcat('0-596-00287-4','google.com')
+        Traceback (most recent call last):
+        ...
+        NetworkError: Server returned error code: 404, URL=http://google.com/webservices/xid/isbn/0-596-00287-4?method=getMetadata&format=json&fl=*
         
         Contributors
         ************

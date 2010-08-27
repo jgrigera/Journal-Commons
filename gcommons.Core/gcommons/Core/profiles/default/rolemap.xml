@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <!-- -*- extra stuff goes here -*- -->
+    <permission name="gcommons.Core: Add CallForPapers" acquire="False">
+      <role name="Manager" />
+    </permission>
+  </permissions>
+</rolemap>

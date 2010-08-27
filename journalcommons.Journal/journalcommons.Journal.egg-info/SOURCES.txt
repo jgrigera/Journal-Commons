@@ -78,6 +78,7 @@ journalcommons/Journal/profiles/default/types/Section.xml
 journalcommons/Journal/profiles/default/types/SubmissionsFolder.xml
 journalcommons/Journal/profiles/default/workflows/articlePR_IE_workflow/definition.xml
 journalcommons/Journal/profiles/default/workflows/articlePR_workflow/definition.xml
+journalcommons/Journal/profiles/default/workflows/journal_workflow/definition.xml
 journalcommons/Journal/profiles/uninstall/factorytool.xml
 journalcommons/Journal/profiles/uninstall/skins.xml
 journalcommons/Journal/skins/journalcommons_journal_images/jcommons-Journal.css.dtml

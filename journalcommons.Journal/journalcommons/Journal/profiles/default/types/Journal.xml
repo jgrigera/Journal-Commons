@@ -21,6 +21,7 @@
         <element value="Folder" />
         <element value="SubmissionsFolder" />
         <element value="Document" />
+        <element value="CallForPapers" />
   </property>
 
   <property name="default_view">jcommons_journal_view</property>

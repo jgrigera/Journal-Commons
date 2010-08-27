@@ -3,11 +3,15 @@
 
  <object name="articlePR_workflow" meta_type="Workflow"/>
  <object name="articlePR_IE_workflow" meta_type="Workflow"/>
+ <object name="journal_workflow" meta_type="Workflow"/>
 
  <bindings>
   <type type_id="Article">
-   <bound-workflow workflow_id="articlePR_workflow" />
+     <bound-workflow workflow_id="articlePR_workflow" />
   </type>
+     <type type_id="Journal">
+       <bound-workflow workflow_id="journal_workflow" />
+     </type>
  </bindings>
 
 </object>
