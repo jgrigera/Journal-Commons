@@ -1,12 +1,14 @@
 """Definition of the Article content type
 """
 
+from Acquisition import aq_base, aq_inner
 from zope.interface import implements
 
+from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
-from Products.CMFCore.utils import getToolByName
+from gcommons.Core.widgets.SelectDescriptionWidget import SelectDescriptionWidget
 
 from gcommons.Core.lib.relators import RelatorsMixin
 from gcommons.Journal import JournalMessageFactory as _
@@ -20,32 +22,28 @@ logger = logging.getLogger('gcommons.Journal.content.article')
 
 ArticleSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + atapi.Schema((
 
-    # -*- Your Archetypes field definitions here ... -*-
-    atapi.ComputedField(        
-        'title',        
-        searchable=1,        
-        expression='context._compute_title()',       
-        accessor='Title'    
+    
+    atapi.StringField(
+        name='articleType',
+        required=True,
+        searchable=1,
+        storage=atapi.AnnotationStorage(),
+        vocabulary='listArticleTypes',
+        enforceVocabulary=True,
+        widget = SelectDescriptionWidget(            
+            label="Type",            
+            description="Choose the type of article that best fits your piece",
+            label_msgid="gcommons_article_type",            
+            description_msgid="gcommons_help_article_type",            
+        ),
     ),
 
+    # -*- Your Archetypes field definitions here ... -*-
     atapi.ComputedField(
         'bibreference',
         searchable=1,
         expression='context._compute_bibreference()',
         accessor='BibReference'
-    ),
-
-    atapi.StringField(
-        name='article_title',
-        required=True,
-        searchable=1,
-        #default='',
-        storage=atapi.AnnotationStorage(),
-        schemata ='default',
-        widget=atapi.StringWidget(
-            label=_(u"Title"),
-            description=_(u"Article title."),
-        ),
     ),
 
     atapi.StringField(
@@ -91,6 +89,7 @@ ArticleSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + ata
         name='manager',
         required=False,
         searchable=False,
+        write_permission='Manage Portal',
         #default='',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
@@ -104,6 +103,8 @@ ArticleSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + ata
 
 
 def finalizeArticleSchema(schema):
+    schema['title'].storage = atapi.AnnotationStorage()
+    schema['title'].widget.description = _(u"Article title.")
     schema['description'].storage = atapi.AnnotationStorage()
     schema['description'].required = True
     schema['description'].widget.label = _('Abstract')
@@ -111,9 +112,8 @@ def finalizeArticleSchema(schema):
     schema['subject'].storage = atapi.AnnotationStorage()
     schema['subject'].widget.label = _('Keywords')
     schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your article.')
-
+ 
     # Reorder
-    schema.moveField('article_title', before=RelatorsMixin.firstField)
     schema.moveField('description', after=RelatorsMixin.lastField)
     schema.moveField('subject', after='description')
     
@@ -142,22 +142,38 @@ class Article(folder.ATFolder, RelatorsMixin):
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
     title = atapi.ATFieldProperty('title')
-    article_title = atapi.ATFieldProperty('article_title')
     description = atapi.ATFieldProperty('description')
+    articleType = atapi.ATFieldProperty('articleType')
     pages = atapi.ATFieldProperty('pages')
     doi = atapi.ATFieldProperty('doi')
 
+
+    
     @property
     def portal_workflow(self):
         return getToolByName(self.context, 'portal_workflow')
 
-    def _compute_title(self):
-        # TODO: something like "pp.." or short title
-        #if len (self.article_title) > 10:
-        #    return self.article_title[:10]+'...'
-        #else:
-        return self.article_title
-    
+    """
+    Helpers for Schema
+    """
+    def listArticleTypes(self, extended=False):
+        context = aq_inner(self)
+        config = context.aq_getConfig()
+        
+        type = config.getItemType_byPortalType('Article')
+            
+        if not extended:
+            return atapi.DisplayList([(subtype.id(),subtype.name()) for subtype in  type.subtypes() ])
+        else:
+            dic = {}
+            for subtype in  type.subtypes():
+                text = "<b>Description:</b> %s" % subtype.description()
+                if subtype.requirements():
+                    text = text + "<br/><b>Requirements:</b> %s" % subtype.requirements()
+                dic[subtype.id()] = text
+            return dic 
+
+
     def _compute_bibreference(self):
     	return "TODO: bibreference"
 
@@ -166,7 +182,6 @@ class Article(folder.ATFolder, RelatorsMixin):
             return self.manager
         else:
             return "UNASSIGNED"
- 
 
     # Common...
     def get_container(self):
@@ -189,33 +204,32 @@ class Article(folder.ATFolder, RelatorsMixin):
         else:
             return "Your paper is now %s" % review_state
     
+    """
+    Draft Management
+    """
+    def get_current_draft(self):
+        try:
+            return getattr(self, self.current_draft_id)  
+        except AttributeError:
+            return self.get_drafts().pop()
+    
+    def set_current_draft(self, idx=None):
+        self.current_draft_id = idx
+
     def get_drafts(self):
-        brains = self.listFolderContents(contentFilter={"portal_type" : ('Draft',)})
-        #brains = self.portal_catalog({'portal_type':'File',
-        #                     'path':'/'.join(self.context.getPhysicalPath()),
-        #                     'sort_on':'sortable_title'})
-        #groups = [i.getObject() for i in brains]
+        brains = self.listFolderContents(contentFilter={"portal_type" : ('Draft',), 'sort_on': 'created'})#, 'sort_order' : 'reverse'})
         return brains
         
     def get_no_drafts(self):
         return len( self.get_drafts() )
     
-    def get_last_draft(self):
-        # deprecated
-        logger.warning("deprecated get_last_draft")
-        return self.get_current_draft()
-    
-    def get_current_draft(self):
+    def SearchableText(self):
+        """
+        We index the content of the draft as own, so that searches
+        of fulltext comes to parent object and not individual draft 
+        """
+        return folder.ATFolder.SearchableText(self) + self.get_current_draft().SearchableText() 
 
-        brains = self.portal_catalog({
-                    'portal_type':'Draft',
-                    'path':'/'.join(self.getPhysicalPath()),
-                    'sort_on':'getObjPositionInParent'})
-        
-        # Just return first object
-        for brain in brains:
-            return brain.getObject()
-        return None
         
     	
         		

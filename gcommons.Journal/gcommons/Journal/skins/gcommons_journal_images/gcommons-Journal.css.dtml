@@ -29,6 +29,11 @@
     color: #cc00cc  !important;
 }
 
+/* Article */
+#article-abstract {
+	color: #cc00cc  !important;
+}
+
 /* Relators in two columns */
 #relatorsTwoColumns {
 }

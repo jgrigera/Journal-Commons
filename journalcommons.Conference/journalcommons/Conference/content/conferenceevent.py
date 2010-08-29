@@ -188,7 +188,6 @@ class ConferenceEvent(folder.ATFolder, RelatorsMixin):
     description = atapi.ATFieldProperty('description')
     eventType = atapi.ATFieldProperty('eventType')
     
-
     
     def listConferenceEventTypes(self, extended=False):
         context = aq_inner(self)

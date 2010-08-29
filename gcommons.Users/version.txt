@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-0.0.5master
-=======
-0.0.6testing
->>>>>>> testing
+0.0.8

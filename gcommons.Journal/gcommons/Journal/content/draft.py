@@ -1,7 +1,8 @@
 """Definition of the Draft content type
 """
-
+import logging
 from zope.interface import implements, directlyProvides
+from plone.memoize.instance import memoize
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
@@ -11,12 +12,14 @@ from Products.ATContentTypes.content.file import ATFile
 from gcommons.Journal import JournalMessageFactory as _
 from gcommons.Journal.interfaces import IDraft
 from gcommons.Journal.config import PROJECTNAME
-import logging
+
 logger = logging.getLogger('gcommons.Journal.content.draft')
 
 
+#
+# Schema
+#
 DraftSchema = ATFile.schema.copy() + atapi.Schema((
-
     atapi.StringField(        
         name='title',        
         widget = atapi.SelectionWidget(            
@@ -35,12 +38,12 @@ DraftSchema = ATFile.schema.copy() + atapi.Schema((
 
 # Set storage on fields copied from ATContentTypeSchema, making sure
 # they work well with the python bridge properties.
-
 DraftSchema['title'].storage = atapi.AnnotationStorage()
 DraftSchema['description'].storage = atapi.AnnotationStorage()
 DraftSchema['description'].widget.description = "Additional notes about this draft"
 
 schemata.finalizeATCTSchema(DraftSchema, moveDiscussion=False)
+
 
 
 class Draft(ATFile):
@@ -52,28 +55,47 @@ class Draft(ATFile):
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
-    
-    # -*- Your ATSchema to Python Property Bridges Here ... -*-
+        
+    """
+    Prevent this object from being indexed
+    """
+    def at_post_create_script(self):
+        # set_draft is aquired from Article
+        logger.info("post Create: set_curr_draft")
+        self.set_current_draft(self.id)
+        
+    def at_post_edit_script(self):
+        # set_draft is aquired from Article
+        logger.info("post edit: set_curr_draft")
+        self.set_current_draft(self.id)
+                       
+    def indexObject(self):
+        logger.info("Boycott of indexObject")
+        pass                                                                                                   
+    def reindexObject(self,*args,**kwargs):
+        logger.info("Boycott of reindexObject")
+        pass                                                                                                   
+
 #    security.declareProtected(permissions.View, 'getReleasesVocab')        
     def getDraftTypesVocabulary(self):
         """        
         Get the vocabulary of available draft types
         """        
         vocab = atapi.DisplayList()        
-        vocab.add('draft_1', 'First Draft', 'draft_1')        
-        vocab.add('draft_2', 'Second Draft', 'draft_2')        
-        vocab.add('draft_3', 'Third Draft', 'draft_3')        
-        vocab.add('draft_4', 'Later Draft', 'draft_4')        
-        vocab.add('draft_f', 'Final Draft', 'draft_f')        
+        vocab.add('draft', 'Draft', 'draft')        
+        vocab.add('copyedited', 'Copy Edited Version', 'copyedited')        
         vocab.add('published', 'Published Version', 'published')        
         return vocab
 
+    @memoize
     def getWordCount(self):
         """
         Return word count of this file
         """
+        logger.info("Calculating wordcount...")
         text = self.SearchableText()
-        return len(text.split(None))
-
-
+        wordcount = len(text.split(None))
+        return wordcount
+    
+        
 atapi.registerType(Draft, PROJECTNAME)

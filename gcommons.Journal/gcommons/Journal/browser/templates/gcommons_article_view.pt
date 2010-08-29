@@ -51,22 +51,18 @@
 	<!-- Authors and contributors -->	
     <div tal:replace="structure provider:gcommons.relatorsprovider" />
 
-	<span class="visualClear"><!-- -->&nbsp;<br/></span>
+	<span class="visualClear"/>
 
 	<!-- Abstract and Keywords -->
 	<tal:abstract tal:condition="here/Description">
-	<dl  class="collapsible inline"> <!-- not collapsedOnLoad -->
-	    <dt class="collapsibleHeader" i18n:translate="label_abstract">Abstract</dt>
-	    <dd class="collapsibleContent">
-		<div tal:content="here/Description" />
-		<p/><p/>
+	 	<h3>Abstract</h3>
+	 		<div class="article-abstract" tal:content="here/Description" />
+			<p/><p/>
 		<tal:loop tal:repeat="keyword here/Subject">
 			    <tal:case tal:condition="not: repeat/keyword/start">
 				-
 			    </tal:case><b tal:content="keyword" />
 		</tal:loop>
-	    </dd>
-	</dl>
 	</tal:abstract>
 	
 	
@@ -132,12 +128,15 @@
 		            	<th tal:content="comment_type"></th>
 		            	<td>
 		            		<tal:block tal:repeat="comment python:comments[comment_type]">
+		            			<!-- 
 		            			<tal:user tal:define="user_details	python:view.get_user_details(comment.listCreators()[0]);
 				                        			home_url 	user_details/home_url;
 				                        			fullname	user_details/fullname;">
 			            			<a href="#" tal:attributes="href comment/absolute_url" 
 			            						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
 			            		</tal:user>
+			            		-->
+			            		FIXME
 			            	</tal:block>
 		            	</td>
 		        </tr>
@@ -157,7 +156,7 @@
 			 -->            
             <tal:batch define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')">
 
-            <h4 i18n:translate="drafts">All Drafts</h4>
+            <h4 i18n:translate="drafts">Draft History</h4>
             <table class="listing">
                 <tr>
                     <th>Name</th>
