@@ -20,9 +20,10 @@ import logging
 logger = logging.getLogger('gcommons.Journal.content.article')
 
 
+#
+# Schema
+#
 ArticleSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + atapi.Schema((
-
-    
     atapi.StringField(
         name='articleType',
         required=True,
@@ -133,6 +134,7 @@ def finalizeArticleSchema(schema):
     return schema
 
 
+
 class Article(folder.ATFolder, RelatorsMixin):
     """An article in an issue of a journal"""
     implements(IArticle)
@@ -175,7 +177,7 @@ class Article(folder.ATFolder, RelatorsMixin):
 
 
     def _compute_bibreference(self):
-    	return "TODO: bibreference"
+        return "TODO: bibreference"
 
     def get_responsible_manager(self):
         if self.manager is not None:
@@ -185,11 +187,23 @@ class Article(folder.ATFolder, RelatorsMixin):
 
     # Common...
     def get_container(self):
+        logger.info("?? Deprecated article.get_container()?")
         return None
 
     def get_item_subtype(self, name=False):
-        return "Paper"
-    
+        if name:
+            vocab = self.listArticleTypes(False)
+            return vocab.getValue( self.articleType )
+        else:
+            return self.articleType
+
+    def get_item_subtype_config(self, name=False):
+        context = aq_inner(self)
+        config = context.aq_getConfig()
+        
+        type = config.getItemType_byPortalType('Article')
+        return type.getSubtype_byId(self.get_item_subtype(False))
+
     def get_review_state(self):
         review_state = self.portal_workflow.getInfoFor(self, 'review_state');
         #TODO: move to common!
@@ -211,7 +225,10 @@ class Article(folder.ATFolder, RelatorsMixin):
         try:
             return getattr(self, self.current_draft_id)  
         except AttributeError:
-            return self.get_drafts().pop()
+            drafts = self.get_drafts()
+            if len(drafts):
+                return drafts.pop()
+        return None
     
     def set_current_draft(self, idx=None):
         self.current_draft_id = idx
@@ -228,9 +245,11 @@ class Article(folder.ATFolder, RelatorsMixin):
         We index the content of the draft as own, so that searches
         of fulltext comes to parent object and not individual draft 
         """
-        return folder.ATFolder.SearchableText(self) + self.get_current_draft().SearchableText() 
+        current_draft = self.get_current_draft()
+        if current_draft is not None:
+            return folder.ATFolder.SearchableText(self) + current_draft.SearchableText()
+        else:
+            return folder.ATFolder.SearchableText(self)
+      
 
-        
-    	
-        		
 atapi.registerType(Article, PROJECTNAME)

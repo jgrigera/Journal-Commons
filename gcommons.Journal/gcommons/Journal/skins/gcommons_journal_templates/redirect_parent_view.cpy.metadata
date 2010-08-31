@@ -1,0 +1,5 @@
+[default]
+title=Redirect
+
+[actions]
+action.success=redirect_to:string:../

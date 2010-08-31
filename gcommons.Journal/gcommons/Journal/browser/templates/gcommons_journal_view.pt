@@ -24,24 +24,18 @@
                summary="Event details" i18n:attributes="summary summary_event_details;">
             <tbody>
                 <tr>
-                    <th i18n:translate="journal_editors">Editorial Board</th>
-                    <td>
-		      <metal:field use-macro="python:here.widget('editors', mode='view')"></metal:field>
-                    </td>
-                </tr>
-                <tr>
                     <th i18n:translate="journal_issn">ISSN</th>
                     <td>
 		      <metal:field use-macro="python:here.widget('issn', mode='view')"></metal:field>
                     </td>
                 </tr>
-                <tr>
+                <tr tal:condition="here/getDoiBase">
                     <th i18n:translate="journal_doi">DOI</th>
                     <td>
 		      <metal:field use-macro="python:here.widget('doiBase', mode='view')"></metal:field>
                     </td>
                 </tr>
-                <tr>
+                <tr tal:condition="here/getPublisher">
                     <th i18n:translate="journal_publisher">Publisher</th>
                     <td>
 		      <metal:field use-macro="python:here.widget('publisher', mode='view')"></metal:field>
@@ -51,7 +45,19 @@
         </table>
         </div>
 
-	<tal:foldercontents
+	<!-- Editorial Board -->
+    <!--  TODO: translate "EB" -->
+    <h3 i18n:translate="editorialboard">Editorial Board</h3>
+    <tal:editorialboard tal:repeat="editor view/getEditors">
+    	<a class="discreet" href="#" tal:content="editor/fullname" 
+    		tal:attributes="title editor/bio;
+    						href editor/url"/><span tal:omit-tag="" tal:condition="not:repeat/editor/end">,</span>
+    </tal:editorialboard>
+    
+    
+    <!-- Issues and other -->
+    <!-- TODO: if no issues, the header is shown anyway, should iterate twice -->
+    <tal:foldercontents
 	   tal:define="Batch python:modules['Products.CMFPlone'].Batch;
 		       contents_start request/contents_start | python:0;
 		       contents_size request/contents_size | python:20;

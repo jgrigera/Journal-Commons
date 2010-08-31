@@ -1,7 +1,6 @@
 """Definition of the Journal content type
 """
 
-import os
 from zope.interface import implements
 
 from Products.Archetypes import atapi
@@ -9,28 +8,18 @@ from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.lib import constraintypes
 
+# gcommons.Core
+from gcommons.Core.lib.container import gcContainerMixin
+
+# gcommons.Journal
 from gcommons.Journal import JournalMessageFactory as _
 from gcommons.Journal.interfaces import IJournal
 from gcommons.Journal.config import PROJECTNAME
 
-from gcommons.Core.lib.gcommonsConfiguration import gcommonsConfiguration, readFile
-
-# XML
-# rename to allow other implementations in the future 
-from xml.dom.minidom import parseString as XMLParseString
-from xml.parsers.expat import ExpatError as XMLError
-
-# Validation
-import gcommons.Core.validators  
-from Products.validation import V_REQUIRED
-
-
 #
 # Schema
 #
-JournalSchema = folder.ATFolderSchema.copy() + atapi.Schema((
-
-    # -*- Your Archetypes field definitions here ... -*-
+JournalSchema = folder.ATFolderSchema.copy() + gcContainerMixin.schema.copy() + atapi.Schema((
     atapi.StringField(
         name='issn',
         required=False,
@@ -83,94 +72,28 @@ JournalSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
-    atapi.LinesField(        
-        name = 'editors',
-        storage=atapi.AnnotationStorage(),
-        widget = atapi.LinesWidget(            
-            label="Editorial Board",            
-            description="Enter the user ids of the users who compose the EB and are able to manage this journal, one per line.",            
-            label_msgid='gcommons_label_editors',            
-            description_msgid='gcommons_help_editors',            
-            i18n_domain='gcommons.Journal',        
-        ),        
-        default_method="getDefaultEditors"    
-    ),
-
-
-    atapi.FileField(
-        name='configuration',
-        required = False,
-        searchable = False,
-        languageIndependent = True,                   
-        storage = atapi.AnnotationStorage(),
-        default = readFile(os.path.dirname(__file__), 'journal.xcfg'),
-        validators = (('isNonEmptyFile', V_REQUIRED), 
-                      ('checkFileMaxSize', V_REQUIRED), # This comes from ATContentType.file
-                      ('isValidXML', V_REQUIRED)),  
-        widget=atapi.FileWidget (
-                description='Configuration XML, please leave empty if you dont know what this means',
-                label= 'Configuration XML'
-        ),                 
-    ),
-
 ))
 
-# Set storage on fields copied from ATFolderSchema, making sure
-# they work well with the python bridge properties.
 
-JournalSchema['title'].storage = atapi.AnnotationStorage()
-JournalSchema['description'].storage = atapi.AnnotationStorage()
-schemata.finalizeATCTSchema(
-    JournalSchema,
-    folderish=True,
-    moveDiscussion=False
-)
+def finalizeJournalSchema(schema):
+    schema['title'].storage = atapi.AnnotationStorage()
+    schema['title'].widget.label = 'Name'
+    schema['title'].widget.description = 'Type the name of the Journal'
+    schema['description'].storage = atapi.AnnotationStorage()
+    schemata.finalizeATCTSchema(schema,folderish=True,moveDiscussion=False)
+    return schema
 
 
-class Journal(folder.ATFolder):
-    """Root for all files in a journal"""
+class Journal(gcContainerMixin,folder.ATFolder):
+    """An object that will hold a Journal"""
     implements(IJournal)
 
     meta_type = "Journal"
-    schema = JournalSchema
+    schema = finalizeJournalSchema(JournalSchema)
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
     publisher = atapi.ATFieldProperty('publisher')
-    editors = atapi.ATFieldProperty('editors')
-    configuration = atapi.ATFieldProperty('configuration')
-    # -*- Your ATSchema to Python Property Bridges Here ... -*-
-
-    """
-    Defaults
-    """
-    def getDefaultEditors(self):        
-        """ 
-        The default list of managers should include the tracker owner
-        """        
-        return (self.Creator(),)
-
-    """
-    Items to share with gcommons
-    """
-    def parseConfiguration(self):
-        xmlstring = str(self.configuration)
-        dom = XMLParseString(xmlstring)
-        self.parsedConfiguration = dom.documentElement
-        
-    def aq_getConfig(self):
-        # TODO: Cache this parsing, by providing setter for configuration 
-        self.parseConfiguration()
-        return gcommonsConfiguration(parsedxml=self.parsedConfiguration)
-    
-    def aq_stateDraftsAllowed(self):
-        return True
-    
-    def at_post_create_script(self):
-        """ Create a folder for Submissions
-        """
-        fldid = self.invokeFactory('SubmissionsFolder', 'submit', title = 'Submissions',
-        			    description='This folder holds article submissions')
 
 
 atapi.registerType(Journal, PROJECTNAME)

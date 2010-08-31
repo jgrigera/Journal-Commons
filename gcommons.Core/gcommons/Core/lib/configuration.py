@@ -4,13 +4,11 @@
 import os
 import logging
 
-
-# XML
-# rename to allow other implementations in the future 
+# XML - renamed to allow other implementations in the future 
 from xml.dom.minidom import parseString as XMLParseString
 from xml.parsers.expat import ExpatError as XMLError
 
-logger = logging.getLogger('gcommons.Core.lib.gcommonsConfiguration')
+logger = logging.getLogger('gcommons.Core.lib.gcConfiguration')
 
 
 def readFile(*rnames): 
@@ -55,6 +53,7 @@ class gcommonsSubmittableSubtype:
         self._name = xmlgetchild_text(xmlnode, 'name')
         self._description = xmlgetchild_text(xmlnode, 'description')
         self._requirements = xmlgetchild_text(xmlnode, 'requirements')
+        self._words_per_page = xmlgetchild_text(xmlnode, 'words-per-page')
         
     def id(self):
         return self._id
@@ -64,6 +63,11 @@ class gcommonsSubmittableSubtype:
         return self._description
     def requirements(self):
         return self._requirements
+    def words_per_page(self):
+        if self._words_per_page is not None:
+            return int(self._words_per_page)
+        else:
+            return 0
 
 class gcommonsNotification:
     def __init__(self, xmlnode = None):
@@ -147,6 +151,12 @@ class gcommonsSubmittableItem:
         values.reverse()
         return values
     
+    def getSubtype_byId(self, id):
+        if self._subtypes.has_key(id):
+            return self._subtypes[id]
+        else:
+            return None
+    
     def notifications(self):
         return self._notifications.values()
     
@@ -157,7 +167,7 @@ class gcommonsSubmittableItem:
             return None
 
 
-class gcommonsConfiguration:
+class gcConfiguration:
     #
     # TODO: more efficient than this, caching
     # or drop xml alltogether

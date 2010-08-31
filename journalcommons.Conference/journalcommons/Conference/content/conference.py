@@ -13,10 +13,8 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 
-# XML
-# rename to allow other implementations in the future 
-from xml.dom.minidom import parseString as XMLParseString
-from xml.parsers.expat import ExpatError as XMLError
+# gcommons.Core
+from gcommons.Core.lib.container import gcContainerMixin
 
 # gcommons.Conference
 from journalcommons.Conference import ConferenceMessageFactory as _
@@ -29,20 +27,12 @@ from Products.ATContentTypes.utils import DT2dt
 from Products.ATContentTypes.lib.calendarsupport import CalendarSupportMixin
 from Products.ATContentTypes.interfaces import ICalendarSupport
 
-# Validation
-from Products.validation import V_REQUIRED
-import gcommons.Core.validators  
-
-# gcommons Config
-from gcommons.Core.lib.gcommonsConfiguration import gcommonsConfiguration, readFile 
-
-
-logger = logging.getLogger('jcommons.Conference.content.Conference')
+logger = logging.getLogger('gcommons.Conference.content.Conference')
 
 
                                                                                                                                                                                                         
                                                                                                                                                                                                                                                                                                                   
-ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+ConferenceSchema = folder.ATFolderSchema.copy() + gcContainerMixin.schema.copy() + atapi.Schema((
     # -*- Your Archetypes field definitions here ... -*-
     atapi.StringField(
         name='venue',
@@ -56,25 +46,6 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
     
-
-    atapi.FileField(
-        name='configuration',
-        required = False,
-        searchable = False,
-        languageIndependent = True,                   
-        storage = atapi.AnnotationStorage(),
-        default = readFile(os.path.dirname(__file__), 'conference.xcfg'),
-        validators = (('isNonEmptyFile', V_REQUIRED), 
-                      ('checkFileMaxSize', V_REQUIRED), # This comes from ATContentType.file
-                      ('isValidXML', V_REQUIRED)),  
-        widget=atapi.FileWidget (
-                description='Configuration XML, please leave empty if you dont know what this means',
-                label= 'Configuration XML'
-        ),                 
-    ),
-    
-    
-
     #
     # Dates
     atapi.DateTimeField(
@@ -82,7 +53,6 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=True,                  
         searchable=False,                  
         accessor='start',                  
-#TODO                  write_permission = ChangeEvents,                  
         default_method=DateTime,                  
         languageIndependent=True,                  
         widget = atapi.CalendarWidget(                        
@@ -95,8 +65,6 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=True,                  
         searchable=False,                  
         accessor='end',                  
-#TODO                        
-#        write_permission = ChangeEvents,                  
         default_method=DateTime,                 
         languageIndependent=True,                  
         widget = atapi.CalendarWidget(                        
@@ -120,7 +88,6 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
                 required=False,                
                 searchable=True,                
                 accessor='contact_name',
-#                write_permission = ChangeEvents,               
                 widget = atapi.StringWidget(                        
                                       description = '',                        
                                       label = _(u'label_contact_name', 
@@ -154,8 +121,6 @@ ConferenceSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 ))
                                       
                                                  
-# Set storage on fields copied from ATFolderSchema, making sure
-# they work well with the python bridge properties.
 def finalizeConferenceSchema(schema):
     schema['title'].storage = atapi.AnnotationStorage()
     schema['description'].storage = atapi.AnnotationStorage()
@@ -173,7 +138,7 @@ def finalizeConferenceSchema(schema):
     return schema
 
 
-class Conference(folder.ATFolder,CalendarSupportMixin):
+class Conference(folder.ATFolder,gcContainerMixin, CalendarSupportMixin):
     """A container for the Conference"""
     #implements(IConference,ICalendarSupport)
     implements(IConference)
@@ -188,9 +153,6 @@ class Conference(folder.ATFolder,CalendarSupportMixin):
 
     security       = ClassSecurityInfo()
 
-
-    # -*- Your ATSchema to Python Property Bridges Here ... -*-
-    
     # Helpers for Computed Fields
     def _start_date(self):
         value = self['startDate']
@@ -237,30 +199,6 @@ class Conference(folder.ATFolder,CalendarSupportMixin):
             ))
         return items
 
-
-
-    """
-    Items to share with jcommons
-    """
-    def parseConfiguration(self):
-        xmlstring = str(self.configuration)
-        dom = XMLParseString(xmlstring)
-        self.parsedConfiguration = dom.documentElement
-        
-    def aq_getConfig(self):
-        # TODO: Cache this parsing, by providing setter for configuration 
-        self.parseConfiguration()
-        return gcommonsConfiguration(parsedxml=self.parsedConfiguration)
-        
-    def aq_stateDraftsAllowed(self):
-        logger.warning("DEPRECATED! aq_stateDraftsAllowed")
-        return False
-    
-    def at_post_create_script(self):
-        """ Create a folder for Submissions
-        """
-        fldid = self.invokeFactory('SubmissionsFolder', 'submit', title = 'Submissions',
-                        description='This folder holds paper submissions')
 
 
 atapi.registerType(Conference, PROJECTNAME)

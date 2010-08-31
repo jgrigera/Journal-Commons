@@ -5,8 +5,10 @@ import logging
 from operator import itemgetter
 
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
+
+# Widgets
+from Products.CMFCore.utils import getToolByName
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 from Products.DataGridField.DataGridWidget import DataGridWidget
 from Products.DataGridField.DataGridField import DataGridField
@@ -15,8 +17,9 @@ from Products.DataGridField.SelectColumn import SelectColumn
 #from gcommons.Core.widgets.ReferenceColumn import ReferenceColumn
 from Products.DataGridField.HelpColumn import HelpColumn
 
+from gcommons.Core.lib import is_gcommons_Users_installed
 # Maybe temp:
-from gcommonsConfiguration import gcommonsRelatorType
+from configuration import gcommonsRelatorType
 
 from gcommons.Core import CoreMessageFactory as _
 
@@ -213,7 +216,8 @@ class RelatorsMixin:
     def condition_unregistered(self):
         """ This checks whether to show the unregisteredAuthors
         """
-        if self.is_gcommons_Users_installed():
+        #  not needed:  context = aq_inner(self)
+        if is_gcommons_Users_installed(self):
             return False
         else:
             return True
@@ -222,15 +226,11 @@ class RelatorsMixin:
     def condition_registered(self):
         """ Only show the Referenced relators field if gcommons.Users installed
         """
-        if self.is_gcommons_Users_installed():
+        if is_gcommons_Users_installed(self):
             return True
         else:
             return False
 
-    def is_gcommons_Users_installed(self):
-        context = aq_inner(self)
-        portal_quickinstaller = getToolByName(context, 'portal_quickinstaller')
-        return portal_quickinstaller.isProductInstalled('gcommons.Users')
 
         
         
@@ -248,7 +248,11 @@ class RelatorsMixin:
         creators = []
         for author in self.getRelators(relationship='aut'):
             try:
-                creators.append("%s (%s)" % (author['name'], author['institution']))
+                creator = author['name']
+                institution = author['institution']
+                if institution is not None and len(institution) > 0:
+                    creator = creator + " (%s)" % institution
+                creators.append(creator)
             except KeyError:
                 pass
         return creators

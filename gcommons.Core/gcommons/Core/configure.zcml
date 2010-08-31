@@ -10,6 +10,7 @@
   <!-- Include the sub-packages that use their own configure.zcml files. -->
   <include package=".browser" />
   <include package=".content" />
+  <include package=".events" />
   <include package=".portlets" />
   <include package=".widgets" />
   
@@ -24,18 +25,6 @@
   
   <!-- -*- extra stuff goes here -*- -->
 
-
-  <!-- Subscribe to events -->
-
-  <!-- Object Created (after init, Archetypes) -->
-  <subscriber             
-		for="Products.Archetypes.interfaces.IObjectInitializedEvent"                                                                                                                                    
-		handler=".subscribers.archetypes_initialized"                                                                                                                                                      
-		/> 
-  <subscriber
-		for="Products.CMFCore.interfaces.IActionSucceededEvent"
-		handler=".subscribers.workflow_action"
-		/>
 
   <cmf:registerDirectory name="gcommons_core"/>
 

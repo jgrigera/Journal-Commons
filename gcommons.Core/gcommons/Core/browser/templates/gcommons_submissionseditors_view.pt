@@ -1,0 +1,217 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Core">
+<body>
+
+  <metal:block fill-slot="top_slot"
+               tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
+  <metal:block fill-slot="column_two_slot" />
+
+  <div metal:fill-slot="main">
+    <div metal:define-macro="body"
+		 tal:define="searchResultsForm string:gcommons_submissions_search">
+
+      <h1 tal:content="here/Title" class="documentFirstHeading" />
+
+      <p class="portalMessage"
+         i18n:translate="description_cannot_add_articles_before_opened"
+         tal:condition="python: is_editable and wtool.getInfoFor(here, 'review_state')=='private'">
+         Nobody can submit articles if this folder is
+         'private'. Please change this using the 'state' drop down in the green bar above.
+      </p>
+
+      <div class="visualClear"><!---->&nbsp;<br/></div>
+
+      <p  i18n:translate="help_pending_articles">
+          Overview of current submissions. You can search for articles or 
+          see all submissions according to different categories. 
+          <!--   For more advanced search options, click "Advanced article search". -->
+      </p>
+
+      <div class="visualClear"><!---->&nbsp;<br/></div>
+
+      <!--  Search submissions -->
+      <div id="submissions-quicksearch-box">
+         <form action="" tal:attributes="action string:${searchResultsForm}">
+            <input type="hidden" name="title" value="Search results" />
+            <input type="text" name="SearchableText" size="20" />
+            <input class="searchButton" type="submit" value="Search" i18n:attributes="value"/>
+         </form>
+		 <!--
+          <a id="submissions-search-link"
+            tal:attributes="href string:${here/absolute_url}/gcommons_submissions_search_form"
+            i18n:translate="advanced_article_search">Advanced Article search</a>
+ 		 -->            
+      </div>
+
+      <div class="visualClear"><!---->&nbsp;<br/></div>
+
+
+
+
+      <div id="submissions-by-type" class="submissions-bycriteria-box">
+          <h3 i18n:translate="gcommons_submissions_by_type">By type</h3>
+          <ul>
+              <tal:areas repeat="type view/getSubmissionsByType">
+              	<li>
+                <a tal:attributes="href string:${searchResultsForm}?portal_type=${type/id}&title=${type/title} Items;
+                                   title type/description"
+                   tal:content="type/title" /> (<span tal:replace="type/quantity" />)
+                   
+                   <ul tal:repeat="subtype python:view.getSubmissionsBySubtype(type['id'])">
+                   		<li>
+                   			<a tal:attributes="href string:${searchResultsForm}?portal_type=${type/id}&get_item_subtype=${subtype/id}&title=${subtype/title} Items;
+                                   title subtype/description"
+                   			   tal:content="subtype/title" /> (<span tal:replace="subtype/quantity" />) 
+                   		</li>
+                   </ul>
+                   
+                </li>
+              </tal:areas>
+          </ul>
+      </div>
+
+      <div id="submissions-by-status" class="submissions-bycriteria-box">
+          <h3 i18n:translate="gcommons_submissions_by_status">By status</h3>
+          <ul>
+              <tal:areas repeat="state view/getSubmissionsByState">
+              	<li>
+                <a tal:attributes="href string:${searchResultsForm}?state=${state/id}&title=${state/title} items (${state/description});
+                                   title state/description"
+                   tal:content="state/title" /> (<span tal:replace="state/quantity" />)
+                </li>
+              </tal:areas>
+          </ul>
+      </div>
+
+      <div id="submissions-by-action" class="submissions-bycriteria-box">
+          <h3 i18n:translate="gcommons_submissions_by_action">Awaiting Action From</h3>
+          <ul>
+              <tal:areas repeat="state view/getSubmissionsByAction">
+              	<li>
+                <a tal:attributes="href string:${searchResultsForm}?state=${state/id}&title=${state/title} items (${state/description});
+                                   title state/description"
+                   tal:content="state/title" /> (<span tal:replace="state/quantity" />)
+                </li>
+              </tal:areas>
+          </ul>
+      </div>
+		
+
+      <div class="visualClear"><!----></div>
+
+      <div style="clear:both"><!----></div>
+
+	<dl class="portlet">
+		<dd class="portletItem">
+			<b>Actions</b><br/>
+			<tal:loop tal:repeat="action view/extraActions">
+				<a href="#" 
+				         tal:attributes="href python:context.absolute_url()+'/'+action['url']">
+				         <img alt="" src="#" tal:attributes="src action/icon" />
+				         <span tal:omit-tag="" tal:content="action/title" />
+			    </a>
+			</tal:loop>
+		</dd>
+	</dl>
+
+
+<!--  
+      <div id="unassigned-articles">
+  			tal:define="issues python:issuefolder.getFilteredIssues(state='unconfirmed');
+                           rssQueryString python:issuefolder.getIssueSearchQueryString(state='unconfirmed')"
+            tal:condition="nocall:issues">
+
+               <metal:table use-macro="here/gcommons_submissions_search_results/macros/issue_search_results">
+                  <div metal:fill-slot="intro-text">
+				  <div>
+                     <h2 i18n:translate="heading_unassigned_articles">Action required</h2>
+                     <p i18n:translate="help_unconfirmed_issues">
+                         The following submissions require action from you. Please
+                         review them and take the appropriate action.
+                         
+                         <b>Sorry, this is not done. Will show submissions assigned to logged in user</b>
+                     </p>
+                  </div>
+                  <div class="issue-search-rss"> <!--  metal:fill-slot="rss-button"> 
+                      <a href="" tal:attributes="href string:${here/absolute_url}/poi-issue-search-rss.xml?rssQUeryString">
+                        <img i18n:attributes="title title_rss_feed_unconfirmed; alt label_rss_feed;"
+                             tal:attributes="src string:$portal_url/rss.gif"
+                             src="rss.gif"
+                             alt="RSS Feed"
+                             title="RSS feed of unconfirmed issues" />
+                      </a>
+                  </div>
+
+<!-- 
+            <metal:table use-macro="here/poi_issue_search_results/macros/issue_search_results">
+
+                  <div metal:fill-slot="intro-text">
+                     <h2 i18n:translate="poi_heading_my_issues">My issues</h2>
+                     <p tal:condition="isManager" i18n:translate="poi_help_my_issues_manager">
+                         The following open issues were either submitted by you, or have been assigned to you.
+                         Note that the RSS feed for this list will include unconfirmed and orphaned issues as well,
+                         to make it possible to subscribe to a single feed with all the issues you may be interested
+                         in.
+                     </p>
+
+                     <p tal:condition="not:isManager" i18n:translate="poi_help_my_issues_not_manager">
+                         The following open issues were submitted by you.
+                     </p>
+                  </div>
+
+                   <div class="issue-search-rss" metal:fill-slot="rss-button">
+                        <a href="" tal:attributes="href string:${here/absolute_url}/poi-my-issues-rss.xml?memberId=${member/getId}&isManager:boolean=${isManager}">
+                            <img i18n:attributes="title title_rss_feed_my_issues; alt label_rss_feed;"
+                                tal:attributes="src string:$portal_url/rss.gif"
+                                src="rss.gif"
+                                alt="RSS Feed"
+                                title="RSS feed of my issues" />
+                        </a>
+                    </div>
+               </metal:table>
+          </div>
+
+
+          <div id="orphaned-issues"
+               tal:define="issues issuefolder/getOrphanedIssues"
+               tal:condition="nocall:issues">
+               <metal:table use-macro="here/poi_issue_search_results/macros/issue_search_results">
+
+                   <div metal:fill-slot="intro-text">
+                     <h2 i18n:translate="poi_heading_orphaned_issues">Orphaned issues</h2>
+                     <p i18n:translate="poi_help_orphaned_issues_">
+                         The following open issues are not assigned to anyone.
+                     </p>
+                   </div>
+
+                   <div class="issue-search-rss" metal:fill-slot="rss-button">
+                        <a href="" tal:attributes="href string:${here/absolute_url}/poi-orphaned-issues-rss.xml?memberId=${member/getId}">
+                            <img i18n:attributes="title title_rss_feed_orphaned; alt label_rss_feed;"
+                                tal:attributes="src string:$portal_url/rss.gif"
+                                src="rss.gif"
+                                alt="RSS Feed"
+                                title="RSS feed of orphaned issues" />
+                        </a>
+                    </div>
+               </metal:table>
+               
+          </div>
+-->
+
+      <div class="poweredBy">
+        <tal:powered i18n:translate="label_powered_by">
+          Powered by
+        </tal:powered>
+        <a class="link-plain"
+           href="http://gcommons.org">gcomm(o)ns</a>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+
+</html>
+

@@ -51,8 +51,6 @@
 	<!-- Authors and contributors -->	
     <div tal:replace="structure provider:gcommons.relatorsprovider" />
 
-	<span class="visualClear"/>
-
 	<!-- Abstract and Keywords -->
 	<tal:abstract tal:condition="here/Description">
 	 	<h3>Abstract</h3>
@@ -90,10 +88,10 @@
 	    </tal:temp>
 	</tal:cpaper>
 	
-	<p/>&nbsp;<p/>
+	<span class="visualClear" />
 	
 	<!-- Now list the other drafts -->
-	<tal:drafts tal:condition="here/aq_stateDraftsAllowed">
+	<tal:drafts tal:condition="view/are_drafts_allowed">
         <div tal:condition="not:drafts">
             <b i18n:translate="no_drafts_added">No drafts have been added yet for this article.</b>
         </div>
@@ -103,23 +101,29 @@
             <table class="vertical listing"
             		tal:define="draft here/get_current_draft">
                 <tr>
-                    <th i18n:translate="Title">Title</th>             
-                    <td tal:content="draft/Title" />
+                    <th i18n:translate="Title">Type</th>             
+                    <td>
+						<metal:field use-macro="python:draft.widget('subtype', mode='view')" />
+					</td>
                 </tr>
                 <tr>
-                    <th i18n:translate="Title">Date</th>             
-                    <td tal:content="draft/ModificationDate" />
+                    <th i18n:translate="Title">When</th>             
+                    <td tal:content="python:view.get_draft_modification_date(draft,full=True)" />
                 </tr>
                 <tr>
-                    <th i18n:translate="Title">Word Count</th>             
+                    <th i18n:translate="Word Count">Word Count</th>             
                     <td tal:content="draft/getWordCount" />
+                    
                 </tr>
+                <tr tal:condition="draft/getPageEstimate">
+                    <th i18n:translate="PageEstimate">Page Estimate</th>             
+                    <td tal:content="draft/getPageEstimate" />
+                </tr> 
                 <tr>
                     <th i18n:translate="download">Download file</th>             
                     <td>
-						<metal:field use-macro="python:draft.widget('file', mode='view')">
-							File
-						</metal:field>
+						<metal:field use-macro="python:draft.widget('file', mode='view')" /><br/>
+                		<i>Alternative formats:</i> <a href="#" tal:attributes="href string:${draft/absolute_url}/preview_as_html">View as HTML</a>
                     </td>
                 </tr>
             <tal:comments tal:define="comments python:view.get_comments('current')"
@@ -144,34 +148,39 @@
             </table>
 
 
-
-			<form method="post" action="createObject" name="addComment">
-				<input type="hidden" name="type_name" value="Comment" />
-	            <input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone">
-			</form>            
+			<tal:addcomment tal:condition="python:user.has_permission('gcommons.Core: Add Comment', here)">
+				<form method="post" action="createObject" name="addComment">
+					<input type="hidden" name="type_name" value="Comment" />
+		            <input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone">
+				</form>
+			</tal:addcomment>            
 
 
 			<!--  
-			Rest of the drafts
+			Show list of drafts if more than one
 			 -->            
-            <tal:batch define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')">
+            <tal:batch 
+            	tal:define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')"
+            	tal:condition="python:len(drafts)>1" >
 
             <h4 i18n:translate="drafts">Draft History</h4>
             <table class="listing">
                 <tr>
-                    <th>Name</th>
+                    <th>Type</th>
                     <th>Date</th>
                     <th>Words</th>
+                    <th>Pages</th>
                     <th>Download</th>
                 </tr>
                 <tal:block repeat="draft batch_drafts">
 
                 <tr tal:define="oddrow repeat/draft/odd;"
                     tal:attributes="class python:oddrow and 'even' or 'odd'">
-                    
-                    <td tal:content="draft/Title" />
-                    <td tal:content="draft/ModificationDate" />
-                    <td tal:content="draft/getWordCount" />
+                   
+                    <td tal:content="draft/getSubtype" />
+                    <td tal:content="python:view.get_draft_modification_date(draft)" />
+                    <td tal:content="draft/getWordCount" style="text-align:center"  />
+                    <td tal:content="draft/getPageEstimate" style="text-align:center" />
                     <td>
 						<metal:field use-macro="python:draft.widget('file', mode='view')">
 		            		File

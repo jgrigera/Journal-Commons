@@ -11,6 +11,7 @@
 
  <permission>Access contents information</permission>
  <permission>Modify portal content</permission>
+ <permission>gcommons.Core: Add Draft</permission>
  <!-- Manage keywords? -->
  
  <!-- States -->    
@@ -22,33 +23,38 @@
 
     <!-- View -->
     <permission-map name="Access contents information" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
-	<permission-role>JournalAuthor</permission-role>
-	<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
+		<permission-role>Anonymous</permission-role>
     </permission-map>
     <permission-map name="List folder contents" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
-	<permission-role>JournalAuthor</permission-role>
-	<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
+		<permission-role>Anonymous</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
-	<permission-role>JournalAuthor</permission-role>
-	<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
+		<permission-role>Anonymous</permission-role>
     </permission-map>
 
     <!-- Add papers -->
     <permission-map name="Add portal content" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
-	<permission-role>JournalAuthor</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
     </permission-map>
     <permission-map name="Modify portal content" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+    <permission-map name="gcommons.Core: Add Draft" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
     </permission-map>
  </state>
 
@@ -58,26 +64,30 @@
     
     <!-- View -->
     <permission-map name="Access contents information" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
     </permission-map>
     <permission-map name="List folder contents" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
     </permission-map>
 
     <!-- Add papers -->
     <permission-map name="Add portal content" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
     </permission-map>
     <permission-map name="Modify portal content" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+    <permission-map name="gcommons.Core: Add Draft" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
     </permission-map>
  </state>
 
@@ -88,32 +98,36 @@
 
     <!-- View -->
     <permission-map name="Access contents information" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
-	<permission-role>JournalAuthor</permission-role>
-	<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
+		<permission-role>Anonymous</permission-role>
     </permission-map>
     <permission-map name="List folder contents" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
-	<permission-role>JournalAuthor</permission-role>
-	<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
+		<permission-role>Anonymous</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
-	<permission-role>JournalAuthor</permission-role>
-	<permission-role>Anonymous</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+		<permission-role>JournalAuthor</permission-role>
+		<permission-role>Anonymous</permission-role>
     </permission-map>
 
     <!-- Add papers -->
     <permission-map name="Add portal content" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
     </permission-map>
     <permission-map name="Modify portal content" acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>EditorialBoard</permission-role>
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+    </permission-map>
+    <permission-map name="gcommons.Core: Add Draft" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
     </permission-map>
  </state>
  

@@ -4,7 +4,8 @@
 
   <object name="navtree_properties">
     <property name="metaTypesNotToList" type="lines" purge="False">
-      <element value="Article"/>
+      <element value="Draft"/>
+      <element value="Comment"/>
     </property>
 
   </object>

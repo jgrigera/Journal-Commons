@@ -3,10 +3,25 @@
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
     <permission name="gcommons.Core: Add CallForPapers" acquire="False">
-      <role name="Manager" />
+		<role name="Manager" />
+		<role name="EditorialBoard"/>    
     </permission>
     <permission name="gcommons.Core: Add SubmissionsFolder" acquire="False">
-      <role name="Manager" />
+		<role name="Manager" />
     </permission>
+
+    <permission name="gcommons.Core: Add Draft" acquire="False">
+		<role name="Manager" />
+		<role name="Contributor" />
+		<role name="EditorialBoard" />    
+		<role name="JournalAuthor" />    
+    </permission>
+
+    <permission name="gcommons.Core: Add Comment" acquire="False">
+		<role name="Manager" />
+		<role name="Contributor" />
+		<role name="EditorialBoard"/>    
+    </permission>
+
   </permissions>
 </rolemap>

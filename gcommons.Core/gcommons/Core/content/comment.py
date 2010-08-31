@@ -9,13 +9,12 @@ from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
-from gcommons.Journal import JournalMessageFactory as _
-from gcommons.Journal.interfaces import IComment
-from gcommons.Journal.config import PROJECTNAME
+from gcommons.Core import CoreMessageFactory as _
+from gcommons.Core.interfaces import IComment
+from gcommons.Core.config import PROJECTNAME
+
 
 CommentSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
-
-    # -*- Your Archetypes field definitions here ... -*-
     atapi.ComputedField('title',
         searchable=1,
         expression='context._compute_title()',

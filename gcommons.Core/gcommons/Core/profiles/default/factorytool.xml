@@ -12,5 +12,7 @@
     <!-- -*- extra stuff goes here -*- -->
     <type portal_type="CallForPapers" />
     <type portal_type="SubmissionsFolder" />
+    <type portal_type="Comment" />
+    <type portal_type="Draft" />
   </factorytypes>
 </object>

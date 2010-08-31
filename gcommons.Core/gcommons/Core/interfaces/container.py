@@ -1,20 +1,20 @@
 
 from zope import schema
-from zope.interface import Interface
+from zope.interface import Interface, Attribute
 
 from zope.app.container.constraints import contains
 from zope.app.container.constraints import containers
 
 
 
-class IgcommonsContainer(Interface):
+class IgcContainer(Interface):
     """Any kind of item that can be handled in a Submissions Folder"""
     def aq_getConfig(self):
         """
         Return configuration object containing all relevant info on types and subtypes
         of items that can be added to this container
         
-        retunr a gcommonsConfiguration object (or its interface) 
+        returns a gcommons.Core.lib.configuration object (or its interface) 
         """
         
         
@@ -24,4 +24,10 @@ class IgcommonsContainer(Interface):
         type_container is the type of containers targetted
         and type_addable is the type of object wished to be added
         """
+
+
+class IgcContainerModifiedEvent(Interface):
+    """An event fired when a person object is saved.
+    """
+    context = Attribute("The content object that was saved.")
         

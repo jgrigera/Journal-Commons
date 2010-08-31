@@ -5,8 +5,8 @@
   -->
 <config>
  	<Container>
- 		<name>Journal</name>
- 		<type>Journal</type>
+ 		<name>Research Thread</name>
+ 		<type>SpecialIssue</type>
  	</Container>
  	
  	<Items>

@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
+           >
+	
+	<!-- Subscribe to events -->
+	
+	<!-- Object Created (after init, Archetypes) -->
+	<subscriber for="Products.Archetypes.interfaces.IObjectInitializedEvent"
+				handler=".subscribers.archetypes_initialized" /> 
+
+	<subscriber for="Products.CMFCore.interfaces.IActionSucceededEvent"
+				handler=".subscribers.workflow_action" />
+
+
+</configure>

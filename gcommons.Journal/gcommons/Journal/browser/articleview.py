@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+from DateTime import DateTime
 from zope.interface import implements, Interface, alsoProvides
 
 from plone.app.layout.globals.interfaces import IViewView
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
-
-##TODO from collective.contacts import contactsMessageFactory as _
+from gcommons.Core import permissions
+from gcommons.Core.lib.time import gcommons_userfriendly_date
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -15,10 +16,10 @@ class IArticleView(Interface):
     Article view interface
     """
     def get_user_details():
-	"""return user details"""
-
+        """return user details"""
+    
     def get_drafts():
-	"""return list of drafts"""
+        """return list of drafts"""
 
 
 class ArticleView(BrowserView):
@@ -53,6 +54,7 @@ class ArticleView(BrowserView):
     def portal_membership(self):
         return getToolByName(self.context, 'portal_membership')
 
+
     @property
     def portal_workflow(self):
         return getToolByName(self.context, 'portal_workflow')
@@ -61,12 +63,30 @@ class ArticleView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
+    """
+    Draft 
+    """
     def get_drafts(self):
         """
         This method returns all drafts for this article
         """
         return self.context.get_drafts()
     
+    def are_drafts_allowed(self):
+        return self.portal_membership.checkPermission(permissions.AddDraft, self.context)
+
+    def get_draft_modification_date(self, draft, full=False):
+        modificationdate = draft.ModificationDate()
+        if full:
+            return "%s (%s)" % (DateTime(modificationdate).strftime("%a %d %b %Y"),
+                                gcommons_userfriendly_date(draft.ModificationDate()))
+        else:
+            return "%s" % DateTime(modificationdate).strftime("%a %d %b %Y")
+        
+    
+    """
+    Comments
+    """
     def get_comments(self, draftid):
         """
         Return comments for draftid, in a dictionary containing
@@ -95,7 +115,7 @@ class ArticleView(BrowserView):
         This method
         """
     	results = []
-        drafts_allowed = self.context.aq_stateDraftsAllowed()
+        drafts_allowed = self.are_drafts_allowed()
         #TODO: check permissions
         #tal:condition="python: checkPermission('Modify Portal Content', context)
     

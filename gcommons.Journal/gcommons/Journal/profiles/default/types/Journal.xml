@@ -7,28 +7,29 @@
     i18n:translate="">Root for all files in a journal</property>
   <property name="content_meta_type">Journal</property>
 
-
   <property name="content_icon">book_icon.gif</property>
   <property name="product">gcommons.Journal</property>
   <property name="factory">addJournal</property>
-  <property name="immediate_view">atct_edit</property>
   <property name="global_allow">True</property>
   <property name="allow_discussion">False</property>
   
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" >
-        <element value="Issue" />
-        <element value="Folder" />
-        <element value="SubmissionsFolder" />
         <element value="Document" />
+        <element value="Folder" />
+        <element value="Issue" />
+        <element value="SpecialIssue" />
         <element value="CallForPapers" />
+        <element value="SubmissionsFolder" />
   </property>
 
   <property name="default_view">gcommons_journal_view</property>
+
   <property name="view_methods">
     <element value="gcommons_journal_view" />
-    <element value="base_view" />
   </property>
+
+  <property name="immediate_view">atct_edit</property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />
   <alias from="sharing" to="@@sharing" />

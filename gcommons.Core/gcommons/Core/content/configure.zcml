@@ -26,5 +26,27 @@
         set_schema="..interfaces.ICallForPapers"
         />
   </class>
+  
+  <class class=".comment.Comment">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IComment"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IComment"
+        />
+  </class>
+  
+  <class class=".draft.Draft">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IDraft"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IDraft"
+        />
+  </class>
 
 </configure>

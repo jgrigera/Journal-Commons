@@ -6,14 +6,14 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
-  <class class=".comment.Comment">
+  <class class=".specialissue.SpecialIssue">
     <require
         permission="zope2.View"
-        interface="..interfaces.IComment"
+        interface="..interfaces.ISpecialIssue"
         />
     <require
         permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IComment"
+        set_schema="..interfaces.ISpecialIssue"
         />
   </class>
   <class class=".journal.Journal">
@@ -56,18 +56,6 @@
         set_schema="..interfaces.IIssue"
         />
   </class>
-
-  <class class=".draft.Draft">
-    <require
-        permission="zope2.View"
-        interface="..interfaces.IDraft"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IDraft"
-        />
-  </class>
-
   <class class=".editorsmeeting.EditorsMeeting">
     <require
         permission="zope2.View"

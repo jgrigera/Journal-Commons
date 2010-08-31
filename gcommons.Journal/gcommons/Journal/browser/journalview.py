@@ -37,8 +37,18 @@ class JournalView(BrowserView):
     def getFolderContents(self):
         brains = self.context.listFolderContents()
         return brains
+    
+    def getEditors(self):
+        editors = []
+        oeditors = self.context.getEditors()
+        for editor in oeditors:
+            name = editor.getProperty('fullname')
+            if name is None or name == "": 
+                name = editor.getId()
+            #TODO: proper href for gcUsers
+            href = "%s/author/%s" % (self.portal.absolute_url(),editor.getId())
+            editors.append({'fullname': name,
+                            'url': href,
+                            'bio': editor.getProperty('description')})
+        return editors 
 
-    def debug_show_user_roles(self):
-        portal_membership = getToolByName(self.context, 'portal_membership')
-        user = portal_membership.getAuthenticatedMember()
-        return 'Debug: Roles %s for %s' % (str(user.getRoles()), user.getId())
