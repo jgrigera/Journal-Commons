@@ -1,5 +1,6 @@
 
 import logging
+import StringIO
 
 # Zope
 from AccessControl import ClassSecurityInfo
@@ -155,6 +156,27 @@ class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
         member.update(**data)
         member.at_post_create_script()
         return member
+    
+    
+    def migrateUsersToGCU(self):
+        """
+        Migrate existing users to gcPerson
+        """
+        out = StringIO.StringIO()
+        portal_membership = getToolByName(self, 'portal_membership')
+        for member in portal_membership.listMembers():
+            login = member.getId()
+            password = member.getPassword()
+            properties={'username':member.getId(),'fullname':member.getProperty('fullname'),'email':member.getProperty('email')}
+            logger.info( "%s|%s|%s|%s" % (login, properties['fullname'], properties['email'], password))
+            print >> out, "%s|%s|%s|%s" % (login, member.getProperty('fullname'), member.getProperty('email'), password)
+            portal_membership.deleteMembers([login,])
+            
+            if password is None:
+                password = 'invalid'
+            newmember = self.addMember(login, password, properties=properties)
+            newmember.setPasswordDigested(password)
+        return out.getvalue()
     
 
 

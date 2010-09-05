@@ -532,6 +532,14 @@ class gcPerson(base.ATCTContent):
         if value:
             annotations = IAnnotations(self)
             annotations[PASSWORD_KEY] = sha(value).digest()
+            
+    def setPasswordDigested(self, value):
+        """
+        This is used when migrating, password already sha
+        """
+        annotations = IAnnotations(self)
+        annotations[PASSWORD_KEY] = value
+        
     
     security.declareProtected(SetOwnPassword, 'setConfirmPassword')
     def setConfirmPassword(self, value):
