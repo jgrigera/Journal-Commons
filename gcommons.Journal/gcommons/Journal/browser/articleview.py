@@ -7,7 +7,7 @@ from plone.app.layout.globals.interfaces import IViewView
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from gcommons.Core import permissions
-from gcommons.Core.lib.time import gcommons_userfriendly_date
+from gcommons.Core.lib.gctime import gcommons_userfriendly_date
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -87,7 +87,7 @@ class ArticleView(BrowserView):
     """
     Comments
     """
-    def get_comments(self, draftid):
+    def get_comments_by_type(self, draftid):
         """
         Return comments for draftid, in a dictionary containing
         type: (list, of, comments)
@@ -143,13 +143,12 @@ class ArticleView(BrowserView):
             return results
 
     def get_disable_border(self):
-    	review_state = self.portal_workflow.getInfoFor(self.context, 'review_state');
-    	if review_state == 'draft':
-    	    return 1
-    	if review_state == 'eb_draft' and not self.portal_membership.checkPermission('Modify Portal Content', self.context):
-    	    return 1
-    	return 0
+        review_state = self.portal_workflow.getInfoFor(self.context, 'review_state');
+        if review_state == 'draft':
+            return 1
+        if review_state == 'eb_draft' and not self.portal_membership.checkPermission('Modify Portal Content', self.context):
+            return 1
+        return 0
 
-	
 
     

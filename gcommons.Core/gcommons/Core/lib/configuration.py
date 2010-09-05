@@ -179,16 +179,39 @@ class gcConfiguration:
             self.parsedxml = dom.documentElement
         else:
             self.parsedxml = parsedxml
+        
+        # Parse parameters
+        self.parameters = {}
+        container = self.parsedxml.getElementsByTagName('Container')[0]
+        # read Container/name and type
+        self.parameters['name'] = xmlgetchild_text(container, 'name')
+        self.parameters['type'] = xmlgetchild_text(container, 'type')
+        # read Container/params
+        try:
+            params = container.getElementsByTagName('params')[0]
+        except IndexError:
+            return
+            
+        for param in params.childNodes:
+            value = xmlgetchild_text(params, param.nodeName)
+            if value == 'True' or value == 'true':
+                value = True
+            elif value == 'False' or value == 'false':
+                value = False
+                
+            if value is not None:
+                self.parameters[ param.nodeName ] = value 
+        
             
     
     def getContainerConfig(self):
         """
         return dictionary with name and type
+        sort of back-compatibility, maybe params should be it
         """
         config = {}
-        container = self.parsedxml.getElementsByTagName('Container')[0]
-        config['name'] = xmlgetchild_text(container, 'name')
-        config['type'] = xmlgetchild_text(container, 'type')
+        config['name'] = self.parameters['name']
+        config['type'] = self.parameters['type']
         return config
         
     def getContainerName(self):
@@ -196,6 +219,12 @@ class gcConfiguration:
         return name
         """
         return self.getContainerConfig()['name']
+    
+    def getParameter(self, param, default=None):
+        if self.parameters.has_key(param):
+            return self.parameters[param]
+        else:
+            return default
     
     def getItems(self):
         """

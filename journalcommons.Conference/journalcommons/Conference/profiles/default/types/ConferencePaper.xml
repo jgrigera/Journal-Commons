@@ -14,9 +14,9 @@
   <property name="filter_content_types">False</property>
   <property name="allow_discussion">False</property>
 
-  <property name="default_view">jcommons_article_view</property>
+  <property name="default_view">gcommons_article_view</property>
   <property name="view_methods">
-    <element value="jcommons_article_view" />
+    <element value="gcommons_article_view" />
   </property>
 
   <alias from="(Default)" to="(dynamic view)" />

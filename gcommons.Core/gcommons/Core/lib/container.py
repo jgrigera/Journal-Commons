@@ -9,7 +9,7 @@ from zope.interface import implements
 # Plone
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
-from plone.memoize.instance import memoize
+from plone.memoize.instance import memoize, clearbefore
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 # Core
@@ -76,7 +76,7 @@ gcContainerSchema_base = atapi.Schema ((
         name='configuration',
         required = False,
         searchable = False,
-        languageIndependent = True,                   
+        languageIndependent = True,
         storage = atapi.AnnotationStorage(),
         validators = (('isNonEmptyFile', V_REQUIRED), 
                       ('checkFileMaxSize', V_REQUIRED), # This comes from ATContentType.file
@@ -230,6 +230,15 @@ class gcContainerMixin:
     """
     Configuration
     """
+    def setConfiguration(self, *args, **kw):
+        """ Provide a setter that clears the Cached parsed configuration value
+        """
+        # invalidate cache
+        self.__getConfig_clear()
+        # let default setter handle now
+        field = self.getField('configuration')
+        return field.set(self, *args, **kw)
+
     def parseConfiguration(self):
         xmlstring = str(self.configuration)
         dom = XMLParseString(xmlstring)
@@ -239,6 +248,14 @@ class gcContainerMixin:
     def aq_getConfig(self):
         self.parseConfiguration()
         return gcConfiguration(parsedxml=self.parsedConfiguration)
+    
+    @clearbefore
+    def __getConfig_clear(self):
+        """ Reset memoized value
+        """
+        logger.info("Cleaning memoized value")
+        return None
+    
     
     """
     Post Creation

@@ -215,9 +215,11 @@ class RelatorsMixin:
     # Handle conditions 
     def condition_unregistered(self):
         """ This checks whether to show the unregisteredAuthors
+            If gcommons.Users is NOT installed, then this is the only option available,
+            if gcommons.Users is installed, then hide this option if config.enforceRegistration is true
         """
-        #  not needed:  context = aq_inner(self)
-        if is_gcommons_Users_installed(self):
+        config = self.aq_getConfig()
+        if config.getParameter('force-registration', True) and is_gcommons_Users_installed(self) :
             return False
         else:
             return True
@@ -225,10 +227,14 @@ class RelatorsMixin:
 
     def condition_registered(self):
         """ Only show the Referenced relators field if gcommons.Users installed
+            If gcommons.Users is installed, then show this field. 
         """
-        if is_gcommons_Users_installed(self):
+        config = self.aq_getConfig()
+        if config.getParameter('force-registration', True) and is_gcommons_Users_installed(self):
+            logger.debug("condition_registered True")
             return True
         else:
+            logger.debug("condition_registered False")
             return False
 
 

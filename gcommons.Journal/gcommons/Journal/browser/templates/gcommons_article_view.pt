@@ -126,21 +126,16 @@
                 		<i>Alternative formats:</i> <a href="#" tal:attributes="href string:${draft/absolute_url}/preview_as_html">View as HTML</a>
                     </td>
                 </tr>
-            <tal:comments tal:define="comments python:view.get_comments('current')"
+            <tal:comments tal:define="comments python:view.get_comments_by_type('current')"
             			tal:condition="comments">
                 <tr tal:repeat="comment_type comments">
 		            	<th tal:content="comment_type"></th>
 		            	<td>
 		            		<tal:block tal:repeat="comment python:comments[comment_type]">
-		            			<!-- 
-		            			<tal:user tal:define="user_details	python:view.get_user_details(comment.listCreators()[0]);
-				                        			home_url 	user_details/home_url;
-				                        			fullname	user_details/fullname;">
-			            			<a href="#" tal:attributes="href comment/absolute_url" 
+		            			<tal:user tal:define="fullname	python:comment.listCreators()[0];">
+			            			<a href="#" tal:attributes="href string:${comment/absolute_url}/view" 
 			            						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
 			            		</tal:user>
-			            		-->
-			            		FIXME
 			            	</tal:block>
 		            	</td>
 		        </tr>
@@ -171,6 +166,7 @@
                     <th>Words</th>
                     <th>Pages</th>
                     <th>Download</th>
+                    <th>Comments</th>
                 </tr>
                 <tal:block repeat="draft batch_drafts">
 
@@ -185,31 +181,21 @@
 						<metal:field use-macro="python:draft.widget('file', mode='view')">
 		            		File
                         </metal:field>
-                    </td>                    
-                </tr>
-                <tr tal:define="oddrow repeat/draft/odd;"
-                    tal:attributes="class python:oddrow and 'even' or 'odd'">
-					<td></td>
-                	<td colspan="3">
-			            <tal:comments tal:define="comments python:view.get_comments('current')"
-			            			tal:condition="comments">
-<!-- 
-			                <tr tal:repeat="comment_type comments">
-					            	<th tal:content="comment_type"></th>
-		            <tal:comments tal:define="comments python:view.get_comments('current')"
-		            			tal:condition="comments">
-		            	<b>Comments by </b>
-		            		<tal:block tal:repeat="comment comments">
-		            			<tal:user tal:define="user_details	python:view.get_user_details(comment.listCreators()[0]);
-				                        			home_url 	user_details/home_url;
-				                        			fullname	user_details/fullname;">
-			            			<a href="#" tal:attributes="href comment/absolute_url" 
-			            						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
-			            		</tal:user>
-		            		</tal:block>
--->
+                    </td>
+                    <td>                    
+               		<tal:comment_type tal:define="comments python:view.get_comments_by_type(draft.getId())"
+                						  tal:repeat="comment_type comments">
+                		<em tal:content="string:${comment_type}:"/>
 
-		            </tal:comments>
+						<tal:block tal:repeat="comment python:comments[comment_type]">
+							<metal:user tal:define="fullname python:comment.listCreators()[0];">
+					 			<a href="#" tal:attributes="href string:${comment/absolute_url}/view" 
+						 						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
+					 		</metal:user>
+					 	</tal:block>
+					 		<br/>
+
+                		</tal:comment_type>
 		            </td>
 		        </tr>
 

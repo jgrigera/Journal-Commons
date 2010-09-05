@@ -138,7 +138,7 @@ def finalizeConferenceSchema(schema):
     return schema
 
 
-class Conference(folder.ATFolder,gcContainerMixin, CalendarSupportMixin):
+class Conference(gcContainerMixin,folder.ATFolder,CalendarSupportMixin):
     """A container for the Conference"""
     #implements(IConference,ICalendarSupport)
     implements(IConference)

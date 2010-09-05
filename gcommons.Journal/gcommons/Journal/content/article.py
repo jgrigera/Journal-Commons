@@ -135,7 +135,7 @@ def finalizeArticleSchema(schema):
 
 
 
-class Article(folder.ATFolder, RelatorsMixin):
+class Article(folder.ATFolder,RelatorsMixin):
     """An article in an issue of a journal"""
     implements(IArticle)
     
@@ -187,7 +187,8 @@ class Article(folder.ATFolder, RelatorsMixin):
 
     # Common...
     def get_container(self):
-        logger.info("?? Deprecated article.get_container()?")
+        """ TODO: Find out if we are part of any section/Issue/other container
+        """
         return None
 
     def get_item_subtype(self, name=False):

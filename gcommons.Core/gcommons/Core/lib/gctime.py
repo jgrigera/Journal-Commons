@@ -3,7 +3,7 @@ import logging
 from datetime import datetime
 from DateTime import DateTime
 
-logger = logging.getLogger("gcommons.Core.lib.time")
+logger = logging.getLogger("gcommons.Core.lib.gctime")
 
 def gcommons_userfriendly_date(a_datetime):
     """

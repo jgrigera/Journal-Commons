@@ -17,6 +17,34 @@
 			<description>
 				Some description here on articles
 			</description>
+
+			<relators>
+				<!--
+					Try to keep them in sync with marcrelator terms
+					http://www.loc.gov/marc/relators/relaterm.html
+				 -->		
+				<relator>
+					<marccode>aut</marccode>
+					<name>Author</name>
+					<description>Use for a person or organization chiefly responsible for the intellectual or artistic content of a work, usually printed text. This term may also be used when more than one person or body bears such responsibility.</description>
+					<displayorder>10</displayorder>
+				</relator>
+				
+				<relator>
+					<marccode>ctb</marccode>
+					<name>Contributor</name>
+					<description>Use for a person or organization one whose work has been contributed to a larger work, such as an anthology, serial publication, or other compilation of individual works. Do not use if the sole function in relation to a work is as author, editor, compiler or translator.</description>
+					<displayorder>20</displayorder>
+				</relator>
+
+				<relator>
+					<marccode>trl</marccode>
+					<name>Translator</name>
+					<description>Use for a person or organization who renders a text from one language into another, or from an older form of a language into the modern form.</description>
+					<displayorder>100</displayorder>
+				</relator>
+			</relators>
+			
 			
 			<subtypes>
 				<subtype>
