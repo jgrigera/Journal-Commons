@@ -28,7 +28,7 @@
 
 
       <h1 tal:content="here/Title" 
-          tal:attributes="title view/debug_show_user_roles" >
+          tal:attributes="title view/debug_show_user_roles"
           class="documentFirstHeading" />
 
       <!--
