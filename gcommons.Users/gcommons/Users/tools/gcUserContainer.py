@@ -4,7 +4,8 @@ import StringIO
 
 # Zope
 from AccessControl import ClassSecurityInfo
-from AccessControl.requestmethod import postonly       
+from AccessControl.requestmethod import postonly
+from Acquisition import aq_parent
 from Globals import InitializeClass
 from zope.interface import implements
 
@@ -170,7 +171,10 @@ class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
             properties={'username':member.getId(),'fullname':member.getProperty('fullname'),'email':member.getProperty('email')}
             logger.info( "%s|%s|%s|%s" % (login, properties['fullname'], properties['email'], password))
             print >> out, "%s|%s|%s|%s" % (login, member.getProperty('fullname'), member.getProperty('email'), password)
-            portal_membership.deleteMembers([login,])
+            
+            member.getUser().setId("movedaway_%s" % login)
+            # membrane breaks this:
+            #portal_membership.deleteMembers([login,])
             
             if password is None:
                 password = 'invalid'
