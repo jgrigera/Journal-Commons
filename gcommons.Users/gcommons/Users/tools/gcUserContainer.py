@@ -158,7 +158,7 @@ class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
         return member
     
     
-    def migrateUsersToGCU(self):
+    def migrate(self):
         """
         Migrate existing users to gcPerson
         """

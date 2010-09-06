@@ -43,26 +43,31 @@
  
  <state state_id="draft" title="Draft">
     <exit-transition transition_id="submittoeb"/>
+
     <permission-map name="Access contents information"
                   acquired="False">
 	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
-    </permission-map>
-    <permission-map name="Add portal content" acquired="False">
-	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
     </permission-map>
     <permission-map name="List folder contents"
                   acquired="False">
 	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
 	<permission-role>Owner</permission-role>
     </permission-map>
     <permission-map name="Modify portal content"
                   acquired="False">
-	<permission-role>Manager</permission-role>
-	<permission-role>Owner</permission-role>
-    </permission-map>
-    <permission-map name="View" acquired="False">
 	<permission-role>Manager</permission-role>
 	<permission-role>Owner</permission-role>
     </permission-map>
@@ -77,21 +82,30 @@
 
     <permission-map name="Access contents information"
                   acquired="False">
-		<permission-role>Manager</permission-role>
-    </permission-map>
-    <permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Owner</permission-role>
     </permission-map>
     <permission-map name="List folder contents"
                   acquired="False">
-		<permission-role>Manager</permission-role>
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Owner</permission-role>
+    </permission-map>
+
+    <permission-map name="Add portal content" acquired="False">
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
     </permission-map>
     <permission-map name="Modify portal content"
                   acquired="False">
-		<permission-role>Manager</permission-role>
-    </permission-map>
-    <permission-map name="View" acquired="False">
-		<permission-role>Manager</permission-role>
+	<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
     </permission-map>
  </state>
 
@@ -99,28 +113,25 @@
  <state state_id="referee_draft" title="Awaiting Referees">
     <exit-transition transition_id="reporttoeb"/>
 
-    <permission-map name="Access contents information"
-                  acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
+    <permission-map name="Access contents information" acquired="True">
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Manager</permission-role>
     </permission-map>
     <permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-		<permission-role>Member</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Manager</permission-role>
     </permission-map>
-    <permission-map name="List folder contents"
-                  acquired="True">
-		<permission-role>Anonymous</permission-role>
+    <permission-map name="List folder contents" acquired="True">
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Manager</permission-role>
     </permission-map>
-    <permission-map name="Modify portal content"
-                  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Manager</permission-role>
+    </permission-map>
     <permission-map name="View" acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
+	<permission-role>EditorialBoard</permission-role>
+	<permission-role>Manager</permission-role>
     </permission-map>
  </state>
 
@@ -129,31 +140,29 @@
 	<exit-transition transition_id="publish"/>
 	<exit-transition transition_id="retract"/>
 
-	<permission-map name="Access contents information"
-			  acquired="True">
-		<permission-role>Anonymous</permission-role>
-		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
-	</permission-map>
-	<permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="List folder contents"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-		<permission-role>Member</permission-role>
-	</permission-map>
-	<permission-map name="Modify portal content"
-			  acquired="False">
+	<permission-map name="Access contents information"  acquired="True">
+		<permission-role>EditorialBoard</permission-role>
 		<permission-role>Manager</permission-role>
 		<permission-role>Owner</permission-role>
 	</permission-map>
 	<permission-map name="View" acquired="True">
-		<permission-role>Anonymous</permission-role>
+		<permission-role>Owner</permission-role>
 		<permission-role>Manager</permission-role>
-		<permission-role>Reviewer</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+	</permission-map>
+	<permission-map name="List folder contents" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+	</permission-map>
+
+	<permission-map name="Add portal content" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+	</permission-map>
+	<permission-map name="Modify portal content" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
 	</permission-map>
  </state>
  
@@ -161,65 +170,61 @@
  <state state_id="published" title="Published">
 	<exit-transition transition_id="retract"/>
 
-	<permission-map name="Access contents information"
-			  acquired="True">
+	<permission-map name="Access contents information" acquired="True">
 		<permission-role>Anonymous</permission-role>
 		<permission-role>Manager</permission-role>
 		<permission-role>Reviewer</permission-role>
-	</permission-map>
-	<permission-map name="Add portal content" acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="List folder contents"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-		<permission-role>Member</permission-role>
-	</permission-map>
-	<permission-map name="Modify portal content"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
+		<permission-role>EditorialBoard</permission-role>
 	</permission-map>
 	<permission-map name="View" acquired="True">
 		<permission-role>Anonymous</permission-role>
 		<permission-role>Manager</permission-role>
 		<permission-role>Reviewer</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+	</permission-map>
+	<permission-map name="List folder contents" acquired="False">
+		<permission-role>Manager</permission-role>
+		<permission-role>Owner</permission-role>
+		<permission-role>Member</permission-role>
+		<permission-role>EditorialBoard</permission-role>
+	</permission-map>
+
+	<permission-map name="Add portal content" acquired="False">
+		<permission-role>Manager</permission-role>
+	</permission-map>
+	<permission-map name="Modify portal content" acquired="False">
+		<permission-role>Manager</permission-role>
 	</permission-map>
  </state>
 
  <state state_id="rejected" title="Rejected">
 	<exit-transition transition_id="retract"/>
 
-	<permission-map name="Access contents information"
-			  acquired="True">
+	<permission-map name="Access contents information" acquired="True">
 		<permission-role>Manager</permission-role>
 		<permission-role>Reviewer</permission-role>
 		<permission-role>Owner</permission-role>
+		<permission-role>EditorialBoard</permission-role>
 	</permission-map>
 	<permission-map name="Add portal content" acquired="False">
 		<permission-role>Manager</permission-role>
 		<permission-role>Owner</permission-role>
+		<permission-role>EditorialBoard</permission-role>
 	</permission-map>
-	<permission-map name="List folder contents"
-			  acquired="False">
+	<permission-map name="List folder contents"  acquired="False">
 		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
 		<permission-role>Owner</permission-role>
 		<permission-role>Member</permission-role>
 	</permission-map>
-	<permission-map name="Modify portal content"
-			  acquired="False">
+	<permission-map name="Modify portal content" acquired="False">
 		<permission-role>Manager</permission-role>
-		<permission-role>Owner</permission-role>
-	</permission-map>
-	<permission-map name="PloneHelpCenter: Add Documentation"
-			  acquired="False">
-		<permission-role>Manager</permission-role>
+		<permission-role>EditorialBoard</permission-role>
 		<permission-role>Owner</permission-role>
 	</permission-map>
 	<permission-map name="View" acquired="True">
 		<permission-role>Anonymous</permission-role>
+		<permission-role>EditorialBoard</permission-role>
 		<permission-role>Manager</permission-role>
 		<permission-role>Reviewer</permission-role>
 	</permission-map>

@@ -1,3 +1,4 @@
+from Acquisition import aq_base
 from zope.interface import implements, Interface
 from zope.component import getMultiAdapter
 from plone.memoize.instance import memoize
@@ -126,4 +127,10 @@ class SubmissionsView(gcommonsView):
     def debug_show_user_roles(self):
         portal_membership = getToolByName(self.context, 'portal_membership')
         user = portal_membership.getAuthenticatedMember()
-        return 'Debug: Roles %s for %s' % (str(user.getRoles()), user.getId())
+        if hasattr(aq_base(user), 'getRolesInContext'):
+            roles = user.getRolesInContext(self.context)
+        else:
+            roles = user.getRoles()
+            roles.append(self.context.get_local_roles_for_userid(user.getId()))
+    
+        return '(Debug) User: %s; Roles: %s' % (user.getId(), ', '.join(roles))
