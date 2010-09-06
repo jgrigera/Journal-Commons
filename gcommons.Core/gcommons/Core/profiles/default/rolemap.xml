@@ -6,9 +6,16 @@
 		<role name="Manager" />
 		<role name="EditorialBoard"/>    
     </permission>
+
+    <!-- Submission-related permissions -->
     <permission name="gcommons.Core: Add SubmissionsFolder" acquire="False">
 		<role name="Manager" />
     </permission>
+    <permission name="gcommons.Core: SubmissionsFolder View Overview" acquire="False">
+		<role name="Manager" />
+		<role name="EditorialBoard" />    
+    </permission>
+
 
     <permission name="gcommons.Core: Add Draft" acquire="False">
 		<role name="Manager" />

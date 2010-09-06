@@ -4,6 +4,7 @@ from plone.memoize.instance import memoize
 from Products.CMFCore.utils import getToolByName
 
 from gcommons.Core.browser import gcommonsView 
+from gcommons.Core import permissions
 
 from gcommons.Core import CoreMessageFactory as _
 import logging
@@ -42,6 +43,13 @@ class SubmissionsView(gcommonsView):
     @property
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
+        
+        
+    """
+    Conditons
+    """
+    def condition_show_overview(self):
+        return self.portal_membership.checkPermission(permissions.SubmissionsViewOverview, self.context):
 
     """ List possible piece types here
     """
@@ -115,3 +123,7 @@ class SubmissionsView(gcommonsView):
     def join_form(self):
         return '%s/join_form' % self.portal_state.portal_url()    
         
+    def debug_show_user_roles(self):
+        portal_membership = getToolByName(self.context, 'portal_membership')
+        user = portal_membership.getAuthenticatedMember()
+        return 'Debug: Roles %s for %s' % (str(user.getRoles()), user.getId())

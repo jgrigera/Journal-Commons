@@ -27,7 +27,9 @@
     <div metal:define-macro="body">
 
 
-      <h1 tal:content="here/Title" class="documentFirstHeading" />
+      <h1 tal:content="here/Title" 
+          tal:attributes="title view/debug_show_user_roles" >
+          class="documentFirstHeading" />
 
       <!--
        <div class="documentDescription" tal:content="here/Description" />
@@ -222,7 +224,7 @@
 
       <p class="portalMessage"
          i18n:translate="description_manager_see_overview"
-         tal:condition="python: is_editable">
+         tal:condition="view/condition_show_overview">
          Since you are an editor, you can go to the <a href="gcommons_submissionseditors_view">Overview</a> of
          current submissions and their status.
       </p>
