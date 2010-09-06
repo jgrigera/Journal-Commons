@@ -49,7 +49,7 @@ class SubmissionsView(gcommonsView):
     Conditons
     """
     def condition_show_overview(self):
-        return self.portal_membership.checkPermission(permissions.SubmissionsViewOverview, self.context):
+        return self.portal_membership.checkPermission(permissions.SubmissionsViewOverview, self.context)
 
     """ List possible piece types here
     """
