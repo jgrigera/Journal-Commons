@@ -1,4 +1,7 @@
 
+from Products.CMFCore import permissions as CMFCorePermissions
+from AccessControl.SecurityInfo import ModuleSecurityInfo
+from Products.CMFCore.permissions import setDefaultRoles
 from Products.CMFCore.permissions import View
 
 
@@ -16,3 +19,11 @@ AddComment = 'gcommons.Core: Add Comment'
 
 
 SubmissionsViewOverview = 'gcommons.Core: SubmissionsFolder View Overview'
+
+
+
+#security = ModuleSecurityInfo('gcommons.Core')
+#security.declarePublic('MyPermission')
+for newPermission in (SubmissionsViewOverview, ):
+    setDefaultRoles(newPermission, ())
+
