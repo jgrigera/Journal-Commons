@@ -8,19 +8,15 @@
   -->
 <object name="portal_types" meta_type="Plone Types Tool">
   <!-- -*- extra stuff goes here -*- -->
-  <object name="SpecialIssue"
-    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="ResearchThread" meta_type="Factory-based Type Information with dynamic views" />
 
-  <object name="Journal"
-    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="SpecialIssue" meta_type="Factory-based Type Information with dynamic views" />
+
+  <object name="Journal" meta_type="Factory-based Type Information with dynamic views" />
 	
-  <object name="Section"
-    meta_type="Factory-based Type Information with dynamic views" />
-  <object name="Article"
-    meta_type="Factory-based Type Information with dynamic views" />
-  <object name="Issue"
-    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="Section" meta_type="Factory-based Type Information with dynamic views" />
+  <object name="Article" meta_type="Factory-based Type Information with dynamic views" />
+  <object name="Issue" meta_type="Factory-based Type Information with dynamic views" />
 
-  <object name="EditorsMeeting"
-    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="EditorsMeeting" meta_type="Factory-based Type Information with dynamic views" />
 </object>
