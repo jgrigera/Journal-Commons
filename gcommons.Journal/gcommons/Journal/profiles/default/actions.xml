@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"  xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+ <object name="gcommons_article_actions" meta_type="CMF Action Category">
+  <property name="title"></property>
+  <!-- Friendly actions for portlet in article view -->
+  <object name="edit" meta_type="CMF Action" i18n:domain="plone">
+	<property name="title" i18n:translate="">Edit Abstract</property>
+	<property name="description" i18n:translate="">Edit the title, abstract or keywords of this piece</property>
+	<property name="url_expr">string:$object_url/edit</property>
+	<property name="icon_expr">string:edit.gif</property>
+	<property name="available_expr"></property>
+	<property name="permissions">
+	    <element value="View"/>
+	    <element value="Modify Portal Content"/>
+	</property>
+	<property name="visible">True</property>
+  </object>
+
+
+  <object name="add_draft" meta_type="CMF Action" i18n:domain="plone">
+	<property name="title" i18n:translate="">Add a draft</property>
+	<property name="description" i18n:translate="">Attach the fulltext of a draft for this article</property>
+	<property name="url_expr">string:$object_url/createObject?type_name=Draft</property>
+	<property name="icon_expr">string:upload_icon.gif</property>
+	<property name="available_expr"></property>
+	<property name="permissions">
+	    <element value="View"/>
+	    <element value="Modify Portal Content"/>
+	</property>
+	<property name="visible">True</property>
+  </object>
+
+  <object name="submittoeb" meta_type="CMF Action" i18n:domain="plone">
+	<property name="title" i18n:translate="">Submit to Editors</property>
+	<property name="description" i18n:translate="">Finish editing and submit the piece to be evaluated</property>
+	<property name="url_expr">string:$object_url/jc_content_submittoeb_form</property>
+	<property name="icon_expr">string:action_icon.gif</property>
+<!-- maybe this can be action=workflow and improve condition in workflow, -->
+	<property name="available_expr"></property>
+	<property name="permissions">
+	    <element value="View"/>
+	    <element value="Modify Portal Content"/>
+	</property>
+	<property name="visible">True</property>
+  </object>
+
+ </object>
+</object>

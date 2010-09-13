@@ -8,8 +8,11 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from gcommons.Core import permissions
 from gcommons.Core.lib.gctime import gcommons_userfriendly_date
+import logging
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+logger = logging.getLogger("gcommons.Journal.browser.articleview")
+
 
 class IArticleView(Interface):
     """
@@ -47,13 +50,16 @@ class ArticleView(BrowserView):
         return self.pt()
     
     @property
+    def portal_actions(self):
+        return getToolByName(self.context, 'portal_actions')
+
+    @property
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
 
     @property
     def portal_membership(self):
         return getToolByName(self.context, 'portal_membership')
-
 
     @property
     def portal_workflow(self):
@@ -114,33 +120,11 @@ class ArticleView(BrowserView):
         """
         This method
         """
-    	results = []
-        drafts_allowed = self.are_drafts_allowed()
-        #TODO: check permissions
-        #tal:condition="python: checkPermission('Modify Portal Content', context)
-    
-    	review_state = self.portal_workflow.getInfoFor(self.context, 'review_state');
-    	if review_state == 'draft':
-            results = []
-            if drafts_allowed:
-                results.append( {   'url': 'createObject?type_name=Draft', 
-                    			    'icon':  'upload_icon.gif',
-                    			    'title':'Add a draft',} )
-                extra = 'metadata'
-            else:
-                extra = 'abstract'
-                
-            results.append(	{   'url':  'edit',
-                			    'icon': 'edit.gif',
-                			    'title': 'Edit %s' % extra }  )
-    			
-    	    if len(self.get_drafts()) > 0 or (not drafts_allowed):
-    		results.append(
-    			{   'url':     'jc_content_submittoeb_form', 
-    			    'title': 'Submit to editors',
-    			    'icon':	'action_icon.gif',}
-    			)
-            return results
+        results = []
+        for action_id in  self.portal_actions.listFilteredActionsFor(object=self.context)["gcommons_article_actions"]:
+             results.append(action_id)
+        return results
+
 
     def get_disable_border(self):
         review_state = self.portal_workflow.getInfoFor(self.context, 'review_state');
@@ -150,5 +134,12 @@ class ArticleView(BrowserView):
             return 1
         return 0
 
+    # TODO: this is not working. Move to workflow / object?
+    def available_submittoeb(self):
+        """ unsure whether this goes here or elsewhere
+        """
+        if len(self.get_drafts()) > 0 or (not self.are_drafts_allowed()):
+            return True
+        else:
+            return False
 
-    

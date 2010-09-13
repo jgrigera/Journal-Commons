@@ -172,9 +172,8 @@ class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
             logger.info( "%s|%s|%s|%s" % (login, properties['fullname'], properties['email'], password))
             print >> out, "%s|%s|%s|%s" % (login, member.getProperty('fullname'), member.getProperty('email'), password)
             
-            member.getUser().setId("movedaway_%s" % login)
             # membrane breaks this:
-            #portal_membership.deleteMembers([login,])
+            portal_membership.deleteMembers([login,])
             
             if password is None:
                 password = 'invalid'
@@ -182,7 +181,16 @@ class gcUserContainer(atapi.BaseBTreeFolder, BaseTool):
             newmember.setPasswordDigested(password)
         return out.getvalue()
     
-
+    def test_createUsers(self):
+        """
+        Create some users to make testing easier
+        """
+        out = StringIO.StringIO()
+	for login in ('author1', 'author2', 'author3', 'ebmember1', 'ebmember2', 'ebmember3'):
+            properties={'username': login,'fullname': "John %s" % login,'email': "%s@gmail.com" % login}
+            print >> out, "%s|%s|%s|%s" % (login, properties['fullname'], properties['email'], password)
+            newmember = self.addMember(login, '12345', properties=properties)
+	return out.getvalue()	
 
 
 atapi.registerType(gcUserContainer, PROJECTNAME)

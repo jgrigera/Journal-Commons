@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="collective.contacts">
+      i18n:domain="gcommons.Journal">
 <head>
     <metal:block fill-slot="top_slot"
                  tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
@@ -34,7 +34,9 @@
 				<tal:loop tal:repeat="action state_actions">
 				    <li>
 					<a href="#" 
-				         tal:attributes="href python:context.absolute_url()+'/'+action['url']">
+					   title="#"
+				         tal:attributes="href action/url;
+				        		title action/description">
 				         <img alt="" src="#" tal:attributes="src action/icon" />
 				         <span tal:omit-tag="" tal:content="action/title" />
 				    </a>
@@ -218,6 +220,35 @@
         <br/>
 	
 
+	<!-- Merge this in the future in view -->
+	<tal:accept tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') == 'accepted' ">
+	
+	    <h3>Please could you respond below indicating <br/>whether or not you will be attending the conference?</h3>
+
+	    <table>
+	    <tr><td>
+            <form action="#" method="post" class="visualNoPrint"
+                    tal:attributes="action string:${context/absolute_url}/content_status_modify">
+		<input name="workflow_action" value="confirm" type="hidden">
+                <input name="form.button.confirm" value="Confirm" type="submit">
+            </form>
+	    </td><td>
+            <form action="#" method="post" class="visualNoPrint"
+                    tal:attributes="action string:${context/absolute_url}/content_status_modify">
+		<input name="workflow_action" value="decline" type="hidden">
+                <input name="form.button.decline" value="Decline" type="submit">
+            </form>
+	    </td></tr>
+	    </table>
+	    
+	</tal:accept>
+
+	<!-- TODO REMOVE THIS AWFULL PATCH FOR HM -->
+	<tal:accept tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') in ('confirmed', 'accepted') ">
+            <form action="http://www.historicalmaterialism.org/conferences/annual7/Letter.doc" method="post" class="visualNoPrint">
+                <input name="form.button.download_as_zip" value="Download Invitation Letter" type="submit">
+            </form>
+	</tal:accept>
 
 		<div tal:replace="structure provider:plone.belowcontentbody" />
     
