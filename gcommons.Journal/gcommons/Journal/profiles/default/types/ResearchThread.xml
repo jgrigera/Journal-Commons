@@ -22,8 +22,14 @@
         <element value="SubmissionsFolder" />
   </property>
 
-  <property name="default_view">base_view</property>
+  <property name="default_view">gc_rt_published_view</property>
+
   <property name="view_methods">
+    <element value="gc_rt_published_view" />
+    <element value="gc_rt_published_view.jq" />
+    <element value="gc_rt_published_simple_view" />
+    <element value="gc_rt_simple_view" />
+    <element value="gc_researchthread_view" />
     <element value="base_view" />
   </property>
 

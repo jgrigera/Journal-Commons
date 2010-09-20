@@ -341,6 +341,251 @@ Description: .. contents::
         
         
         
+        The Comment content type
+        ===============================
+        
+        In this section we are tesing the Comment content type by performing
+        basic operations like adding, updadating and deleting Comment content
+        items.
+        
+        Adding a new Comment content item
+        --------------------------------
+        
+        We use the 'Add new' menu to add a new content item.
+        
+        >>> browser.getLink('Add new').click()
+        
+        Then we select the type of item we want to add. In this case we select
+        'Comment' and click the 'Add' button to get to the add form.
+        
+        >>> browser.getControl('Comment').click()
+        >>> browser.getControl(name='form.button.Add').click()
+        >>> 'Comment' in browser.contents
+        True
+        
+        Now we fill the form and submit it.
+        
+        >>> browser.getControl(name='title').value = 'Comment Sample'
+        >>> browser.getControl('Save').click()
+        >>> 'Changes saved' in browser.contents
+        True
+        
+        And we are done! We added a new 'Comment' content item to the portal.
+        
+        Updating an existing Comment content item
+        -----------------------------------------
+        
+        Let's click on the 'edit' tab and update the object attribute values.
+        
+        >>> browser.getLink('Edit').click()
+        >>> browser.getControl(name='title').value = 'New Comment Sample'
+        >>> browser.getControl('Save').click()
+        
+        We check that the changes were applied.
+        
+        >>> 'Changes saved' in browser.contents
+        True
+        >>> 'New Comment Sample' in browser.contents
+        True
+        
+        Removing a/an Comment content item
+        ----------------------------------
+        
+        If we go to the home page, we can see a tab with the 'New Comment
+        Sample' title in the global navigation tabs.
+        
+        >>> browser.open(portal_url)
+        >>> 'New Comment Sample' in browser.contents
+        True
+        
+        Now we are going to delete the 'New Comment Sample' object. First we
+        go to the contents tab and select the 'New Comment Sample' for
+        deletion.
+        
+        >>> browser.getLink('Contents').click()
+        >>> browser.getControl('New Comment Sample').click()
+        
+        We click on the 'Delete' button.
+        
+        >>> browser.getControl('Delete').click()
+        >>> 'Item(s) deleted' in browser.contents
+        True
+        
+        So, if we go back to the home page, there is no longer a 'New Comment
+        Sample' tab.
+        
+        >>> browser.open(portal_url)
+        >>> 'New Comment Sample' in browser.contents
+        False
+        
+        Adding a new Comment content item as contributor
+        ------------------------------------------------
+        
+        Not only site managers are allowed to add Comment content items, but
+        also site contributors.
+        
+        Let's logout and then login as 'contributor', a portal member that has the
+        contributor role assigned.
+        
+        >>> browser.getLink('Log out').click()
+        >>> browser.open(portal_url)
+        >>> browser.getControl(name='__ac_name').value = 'contributor'
+        >>> browser.getControl(name='__ac_password').value = default_password
+        >>> browser.getControl(name='submit').click()
+        >>> browser.open(portal_url)
+        
+        We use the 'Add new' menu to add a new content item.
+        
+        >>> browser.getLink('Add new').click()
+        
+        We select 'Comment' and click the 'Add' button to get to the add form.
+        
+        >>> browser.getControl('Comment').click()
+        >>> browser.getControl(name='form.button.Add').click()
+        >>> 'Comment' in browser.contents
+        True
+        
+        Now we fill the form and submit it.
+        
+        >>> browser.getControl(name='title').value = 'Comment Sample'
+        >>> browser.getControl('Save').click()
+        >>> 'Changes saved' in browser.contents
+        True
+        
+        Done! We added a new Comment content item logged in as contributor.
+        
+        Finally, let's login back as manager.
+        
+        >>> browser.getLink('Log out').click()
+        >>> browser.open(portal_url)
+        >>> browser.getControl(name='__ac_name').value = portal_owner
+        >>> browser.getControl(name='__ac_password').value = default_password
+        >>> browser.getControl(name='submit').click()
+        >>> browser.open(portal_url)
+        
+        
+        The Draft content type
+        ===============================
+        
+        In this section we are tesing the Draft content type by performing
+        basic operations like adding, updadating and deleting Draft content
+        items.
+        
+        Adding a new Draft content item
+        --------------------------------
+        
+        We use the 'Add new' menu to add a new content item.
+        
+        >>> browser.getLink('Add new').click()
+        
+        Then we select the type of item we want to add. In this case we select
+        'Draft' and click the 'Add' button to get to the add form.
+        
+        >>> browser.getControl('Draft').click()
+        >>> browser.getControl(name='form.button.Add').click()
+        >>> 'Draft' in browser.contents
+        True
+        
+        Now we fill the form and submit it.
+        
+        >>> browser.getControl(name='title').value = 'Draft Sample'
+        >>> browser.getControl('Save').click()
+        >>> 'Changes saved' in browser.contents
+        True
+        
+        And we are done! We added a new 'Draft' content item to the portal.
+        
+        Updating an existing Draft content item
+        ---------------------------------------
+        
+        Let's click on the 'edit' tab and update the object attribute values.
+        
+        >>> browser.getLink('Edit').click()
+        >>> browser.getControl(name='title').value = 'New Draft Sample'
+        >>> browser.getControl('Save').click()
+        
+        We check that the changes were applied.
+        
+        >>> 'Changes saved' in browser.contents
+        True
+        >>> 'New Draft Sample' in browser.contents
+        True
+        
+        Removing a/an Draft content item
+        --------------------------------
+        
+        If we go to the home page, we can see a tab with the 'New Draft
+        Sample' title in the global navigation tabs.
+        
+        >>> browser.open(portal_url)
+        >>> 'New Draft Sample' in browser.contents
+        True
+        
+        Now we are going to delete the 'New Draft Sample' object. First we
+        go to the contents tab and select the 'New Draft Sample' for
+        deletion.
+        
+        >>> browser.getLink('Contents').click()
+        >>> browser.getControl('New Draft Sample').click()
+        
+        We click on the 'Delete' button.
+        
+        >>> browser.getControl('Delete').click()
+        >>> 'Item(s) deleted' in browser.contents
+        True
+        
+        So, if we go back to the home page, there is no longer a 'New Draft
+        Sample' tab.
+        
+        >>> browser.open(portal_url)
+        >>> 'New Draft Sample' in browser.contents
+        False
+        
+        Adding a new Draft content item as contributor
+        ------------------------------------------------
+        
+        Not only site managers are allowed to add Draft content items, but
+        also site contributors.
+        
+        Let's logout and then login as 'contributor', a portal member that has the
+        contributor role assigned.
+        
+        >>> browser.getLink('Log out').click()
+        >>> browser.open(portal_url)
+        >>> browser.getControl(name='__ac_name').value = 'contributor'
+        >>> browser.getControl(name='__ac_password').value = default_password
+        >>> browser.getControl(name='submit').click()
+        >>> browser.open(portal_url)
+        
+        We use the 'Add new' menu to add a new content item.
+        
+        >>> browser.getLink('Add new').click()
+        
+        We select 'Draft' and click the 'Add' button to get to the add form.
+        
+        >>> browser.getControl('Draft').click()
+        >>> browser.getControl(name='form.button.Add').click()
+        >>> 'Draft' in browser.contents
+        True
+        
+        Now we fill the form and submit it.
+        
+        >>> browser.getControl(name='title').value = 'Draft Sample'
+        >>> browser.getControl('Save').click()
+        >>> 'Changes saved' in browser.contents
+        True
+        
+        Done! We added a new Draft content item logged in as contributor.
+        
+        Finally, let's login back as manager.
+        
+        >>> browser.getLink('Log out').click()
+        >>> browser.open(portal_url)
+        >>> browser.getControl(name='__ac_name').value = portal_owner
+        >>> browser.getControl(name='__ac_password').value = default_password
+        >>> browser.getControl(name='submit').click()
+        >>> browser.open(portal_url)
+        
         
         Contributors
         ************

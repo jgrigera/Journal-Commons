@@ -305,10 +305,15 @@ class RelatorsMixin:
                          'order': default_relationship.displayorder()
                          })
 
-        user = self.portal_membership.getAuthenticatedMember()
-        list = atapi.DisplayList()
-        list.add(user.getId(), user.fullname)
-        
+        # catching http://www.gcommons.org/soft/journalcommons.journal/issues/15
+        # which in this version was occuring in the block below at user.fullname
+        try:
+            user = self.portal_membership.getAuthenticatedMember()
+            list = atapi.DisplayList()
+            list.add(user.getId(), user.fullname) 
+        except:
+            pass
+
         # unregistered
         for relator in self.getUnregisteredRelators():
             # Sometimes we get called before DataGrid is set

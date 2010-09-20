@@ -100,6 +100,90 @@ ArticleSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + ata
         ),
     ),
 
+    atapi.StringField(
+        name='teaserHead',
+        required=False,
+        searchable=0,
+        storage=atapi.AnnotationStorage(),
+        schemata ='publish',
+        widget=atapi.StringWidget(
+            label=_(u"Teaser headline"),
+            description=_(u"Headline for the teaser appearing with published article"),
+        ),
+    ),
+
+    atapi.StringField(
+        name='teaserBody',
+        required=False,
+        searchable=0,
+        storage=atapi.AnnotationStorage(),
+        schemata ='publish',
+        widget=atapi.TextAreaWidget(
+            label=_(u"Teaser body"),
+            description=_(u"Text for the teaser appearing with published article"),
+        ),
+    ),
+
+    atapi.TextField(
+            name='publishedText',
+#            allowable_content_types=('text/html'),
+#            default_output_type='text/x-html-safe',
+            searchable=1,
+            storage=atapi.AnnotationStorage(),
+            schemata ='publish',
+            required=False,
+            widget=atapi.RichWidget(
+                label=_(u"Published text"),
+                description=_(u"Text of the published article"),
+            ),
+     ),
+                                                                                          
+    # atapi.StringField(
+    #     name='publishedText',
+    #     required=False,
+    #     searchable=0,
+    #     storage=atapi.AnnotationStorage(),
+    #     schemata ='publish',
+    #     allowable_content_types=('text/plain', 'text/structured', 'text/html','text/x-web-intelligent'),
+    #     widget=atapi.TextAreaWidget(
+    #         label=_(u"Published text"),
+    #         description=_(u"Text of the published article"),
+    #     ),
+    #     default_content_type="text/x-web-intelligent", 
+    #     default_output_type="text/html", 
+    # ),
+
+   atapi.ImageField('image',
+        required=False,
+        storage=atapi.AnnotationStorage(),
+        schemata ='publish',
+        sizes={'thumb': (80,80),
+               'mini': (32,32),
+               'normal': (240,140)},
+        widget=atapi.ImageWidget(label=_(u"Article Image"),
+                                 description=_(u"Used as a cover image when article is published"))
+    ),
+   atapi.ImageField('image2',
+        required=False,
+        storage=atapi.AnnotationStorage(),
+        schemata ='publish',
+        sizes={'thumb': (80,80),
+               'mini': (32,32),
+               'normal': (240,140)},
+        widget=atapi.ImageWidget(label=_(u"Article Image 2"),
+                                 description=_(u"Used as a cover image when article is published"))
+    ),
+   atapi.ImageField('image3',
+        required=False,
+        storage=atapi.AnnotationStorage(),
+        schemata ='publish',
+        sizes={'thumb': (80,80),
+               'mini': (32,32),
+               'normal': (240,140)},
+        widget=atapi.ImageWidget(label=_(u"Article Image 3"),
+                                 description=_(u"Used as a cover image when article is published"))
+    ),
+
 ))
 
 
@@ -147,6 +231,13 @@ class Article(folder.ATFolder,RelatorsMixin):
     description = atapi.ATFieldProperty('description')
     articleType = atapi.ATFieldProperty('articleType')
     pages = atapi.ATFieldProperty('pages')
+    teaserHead = atapi.ATFieldProperty('teaserHead')
+    teaserBody = atapi.ATFieldProperty('teaserBody')
+#    publishedText = atapi.ATFieldProperty('publishedText')
+    publishedText = atapi.ATFieldProperty('publishedText')
+    image = atapi.ATFieldProperty('image')
+    image2 = atapi.ATFieldProperty('image2')
+    image3 = atapi.ATFieldProperty('image3')
     doi = atapi.ATFieldProperty('doi')
 
 

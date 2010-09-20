@@ -17,6 +17,7 @@ journalcommons/Utils/__init__.py
 journalcommons/Utils/config.py
 journalcommons/Utils/configure.zcml
 journalcommons/Utils/gcommonsWorldcat.py
+journalcommons/Utils/gitlog2changelog.py
 journalcommons/Utils/actions/__init__.py
 journalcommons/Utils/actions/configure.zcml
 journalcommons/Utils/actions/newsmail.py

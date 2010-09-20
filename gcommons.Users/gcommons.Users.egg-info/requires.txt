@@ -1,4 +1,5 @@
 setuptools
+Products.membrane<1.2
 
 [tests]
 zope.testing

@@ -5,6 +5,118 @@
 
 /* <dtml-with base_properties> */
 
+/* */
+
+.scroll {
+  position:relative;
+  overflow:hidden;
+  width: 250px;
+  height: 266px;
+  float:left;
+}
+/* root element for the scroll pics */
+.scroll .pics {
+  width:20000em;
+  position:absolute;
+  clear:both;
+}
+	
+/* single scroll item */
+.pics div {
+  float:left;
+  cursor:pointer;
+  width:250px !important;
+  height:200px;
+  margin:0px;
+}
+	
+/* possible settings for the active scroll */
+.scroll.active {}
+
+.featured img {
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC
+  padding: 4px;
+  width: 240px;
+  height: 139px;
+}
+
+.featured .piece {
+	  line-height: 1.2em;
+	  padding: 40px 20px 0 0;
+	  margin: 0;
+	  width: 245px;
+	  height: 270px;
+	  float: left;
+	  overflow: visible;
+	  min-height: 270px;
+}
+
+
+.featured h5 {
+	  font-size: 1.50em;
+	  line-height: 1em;
+	  margin: 0px;
+	  padding: 10px 0px 0px 0px;
+	  font-weight: bold;
+	  color: #666666;
+}
+
+.featured h6 {
+	  font-size: 1em;
+	  line-height: 1.1em;
+	  padding: 4px 0 0 0;
+	  margin: 0px;
+	  color: #3f3f3f;
+	  font-weight: bold;
+}
+
+.featured p {
+	  font-size: 1em;
+	  padding: 4px 0 0 0;
+	  margin: 0;
+	  line-height: 1.17em;
+	  color: #3f3f3f;
+}
+
+.landing_wrapper .featured h7 {
+		 font-size:12px;
+		 font-weight:bold;
+		 padding-bottom:10px;
+		 float: left;
+		 width: 100%;
+		 }
+
+.rt-simple-article {
+    padding: 10px 10px 0px 8px !important;
+}
+
+.rt-simple-abstract {
+		    padding: 5px 5px 5px 5px;
+		    margin: 5px;
+		    background-color: #f5f5f5;
+}
+
+
+.article-published { width: 700px; } 
+
+.rt-view-description {
+    padding: 0em 0.5em 0.5em 0.5em;
+}
+
+.rt-normal-image {
+    float: left; padding: 5px 5px 5px 5px;
+}
+.rt-article-meta {  
+    background-color:#cccccc;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin:auto;}
+
+#jq-rt-articles {  
+    width: 850px;
+}
+
+
 /* List of folder content */
 
 #nobullets ul,li { 
@@ -33,6 +145,8 @@
 #article-abstract {
 	color: #cc00cc  !important;
 }
+/* Article images */
+.thumbnail { float: left; padding: 3px; }  
 
 /* Relators in two columns */
 #relatorsTwoColumns {

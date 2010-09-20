@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Journal">
+<head>
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('enable_border',1);" />
+</head>
+<body>
+  <!-- <metal:block fill-slot="column_two_slot" /> -->
+  <!-- <metal:block fill-slot="column_one_slot" /> -->
+
+  <metal:javascript fill-slot="javascript_head_slot">
+    <script type="text/javascript" charset="utf-8">
+      /* Research Thread view */
+      jq(document).ready(function() {
+        jq( "#jq-rt-articles" ).accordion();
+      });
+    </script>
+  </metal:javascript>
+
+  <div metal:fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+      <tal:item repeat="item python:context.listFolderContents(contentFilter={'portal_type':'SubmissionsFolder'})">
+	<div id="jq-rt-articles">
+ 	  <tal:article repeat="article python:item.listFolderContents(contentFilter={'portal_type':'Article'})">
+	    <h3><a href="#" tal:content="python: article.title + ' by '.join(article.Creators())"/></h3>
+	    <div>
+	      <div class="rt-article-meta">
+		Article State: <span class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" /> | Pages: <span id="pages" tal:content="article/pages" /> | <a href="#" tal:attributes="href article/absolute_url">Full article</a> | <a href="#" tal:attributes="href string:${article/absolute_url}/edit">Edit</a> | Abstract and images:
+	      </div>
+	      <div class="rt-description" tal:content="article/description" />
+	      <div class="rt-normal-image" tal:condition="article/image">
+      		<a title="#" href="#" tal:attributes="href string:${article/absolute_url}/image">
+      		  <img tal:replace="structure article/@@images/image/normal" alt=""/></a>
+      	      </div>
+      	      <div class="thumbnail" tal:condition="article/image2">
+      		<a href="#" tal:attributes="href string:${article/absolute_url}/image2">
+      		  <img tal:replace="structure article/@@images/image2/normal" alt=""/></a>
+      	      </div>
+      	      <div class="thumbnail" tal:condition="article/image3">
+      		<a href="#" tal:attributes="href string:${article/absolute_url}/image3">
+      		  <img tal:replace="structure article/@@images/image3/normal" alt=""/></a>
+      	      </div>
+	    </div>
+          </tal:article>
+	</div>
+      </tal:item>
+
+
+      <!-- <h3 i18n:translate="sections">Contents</h3> -->
+
+      <!-- <tal:item repeat="item python:context.listFolderContents(contentFilter={'portal_type':'SubmissionsFolder'})"> -->
+      <!-- 	<table class="listing" width="100%"> -->
+      <!--     <thead> -->
+      <!--       <tr> -->
+      <!--         <th class="nosort"><b tal:content="item/Title" /> -->
+      <!--         <th width="5%" class="nosort" i18n:translate="Review state">Review state</th> -->
+      <!--         <th width="5%" class="nosort"  i18n:translate="Pages">Pages</th> -->
+      <!--         <th width="13%" class="nosort"  i18n:translate="Images">Images</th> -->
+      <!--       </tr> -->
+      <!--     </thead> -->
+
+      <!-- 	<tal:article repeat="article python:item.listFolderContents(contentFilter={'portal_type':'Article'})"> -->
+      <!--     <tr> -->
+      <!--       <td><a href="" tal:attributes="href article/absolute_url" tal:content="article/title" /> -->
+      <!--         <br/> by <span tal:content="python:' and '.join(article.Creators())"/> <div id="description" tal:content="article/description" /> -->
+
+      <!-- 	    <td class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" /> -->
+
+      <!--       <td tal:content="article/pages" /> -->
+
+      <!-- 	    <td> -->
+      <!-- 	      <div class="thumbnail" tal:condition="article/image"> -->
+      <!-- 		<a title="#" href="#" tal:attributes="href string:${article/absolute_url}/image"> -->
+      <!-- 		  <img tal:replace="structure article/@@images/image/mini" alt=""/></a> -->
+      <!-- 	      </div> -->
+      <!-- 	      <div class="thumbnail" tal:condition="article/image2"> -->
+      <!-- 		<a href="#" tal:attributes="href string:${article/absolute_url}/image2"> -->
+      <!-- 		  <img tal:replace="structure article/@@images/image2/mini" alt=""/></a> -->
+      <!-- 	      </div> -->
+      <!-- 	      <div class="thumbnail" tal:condition="article/image3"> -->
+      <!-- 		<a href="#" tal:attributes="href string:${article/absolute_url}/image3"> -->
+      <!-- 		  <img tal:replace="structure article/@@images/image3/mini" alt=""/></a> -->
+      <!-- 	      </div> -->
+      <!-- 	    </td> -->
+      <!--     </tr> -->
+      <!--   </tal:article> -->
+      <!-- </table> -->
+      <!-- </tal:item> -->
+    
+	<div tal:replace="structure provider:plone.belowcontentbody" />
+
+    </tal:main-macro>
+  </div>
+
+      
+</body>
+</html>
