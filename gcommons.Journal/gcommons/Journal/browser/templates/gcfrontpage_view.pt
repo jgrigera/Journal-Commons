@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Journal">
+<body>
+  <metal:block fill-slot="column_one_slot" />
+
+  <metal:javascript fill-slot="javascript_head_slot">
+    <script type="text/javascript" charset="utf-8">
+      jq(document).ready(function() {
+        jq(".scroll").scrollable({ circular: true }).click(function() {
+          jq(this).data("scrollable").next();
+        });
+      });
+    </script>
+  </metal:javascript>
+
+  <div metal:fill-slot="main">
+    <tal:main-macro metal:define-macro="main">    
+      <tal:counter tal:define="global count python:0"/>
+      <tal:journal repeat="journal python:context.listFolderContents(contentFilter={'portal_type':'Journal'})">
+	<tal:issue repeat="issue python:journal.listFolderContents(contentFilter={'portal_type': ('ResearchThread' ,'SpecialIssue')})">
+      <tal:counter tal:define="global count python:count+1"/>
+<div class="gc-front-issue">
+  <span tal:attributes="class python:'issue-title-'+str(count)" tal:content="issue/title" /> 
+  <div class="scroll"> 
+    <div class="pics"> 
+      <tal:subs repeat="subs python:issue.listFolderContents(contentFilter={'portal_type':'SubmissionsFolder'})">
+	<tal:article repeat="article python:subs.listFolderContents(contentFilter={'portal_type':'Article'})">
+	  <div class="featured">
+      	    <img  tal:replace="structure article/@@images/image/normal" alt=""/>
+	    <a title="#" href="#" tal:attributes="href string:${article/absolute_url}/">
+	      <h5 tal:content="article/teaserHead" /></a>
+	    <span class="gc-front-author" >by <span tal:content="python:' and '.join(article.Creators())"/></span>
+	    <span class="gc-front-date" tal:content="python:view.get_modification_date(article)" />
+	    <p style="width: 244px;" tal:content="article/teaserBody" />
+	  </div> 
+	</tal:article>
+      </tal:subs>
+    </div> 
+  </div>
+</div> 
+	</tal:issue>
+      </tal:journal>
+
+      <div tal:replace="structure provider:plone.belowcontentbody" />
+      
+    </tal:main-macro>
+  </div>
+
+      
+</body>
+</html>

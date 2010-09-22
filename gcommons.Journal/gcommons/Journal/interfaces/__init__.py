@@ -1,4 +1,6 @@
 # -*- extra stuff goes here -*-
+from gcfrontpage import IgcFrontPage
+
 from specialissue import ISpecialIssue
 from section import ISection
 from article import IArticle

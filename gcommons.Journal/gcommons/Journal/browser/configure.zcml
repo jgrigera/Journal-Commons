@@ -7,6 +7,16 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="*"
+      name="gcfrontpage_view"
+      class=".gcfrontpageview.gcfrontpageView"
+      template="templates/gcfrontpage_view.pt"
+      allowed_interface=".gcfrontpageview.IgcfrontpageView"
+      permission="zope.Public"
+      />
+
+
   <!-- ResearchThread views -->
   <browser:page
       for="*"

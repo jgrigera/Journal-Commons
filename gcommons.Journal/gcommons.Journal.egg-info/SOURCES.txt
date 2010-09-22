@@ -22,6 +22,7 @@ gcommons/Journal/browser/articlepublishview.py
 gcommons/Journal/browser/articleview.py
 gcommons/Journal/browser/configure.zcml
 gcommons/Journal/browser/editorsmeetingview.py
+gcommons/Journal/browser/gcfrontpageview.py
 gcommons/Journal/browser/issueview.py
 gcommons/Journal/browser/journalview.py
 gcommons/Journal/browser/researchthreadview.py
@@ -31,6 +32,7 @@ gcommons/Journal/browser/templates/gc_rt_published_simple_view.pt
 gcommons/Journal/browser/templates/gc_rt_published_view.jq.pt
 gcommons/Journal/browser/templates/gc_rt_published_view.pt
 gcommons/Journal/browser/templates/gc_rt_simple_view.pt
+gcommons/Journal/browser/templates/gcfrontpage_view.pt
 gcommons/Journal/browser/templates/gcommons_article_view.pt
 gcommons/Journal/browser/templates/gcommons_editorsmeeting_view.pt
 gcommons/Journal/browser/templates/gcommons_issue_view.pt
@@ -39,6 +41,7 @@ gcommons/Journal/content/__init__.py
 gcommons/Journal/content/article.py
 gcommons/Journal/content/configure.zcml
 gcommons/Journal/content/editorsmeeting.py
+gcommons/Journal/content/gcfrontpage.py
 gcommons/Journal/content/issue.py
 gcommons/Journal/content/journal.py
 gcommons/Journal/content/section.py
@@ -46,6 +49,7 @@ gcommons/Journal/content/specialissue.py
 gcommons/Journal/interfaces/__init__.py
 gcommons/Journal/interfaces/article.py
 gcommons/Journal/interfaces/editorsmeeting.py
+gcommons/Journal/interfaces/gcfrontpage.py
 gcommons/Journal/interfaces/issue.py
 gcommons/Journal/interfaces/journal.py
 gcommons/Journal/interfaces/section.py
@@ -72,6 +76,7 @@ gcommons/Journal/profiles/default/types/Journal.xml
 gcommons/Journal/profiles/default/types/ResearchThread.xml
 gcommons/Journal/profiles/default/types/Section.xml
 gcommons/Journal/profiles/default/types/SpecialIssue.xml
+gcommons/Journal/profiles/default/types/gcFrontPage.xml
 gcommons/Journal/profiles/default/workflows/articlePR_IE_workflow/definition.xml
 gcommons/Journal/profiles/default/workflows/articlePR_workflow/definition.xml
 gcommons/Journal/profiles/default/workflows/journal_workflow/definition.xml
@@ -88,7 +93,6 @@ gcommons/Journal/skins/gcommons_journal_images/jquery-ui-1.8.5.custom.min.js
 gcommons/Journal/skins/gcommons_journal_images/jquery.easing.1.3.js
 gcommons/Journal/skins/gcommons_journal_images/jquery.tools.min.js
 gcommons/Journal/skins/gcommons_journal_images/loader.gif
-gcommons/Journal/skins/gcommons_journal_images/reset.css
 gcommons/Journal/skins/gcommons_journal_images/upload_icon.gif
 gcommons/Journal/skins/gcommons_journal_images/images/ajax-loader.gif
 gcommons/Journal/skins/gcommons_journal_images/images/ui-bg_diagonal-maze_20_6e4f1c_10x10.png
@@ -106,14 +110,6 @@ gcommons/Journal/skins/gcommons_journal_images/images/ui-icons_8c291d_256x240.pn
 gcommons/Journal/skins/gcommons_journal_images/images/ui-icons_b83400_256x240.png
 gcommons/Journal/skins/gcommons_journal_images/images/ui-icons_fbdb93_256x240.png
 gcommons/Journal/skins/gcommons_journal_images/images/ui-icons_ffffff_256x240.png
-gcommons/Journal/skins/gcommons_journal_images/themes/dark/next.gif
-gcommons/Journal/skins/gcommons_journal_images/themes/dark/panel-nav-next.gif
-gcommons/Journal/skins/gcommons_journal_images/themes/dark/panel-nav-prev.gif
-gcommons/Journal/skins/gcommons_journal_images/themes/dark/prev.gif
-gcommons/Journal/skins/gcommons_journal_images/themes/light/next.gif
-gcommons/Journal/skins/gcommons_journal_images/themes/light/panel-nav-next.gif
-gcommons/Journal/skins/gcommons_journal_images/themes/light/panel-nav-prev.gif
-gcommons/Journal/skins/gcommons_journal_images/themes/light/prev.gif
 gcommons/Journal/skins/gcommons_journal_templates/gcommons_submissions_search_results.pt
 gcommons/Journal/skins/gcommons_journal_templates/gcommons_transition_form.pt
 gcommons/Journal/skins/gcommons_journal_templates/jc_content_accepted_form.pt

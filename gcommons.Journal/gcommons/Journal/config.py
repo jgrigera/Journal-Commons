@@ -5,6 +5,7 @@ PROJECTNAME = 'gcommons.Journal'
 
 ADD_PERMISSIONS = {
     # -*- extra stuff goes here -*-
+    'gcFrontPage': 'gcommons.Journal: Add gcFrontPage',
     'SpecialIssue': 'gcommons.Journal: Add SpecialIssue',
     'EditorsMeeting': 'gcommons.Journal: Add EditorsMeeting',
     'Section': 'gcommons.Journal: Add Section',

@@ -22,7 +22,7 @@
         <element value="SubmissionsFolder" />
   </property>
 
-  <property name="default_view">gc_rt_published_view</property>
+  <property name="default_view">gc_rt_published_view.jq</property>
 
   <property name="view_methods">
     <element value="gc_rt_published_view" />

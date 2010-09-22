@@ -5,14 +5,75 @@
 
 /* <dtml-with base_properties> */
 
-/* */
+.issue-title-1 {
+  color: red;
+  padding: 3px;
+}
 
-.scroll {
+.issue-title-2 {
+  color: yellow;
+  background-color: grey;
+  padding: 3px;
+}
+.issue-title-3 {
+  color: blue;
+  padding: 3px;
+}
+.issue-title-4 {
+  color: black;
+  background-color: lawngreen;
+  padding: 3px;
+}
+
+.issue-title-5 {
+  color: darkcyan;
+  padding: 3px;
+}
+
+.issue-title-6 {
+  color: blueviolet;
+  padding: 3px;
+}
+
+.issue-title-7 {
+  color: yellow;
+  background-color: grey;
+  padding: 3px;
+}
+
+.gc-front-date {
+  font-size: 0.8em;
+  line-height: 1.5em;
+  padding: 4px 0 0 0;
+  color: #3f3f3f;
+}
+
+
+.gc-front-author {
+  font-size: 0.9em;
+  line-height: 1.5em;
+  padding: 4px 0 0 0;
+  margin: 0px;
+  color: #3f3f3f;
+  font-weight: bold;
+}
+
+.gc-front-issue {
   position:relative;
   overflow:hidden;
   width: 250px;
   height: 266px;
   float:left;
+  padding: 10px;
+}
+
+.scroll {
+  position:relative;
+  overflow:hidden;
+  width: 230px;
+  height: 266px;
+  float:left;
+  padding: 8px;
 }
 /* root element for the scroll pics */
 .scroll .pics {
@@ -34,24 +95,22 @@
 .scroll.active {}
 
 .featured img {
-  background-color: #FFFFFF;
-  border: 1px solid #CCCCCC
-  padding: 4px;
+  padding: 1px;
   width: 240px;
   height: 139px;
+  border: 1px solid;
 }
 
 .featured .piece {
-	  line-height: 1.2em;
-	  padding: 40px 20px 0 0;
-	  margin: 0;
-	  width: 245px;
-	  height: 270px;
-	  float: left;
-	  overflow: visible;
-	  min-height: 270px;
+  line-height: 1.2em;
+  padding: 40px 20px 0 0;
+  margin: 0;
+  width: 240px;
+  height: 270px;
+  float: left;
+  overflow: visible;
+  min-height: 270px;
 }
-
 
 .featured h5 {
 	  font-size: 1.50em;
