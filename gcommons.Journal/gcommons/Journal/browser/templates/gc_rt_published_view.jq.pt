@@ -25,7 +25,7 @@
       <tal:article repeat="article python:item.listFolderContents(contentFilter={'portal_type':'Article'})">
 	<div class="featured">
   	    <a title="#" href="#" tal:attributes="href string:${article/absolute_url}/">
-      	      <img  tal:replace="structure article/@@images/image/normal" alt=""/></a>
+      	      <img tal:condition="article/image" tal:replace="structure article/@@images/image/normal" alt=""/></a>
 	    <h5 tal:content="article/teaserHead" />
 	    <h6>by <span tal:content="python:' and '.join(article.Creators())"/></h6>
 	    <p tal:content="article/teaserBody" />

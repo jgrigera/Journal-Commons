@@ -24,7 +24,7 @@
 	  <tal:article repeat="article python:item.listFolderContents(contentFilter={'portal_type':'Article'})">
 	    <div  style="float:left; width: 280px; padding: 10px 10px 10px 10px;">
   	      <a title="#" href="#" tal:attributes="href string:${article/absolute_url}/">
-      		<img  style="border: 1px solid black; padding 2px; " tal:replace="structure article/@@images/image/normal" alt=""/></a>
+      		<img  tal:condition="article/image" style="border: 1px solid black; padding 2px; " tal:replace="structure article/@@images/image/normal" alt=""/></a>
 	      <h2 tal:content="article/teaserHead" />
 	      <h3>by <span tal:content="python:' and '.join(article.Creators())"/></h3>
 	      <p tal:content="article/teaserBody" />

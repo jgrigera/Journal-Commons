@@ -28,7 +28,7 @@
       <tal:subs repeat="subs python:issue.listFolderContents(contentFilter={'portal_type':'SubmissionsFolder'})">
 	<tal:article repeat="article python:subs.listFolderContents(contentFilter={'portal_type':'Article'})">
 	  <div class="featured">
-      	    <img  tal:replace="structure article/@@images/image/normal" alt=""/>
+      	    <img tal:condition="article/image" tal:replace="structure article/@@images/image/normal" alt=""/>
 	    <a title="#" href="#" tal:attributes="href string:${article/absolute_url}/">
 	      <h5 tal:content="article/teaserHead" /></a>
 	    <span class="gc-front-author" >by <span tal:content="python:' and '.join(article.Creators())"/></span>
