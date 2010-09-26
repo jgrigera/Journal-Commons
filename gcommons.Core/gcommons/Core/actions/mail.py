@@ -68,7 +68,7 @@ class mail(Action):
         try:
             user = self.context.portal_membership.getAuthenticatedMember()
             values.set('loggeduserid', user.getId())
-            values.set('loggeduserfullname', user.getProperty('fullname'))
+            values.set('loggeduserfullname', safe_unicode(user.getProperty('fullname')))
             values.set('loggeduseremail', user.getProperty('email'))
         except AttributeError, e:
             logger.error("class %s" % user.__class__)
@@ -78,7 +78,7 @@ class mail(Action):
         try:
             user = self.object.getRelators()[0]
             values.set('creatorid', user['id'])
-            values.set('creatorfullname', user['name'])
+            values.set('creatorfullname', safe_unicode(user['name']))
             values.set('creatoremail', user['email'])
         except AttributeError, e:
             logger.error("class %s" % user.__class__)
@@ -100,7 +100,8 @@ class mail(Action):
         email_text = RE_MATCH_TO.sub("", email_text)
 
 
-        # Now send the email        
+        # Now send the email
+        logger.info("AFTER PATCH")
         logger.info(email_text)
         recipients = ["%(creatorfullname)s <%(creatoremail)s>" % values,]
 
@@ -137,15 +138,12 @@ class mail(Action):
         msg['To'] = mto
         msg.preamble = 'This is a multi-part message in MIME format.'
 
-        part1 = MIMEText(mplain_text, 'plain','utf-8')
+        part1 = MIMEText(mplain_text.encode('utf-8'), 'plain', 'utf-8')
         msg.attach(part1)
         # part2 = MIMEText(message_body, 'html')
         # msg.attach(part2)
 
         #logger.info(msg.as_string())
         logger.info("Mail to %s, from %s, subject %s" % (mto, mfrom, msubject))
-        self.mailhost.send( msg.as_string() )
+        self.mailhost.send( msg.as_string(), mto=mto.encode("ascii", "ignore"), mfrom=mfrom.encode("ascii", "ignore") )
 
-        
-        
-        
