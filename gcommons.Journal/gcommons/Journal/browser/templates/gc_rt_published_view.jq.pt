@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Journal">
+<body>
+  <metal:block fill-slot="column_two_slot" />
+  <metal:block fill-slot="column_one_slot" />
+
+  <metal:javascript fill-slot="javascript_head_slot">
+    <script type="text/javascript" charset="utf-8">
+      jq(document).ready(function() {
+        jq(".scroll").scrollable({ circular: true }).click(function() {
+          jq(this).data("scrollable").next();
+        });
+      });
+    </script>
+  </metal:javascript>
+
+  <div metal:fill-slot="main">
+    <tal:main-macro metal:define-macro="main">    
+
+<div class="scroll"> 
+  <div class="pics"> 
+    <tal:item repeat="item python:context.listFolderContents(contentFilter={'portal_type':'SubmissionsFolder'})">
+      <tal:article repeat="article python:item.listFolderContents(contentFilter={'portal_type':'Article'})">
+	<div class="featured">
+      	  <img tal:condition="article/image" tal:replace="structure article/@@images/image/normal" alt=""/>
+  	  <a title="#" href="#" tal:attributes="href string:${article/absolute_url}/">
+	    <h5 tal:content="article/teaserHead" /></a>
+	  <h6>by <span tal:content="python:' and '.join(article.Creators())"/></h6>
+	    <p tal:content="article/teaserBody" />
+	</div> 
+        </tal:article>
+      </tal:item>
+    </div> 
+</div> 
+
+    
+
+    </tal:main-macro>
+  </div>
+
+      
+</body>
+</html>

@@ -67,11 +67,11 @@
 	  <div class="nobullets" tal:condition="contents">
 	    <tal:batch define="batch_contents python:Batch(contents, contents_size, int(contents_start), orphan=1, b_start_str='contents_start')">
 
-	      <h3 i18n:translate="contents">Issues</h3>
+	      <h3 i18n:translate="contents">Issues and Research Threads</h3>
       
 	      <ul>
 		<tal:block repeat="item batch_contents">
-		  <li tal:condition="python: item.portal_type == 'Issue'"><img width="16" height="16" tal:attributes="src item/getIcon" />
+		  <li tal:condition="python: item.portal_type == 'Issue' or item.portal_type == 'SpecialIssue' or item.portal_type == 'ResearchThread'"><img width="16" height="16" tal:attributes="src item/getIcon" />
 		    <a href="#"
 		       tal:content="item/Title"
 		       tal:attributes="href item/absolute_url"/> <br/>
@@ -84,7 +84,7 @@
       
 	      <ul>
 		<tal:block repeat="item batch_contents">
-		  <li tal:condition="python: item.portal_type != 'Issue'"><img width="16" height="16" tal:attributes="src item/getIcon" />
+		  <li tal:condition="python: item.portal_type != 'Issue' and item.portal_type != 'SpecialIssue' and item.portal_type != 'ResearchThread'"><img width="16" height="16" tal:attributes="src item/getIcon" />
 		    <a href="#"
 		       tal:content="item/Title"
 	       tal:attributes="href item/absolute_url"/> <br/>

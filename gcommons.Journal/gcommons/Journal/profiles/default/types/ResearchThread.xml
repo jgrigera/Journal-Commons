@@ -6,7 +6,7 @@
   <property name="description" i18n:translate="">Research Thread</property>
   <property name="content_meta_type">SpecialIssue</property>
 
-  <property name="content_icon">book_icon.gif</property>
+  <property name="content_icon">gcommons-researchthread-anim.gif</property>
   <property name="product">gcommons.Journal</property>
   <property name="factory">addSpecialIssue</property>
   <property name="global_allow">False</property>
@@ -22,8 +22,14 @@
         <element value="SubmissionsFolder" />
   </property>
 
-  <property name="default_view">base_view</property>
+  <property name="default_view">gc_rt_published_view.jq</property>
+
   <property name="view_methods">
+    <element value="gc_rt_published_view" />
+    <element value="gc_rt_published_view.jq" />
+    <element value="gc_rt_published_simple_view" />
+    <element value="gc_rt_simple_view" />
+    <element value="gc_researchthread_view" />
     <element value="base_view" />
   </property>
 

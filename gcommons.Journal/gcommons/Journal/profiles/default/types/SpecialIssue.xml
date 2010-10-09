@@ -6,7 +6,7 @@
   <property name="description" i18n:translate="">Special Issue or Research Thread</property>
   <property name="content_meta_type">SpecialIssue</property>
 
-  <property name="content_icon">book_icon.gif</property>
+  <property name="content_icon">gcommons-specialissue.png</property>
   <property name="product">gcommons.Journal</property>
   <property name="factory">addSpecialIssue</property>
   <property name="global_allow">False</property>

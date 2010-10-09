@@ -7,6 +7,62 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="*"
+      name="gcfrontpage_view"
+      class=".gcfrontpageview.gcfrontpageView"
+      template="templates/gcfrontpage_view.pt"
+      allowed_interface=".gcfrontpageview.IgcfrontpageView"
+      permission="zope.Public"
+      />
+
+
+  <!-- ResearchThread views -->
+  <browser:page
+      for="*"
+      name="gc_researchthread_view"
+      class=".researchthreadview.researchthreadView"
+      template="templates/gc_researchthread_view.pt"
+      allowed_interface=".researchthreadview.IresearchthreadView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gc_rt_published_view"
+      class=".researchthreadview.researchthreadView"
+      template="templates/gc_rt_published_view.pt"
+      allowed_interface=".researchthreadview.IresearchthreadView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gc_rt_published_view.jq"
+      class=".researchthreadview.researchthreadView"
+      template="templates/gc_rt_published_view.jq.pt"
+      allowed_interface=".researchthreadview.IresearchthreadView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gc_rt_published_simple_view"
+      class=".researchthreadview.researchthreadView"
+      template="templates/gc_rt_published_simple_view.pt"
+      allowed_interface=".researchthreadview.IresearchthreadView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gc_rt_simple_view"
+      class=".researchthreadview.researchthreadView"
+      template="templates/gc_rt_simple_view.pt"
+      allowed_interface=".researchthreadview.IresearchthreadView"
+      permission="zope.Public"
+      />
+
   <!-- Journal views -->
   <browser:page
       for="*"
@@ -26,6 +82,15 @@
       template="templates/gcommons_article_view.pt"
       allowed_interface=".articleview.IArticleView"
       permission="zope2.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="gc_articlepublish_view"
+      class=".articlepublishview.articlepublishView"
+      template="templates/gc_articlepublish_view.pt"
+      allowed_interface=".articlepublishview.IarticlepublishView"
+      permission="zope.Public"
       />
 
 

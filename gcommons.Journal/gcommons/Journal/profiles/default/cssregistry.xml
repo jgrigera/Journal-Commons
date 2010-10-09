@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <object name="portal_css" meta_type="Stylesheets Registry">
-  <stylesheet id="gcommons-Journal.css"
-              media="all"
-              />
+  <stylesheet id="gcommons-Journal.css" media="all"/>
+  <stylesheet id="jquery-ui-1.8.5.custom.css" media="all" />
 </object>

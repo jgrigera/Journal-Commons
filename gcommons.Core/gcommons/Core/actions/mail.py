@@ -100,7 +100,8 @@ class mail(Action):
         email_text = RE_MATCH_TO.sub("", email_text)
 
 
-        # Now send the email        
+        # Now send the email
+        logger.info("AFTER PATCH")
         logger.info(email_text)
         recipients = ["%(creatorfullname)s <%(creatoremail)s>" % values,]
 
@@ -137,7 +138,7 @@ class mail(Action):
         msg['To'] = mto
         msg.preamble = 'This is a multi-part message in MIME format.'
 
-        part1 = MIMEText(mplain_text.encode('utf-8'), 'plain','utf-8')
+        part1 = MIMEText(mplain_text.encode('utf-8'), 'plain', 'utf-8')
         msg.attach(part1)
         # part2 = MIMEText(message_body, 'html')
         # msg.attach(part2)

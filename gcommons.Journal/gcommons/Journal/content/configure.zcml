@@ -6,6 +6,16 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".gcfrontpage.gcFrontPage">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IgcFrontPage"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IgcFrontPage"
+        />
+  </class>
   <class class=".specialissue.SpecialIssue">
     <require
         permission="zope2.View"

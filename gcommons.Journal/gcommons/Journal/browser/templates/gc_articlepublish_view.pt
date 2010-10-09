@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Journal">
+<body>
+
+  <metal:block fill-slot="column_two_slot" />
+  <metal:block fill-slot="column_one_slot" />
+
+    <div metal:fill-slot="main">
+
+      <tal:main-macro metal:define-macro="main">
+
+	<div class="article-published">
+	  <h1 tal:content="here/title" /> 
+	  <!-- without logged in user this fails with getRelators error -->
+	  <!-- http://www.gcommons.org/soft/journalcommons.journal/issues/15 -->
+	  by <span tal:content="python:' and '.join(here.Creators())"/>
+	  
+	  <div tal:condition="here/publishedText">
+	    <p tal:content="structure here/publishedText" alt=""/>
+	  </div>
+	  
+	  <div tal:replace="structure provider:plone.belowcontentbody" />
+	</div>
+
+        </tal:main-macro>
+    </div>
+</body>
+</html>

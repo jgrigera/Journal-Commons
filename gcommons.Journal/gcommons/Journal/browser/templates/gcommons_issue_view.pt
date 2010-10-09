@@ -79,7 +79,10 @@
     	    <table class="listing" width="100%">
         	<thead>
                 <tr>
-            	    <th class="nosort" colspan="2"><b tal:content="section/Title" />
+            	    <th class="nosort"><b tal:content="section/Title" />
+            	    <th width="13%" class="nosort" i18n:translate="Review state">Review state</th>
+            	    <th width="13%" class="nosort"  i18n:translate="Pages">Pages</th>
+            	    <th width="13%" class="nosort"  i18n:translate="Images">Images</th>
             	</tr>
             	</thead>
                                                                                         
@@ -87,10 +90,25 @@
                 <tr>
             	    <td><a href="" 
             		    tal:attributes="href article/absolute_url" 
-            		    tal:content="article/getArticle_title" />
+            		    tal:content="article/title" />
             		<br/>
             		by <span tal:content="python:' and '.join(article.Creators())"/>
-            	    <td width="20%" tal:content="article/getPages" />
+		    <td width="20%" class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
+            	    <td width="10%" tal:content="article/pages" />
+		    <td width="25%">
+		      <div class="thumbnail" tal:condition="article/image">
+			<a title="#" href="#" tal:attributes="href string:${article/absolute_url}/image">
+			  <img tal:replace="structure article/@@images/image/mini" alt=""/></a>
+		      </div>
+		      <div class="thumbnail" tal:condition="article/image2">
+			<a href="#" tal:attributes="href string:${article/absolute_url}/image2">
+			  <img tal:replace="structure article/@@images/image2/mini" alt=""/></a>
+		      </div>
+		      <div class="thumbnail" tal:condition="article/image3">
+			<a href="#" tal:attributes="href string:${article/absolute_url}/image3">
+			  <img tal:replace="structure article/@@images/image3/mini" alt=""/></a>
+		      </div> 
+		    </td>
         	</tr>
         	</tal:articles>
 	    </table>

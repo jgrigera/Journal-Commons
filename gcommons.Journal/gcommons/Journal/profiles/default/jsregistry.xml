@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- setup configuration for the portal_javascripts tool -->
+
+<object name="portal_javascript" meta_type="Javascript Registry">
+  <javascript id="jquery-ui-1.8.5.custom.min.js"
+	      cacheable="True" compression="safe" cookable="True"
+              enabled="True" expression="" inline="False"/>
+
+  <javascript id="jquery.tools.min.js"
+	      cacheable="False" compression="safe" cookable="True"
+              enabled="True" expression="" inline="False"/>
+                           
+</object>

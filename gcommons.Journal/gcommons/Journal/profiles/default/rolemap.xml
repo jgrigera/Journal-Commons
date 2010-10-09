@@ -7,6 +7,10 @@
 
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
+    <permission name="gcommons.Journal: Add gcFrontPage" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
     <permission name="gcommons.Journal: Add SpecialIssue" acquire="False">
 	<role name="Manager" />
     </permission>
