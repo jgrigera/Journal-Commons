@@ -61,7 +61,7 @@ basic operations like adding, updadating and deleting SpecialIssue content
 items.
 
 Adding a new SpecialIssue content item
---------------------------------
+---------------------------------------
 
 We use the 'Add new' menu to add a new content item.
 
@@ -85,7 +85,7 @@ Now we fill the form and submit it.
 And we are done! We added a new 'SpecialIssue' content item to the portal.
 
 Updating an existing SpecialIssue content item
----------------------------------------
+-----------------------------------------------
 
 Let's click on the 'edit' tab and update the object attribute values.
 
@@ -101,7 +101,7 @@ We check that the changes were applied.
     True
 
 Removing a/an SpecialIssue content item
---------------------------------
+---------------------------------------
 
 If we go to the home page, we can see a tab with the 'New SpecialIssue
 Sample' title in the global navigation tabs.
@@ -131,7 +131,7 @@ Sample' tab.
     False
 
 Adding a new SpecialIssue content item as contributor
-------------------------------------------------
+-----------------------------------------------------
 
 Not only site managers are allowed to add SpecialIssue content items, but
 also site contributors.

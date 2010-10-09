@@ -305,10 +305,6 @@ class RelatorsMixin:
                          'order': default_relationship.displayorder()
                          })
 
-        user = self.portal_membership.getAuthenticatedMember()
-        list = atapi.DisplayList()
-        list.add(user.getId(), user.fullname)
-        
         # unregistered
         for relator in self.getUnregisteredRelators():
             # Sometimes we get called before DataGrid is set

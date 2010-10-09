@@ -54,14 +54,14 @@ And we ensure that we get the friendly logged-in message:
 
 -*- extra stuff goes here -*-
 The SubmissionsFolder content type
-===============================
+==================================
 
 In this section we are tesing the SubmissionsFolder content type by performing
 basic operations like adding, updadating and deleting SubmissionsFolder content
 items.
 
 Adding a new SubmissionsFolder content item
---------------------------------
+-------------------------------------------
 
 We use the 'Add new' menu to add a new content item.
 
@@ -85,7 +85,7 @@ Now we fill the form and submit it.
 And we are done! We added a new 'SubmissionsFolder' content item to the portal.
 
 Updating an existing SubmissionsFolder content item
----------------------------------------
+---------------------------------------------------
 
 Let's click on the 'edit' tab and update the object attribute values.
 
@@ -101,7 +101,7 @@ We check that the changes were applied.
     True
 
 Removing a/an SubmissionsFolder content item
---------------------------------
+--------------------------------------------
 
 If we go to the home page, we can see a tab with the 'New SubmissionsFolder
 Sample' title in the global navigation tabs.
@@ -131,7 +131,7 @@ Sample' tab.
     False
 
 Adding a new SubmissionsFolder content item as contributor
-------------------------------------------------
+----------------------------------------------------------
 
 Not only site managers are allowed to add SubmissionsFolder content items, but
 also site contributors.
@@ -184,7 +184,7 @@ basic operations like adding, updadating and deleting CallForPapers content
 items.
 
 Adding a new CallForPapers content item
---------------------------------
+----------------------------------------
 
 We use the 'Add new' menu to add a new content item.
 
@@ -208,7 +208,7 @@ Now we fill the form and submit it.
 And we are done! We added a new 'CallForPapers' content item to the portal.
 
 Updating an existing CallForPapers content item
----------------------------------------
+-----------------------------------------------
 
 Let's click on the 'edit' tab and update the object attribute values.
 
@@ -224,7 +224,7 @@ We check that the changes were applied.
     True
 
 Removing a/an CallForPapers content item
---------------------------------
+-----------------------------------------
 
 If we go to the home page, we can see a tab with the 'New CallForPapers
 Sample' title in the global navigation tabs.
@@ -254,7 +254,7 @@ Sample' tab.
     False
 
 Adding a new CallForPapers content item as contributor
-------------------------------------------------
+-------------------------------------------------------
 
 Not only site managers are allowed to add CallForPapers content items, but
 also site contributors.
@@ -308,7 +308,7 @@ basic operations like adding, updadating and deleting Comment content
 items.
 
 Adding a new Comment content item
---------------------------------
+----------------------------------
 
 We use the 'Add new' menu to add a new content item.
 

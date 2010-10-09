@@ -8,6 +8,7 @@
 <div metal:fill-slot="main"
      tal:define="rssQueryString python:view.getSearchQueryString(request);
                  results   	python:view.getFilteredSubmissions(request);
+                 template_id	string:gcommons_submissions_search;
                  Batch    	python:modules['Products.CMFPlone'].Batch;
                  DateTime 	python:modules['DateTime'].DateTime;
                  b_size   	python:30;b_start python:0;b_start request/b_start | b_start;">
@@ -33,7 +34,7 @@
              </div>
 
            <strong tal:condition="nocall:results">
-               <span i18n:translate="batch_x_items_matching_your_criteria"><span i18n:name="number" tal:content="python:len(submissions)">234</span> items matching your criteria.</span>
+               <span i18n:translate="batch_x_items_matching_your_criteria"><span i18n:name="number" tal:content="python:len(results)">234</span> items matching your criteria.</span>
            </strong>
 
         </div>
