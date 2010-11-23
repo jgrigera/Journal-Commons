@@ -2,6 +2,7 @@
 
 
 from Products.Five import BrowserView
+from Products.CMFCore.utils import getToolByName
 
 import logging
 logger = logging.getLogger('gcommons.Core.browser.gcommonsView')

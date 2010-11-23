@@ -9,6 +9,16 @@
 
   <browser:page
       for="*"
+      name="gcommons_conferencepayment_view"
+      class=".conferencepaymentview.ConferencePaymentView"
+      template="templates/gcommons_conferencepayment_view.pt"
+      allowed_interface=".conferencepaymentview.IConferencePaymentView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
+      for="*"
       name="jcommons_conferenceevent_view"
       class=".conferenceeventview.ConferenceEventView"
       template="templates/jcommons_conferenceevent_view.pt"

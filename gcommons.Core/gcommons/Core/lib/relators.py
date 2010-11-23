@@ -107,22 +107,6 @@ gcRelatorsSchema_base = atapi.Schema ((
         required=False,
         columns=('relationship', 'name', 'institution', 'email')
     ),
-
-
-    # Migration!!
-    DataGridField(
-        name='unconfirmedExtraAuthors',
-        widget=DataGridWidget(
-            label=_("Other Authors"),
-            description = _('If applicable, other authors of the paper or persons responsible for this piece, besides the principal author.'),
-            column_names=('Name', 'Institution', 'email'),
-        ),
-        mode = 'r',
-        allow_empty_rows=False,
-        required=False,
-        columns=('name', 'institution', 'email')
-    ),
-
    
     #
     # Overrride default fields creators and contributors
@@ -176,7 +160,7 @@ class RelatorsMixin:
     schema = finalizeAuthorsSchema(gcRelatorsSchema_base)
     # Let others schemas order our chunk of fields
     firstField = 'primaryAuthor'
-    lastField = 'unconfirmedExtraAuthors'  
+    lastField = 'unregisteredRelators'  
 
     #
     # Widget Helpers:

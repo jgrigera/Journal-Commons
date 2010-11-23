@@ -1,0 +1,291 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Core">
+<body>
+
+  <metal:block fill-slot="top_slot"
+               tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
+  <metal:block fill-slot="column_two_slot" />
+
+
+  <div metal:fill-slot="main">
+    <div metal:define-macro="body">
+
+<!-- TODO:
+ALL this page should be dumped in favor of formlib.
+
+I was trapped in a deadline with CPTs useless and other stuff, so had to go this
+way, but MUST be dumped.
+-->
+
+
+      <h1 tal:content="here/Title" 
+          class="documentFirstHeading" />
+
+      <!--
+       <div class="documentDescription" tal:content="here/Description" />
+       -->
+
+
+<!-- Anonymous form -->
+<tal:anonymous  tal:condition="isAnon">
+	  <div class="login-required">
+          <tal:block i18n:translate="login_required">
+            You need to register and log in before you can submit an article
+          </tal:block>
+      </div>
+
+      <div tal:content="structure here/helptextanon"/>
+      
+      <div id="hcommons-quick-login-box">				
+			<dl class="portlet portletLogin">
+			    <dt class="portletHeader">
+			        <span class="portletTopLeft"></span>
+			        <a href="#"                         
+			           class="tile"                     
+			           tal:attributes="href view/login_form"
+			           i18n:translate="box_sign_in">Log in</a>
+			        <span class="portletTopRight"></span>     
+			    </dt>                                         
+			
+			    <dd class="portletItem odd"
+			        tal:define="ac_name view/login_name;
+			                    ac_password view/login_password">
+			        <form action="login_form"                    
+			              name="loginform"                       
+			              method="post"                          
+			              tal:attributes="action view/login_form">
+			
+			            <input type="hidden" name="form.submitted" value="1" />
+			            <input type="hidden" name="came_from" value=""         
+			              tal:attributes="value context/@@plone_context_state/current_page_url" />
+			            <input type="hidden" name="js_enabled" id="js_enabled" value="0" />       
+			            <input type="hidden" name="cookies_enabled" id="cookies_enabled" value="" />
+			            <input type="hidden" name="login_name" id="login_name" value="" />          
+			            <input type="hidden" name="pwd_empty" id="pwd_empty" value="0" />           
+			
+			            <div class="field">
+			                <label for=""  
+			                       tal:attributes="for ac_name"
+			                       i18n:translate="label_login_name">Login Name</label>
+			                <br />                                                     
+			                <input type="text"                                         
+			                       size="40"                                           
+			                       alt="Login Name"                                    
+			                       tal:attributes="name ac_name; id ac_name;           
+			                                       value python:request.get(ac_name, '');"
+			                       i18n:attributes="alt label_login_name;"/>              
+			            </div>                                                            
+			                                                                              
+			            <div class="field">                                               
+			                <label for=""                                                 
+			                       tal:attributes="for ac_password"                       
+			                       i18n:translate="label_password">Password</label>       
+			                <br />                                                        
+			                <input type="password"                                        
+			                       size="40"                                              
+			                       alt="Password"                                         
+			                       tal:attributes="name ac_password; id ac_password;"     
+			                       i18n:attributes="alt label_password;"/>                
+			            </div>                                                            
+			
+			            <div i18n:translate="enable_cookies_message_before_login"
+			                 class="cookiesMessage portalMessage"                
+			                 style="display:none">                               
+			                Cookies are not enabled. You must enable cookies before you
+			                can log in.                                                
+			            </div>                                                         
+			                                                                           
+			            <div class="formControls">                                     
+			                                                                           
+			                <input class="context"                                     
+			                       type="submit"                                       
+			                       name="submit"                                       
+			                       value="Log in"                                      
+			                       alt="Log in"                                        
+			                       i18n:attributes="value label_log_in; alt label_log_in;"/>
+			            </div>                                                              
+			        </form>                                                                 
+			    </dd>                                                                       
+			                                                                                
+			    <dd class="portletItem even" tal:condition="view/login_can_request_password">     
+			        <a href="mail_password_form"                                            
+			           class="tile"
+			           tal:attributes="href view/login_mail_password_form">
+			           <tal:block replace="structure context/info_icon.gif"/>
+			           <span tal:omit-tag="" i18n:translate="box_forgot_password_option">Forgot your password?</span>
+			        </a>
+			    </dd>
+			</dl>
+	</div>
+	
+	<!--
+	    registration
+	    
+	    only if self registration there
+	    -->
+	<div id="gcommons-quick-join-box"
+		 tal:condition="view/get_enable_self_reg">
+					<dl class="portlet portletLogin">
+					    <dt class="portletHeader">
+					        <span class="portletTopLeft"></span>
+					        <a href="#"                         
+					           class="tile"                     
+					           tal:attributes="href view/join_form"
+					           i18n:translate="box_sign_in">Register</a>
+					        <span class="portletTopRight"></span>     
+					    </dt>                                         
+					
+					    <dd class="portletItem odd">
+		             
+		              <span tal:omit-tag="" i18n:translate="box_new_user_option">New user?</span>
+
+		              <form
+		                  	tal:attributes="action view/join_form">
+		                <div class="formControls">
+
+			            <div class="field">
+			                <label for="email"  
+			                       i18n:translate="label_email_name">E-mail</label>
+			                <br />                                                     
+			                <input type="text"                                         
+			                       size="40"                                           
+			                       alt="email"   
+			                       name="email"
+			                       id="email"
+			                       tal:attributes="value python:request.get('email', '');"
+			                       i18n:attributes="alt label_email_name;"/>              
+			            </div>                                                            
+
+				            <tal:block replace="structure context/user.gif"/>
+
+				            <input type="hidden" name="came_from" value=""         
+				              		tal:attributes="value context/@@plone_context_state/current_page_url" />
+
+		                  <input class="context"
+		                         type="submit"
+		                         value="Register"
+		                         i18n:domain="plone"
+		                         i18n:attributes="value label_register;"
+		                         />
+		                </div>
+		              </form>
+		              
+					        <span class="portletBottomLeft"></span>
+					        <span class="portletBottomRight"></span>
+		              </dd>
+					</dl>		              
+	</div>
+
+</tal:anonymous>
+      
+	
+<tal:not-anonymous  
+	tal:condition="not:isAnon">
+	
+	
+<tal:register
+	    tal:condition="python:here.REQUEST.get('form.submitted')!='1' and user.has_permission('Add portal content', here)" >
+
+<!--  -->
+ 
+      <p>&nbsp;</p>
+
+      <div tal:content="structure here/getHelpText"/>
+
+      <div class="formControls">
+          
+<!--                  tal:define="errors options/state/getErrors"-->
+          <form action="#"
+                  method="post"
+                  class="edit-form enableUnloadProtection"
+                  tal:attributes="action string:${here/absolute_url}/${template/id};">
+
+			<p tal:define="err errors/foo|nothing" tal:condition="err" tal:content="err" />
+
+            <fieldset>
+	        <input type="hidden" name="form.submitted" value="1" />
+            <tal:loop tal:repeat="item view/get_form_items">
+                <div class="widget">
+
+                <input type="#" name="#" value="#" id="#"
+                       tal:attributes="type  item/type;
+                                       name  item/name;
+                                       id    item/name;
+                                       value item/value;
+                                       class item/class">
+
+                <label for="#" tal:attributes="for item/name" tal:content="item/label" />
+                <div class="formHelp" tal:content="item/description" />
+                <div/>
+            </tal:loop>
+            </fieldset>
+
+            <div class="visualClear"><!-- --></div>
+
+            <div id="actionsView" class="formControls">
+                    <span class="actionButtons">
+                        <input type="submit" id="form.actions.proceed" name="form.actions.proceed" value="Proceed to payment" class="context" />
+                        <input type="submit" id="form.actions.cancel" name="form.actions.cancel" value="Cancel" class="context" />
+                    </span>
+                </div>
+
+            
+          </form>
+      </div>
+</tal:register>
+
+<tal:pay 
+	    tal:define="submitted python:here.REQUEST.get('form.submitted')"
+	    tal:condition="python:user.has_permission('Add portal content', here) and submitted" >
+	    
+	<form 
+		method="post" 
+		tal:define="receipt view/get_receipt;
+				    member python:here.portal_membership.getAuthenticatedMember();"
+		action="https://payments.verisign.com/payflowlink">
+		
+		  <tal:receipt tal:content="structure receipt/html" />
+			
+		  <input type="hidden" name="LOGIN" value="pittmc2004"> 
+		  <input type="hidden" name="PARTNER" value="VeriSign">
+		  <input type="hidden" name="TYPE" value="S">
+		  <!-- 
+			TYPE: A single letter that identifies the type of transaction (S: Sale or A: Authorization).
+			--> 
+		  <input type="hidden" name="INVOICE" value="#" tal:attributes="value receipt/invoiceno">
+		  <input type="hidden" name="DESCRIPTION" value="#" tal:attributes="value receipt/description">
+		  <input type="hidden" name="AMOUNT" value="#" tal:attributes="value receipt/total">
+		  <input type="hidden" name="COMMENT1" value="#" tal:attributes="value receipt/comment">
+
+		  <input type="hidden" name="NAME" value="#" tal:attributes="value  python:member.getProperty('fullname') or member.getId()">
+		  <input type="hidden" name="EMAIL" value="#" tal:condition="python:member.getProperty('email')" tal:attributes="value  python:member.getProperty('email')">
+		  <input type="hidden" name="CUSTID" value="#" tal:attributes="value  python:member.getId()">
+
+		  <br/>
+		  <p><strong>Note: You will need to know your <a target="_blank" href="http://en.wikipedia.org/wiki/CVV2">Credit Card Security Code</a></strong>.<br>
+		    <input id="submit" type="submit" value="Pay Online (Credit Card)" name="submit" size="20"></p>
+
+	</form>
+
+</tal:pay>
+
+
+		
+      <div class="visualClear"><!---->&nbsp;<br/></div>
+
+
+      <div class="poweredBy">
+        <tal:powered i18n:translate="label_powered_by">Powered by</tal:powered>
+        <a class="link-plain" href="http://gcommons.org">gcomm(o)ns</a>
+      </div>
+
+</tal:not-anonymous>
+    </div>
+
+  </div>
+</body>
+
+</html>
+

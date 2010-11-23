@@ -17,6 +17,7 @@
   <property name="allowed_content_types" >
 		<element value="Folder" />
 		<element value="Page" />
+		<element value="ConferencePayment" />
 		<element value="SubmissionsFolder" />
 		<element value="Document" />
 		<element value="CallForPapers" />

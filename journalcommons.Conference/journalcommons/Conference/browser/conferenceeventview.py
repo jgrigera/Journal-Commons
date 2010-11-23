@@ -1,6 +1,7 @@
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
+from gcommons.Core.browser import gcommonsView 
 from Products.CMFCore.utils import getToolByName
 
 from journalcommons.Conference import ConferenceMessageFactory as _
@@ -14,7 +15,7 @@ class IConferenceEventView(Interface):
         pass
 
 
-class ConferenceEventView(BrowserView):
+class ConferenceEventView(gcommonsView):
     """
     ConferenceEvent browser view
     """
@@ -35,3 +36,5 @@ class ConferenceEventView(BrowserView):
     def getEventPapers(self):
         return self.context.getBackReferences(relationship='refPanel')
         
+
+

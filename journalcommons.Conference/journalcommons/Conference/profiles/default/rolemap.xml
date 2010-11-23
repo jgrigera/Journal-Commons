@@ -2,6 +2,10 @@
 <rolemap>
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
+    <permission name="journalcommons.Conference: Add ConferencePayment" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
     <permission name="journalcommons.Conference: Add ConferenceEvent" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />

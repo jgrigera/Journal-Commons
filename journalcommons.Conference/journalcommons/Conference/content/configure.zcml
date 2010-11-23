@@ -6,6 +6,16 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".conferencepayment.ConferencePayment">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IConferencePayment"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IConferencePayment"
+        />
+  </class>
   <class class=".conference.Conference">
     <require
         permission="zope2.View"
