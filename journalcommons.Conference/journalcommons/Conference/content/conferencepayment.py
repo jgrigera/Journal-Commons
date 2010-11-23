@@ -13,6 +13,11 @@ from Products.DataGridField.DataGridField import DataGridField
 from journalcommons.Conference import ConferenceMessageFactory as _
 from journalcommons.Conference.interfaces import IConferencePayment
 from journalcommons.Conference.config import PROJECTNAME
+from cStringIO import StringIO
+import logging
+
+logger = logging.getLogger('journalcommons.Conference.content.conferencepayment')
+
 
 ConferencePaymentSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -57,6 +62,25 @@ def finalizeConferencePaymentSchema(schema):
     return schema
 
 
+class Invoice:
+    """ A class to store Invoices
+    """
+    def __init__(self,items):
+        self._items = items
+        self._id = 10
+        self._payed = False
+    
+    def id(self):
+        return self._id
+
+    def payed(self):
+        self._payed = True
+
+class InvoiceItem:
+    def __init__(self):
+        pass
+    
+
 
 class ConferencePayment(base.ATCTContent):
     """Registration and payment for conference"""
@@ -67,6 +91,36 @@ class ConferencePayment(base.ATCTContent):
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
+    
+    
+    """
+    Invoices
+    """
+    invoices = {}
+        
+    def listInvoices(self):
+        out = StringIO()
+        '\n'.join( [str(i) for i in self.invoices.values()] )
+        return out.getvalue()
+    
+    def addInvoice(self, items):
+        invoice = Invoice(items)
+        self.invoices[invoice.id()] = invoice
+        return invoice
+    
+    def payInvoice(self, id):
+        self.invoices[id].payed()
+    
+    
+    def payback(self, **kwargs):
+        """
+        Paypal payback interface
+        """
+        logger.info("payback: %s" % kwargs)
+        for e in ('AUTHCODE','AVSDATA','HOSTCODE','PNREF','RESPMSG','RESULT'):
+            logger.info("%s = %s" % (e,kwargs.get(e)))
+         
+
     
 
 

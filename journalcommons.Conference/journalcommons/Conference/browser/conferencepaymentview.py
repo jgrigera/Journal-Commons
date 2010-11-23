@@ -80,7 +80,9 @@ class ConferencePaymentView(gcommonsView):
         # Sort items by id, extracting key before ':'
         itemids = items.keys() #[ a['id'] for a in itemlist ]
         itemids.sort(key=lambda x:x.split(':')[0])
-        
+
+        invoiceditems = []        
+        # Most of this logic will be moved to Invoice
         receipt = "<b>You have indicated the following options:</b><br><ul>"
         total = 0
         description = []
@@ -89,17 +91,19 @@ class ConferencePaymentView(gcommonsView):
             if int(item['price']) > 0:
                 label = "Pay $%s for %s" % (item['price'],item['name'],)
             else:
-                label = "Indicate you wish to %s" % item['name'] 
+                label = "Indicated %s" % item['name'] 
 
             if itemid.find(':') > 0:
                 groupid = 'group%s' % itemid.split(':')[0]
                 if self.context.REQUEST.get(groupid) == itemid:
+                    invoiceditems.append(item)
                     receipt = receipt + "<li>%s<li/>" % label
                     description.append(item['name'])
                     total = total + int(item['price'])
             else:
                 name = 'checkbox%s' % itemid
                 if self.context.REQUEST.get(name):
+                    invoiceditems.append(item)
                     receipt = receipt + "<li>%s<li/>" % label
                     description.append(item['name'])
                     total = total + int(item['price'])
@@ -109,12 +113,13 @@ class ConferencePaymentView(gcommonsView):
             else:
                 label = item['name'] 
 
+        invoice = self.context.addInvoice(invoiceditems)
         receipt = receipt + "</ul><strong>The total amount is $%s (%s USD)<p/>" % (total, gcommons_spoken_number(total).upper())
         return { 'total': total,
                  'html': receipt,
                  'comment': receipt,
                  'description': '; '.join(description),
-                 'invoiceno': 1001  } #TODO: create unique invoice number, store invoice there with all data
+                 'invoiceno': invoice.id() }
             
 
 
