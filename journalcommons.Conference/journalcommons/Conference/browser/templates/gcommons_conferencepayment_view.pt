@@ -244,7 +244,8 @@ way, but MUST be dumped.
 		method="post" 
 		tal:define="receipt view/get_receipt;
 				    member python:here.portal_membership.getAuthenticatedMember();"
-		action="https://payments.verisign.com/payflowlink">
+		action="https://payments.verisign.com/payflowlink"
+		target="_new">
 		
 		  <div>
 		  	<b>You have indicated the following options:</b><br>
