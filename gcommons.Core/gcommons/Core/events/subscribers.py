@@ -32,20 +32,6 @@ def is_portal_factory(context):
     else:
         return False    
 
-#TODO: move this funcition to some general util
-def gcommons_aq_container(context):
-    # Do not bubble beyond the gcommons Container (be it Conference, Thread, Journal)
-    """
-    if not IgcommonsContainer.providedBy(context):
-        parent = aq_parent(aq_inner(context))
-        while parent is not None:
-            executor = IRuleExecutor(parent, None)
-            if executor is not None:               
-                executor(event, bubbled=True, rule_filter=rule_filter)
-    TODO:
-    """  
-    pass
-    
     
 def get_gcommons_type_config(context, portal_type):
     """ Find out if portal_type is handled by our container

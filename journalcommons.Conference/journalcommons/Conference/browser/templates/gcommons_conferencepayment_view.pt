@@ -246,8 +246,11 @@ way, but MUST be dumped.
 				    member python:here.portal_membership.getAuthenticatedMember();"
 		action="https://payments.verisign.com/payflowlink">
 		
-		  <tal:receipt tal:content="structure receipt/html" />
-			
+		  <div>
+		  	<b>You have indicated the following options:</b><br>
+		  	<tal:receipt tal:content="structure receipt/html" />
+		  </div>
+		  
 		  <input type="hidden" name="LOGIN" value="pittmc2004"> 
 		  <input type="hidden" name="PARTNER" value="VeriSign">
 		  <input type="hidden" name="TYPE" value="S">
@@ -259,9 +262,9 @@ way, but MUST be dumped.
 		  <input type="hidden" name="AMOUNT" value="#" tal:attributes="value receipt/total">
 		  <input type="hidden" name="COMMENT1" value="#" tal:attributes="value receipt/comment">
 
-		  <input type="hidden" name="NAME" value="#" tal:attributes="value  python:member.getProperty('fullname') or member.getId()">
+		  <input type="hidden" name="NAME" value="#" tal:attributes="value python:member.getProperty('fullname') or member.getId()">
 		  <input type="hidden" name="EMAIL" value="#" tal:condition="python:member.getProperty('email')" tal:attributes="value  python:member.getProperty('email')">
-		  <input type="hidden" name="CUSTID" value="#" tal:attributes="value  python:member.getId()">
+		  <input type="hidden" name="CUSTID" value="#" tal:attributes="value python:member.getId()">
 
 		  <br/>
 		  <p><strong>Note: You will need to know your <a target="_blank" href="http://en.wikipedia.org/wiki/CVV2">Credit Card Security Code</a></strong>.<br>

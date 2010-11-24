@@ -8,6 +8,7 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from gcommons.Core import permissions
 from gcommons.Core.lib.gctime import gcommons_userfriendly_date
+from gcommons.Core.lib.container import gcommons_aq_container
 import logging
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -68,6 +69,10 @@ class ArticleView(BrowserView):
     @property
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
+
+    def getLetterUrl(self):
+        container = gcommons_aq_container(self.context)
+        return "%s/Letter.doc" % container.absolute_url()
 
     """
     Draft 

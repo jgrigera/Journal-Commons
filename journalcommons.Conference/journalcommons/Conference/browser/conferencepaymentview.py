@@ -4,6 +4,7 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from plone.memoize.instance import memoize
 from gcommons.Core.browser import gcommonsView 
+from gcommons.Core.lib.container import gcommons_aq_container
 from gcommons.Core.lib.gcnumbers import gcommons_spoken_number
 import logging
 
@@ -32,6 +33,10 @@ class ConferencePaymentView(gcommonsView):
     @property
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
+
+    @property
+    def portal_membership(self):
+        return getToolByName(self.context, 'portal_membership')
 
     @property
     def portal(self):
@@ -81,11 +86,8 @@ class ConferencePaymentView(gcommonsView):
         itemids = items.keys() #[ a['id'] for a in itemlist ]
         itemids.sort(key=lambda x:x.split(':')[0])
 
-        invoiceditems = []        
-        # Most of this logic will be moved to Invoice
-        receipt = "<b>You have indicated the following options:</b><br><ul>"
-        total = 0
-        description = []
+        invoiceditems = []
+        receipt = "<ul>"        
         for itemid in itemids:
             item = items[itemid]
             if int(item['price']) > 0:
@@ -96,30 +98,29 @@ class ConferencePaymentView(gcommonsView):
             if itemid.find(':') > 0:
                 groupid = 'group%s' % itemid.split(':')[0]
                 if self.context.REQUEST.get(groupid) == itemid:
+                    # then this item was checked
                     invoiceditems.append(item)
                     receipt = receipt + "<li>%s<li/>" % label
-                    description.append(item['name'])
-                    total = total + int(item['price'])
             else:
                 name = 'checkbox%s' % itemid
                 if self.context.REQUEST.get(name):
+                    # then this item was checked
                     invoiceditems.append(item)
                     receipt = receipt + "<li>%s<li/>" % label
-                    description.append(item['name'])
-                    total = total + int(item['price'])
             
-            if int(item['price']) > 0:
-                label = "%s ($%s)" % (item['name'],item['price'])
-            else:
-                label = item['name'] 
+        transaction = self.context.addTransaction(
+                                        context=gcommons_aq_container(self.context),
+                                        userid=self.portal_membership.getAuthenticatedMember().getId(),
+                                        items=invoiceditems)
 
-        invoice = self.context.addInvoice(invoiceditems)
+        total = transaction.total()
         receipt = receipt + "</ul><strong>The total amount is $%s (%s USD)<p/>" % (total, gcommons_spoken_number(total).upper())
         return { 'total': total,
+                 'invoiceno': transaction.id(),
                  'html': receipt,
                  'comment': receipt,
-                 'description': '; '.join(description),
-                 'invoiceno': invoice.id() }
+                 'description': transaction.description()
+                }
             
 
 

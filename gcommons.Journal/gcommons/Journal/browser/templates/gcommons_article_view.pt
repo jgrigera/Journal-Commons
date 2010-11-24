@@ -243,12 +243,13 @@
 	    
 	</tal:accept>
 
-	<!-- TODO REMOVE THIS AWFULL PATCH FOR HM -->
-	<tal:accept tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') in ('confirmed', 'accepted') ">
-            <form action="http://www.historicalmaterialism.org/conferences/annual7/Letter.doc" method="post" class="visualNoPrint">
+	<!-- Letter of invitation -->
+	<tal:letter tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') in ('confirmed', 'accepted') ">
+            <form action="#" method="post" class="visualNoPrint"
+            		tal:attributes="action view/getLetterUrl">
                 <input name="form.button.download_as_zip" value="Download Invitation Letter" type="submit">
             </form>
-	</tal:accept>
+	</tal:letter>
 
 		<div tal:replace="structure provider:plone.belowcontentbody" />
     

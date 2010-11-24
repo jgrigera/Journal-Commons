@@ -5,6 +5,7 @@ import logging
 from AccessControl import ClassSecurityInfo
 from zope.event import notify
 from zope.interface import implements
+from Acquisition import aq_inner, aq_parent                       
 
 # Plone
 from Products.CMFCore.utils import getToolByName
@@ -93,6 +94,19 @@ gcContainerSchema_base = atapi.Schema ((
 def finalizeContainerSchema(schema):
     # nothing now
     return schema
+
+
+def gcommons_aq_container(context):
+    """ Returns topmost gcContainer from context
+    """
+    if not IgcContainer.providedBy(context):
+        parent = aq_parent(aq_inner(context))
+        if parent is not None:
+            return gcommons_aq_container(parent)
+        else:
+            return None
+    else:
+        return context    
 
 
 
