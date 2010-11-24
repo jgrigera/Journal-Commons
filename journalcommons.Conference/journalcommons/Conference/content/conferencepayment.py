@@ -166,11 +166,11 @@ class ConferencePayment(base.ATCTContent):
                 pntrans[e] = request.get(e)
                 logger.debug("%s = %s" % (e,request.get(e)))
 
-            transactionid = request.get('INVOICE')
+            transactionid = int(request.get('INVOICE'))
             transaction = self.transactions[transactionid]
             transaction.handlePayback(pntrans)
-        except KeyError,e:
-            logger.error("PAYMENT ERROR: payment with no invoiceid???\n%s\n%s" % (e,request))
+        except KeyError, e:
+            logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
 
     
 
