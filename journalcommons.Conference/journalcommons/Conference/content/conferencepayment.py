@@ -90,6 +90,9 @@ class Transaction:
     def id(self):
         return self._id
     
+    def __str__(self):
+        return ','.join([self._id,self._userid, self._payed, self._paypaltr['PNREF'],self.total()])
+    
     """ What (items)
     """
     def items(self):
@@ -138,6 +141,8 @@ class ConferencePayment(base.ATCTContent):
     transactions = {}
         
     def listTransactions(self):
+        """ Temp function to return CSV of all transactions
+        """
         out = StringIO()
         '\n'.join( [str(i) for i in self.transactions.values()] )
         return out.getvalue()
@@ -157,8 +162,11 @@ class ConferencePayment(base.ATCTContent):
             return
         
         result = request.get('RESULT')
+        paypalref = request.get('PNREF')
         if int(result) != 0:
-            logger.warning("%s Payment declined" % request.get('PNREF'))
+            logger.warning("%s Payment declined" % paypalref)
+            
+        logger.info("PAYPAL %s Payment received" % paypalref)
             
         try:
             pntrans = {}
