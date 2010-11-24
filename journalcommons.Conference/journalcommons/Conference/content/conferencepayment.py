@@ -91,7 +91,7 @@ class Transaction:
         return self._id
     
     def __str__(self):
-        return ','.join([self._id,self._userid, self._payed, self._paypaltr['PNREF'],self.total()])
+        return ','.join([str(self._id),self._userid, self._payed, self._paypaltr['PNREF'],self.total()])
     
     """ What (items)
     """
