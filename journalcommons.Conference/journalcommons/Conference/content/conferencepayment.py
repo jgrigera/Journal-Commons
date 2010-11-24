@@ -80,6 +80,7 @@ class Transaction:
         self._context = context
         self._payed = False
         self._userid = userid
+        self._paypaltr = None
         
         # Get unique id
         generator = getToolByName(context, 'portal_uidgenerator')
@@ -110,11 +111,9 @@ class Transaction:
     
     """ How (paypal)
     """
-    def beenpayed(self):
+    def handlePayback(self,paypaltr):
+        self._paypaltr = paypaltr
         self._payed = True
-
-    def handlePayback(self,authcode=None):
-        pass 
 
 
     
@@ -134,7 +133,7 @@ class ConferencePayment(base.ATCTContent):
     
     """
     Transactions
-    This will move to a tool/singleton
+    This will be moved to a tool/singleton
     """
     transactions = {}
         
@@ -157,14 +156,21 @@ class ConferencePayment(base.ATCTContent):
         if request is None:
             return
         
-        for e in ('AUTHCODE','AVSDATA','HOSTCODE','PNREF','RESPMSG','RESULT','INVOICENO'):
-            logger.info("%s = %s" % (e,request.get(e)))
+        result = request.get('RESULT')
+        if int(result) != 0:
+            logger.warning("%s Payment declined" % request.get('PNREF'))
             
         try:
-            transaction = self.transactions[id]
-            transaction.handlePayback(authcode=request.get('AUTHCODE'))
-        except KeyError:
-            logger.error("PAYMENT ERROR: payment with no invoiceid???\n%s" % request)
+            pntrans = {}
+            for e in ('AUTHCODE','AVSDATA','HOSTCODE','PNREF','RESPMSG','RESULT','INVOICE'):
+                pntrans[e] = request.get(e)
+                logger.debug("%s = %s" % (e,request.get(e)))
+
+            transactionid = request.get('INVOICE')
+            transaction = self.transactions[transactionid]
+            transaction.handlePayback(pntrans)
+        except KeyError,e:
+            logger.error("PAYMENT ERROR: payment with no invoiceid???\n%s\n%s" % (e,request))
 
     
 
