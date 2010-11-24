@@ -144,7 +144,7 @@ class ConferencePayment(base.ATCTContent):
         """ Temp function to return CSV of all transactions
         """
         out = StringIO()
-        '\n'.join( [str(i) for i in self.transactions.values()] )
+        out.write('\n'.join( [str(i) for i in self.transactions.values()] ))
         return out.getvalue()
     
     def addTransaction(self, context=None, items=None, userid=None):
