@@ -19,7 +19,7 @@
 
 	<!-- Action: Configuration for gcContainers -->
 	<object name="gcommons_container_config_view" meta_type="CMF Action"
-			i18n:domain="journalcommons.Conference"	insert-before="folderContents">
+			i18n:domain="gcommons.Core"	insert-before="folderContents">
 		<property name="title" i18n:translate="">Configuration</property>
 		<property name="description" i18n:translate=""/>
 		<property name="url_expr">string:${folder_url}/gcommons_container_config_view</property>
