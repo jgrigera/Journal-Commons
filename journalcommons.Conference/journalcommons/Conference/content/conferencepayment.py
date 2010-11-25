@@ -91,7 +91,11 @@ class Transaction:
         return self._id
     
     def __str__(self):
-        return ','.join([str(self._id),self._userid, str(self._payed), self._paypaltr['PNREF'], str(self.total())])
+        if self._paypaltr is not None:
+            pnref = self._paypaltr['PNREF']
+        else:
+            pnref = 'None'
+        return ','.join([str(self._id),self._userid, str(self._payed), pnref, str(self.total())])
     
     """ What (items)
     """
@@ -138,18 +142,23 @@ class ConferencePayment(base.ATCTContent):
     Transactions
     This will be moved to a tool/singleton
     """
-    transactions = {}
+    def _transactions(self):
+        if self.transactions is None:
+            self.transactions = {}            
+        return self.transactions
+    
         
     def listTransactions(self):
         """ Temp function to return CSV of all transactions
         """
         out = StringIO()
-        out.write('\n'.join( [str(i) for i in self.transactions.values()] ))
+        out.write("id,userid,payed?,paypalref,total")
+        out.write('\n'.join( [str(i) for i in self._transactions().values()] ))
         return out.getvalue()
     
     def addTransaction(self, context=None, items=None, userid=None):
         transaction = Transaction( context, items, userid)
-        self.transactions[transaction.id()] = transaction
+        self._transactions()[transaction.id()] = transaction
         return transaction
     
     security.declarePublic('payback')
@@ -169,14 +178,12 @@ class ConferencePayment(base.ATCTContent):
         logger.info("PAYPAL %s Payment received" % paypalref)
             
         try:
-            pntrans = {}
             for e in ('AUTHCODE','AVSDATA','HOSTCODE','PNREF','RESPMSG','RESULT','INVOICE'):
-                pntrans[e] = request.get(e)
                 logger.debug("%s = %s" % (e,request.get(e)))
 
             transactionid = int(request.get('INVOICE'))
-            transaction = self.transactions[transactionid]
-            transaction.handlePayback(pntrans)
+            transaction = self._transactions()[transactionid]
+            transaction.handlePayback(paypalref,request)
         except KeyError, e:
             logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
 
