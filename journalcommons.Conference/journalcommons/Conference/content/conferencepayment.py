@@ -19,7 +19,7 @@ from AccessControl import ClassSecurityInfo
 import logging
 
 logger = logging.getLogger('journalcommons.Conference.content.conferencepayment')
-
+transactionlogger = logging.getLogger('gcommons.PayPal')
 
 ConferencePaymentSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -81,6 +81,7 @@ class Transaction:
         self._payed = False
         self._userid = userid
         self._paypaltr = None
+        self._paypalref = None
         
         # Get unique id
         generator = getToolByName(context, 'portal_uidgenerator')
@@ -91,11 +92,8 @@ class Transaction:
         return self._id
     
     def __str__(self):
-        if self._paypaltr is not None:
-            pnref = self._paypaltr['PNREF']
-        else:
-            pnref = 'None'
-        return ','.join([str(self._id),self._userid, str(self._payed), pnref, str(self.total())])
+        return "%s,%s,%s,%s,%s,%s" % (self._id,self._userid,self._payed,self._paypalref, self.total(), 
+                                 '/'.join([i['name'] for i in self._items]) )
     
     """ What (items)
     """
@@ -118,8 +116,9 @@ class Transaction:
     
     """ How (paypal)
     """
-    def handlePayback(self,paypaltr):
+    def handlePayback(self,paypalref,paypaltr):
         self._paypaltr = paypaltr
+        self._paypalref = paypalref
         self._payed = True
 
 
@@ -143,7 +142,10 @@ class ConferencePayment(base.ATCTContent):
     This will be moved to a tool/singleton
     """
     def _transactions(self):
-        if self.transactions is None:
+        try:
+            if self.transactions is None:
+                self.transactions = {}
+        except AttributeError:
             self.transactions = {}            
         return self.transactions
     
@@ -152,7 +154,7 @@ class ConferencePayment(base.ATCTContent):
         """ Temp function to return CSV of all transactions
         """
         out = StringIO()
-        out.write("id,userid,payed?,paypalref,total")
+        out.write("id,userid,payed?,paypalref,total,items\n")
         out.write('\n'.join( [str(i) for i in self._transactions().values()] ))
         return out.getvalue()
     
@@ -176,7 +178,11 @@ class ConferencePayment(base.ATCTContent):
             logger.warning("%s Payment declined" % paypalref)
             
         logger.info("PAYPAL %s Payment received" % paypalref)
-            
+        
+        transactionlogger.info("---PAYPAL BEGIN---")
+        for i in request.keys():
+            transactionlogger.info("%s: %s" % (i, request.get(i)))
+        transactionlogger.info("---PAYPAL END---")            
         try:
             for e in ('AUTHCODE','AVSDATA','HOSTCODE','PNREF','RESPMSG','RESULT','INVOICE'):
                 logger.debug("%s = %s" % (e,request.get(e)))
