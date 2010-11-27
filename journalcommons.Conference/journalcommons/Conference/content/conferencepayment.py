@@ -161,6 +161,8 @@ class ConferencePayment(base.ATCTContent):
     def addTransaction(self, context=None, items=None, userid=None):
         transaction = Transaction( context, items, userid)
         self._transactions()[transaction.id()] = transaction
+        # Let ZODB know we changed
+        self._p_changed = 1
         return transaction
     
     security.declarePublic('payback')
@@ -189,6 +191,8 @@ class ConferencePayment(base.ATCTContent):
 
             transactionid = int(request.get('INVOICE'))
             transaction = self._transactions()[transactionid]
+            # Let ZODB know we changed
+            self._p_changed = 1
             transaction.handlePayback(paypalref,request)
         except KeyError, e:
             logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
