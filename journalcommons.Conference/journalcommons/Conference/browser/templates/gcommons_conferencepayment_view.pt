@@ -36,7 +36,7 @@ way, but MUST be dumped.
           </tal:block>
       </div>
 
-      <div tal:content="structure here/helptextanon"/>
+      <div tal:content="structure here/getHelpTextAnon"/>
       
       <div id="hcommons-quick-login-box">				
 			<dl class="portlet portletLogin">

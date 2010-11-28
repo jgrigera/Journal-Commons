@@ -30,7 +30,7 @@ ConferencePaymentSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
                                  'application/msword'),                                                                                                                 
         widget=atapi.RichWidget(                                                                                                                                        
             label="Help text",                                                                                                                                          
-            description="Enter any introductory help text you'd like to display on the tracker front page.",                                                            
+            description="Enter any introductory help text you'd like to display on the tracker front page after people log in.",                                                            
             label_msgid='gcommons_label_helpText',                                                                                                                      
             description_msgid='gcommons_help_helpText',                                                                                                                 
             i18n_domain='gcommons.Core',                                                                                                                                
@@ -42,6 +42,25 @@ ConferencePaymentSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         """
     ),
         
+   atapi.TextField(                                                                                                                                                    
+        name='helpTextAnon',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html',                                                                                          
+                                 'application/msword'),                                                                                                                 
+        widget=atapi.RichWidget(                                                                                                                                        
+            label="Help Text Anonymous",                                                                                                                                          
+            description="Enter any introductory help text for anonymous users.",                                                            
+            label_msgid='gcommons_label_helpTextAnon',                                                                                                                      
+            description_msgid='gcommons_help_helpTextAnon',                                                                                                                 
+            i18n_domain='gcommons.Core',                                                                                                                                
+        ),                                                                                                                                                              
+        default_output_type='text/html',                                                                                                                                
+        searchable=True,                                                                                                                                                
+        default="""
+        <h3>Payment system</h3>
+
+ 	You need to login or register first.
+        """
+    ),
     DataGridField(
         name='items',
         widget=DataGridWidget(
