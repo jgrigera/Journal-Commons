@@ -127,7 +127,7 @@ class ArticleView(BrowserView):
         """
         results = []
         for action_id in  self.portal_actions.listFilteredActionsFor(object=self.context)["gcommons_article_actions"]:
-             results.append(action_id)
+            results.append(action_id)
         return results
 
 

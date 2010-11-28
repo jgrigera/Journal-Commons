@@ -186,14 +186,19 @@ class ConferencePayment(base.ATCTContent):
             transactionlogger.info("%s: %s" % (i, request.get(i)))
         transactionlogger.info("---PAYPAL END---")            
         try:
-            for e in ('AUTHCODE','AVSDATA','HOSTCODE','PNREF','RESPMSG','RESULT','INVOICE'):
+            paypaltr = {}
+            for e in ('ADDRESS','ADDRESSTOSHIP','AMOUNT','AUTHCODE','AVSDATA','CITY','CITYTOSHIP',
+                'COUNTRY','COUNTRYTOSHIP','CUSTID','DESCRIPTION','EMAIL','EMAILTOSHIP','FAX','FAXTOSHIP',
+                'HOSTCODE','INVOICE','METHOD','NAME','NAMETOSHIP','PHONE','PHONETOSHIP','PNREF',
+                'PONUM','RESPMSG','RESULT','STATE','STATETOSHIP','TAX','TYPE','USER1','ZIP','ZIPTOSHIP'):
+                paypaltr[e] = request.get(e)
                 logger.debug("%s = %s" % (e,request.get(e)))
 
             transactionid = int(request.get('INVOICE'))
             transaction = self._transactions()[transactionid]
+            transaction.handlePayback(paypalref,request)
             # Let ZODB know we changed
             self._p_changed = 1
-            transaction.handlePayback(paypalref,request)
         except KeyError, e:
             logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
 
