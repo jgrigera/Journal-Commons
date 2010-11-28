@@ -189,31 +189,4 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
         return len( self.get_drafts() )
     
 
-    # Migration code
-    def migrate_to_panel(self):
-	"""
-	temp
-	"""
-	parent = aq_parent(aq_inner(self))
-	htmltext = self.description
-	self.migrate_author()
-	#htmltext = htmltext.replace("\n", "<br/>")
-	fldid = parent.invokeFactory('ConferenceEvent', 'panel_%s' % self.getId(), title = self.title,
-                        description=self.description, text=htmltext, creators=self.creators, 
-                        primaryAuthor=self.getPrimaryAuthor(), unregisteredRelators=self.getUnregisteredRelators() )
-        obj = parent[fldid]
-        obj.changeOwnership( self.getOwner(), 0 )
-        return self.listCreators()
-
-    def migrate_author(self):
-    	"""
-    	temp
-    	"""
-    	extra = []
-    	for name in self.getUnconfirmedExtraAuthors():
-    	    extra.append(name)
-    
-    	self.setUnregisteredRelators( extra )
-    	return self.getUnconfirmedExtraAuthors()
-
 atapi.registerType(ConferencePaper, PROJECTNAME)

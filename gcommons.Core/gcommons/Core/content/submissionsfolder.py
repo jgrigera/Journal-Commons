@@ -225,12 +225,4 @@ class SubmissionsFolder(folder.ATBTreeFolder):
 	return data
 
 
-    def migrate_them_all(self, **kwargs):
-	"""
-        just DELETE ME , TODO
-	"""
-	for item in self.searchSubmissions(portal_type='ConferencePaper'):
-	    item.getObject().migrate_author()
-
-    
 atapi.registerType(SubmissionsFolder, PROJECTNAME)
