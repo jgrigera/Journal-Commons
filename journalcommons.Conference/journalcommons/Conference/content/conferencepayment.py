@@ -196,7 +196,7 @@ class ConferencePayment(base.ATCTContent):
 
             transactionid = int(request.get('INVOICE'))
             transaction = self._transactions()[transactionid]
-            transaction.handlePayback(paypalref,request)
+            transaction.handlePayback(paypalref,paypaltr)
             # Let ZODB know we changed
             self._p_changed = 1
         except KeyError, e:
