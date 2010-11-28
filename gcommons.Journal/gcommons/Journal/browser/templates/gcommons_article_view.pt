@@ -78,18 +78,6 @@
 				<span class="discreet">(<span tal:replace="container/Description"/>)</span>
 	</tal:containers>
 	
-	<!-- REMOVE THIS AWFULL CODE -->
-	<tal:cpaper tal:condition="python:here.portal_type == 'ConferencePaper'">
-    	    <tal:temp tal:condition="here/getIsPanel">
-		ispanel: <span tal:content="here/getIsPanel"/><p/>
-		<a href="migrate_to_panel">Convert to panel (YOU SHOULD KNOW WHAT YOU ARE DOING. DO IT ONLY ONCE)</a><p/>
-		<a href="migrate_author">Migrate authors mess (YOU SHOULD KNOW WHAT YOU ARE DOING. DO IT ONLY ONCE)</a>
-	   </tal:temp>
-	    <tal:temp tal:condition="here/getIsPartPanel">
-		ipartpanel: <span tal:content="here/getIsPartPanel"/><br/>
-	    </tal:temp>
-	</tal:cpaper>
-	
 	<span class="visualClear" />
 	
 	<!-- Now list the other drafts -->
