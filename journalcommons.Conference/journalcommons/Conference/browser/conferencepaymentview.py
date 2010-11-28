@@ -1,4 +1,5 @@
 from zope.interface import implements, Interface
+from zope.component import getMultiAdapter
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -29,6 +30,8 @@ class ConferencePaymentView(gcommonsView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+        self.portal_state = getMultiAdapter((context, request), name=u'plone_portal_state')
 
     @property
     def portal_catalog(self):
