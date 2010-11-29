@@ -259,6 +259,7 @@ way, but MUST be dumped.
 			TYPE: A single letter that identifies the type of transaction (S: Sale or A: Authorization).
 			--> 
 		  <input type="hidden" name="INVOICE" value="#" tal:attributes="value receipt/invoiceno">
+		  <input type="hidden" name="USER1" value="#" tal:attributes="value receipt/invoiceno">
 		  <input type="hidden" name="DESCRIPTION" value="#" tal:attributes="value receipt/description">
 		  <input type="hidden" name="AMOUNT" value="#" tal:attributes="value receipt/total">
 		  <input type="hidden" name="COMMENT1" value="#" tal:attributes="value receipt/comment">

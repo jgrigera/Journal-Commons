@@ -213,14 +213,19 @@ class ConferencePayment(base.ATCTContent):
                 paypaltr[e] = request.get(e)
                 logger.debug("%s = %s" % (e,request.get(e)))
 
-            transactionid = int(request.get('INVOICE'))
+            try:
+                transactionid = int(request.get('INVOICE'))
+	    except ValueError:
+                # In some transactions (e.g. Visa) INVOICE is lost
+                transactionid = int(request.get('USER1'))
             transaction = self._transactions()[transactionid]
             transaction.handlePayback(paypalref,paypaltr)
             # Let ZODB know we changed
             self._p_changed = 1
         except KeyError, e:
             logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
-
+        except ValueError, e:
+            logger.error("PAYMENT ERROR: Cant find invoice %s\n%s" % (transactionid,e))
     
 
 
