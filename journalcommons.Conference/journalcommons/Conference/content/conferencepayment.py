@@ -2,6 +2,7 @@
 """
 
 from zope.interface import implements, directlyProvides
+from DateTime import DateTime
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
@@ -101,6 +102,7 @@ class Transaction:
         self._userid = userid
         self._paypaltr = None
         self._paypalref = None
+	self._timestamp = DateTime()
         
         # Get unique id
         generator = getToolByName(context, 'portal_uidgenerator')
@@ -111,7 +113,8 @@ class Transaction:
         return self._id
     
     def __str__(self):
-        return "%s,%s,%s,%s,%s,%s" % (self._id,self._userid,self._payed,self._paypalref, self.total(), 
+        return "%s,%s,%s,%s,%s,%s,%s" % (self._id, self._timestamp.strftime('%Y-%m-%d-%H-%M'),
+                                 self._userid,self._payed,self._paypalref, self.total(), 
                                  '/'.join([i['name'] for i in self._items]) )
     
     """ What (items)
@@ -233,7 +236,7 @@ class ConferencePayment(base.ATCTContent):
         except KeyError, e:
             logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
         except ValueError, e:
-            logger.error("PAYMENT ERROR: Cant find invoice %s\n%s" % (transactionid,e))
+            logger.error("PAYMENT ERROR: Cant find invoice %s" % e
     
 
 
