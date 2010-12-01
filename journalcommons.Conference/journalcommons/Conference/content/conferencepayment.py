@@ -142,7 +142,11 @@ class Transaction:
     def handlePayback(self,paypalref,paypaltr):
         self._paypaltr = paypaltr
         self._paypalref = paypalref
-        self._payed = True
+        try:
+           if self._paypaltr.get('RESULT') == 0:
+	   	self._payed = True
+        except KeyError,e:
+           logger.info("PAYPAL error, no RESPONSE? %s" % e)
 
 
     
