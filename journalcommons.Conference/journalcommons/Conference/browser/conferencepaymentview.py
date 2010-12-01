@@ -121,7 +121,7 @@ class ConferencePaymentView(gcommonsView):
         return { 'total': total,
                  'invoiceno': transaction.id(),
                  'html': receipt,
-                 'comment': receipt,
+                 'comment': transaction.longdescription(),
                  'description': transaction.description()
                 }
             

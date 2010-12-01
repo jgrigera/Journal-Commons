@@ -128,6 +128,10 @@ class Transaction:
     def description(self):
         return "Payment for %s (%s)" % (self._context.Title(),';'.join([i['name'] for i in self._items]))
     
+    def longdescription(self):
+        return "Payment for %s (%s)" % (self._context.Title(),';'.join(["%s-%s" % (i['name'],i['description']) for i in self._items]))
+    
+    
     """ Who
     """
     def userid(self):
