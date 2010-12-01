@@ -236,7 +236,7 @@ class ConferencePayment(base.ATCTContent):
         except KeyError, e:
             logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
         except ValueError, e:
-            logger.error("PAYMENT ERROR: Cant find invoice %s" % e
+            logger.error("PAYMENT ERROR: Cant find invoice %s" % e)
     
 
 
