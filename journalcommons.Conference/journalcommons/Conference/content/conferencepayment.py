@@ -184,7 +184,7 @@ class ConferencePayment(base.ATCTContent):
         """ Temp function to return CSV of all transactions
         """
         out = StringIO()
-        out.write("id,userid,payed?,paypalref,total,items\n")
+        out.write("id,timestamp,userid,payed?,paypalref,total,items\n")
         out.write('\n'.join( [str(i) for i in self._transactions().values()] ))
         return out.getvalue()
     
