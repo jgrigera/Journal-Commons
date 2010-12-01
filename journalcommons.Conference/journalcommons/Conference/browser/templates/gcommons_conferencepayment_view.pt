@@ -186,7 +186,7 @@ way, but MUST be dumped.
 	
 	
 <tal:register
-	    tal:condition="python:here.REQUEST.get('form.submitted')!='1' and user.has_permission('Add portal content', here)" >
+	    tal:condition="python:here.REQUEST.get('form.submitted')!='1' " >
 
 <!--  -->
  
@@ -238,7 +238,7 @@ way, but MUST be dumped.
 
 <tal:pay 
 	    tal:define="submitted python:here.REQUEST.get('form.submitted')"
-	    tal:condition="python:user.has_permission('Add portal content', here) and submitted" >
+	    tal:condition="python:submitted" >
 	    
 	<form 
 		method="post" 
