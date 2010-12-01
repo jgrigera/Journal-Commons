@@ -147,7 +147,7 @@ class Transaction:
         self._paypalref = paypalref
         try:
            if self._paypaltr.get('RESULT') == 0:
-	   	self._payed = True
+                self._payed = True
         except KeyError,e:
            logger.info("PAYPAL error, no RESPONSE? %s" % e)
 
