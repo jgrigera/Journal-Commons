@@ -116,6 +116,9 @@ class Transaction:
         return "%s,%s,%s,%s,%s,%s,%s" % (self._id, self._timestamp.strftime('%Y-%m-%d-%H-%M'),
                                  self._userid,self._payed,self._paypalref, self.total(), 
                                  '/'.join([i['name'] for i in self._items]) )
+	
+    def update_timestamp():
+	self._timestamp = DateTime()
     
     """ What (items)
     """
