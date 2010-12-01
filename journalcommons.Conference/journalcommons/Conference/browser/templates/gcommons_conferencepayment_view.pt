@@ -255,6 +255,7 @@ way, but MUST be dumped.
 		  <input type="hidden" name="LOGIN" value="pittmc2004"> 
 		  <input type="hidden" name="PARTNER" value="VeriSign">
 		  <input type="hidden" name="TYPE" value="S">
+		  <input type="hidden" name="ECHODATA" value="True">
 		  <!-- 
 			TYPE: A single letter that identifies the type of transaction (S: Sale or A: Authorization).
 			--> 
