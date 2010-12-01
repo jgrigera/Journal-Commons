@@ -117,7 +117,7 @@ class Transaction:
                                  self._userid,self._payed,self._paypalref, self.total(), 
                                  '/'.join([i['name'] for i in self._items]) )
 	
-    def update_timestamp():
+    def update_timestamp(self):
 	self._timestamp = DateTime()
     
     """ What (items)
@@ -182,7 +182,14 @@ class ConferencePayment(base.ATCTContent):
             self.transactions = {}            
         return self.transactions
     
-        
+    # Temp code
+    def migrateTransactions(self):
+        """ Temp function to return CSV of all transactions
+        """
+        for i in self._transactions().values():
+             i.update_timestamp()
+        return "OK"
+ 
     def listTransactions(self):
         """ Temp function to return CSV of all transactions
         """
