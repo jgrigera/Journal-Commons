@@ -125,7 +125,7 @@ class Transaction:
         if self._paypaltr:
                 out.write("<td>")
                 for key in self._paypaltr.keys():
-                    out.write("<b>%s:</b> %s<br/>" % (key,self._paypaltr[key]))
+                    out.write("<b>%s:</b> %s, " % (key,self._paypaltr[key]))
                 out.write("</td>")
         return out.getvalue()
     
