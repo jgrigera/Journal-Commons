@@ -34,7 +34,7 @@
                 <td tal:content="item/qty" />
                 <td style="text-align:right;" tal:content="item/total" />
                 <td>
-                	<a href="#" tal:attributes="href string:filterTransactions?itemid=${item/id}">Details...</a>
+                	<a href="#" tal:attributes="href string:${object_url}/filterTransactions?itemid=${item/id}&html=1">Details...</a>
                 </td>
 
             </tr>

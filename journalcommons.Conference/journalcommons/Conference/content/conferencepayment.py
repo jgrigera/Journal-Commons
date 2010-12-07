@@ -123,10 +123,9 @@ class Transaction:
                   self._userid,self._payed,self._paypalref, self.total()):
             out.write("<td>%s</td>" % i)
         if self._paypaltr:
-            for item in self._paypaltr:
                 out.write("<td>")
-                for key in item.keys():
-                    out.write("<b>%s:</b> %s<br/>" % (key,item[key]))
+                for key in self._paypaltr.keys():
+                    out.write("<b>%s:</b> %s<br/>" % (key,self._paypaltr[key]))
                 out.write("</td>")
         return out.getvalue()
     
