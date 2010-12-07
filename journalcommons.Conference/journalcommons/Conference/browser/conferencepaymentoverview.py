@@ -54,7 +54,7 @@ class ConferencePaymentOverview(gcommonsView):
                 price = ""
                 
             qty = len(self.context.filterTransactions(html=False,itemid=itemid))
-            total = int(item['price']) * qty
+            total = "$%d" % ( int(item['price']) * qty )
             
             form.append({'id':itemid, 'price': price, 'label':item ['name'], 
                          'description':item['description'], 'qty': qty, 'total': total })

@@ -30,11 +30,11 @@
 
                 <th tal:content="item/label"/>
 
-                <td tal:content="item/price"/>
-                <td tal:content="item/qty" />
+                <td style="text-align:right;" tal:content="item/price"/>
+                <td style="text-align:right;" tal:content="item/qty" />
                 <td style="text-align:right;" tal:content="item/total" />
                 <td>
-                	<a href="#" tal:attributes="href string:${object_url}/filterTransactions?itemid=${item/id}&html=1">Details...</a>
+                	<a href="#" tal:attributes="href string:${here/absolute_url}/filterTransactions?itemid=${item/id}&html=1">Details...</a>
                 </td>
 
             </tr>
