@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Conference">
+<body>
+
+  <metal:block fill-slot="top_slot"
+               tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
+  <metal:block fill-slot="column_two_slot" />
+
+
+  <div metal:fill-slot="main">
+    <div metal:define-macro="body">
+
+
+     <h1 tal:content="here/Title" 
+          class="documentFirstHeading" />
+
+
+	 <table>  
+			<tr>
+				<th>Item</th>
+				<th>Price</th>
+				<th>Qty</th>
+				<th>Total</th>
+				<th></th>
+			</tr>
+            <tr tal:repeat="item view/get_table_items">
+
+
+                <th tal:content="item/label"/>
+
+                <td tal:content="item/price"/>
+                <td tal:content="item/qty" />
+                <td style="text-align:right;" tal:content="item/total" />
+                <td>
+                	<a href="#" tal:attributes="href string:filterTransactions?itemid=${item/id}">Details...</a>
+                </td>
+
+            </tr>
+      </table>
+
+	  <hr/>
+	  <b>Total number of transactions:</b> <span tal:define="total view/get_total_transactions" tal:content="total/len"/>
+
+    </div>
+ </div>
+</body>
+</html>

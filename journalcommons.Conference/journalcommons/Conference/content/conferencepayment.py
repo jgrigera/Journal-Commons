@@ -102,7 +102,7 @@ class Transaction:
         self._userid = userid
         self._paypaltr = None
         self._paypalref = None
-	self._timestamp = DateTime()
+        self._timestamp = DateTime()
         
         # Get unique id
         generator = getToolByName(context, 'portal_uidgenerator')
@@ -113,12 +113,25 @@ class Transaction:
         return self._id
     
     def __str__(self):
-        return "%s,%s,%s,%s,%s,%s,%s" % (self._id, self._timestamp.strftime('%Y-%m-%d-%H-%M'),
+        return "%s,%s,%s,%s,%s,%s,%s" % (self._id, self._timestamp.strftime('%Y-%m-%d %H:%M'),
                                  self._userid,self._payed,self._paypalref, self.total(), 
                                  '/'.join([i['name'] for i in self._items]) )
 	
+    def html(self):
+        out = StringIO()
+        for i in (self._id, self._timestamp.strftime('%Y-%m-%d %H:%M'),
+                  self._userid,self._payed,self._paypalref, self.total()):
+            out.write("<td>%s</td>" % i)
+        if self._paypaltr:
+            for item in self._paypaltr:
+                out.write("<td>")
+                for key in item.keys():
+                    out.write("<b>%s:</b> %s<br/>" % (key,item[key]))
+                out.write("</td>")
+        return out.getvalue()
+    
     def update_timestamp(self):
-	self._timestamp = DateTime()
+        self._timestamp = DateTime()
     
     """ What (items)
     """
@@ -181,6 +194,14 @@ class ConferencePayment(base.ATCTContent):
         except AttributeError:
             self.transactions = {}            
         return self.transactions
+
+    def _orphantransactions(self):
+        try:
+            if self.orphantransactions is None:
+                self.orphantransactions = {}
+        except AttributeError:
+            self.orphantransactions = {}            
+        return self.orphantransactions
     
     # Temp code
     def migrateTransactions(self):
@@ -188,6 +209,7 @@ class ConferencePayment(base.ATCTContent):
         """
         for i in self._transactions().values():
              i.update_timestamp()
+        self._p_changed = True
         return "OK"
  
     def listTransactions(self):
@@ -197,6 +219,25 @@ class ConferencePayment(base.ATCTContent):
         out.write("id,timestamp,userid,payed?,paypalref,total,items\n")
         out.write('\n'.join( [str(i) for i in self._transactions().values()] ))
         return out.getvalue()
+    
+    def filterTransactions(self,html=False,itemid=None):
+        """
+        x
+        """
+        out = []
+        for i in self._transactions().values():
+            if itemid is not None:
+                if itemid in [j['id'] for j in i.items()]:
+                    out.append(i)
+        if html:
+            outs = StringIO()
+            outs.write("<table>")
+            outs.write("<tr><th>id</th><th>timestamp</th><th>userid</th><th>payed?</th><th>paypalref</th><th>total</th><th>payment</th></tr>")
+            for s in out:
+                outs.write("<tr>%s</tr>" % s.html())
+            outs.write("</table>")
+            return outs.getvalue()
+        return out
     
     def addTransaction(self, context=None, items=None, userid=None):
         transaction = Transaction( context, items, userid)
@@ -236,7 +277,7 @@ class ConferencePayment(base.ATCTContent):
 
             try:
                 transactionid = int(request.get('INVOICE'))
-	    except ValueError:
+            except ValueError:
                 # In some transactions (e.g. Visa) INVOICE is lost
                 transactionid = int(request.get('USER1'))
             transaction = self._transactions()[transactionid]
@@ -245,8 +286,12 @@ class ConferencePayment(base.ATCTContent):
             self._p_changed = 1
         except KeyError, e:
             logger.error("PAYMENT ERROR: cant find invoice %s\n%s\n%s" % (transactionid,e,request))
+            self._orphantransactions()[paypalref] = paypaltr
+            self._p_changed = 1
         except ValueError, e:
             logger.error("PAYMENT ERROR: Cant find invoice %s" % e)
+            self._orphantransactions()[paypalref] = paypaltr
+            self._p_changed = 1
     
 
 
