@@ -204,12 +204,23 @@ class ConferencePayment(base.ATCTContent):
     
     # Temp code
     def migrateTransactions(self):
-        """ Temp function to return CSV of all transactions
+        """ Temp function to fix timestamp
         """
         for i in self._transactions().values():
              i.update_timestamp()
         self._p_changed = True
         return "OK"
+    
+    def delTransaction(self,itemid=None):
+        """ Temp function to fix timestamp
+        """
+        if itemid is not None:
+             del self._transactions()[ int(itemid) ]
+	     self._p_changed = True
+             return "ITEM %s deleted" % itemid
+        else:
+             return "itemid is None"
+
  
     def listTransactions(self):
         """ Temp function to return CSV of all transactions
