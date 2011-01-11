@@ -9,15 +9,15 @@ License: AGPL
 Description: .. contents::
         
         .. Note!
-        ------
-        Update the following URLs to point to your:
+           ------
+           Update the following URLs to point to your:
         
-        - code repository
-        - bug tracker
-        - questions/comments feedback mail
-        (do not set a real mail, to avoid spams)
+           - code repository
+           - bug tracker
+           - questions/comments feedback mail
+           (do not set a real mail, to avoid spams)
         
-        Or remove it if not used.
+           Or remove it if not used.
         
         - Code repository: http://svn.somewhere.com/...
         - Questions and comments to somemailing_list
@@ -34,7 +34,7 @@ Description: .. contents::
         ------------------
         
         - Created recipe with ZopeSkel
-        [Juan Grigera]
+          [Juan Grigera]
         
         Detailed Documentation
         **********************
@@ -45,7 +45,7 @@ Description: .. contents::
         This is a full-blown functional test. The emphasis here is on testing what
         the user may input and see, and the system is largely tested as a black box.
         We use PloneTestCase to set up this test as well, so we have a full Plone site
-        to play with. We *can* inspect the state of the portal, e.g. using
+        to play with. We *can* inspect the state of the portal, e.g. using 
         self.portal and self.folder, but it is often frowned upon since you are not
         treating the system as a black box. Also, if you, for example, log in or set
         roles using calls like self.setRoles(), these are not reflected in the test
@@ -54,43 +54,43 @@ Description: .. contents::
         Being a doctest, we can tell a story here.
         
         First, we must perform some setup. We use the testbrowser that is shipped
-        with Five, as this provides proper Zope 2 integration. Most of the
+        with Five, as this provides proper Zope 2 integration. Most of the 
         documentation, though, is in the underlying zope.testbrower package.
         
-        >>> from Products.Five.testbrowser import Browser
-        >>> browser = Browser()
-        >>> portal_url = self.portal.absolute_url()
+            >>> from Products.Five.testbrowser import Browser
+            >>> browser = Browser()
+            >>> portal_url = self.portal.absolute_url()
         
         The following is useful when writing and debugging testbrowser tests. It lets
         us see all error messages in the error_log.
         
-        >>> self.portal.error_log._ignored_exceptions = ()
+            >>> self.portal.error_log._ignored_exceptions = ()
         
         With that in place, we can go to the portal front page and log in. We will
         do this using the default user from PloneTestCase:
         
-        >>> from Products.PloneTestCase.setup import portal_owner, default_password
+            >>> from Products.PloneTestCase.setup import portal_owner, default_password
         
-        >>> browser.open(portal_url)
+            >>> browser.open(portal_url)
         
         We have the login portlet, so let's use that.
         
-        >>> browser.getControl(name='__ac_name').value = portal_owner
-        >>> browser.getControl(name='__ac_password').value = default_password
-        >>> browser.getControl(name='submit').click()
+            >>> browser.getControl(name='__ac_name').value = portal_owner
+            >>> browser.getControl(name='__ac_password').value = default_password
+            >>> browser.getControl(name='submit').click()
         
         Here, we set the value of the fields on the login form and then simulate a
         submit click.
         
         We then test that we are still on the portal front page:
         
-        >>> browser.url == portal_url
-        True
+            >>> browser.url == portal_url
+            True
         
         And we ensure that we get the friendly logged-in message:
         
-        >>> "You are now logged in" in browser.contents
-        True
+            >>> "You are now logged in" in browser.contents
+            True
         
         
         -*- extra stuff goes here -*-
@@ -106,22 +106,22 @@ Description: .. contents::
         
         We use the 'Add new' menu to add a new content item.
         
-        >>> browser.getLink('Add new').click()
+            >>> browser.getLink('Add new').click()
         
         Then we select the type of item we want to add. In this case we select
         'gcPerson' and click the 'Add' button to get to the add form.
         
-        >>> browser.getControl('gcPerson').click()
-        >>> browser.getControl(name='form.button.Add').click()
-        >>> 'gcPerson' in browser.contents
-        True
+            >>> browser.getControl('gcPerson').click()
+            >>> browser.getControl(name='form.button.Add').click()
+            >>> 'gcPerson' in browser.contents
+            True
         
         Now we fill the form and submit it.
         
-        >>> browser.getControl(name='title').value = 'gcPerson Sample'
-        >>> browser.getControl('Save').click()
-        >>> 'Changes saved' in browser.contents
-        True
+            >>> browser.getControl(name='title').value = 'gcPerson Sample'
+            >>> browser.getControl('Save').click()
+            >>> 'Changes saved' in browser.contents
+            True
         
         And we are done! We added a new 'gcPerson' content item to the portal.
         
@@ -130,16 +130,16 @@ Description: .. contents::
         
         Let's click on the 'edit' tab and update the object attribute values.
         
-        >>> browser.getLink('Edit').click()
-        >>> browser.getControl(name='title').value = 'New gcPerson Sample'
-        >>> browser.getControl('Save').click()
+            >>> browser.getLink('Edit').click()
+            >>> browser.getControl(name='title').value = 'New gcPerson Sample'
+            >>> browser.getControl('Save').click()
         
         We check that the changes were applied.
         
-        >>> 'Changes saved' in browser.contents
-        True
-        >>> 'New gcPerson Sample' in browser.contents
-        True
+            >>> 'Changes saved' in browser.contents
+            True
+            >>> 'New gcPerson Sample' in browser.contents
+            True
         
         Removing a/an gcPerson content item
         -----------------------------------
@@ -147,29 +147,29 @@ Description: .. contents::
         If we go to the home page, we can see a tab with the 'New gcPerson
         Sample' title in the global navigation tabs.
         
-        >>> browser.open(portal_url)
-        >>> 'New gcPerson Sample' in browser.contents
-        True
+            >>> browser.open(portal_url)
+            >>> 'New gcPerson Sample' in browser.contents
+            True
         
         Now we are going to delete the 'New gcPerson Sample' object. First we
         go to the contents tab and select the 'New gcPerson Sample' for
         deletion.
         
-        >>> browser.getLink('Contents').click()
-        >>> browser.getControl('New gcPerson Sample').click()
+            >>> browser.getLink('Contents').click()
+            >>> browser.getControl('New gcPerson Sample').click()
         
         We click on the 'Delete' button.
         
-        >>> browser.getControl('Delete').click()
-        >>> 'Item(s) deleted' in browser.contents
-        True
+            >>> browser.getControl('Delete').click()
+            >>> 'Item(s) deleted' in browser.contents
+            True
         
         So, if we go back to the home page, there is no longer a 'New gcPerson
         Sample' tab.
         
-        >>> browser.open(portal_url)
-        >>> 'New gcPerson Sample' in browser.contents
-        False
+            >>> browser.open(portal_url)
+            >>> 'New gcPerson Sample' in browser.contents
+            False
         
         Adding a new gcPerson content item as contributor
         -------------------------------------------------
@@ -180,41 +180,41 @@ Description: .. contents::
         Let's logout and then login as 'contributor', a portal member that has the
         contributor role assigned.
         
-        >>> browser.getLink('Log out').click()
-        >>> browser.open(portal_url)
-        >>> browser.getControl(name='__ac_name').value = 'contributor'
-        >>> browser.getControl(name='__ac_password').value = default_password
-        >>> browser.getControl(name='submit').click()
-        >>> browser.open(portal_url)
+            >>> browser.getLink('Log out').click()
+            >>> browser.open(portal_url)
+            >>> browser.getControl(name='__ac_name').value = 'contributor'
+            >>> browser.getControl(name='__ac_password').value = default_password
+            >>> browser.getControl(name='submit').click()
+            >>> browser.open(portal_url)
         
         We use the 'Add new' menu to add a new content item.
         
-        >>> browser.getLink('Add new').click()
+            >>> browser.getLink('Add new').click()
         
         We select 'gcPerson' and click the 'Add' button to get to the add form.
         
-        >>> browser.getControl('gcPerson').click()
-        >>> browser.getControl(name='form.button.Add').click()
-        >>> 'gcPerson' in browser.contents
-        True
+            >>> browser.getControl('gcPerson').click()
+            >>> browser.getControl(name='form.button.Add').click()
+            >>> 'gcPerson' in browser.contents
+            True
         
         Now we fill the form and submit it.
         
-        >>> browser.getControl(name='title').value = 'gcPerson Sample'
-        >>> browser.getControl('Save').click()
-        >>> 'Changes saved' in browser.contents
-        True
+            >>> browser.getControl(name='title').value = 'gcPerson Sample'
+            >>> browser.getControl('Save').click()
+            >>> 'Changes saved' in browser.contents
+            True
         
         Done! We added a new gcPerson content item logged in as contributor.
         
         Finally, let's login back as manager.
         
-        >>> browser.getLink('Log out').click()
-        >>> browser.open(portal_url)
-        >>> browser.getControl(name='__ac_name').value = portal_owner
-        >>> browser.getControl(name='__ac_password').value = default_password
-        >>> browser.getControl(name='submit').click()
-        >>> browser.open(portal_url)
+            >>> browser.getLink('Log out').click()
+            >>> browser.open(portal_url)
+            >>> browser.getControl(name='__ac_name').value = portal_owner
+            >>> browser.getControl(name='__ac_password').value = default_password
+            >>> browser.getControl(name='submit').click()
+            >>> browser.open(portal_url)
         
         
         The gcUserFolder content type
@@ -229,22 +229,22 @@ Description: .. contents::
         
         We use the 'Add new' menu to add a new content item.
         
-        >>> browser.getLink('Add new').click()
+            >>> browser.getLink('Add new').click()
         
         Then we select the type of item we want to add. In this case we select
         'gcUserFolder' and click the 'Add' button to get to the add form.
         
-        >>> browser.getControl('gcUserFolder').click()
-        >>> browser.getControl(name='form.button.Add').click()
-        >>> 'gcUserFolder' in browser.contents
-        True
+            >>> browser.getControl('gcUserFolder').click()
+            >>> browser.getControl(name='form.button.Add').click()
+            >>> 'gcUserFolder' in browser.contents
+            True
         
         Now we fill the form and submit it.
         
-        >>> browser.getControl(name='title').value = 'gcUserFolder Sample'
-        >>> browser.getControl('Save').click()
-        >>> 'Changes saved' in browser.contents
-        True
+            >>> browser.getControl(name='title').value = 'gcUserFolder Sample'
+            >>> browser.getControl('Save').click()
+            >>> 'Changes saved' in browser.contents
+            True
         
         And we are done! We added a new 'gcUserFolder' content item to the portal.
         
@@ -253,16 +253,16 @@ Description: .. contents::
         
         Let's click on the 'edit' tab and update the object attribute values.
         
-        >>> browser.getLink('Edit').click()
-        >>> browser.getControl(name='title').value = 'New gcUserFolder Sample'
-        >>> browser.getControl('Save').click()
+            >>> browser.getLink('Edit').click()
+            >>> browser.getControl(name='title').value = 'New gcUserFolder Sample'
+            >>> browser.getControl('Save').click()
         
         We check that the changes were applied.
         
-        >>> 'Changes saved' in browser.contents
-        True
-        >>> 'New gcUserFolder Sample' in browser.contents
-        True
+            >>> 'Changes saved' in browser.contents
+            True
+            >>> 'New gcUserFolder Sample' in browser.contents
+            True
         
         Removing a/an gcUserFolder content item
         ----------------------------------------
@@ -270,29 +270,29 @@ Description: .. contents::
         If we go to the home page, we can see a tab with the 'New gcUserFolder
         Sample' title in the global navigation tabs.
         
-        >>> browser.open(portal_url)
-        >>> 'New gcUserFolder Sample' in browser.contents
-        True
+            >>> browser.open(portal_url)
+            >>> 'New gcUserFolder Sample' in browser.contents
+            True
         
         Now we are going to delete the 'New gcUserFolder Sample' object. First we
         go to the contents tab and select the 'New gcUserFolder Sample' for
         deletion.
         
-        >>> browser.getLink('Contents').click()
-        >>> browser.getControl('New gcUserFolder Sample').click()
+            >>> browser.getLink('Contents').click()
+            >>> browser.getControl('New gcUserFolder Sample').click()
         
         We click on the 'Delete' button.
         
-        >>> browser.getControl('Delete').click()
-        >>> 'Item(s) deleted' in browser.contents
-        True
+            >>> browser.getControl('Delete').click()
+            >>> 'Item(s) deleted' in browser.contents
+            True
         
         So, if we go back to the home page, there is no longer a 'New gcUserFolder
         Sample' tab.
         
-        >>> browser.open(portal_url)
-        >>> 'New gcUserFolder Sample' in browser.contents
-        False
+            >>> browser.open(portal_url)
+            >>> 'New gcUserFolder Sample' in browser.contents
+            False
         
         Adding a new gcUserFolder content item as contributor
         --------------------------------------------------------
@@ -303,41 +303,41 @@ Description: .. contents::
         Let's logout and then login as 'contributor', a portal member that has the
         contributor role assigned.
         
-        >>> browser.getLink('Log out').click()
-        >>> browser.open(portal_url)
-        >>> browser.getControl(name='__ac_name').value = 'contributor'
-        >>> browser.getControl(name='__ac_password').value = default_password
-        >>> browser.getControl(name='submit').click()
-        >>> browser.open(portal_url)
+            >>> browser.getLink('Log out').click()
+            >>> browser.open(portal_url)
+            >>> browser.getControl(name='__ac_name').value = 'contributor'
+            >>> browser.getControl(name='__ac_password').value = default_password
+            >>> browser.getControl(name='submit').click()
+            >>> browser.open(portal_url)
         
         We use the 'Add new' menu to add a new content item.
         
-        >>> browser.getLink('Add new').click()
+            >>> browser.getLink('Add new').click()
         
         We select 'gcUserFolder' and click the 'Add' button to get to the add form.
         
-        >>> browser.getControl('gcUserFolder').click()
-        >>> browser.getControl(name='form.button.Add').click()
-        >>> 'gcUserFolder' in browser.contents
-        True
+            >>> browser.getControl('gcUserFolder').click()
+            >>> browser.getControl(name='form.button.Add').click()
+            >>> 'gcUserFolder' in browser.contents
+            True
         
         Now we fill the form and submit it.
         
-        >>> browser.getControl(name='title').value = 'gcUserFolder Sample'
-        >>> browser.getControl('Save').click()
-        >>> 'Changes saved' in browser.contents
-        True
+            >>> browser.getControl(name='title').value = 'gcUserFolder Sample'
+            >>> browser.getControl('Save').click()
+            >>> 'Changes saved' in browser.contents
+            True
         
         Done! We added a new gcUserFolder content item logged in as contributor.
         
         Finally, let's login back as manager.
         
-        >>> browser.getLink('Log out').click()
-        >>> browser.open(portal_url)
-        >>> browser.getControl(name='__ac_name').value = portal_owner
-        >>> browser.getControl(name='__ac_password').value = default_password
-        >>> browser.getControl(name='submit').click()
-        >>> browser.open(portal_url)
+            >>> browser.getLink('Log out').click()
+            >>> browser.open(portal_url)
+            >>> browser.getControl(name='__ac_name').value = portal_owner
+            >>> browser.getControl(name='__ac_password').value = default_password
+            >>> browser.getControl(name='submit').click()
+            >>> browser.open(portal_url)
         
         
         

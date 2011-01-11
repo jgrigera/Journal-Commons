@@ -58,6 +58,7 @@ gcommons/Core/lib/SpecialIssue.xcfg
 gcommons/Core/lib/__init__.py
 gcommons/Core/lib/configuration.py
 gcommons/Core/lib/container.py
+gcommons/Core/lib/gcnumbers.py
 gcommons/Core/lib/gctime.py
 gcommons/Core/lib/jcommonsEventMixin.py
 gcommons/Core/lib/relators.py

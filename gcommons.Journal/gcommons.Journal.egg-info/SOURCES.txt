@@ -46,12 +46,9 @@ gcommons/Journal/content/issue.py
 gcommons/Journal/content/journal.py
 gcommons/Journal/content/section.py
 gcommons/Journal/content/specialissue.py
-<<<<<<< HEAD
-=======
 gcommons/Journal/events/__init__.py
 gcommons/Journal/events/configure.zcml
 gcommons/Journal/events/handlers.py
->>>>>>> be41bb340570e7defd8cd9dad9264c0aeee62dbd
 gcommons/Journal/interfaces/__init__.py
 gcommons/Journal/interfaces/article.py
 gcommons/Journal/interfaces/editorsmeeting.py

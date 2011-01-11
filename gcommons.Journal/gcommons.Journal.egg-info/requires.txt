@@ -1,5 +1,5 @@
 setuptools
-Products.DataGridField<1.6.4
+Products.DataGridField
 
 [tests]
 zope.testing
