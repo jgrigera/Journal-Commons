@@ -14,7 +14,11 @@ from zope.event import notify
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
 from zope.interface import implements, directlyProvides, classImplements
-from zope.app.annotation.interfaces import IAttributeAnnotatable, IAnnotations
+try:
+    from zope.annotation.interfaces import IAttributeAnnotatable, IAnnotations
+except ImportError:
+    # old import for Plone 3
+    from zope.app.annotation.interfaces import IAttributeAnnotatable, IAnnotations
 
 # Plone
 from Products.Archetypes import atapi

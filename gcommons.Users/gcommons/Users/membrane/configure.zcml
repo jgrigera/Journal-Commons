@@ -4,7 +4,7 @@
            i18n_domain="FacultyStaffDirectory">
 
   <adapter for="..interfaces.gcperson.IgcPerson"
-           provides="Products.membrane.interfaces.IUserRelated"
+           provides="Products.membrane.interfaces.IMembraneUserObject"
            factory=".person.UserRelated" />
   <adapter for="..interfaces.gcperson.IgcPerson"
            provides="Products.membrane.interfaces.IUserRoles"

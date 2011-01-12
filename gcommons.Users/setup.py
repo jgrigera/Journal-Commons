@@ -54,8 +54,6 @@ setup(name='gcommons.Users',
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
-                        # -*- Extra requirements: -*-
-                        'Products.membrane<1.2',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

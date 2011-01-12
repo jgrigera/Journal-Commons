@@ -1,7 +1,6 @@
 
 
 import logging
-import zope.thread                                
 from Acquisition import aq_inner, aq_parent                       
 
 from smtplib import SMTPRecipientsRefused
@@ -15,13 +14,6 @@ import gcommons.Core.actions as actions
  
 logger = logging.getLogger('gcommons.Core.subscribers')
 
-
-# A thread local for keeping track of rule execution across events
-_status = zope.thread.local()
-      
-def init():
-    if not hasattr(_status, 'delayed_events'):
-        _status.delayed_events = {}
                                                                                                                                                                                                 
 def is_portal_factory(context): 
     """Find out if the given object is in portal_factory, i.e. temporary object

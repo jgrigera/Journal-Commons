@@ -6,9 +6,13 @@ from sha import sha
 
 from Products.CMFCore.utils import getToolByName
 
-from zope.app.annotation.interfaces import IAnnotations
+try:
+    from zope.annotation.interfaces import IAnnotations
+except ImportError:
+    # for Plone 3
+    from zope.app.annotation.interfaces import IAnnotations
 
-from Products.membrane.interfaces import IUserRelated
+from Products.membrane.interfaces import IMembraneUserObject
 from Products.membrane.interfaces import IUserAuthentication
 from Products.membrane.interfaces import IUserRoles
 from Products.membrane.interfaces import IMembraneUserManagement
@@ -28,7 +32,7 @@ class UserRelated(object):
     The user id will simply be the id of the member object. This overrides the
     use of UIDs
     """
-    implements(IUserRelated)
+    implements(IMembraneUserObject)
     adapts(IgcPerson)
 
     def __init__(self, context):

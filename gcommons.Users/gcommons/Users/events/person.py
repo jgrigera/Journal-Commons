@@ -5,7 +5,8 @@ import logging
 from Acquisition import aq_parent, aq_inner
 
 from Products.CMFCore.utils import getToolByName
-from Products.membrane.interfaces import IUserRelated
+from Products.membrane.interfaces import IMembraneUserObject
+# membrane 1.0 called this IUserRelated
 
 logger = logging.getLogger("gcommons.Users.events.person")
 
@@ -19,7 +20,7 @@ def modifyPersonOwnership(event):
     context = event.context
 
     catalog = getToolByName(context, 'portal_catalog')
-    userId = IUserRelated(context).getUserId()
+    userId = IMembraneUserObject(context).getUserId()
     userFolder = getToolByName(context, 'acl_users')
 
     logger.info("Modifying ownership of %s" % userId)

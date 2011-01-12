@@ -8,7 +8,16 @@ from xml.dom.minidom import parseString as XMLParseString
 from xml.parsers.expat import ExpatError as XMLError
 
 # Validator
+from zope.interface import implements
 from Products.validation.interfaces import ivalidator
+
+try: 
+     # Plone 4 and higher 
+     import plone.app.upgrade 
+     USE_ZOPE2_VALIDATORS = False 
+except ImportError: 
+     # BBB Plone 3 
+     USE_ZOPE2_VALIDATORS = True 
 
 
 import logging
@@ -17,7 +26,10 @@ logger = logging.getLogger('gcommons.Core.validators.XMLValidator')
 #
 # Validators
 class XMLValidator:
-    __implements__ = (ivalidator,)
+    if USE_ZOPE2_VALIDATORS:
+        __implements__ = (ivalidator,)
+    else:
+        implements(ivalidator,)
 
     def __init__(self, name):
         self.name = name

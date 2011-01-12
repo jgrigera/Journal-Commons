@@ -5,7 +5,11 @@ from Products.Archetypes.public import SelectionWidget
 from Products.Archetypes.Registry import registerWidget
 from Products.Archetypes.utils import mapply  
 from Products.Five import BrowserView
-import simplejson
+try:
+    import json
+except ImportError:	
+    # Python 2.4 needs simplejson
+    import simplejson as json
 
 class SelectDescriptionWidget(SelectionWidget):
     # Vocabulary= function should return extra descriptions when
@@ -61,7 +65,7 @@ jq('#%(name)s').change(function() {
                     'extended': True 
             }                                                                                                                                            
             value = mapply(method, *args, **kw)           
-        return simplejson.dumps ( value )
+        return json.dumps ( value )
     #( ["'%s':'%s'" % (k,v) for k,v in value.iteritems()] )
 
 
