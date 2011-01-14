@@ -1,7 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="gcommons.Core">
+      i18n:domain="gcommons.Conference">
 <body>
 
   <metal:block fill-slot="top_slot"
@@ -10,7 +13,8 @@
 
 
   <div metal:fill-slot="main">
-    <div metal:define-macro="body">
+    <div metal:define-macro="body"
+         tal:define="isAnon context/@@plone_portal_state/anonymous">
 
 <!-- TODO:
 ALL this page should be dumped in favor of formlib.
@@ -214,11 +218,11 @@ way, but MUST be dumped.
                                        name  item/name;
                                        id    item/name;
                                        value item/value;
-                                       class item/class">
+                                       class item/class" />
 
                 <label for="#" tal:attributes="for item/name" tal:content="item/label" />
                 <div class="formHelp" tal:content="item/description" />
-                <div/>
+                </div>
             </tal:loop>
             </fieldset>
 
@@ -248,30 +252,30 @@ way, but MUST be dumped.
 		target="_new">
 		
 		  <div>
-		  	<b>You have indicated the following options:</b><br>
+		  	<b>You have indicated the following options:</b><br/>
 		  	<tal:receipt tal:content="structure receipt/html" />
 		  </div>
 		  
-		  <input type="hidden" name="LOGIN" value="pittmc2004"> 
-		  <input type="hidden" name="PARTNER" value="VeriSign">
-		  <input type="hidden" name="TYPE" value="S">
-		  <input type="hidden" name="ECHODATA" value="True">
+		  <input type="hidden" name="LOGIN" value="pittmc2004" /> 
+		  <input type="hidden" name="PARTNER" value="VeriSign" />
+		  <input type="hidden" name="TYPE" value="S" />
+		  <input type="hidden" name="ECHODATA" value="True" />
 		  <!-- 
 			TYPE: A single letter that identifies the type of transaction (S: Sale or A: Authorization).
 			--> 
-		  <input type="hidden" name="INVOICE" value="#" tal:attributes="value receipt/invoiceno">
-		  <input type="hidden" name="USER1" value="#" tal:attributes="value receipt/invoiceno">
-		  <input type="hidden" name="DESCRIPTION" value="#" tal:attributes="value receipt/description">
-		  <input type="hidden" name="AMOUNT" value="#" tal:attributes="value receipt/total">
-		  <input type="hidden" name="COMMENT1" value="#" tal:attributes="value receipt/comment">
+		  <input type="hidden" name="INVOICE" value="#" tal:attributes="value receipt/invoiceno" />
+		  <input type="hidden" name="USER1" value="#" tal:attributes="value receipt/invoiceno" />
+		  <input type="hidden" name="DESCRIPTION" value="#" tal:attributes="value receipt/description" />
+		  <input type="hidden" name="AMOUNT" value="#" tal:attributes="value receipt/total" />
+		  <input type="hidden" name="COMMENT1" value="#" tal:attributes="value receipt/comment" />
 
-		  <input type="hidden" name="NAME" value="#" tal:attributes="value python:member.getProperty('fullname') or member.getId()">
-		  <input type="hidden" name="EMAIL" value="#" tal:condition="python:member.getProperty('email')" tal:attributes="value  python:member.getProperty('email')">
-		  <input type="hidden" name="CUSTID" value="#" tal:attributes="value python:member.getId()">
+		  <input type="hidden" name="NAME" value="#" tal:attributes="value python:member.getProperty('fullname') or member.getId()" />
+		  <input type="hidden" name="EMAIL" value="#" tal:condition="python:member.getProperty('email')" tal:attributes="value  python:member.getProperty('email')" />
+		  <input type="hidden" name="CUSTID" value="#" tal:attributes="value python:member.getId()" />
 
 		  <br/>
-		  <p><strong>Note: You will need to know your <a target="_blank" href="http://en.wikipedia.org/wiki/CVV2">Credit Card Security Code</a></strong>.<br>
-		    <input id="submit" type="submit" value="Pay Online (Credit Card)" name="submit" size="20"></p>
+		  <p><strong>Note: You will need to know your <a target="_blank" href="http://en.wikipedia.org/wiki/CVV2">Credit Card Security Code</a></strong>.<br />
+		  <input id="submit" type="submit" value="Pay Online (Credit Card)" name="submit" size="20" /></p>
 
 	</form>
 

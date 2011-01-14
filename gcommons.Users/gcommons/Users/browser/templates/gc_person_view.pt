@@ -5,7 +5,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="FacultyStaffDirectory">
+      i18n:domain="gcommons.Users">
 
   <head></head>
   
@@ -22,9 +22,7 @@
 	<img src="" alt="" tal:replace="structure python:context.getWrappedField('image').tag(context, scale='normal',  css_class='photo')" />
     
             </div>
-                <div metal:use-macro="context/document_actions/macros/document_actions">
-                    [Document actions (print, sendto etc)]
-                </div>
+                <div tal:replace="structure provider:plone.documentactions" />
 
 
 <h1 class="fn n">

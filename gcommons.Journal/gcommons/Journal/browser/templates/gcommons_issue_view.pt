@@ -1,4 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="gcommons.Journal">
@@ -79,7 +82,7 @@
     	    <table class="listing" width="100%">
         	<thead>
                 <tr>
-            	    <th class="nosort"><b tal:content="section/Title" />
+            	    <th class="nosort"><b tal:content="section/Title" /></th>
             	    <th width="13%" class="nosort" i18n:translate="Review state">Review state</th>
             	    <th width="13%" class="nosort"  i18n:translate="Pages">Pages</th>
             	    <th width="13%" class="nosort"  i18n:translate="Images">Images</th>
@@ -92,7 +95,7 @@
             		    tal:attributes="href article/absolute_url" 
             		    tal:content="article/title" />
             		<br/>
-            		by <span tal:content="python:' and '.join(article.Creators())"/>
+            		by <span tal:content="python:' and '.join(article.Creators())"/></td>
 		    <td width="20%" class="#" tal:attributes="class python:'state-'+article.get_review_state()" tal:content="article/get_review_state" />
             	    <td width="10%" tal:content="article/pages" />
 		    <td width="25%">

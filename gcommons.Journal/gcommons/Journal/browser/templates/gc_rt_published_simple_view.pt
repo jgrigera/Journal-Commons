@@ -1,4 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="gcommons.Journal">
@@ -33,6 +36,7 @@
           <tr tal:condition="python: article.get_review_state() == 'published'">
             <td><a href="" tal:attributes="href article/absolute_url" tal:content="article/title" />
               <br/> by <span tal:content="python:' and '.join(article.Creators())"/>
+            </td>
             <td width="10%" tal:content="article/pages" />
       	    <td width="25%">
       	      <div class="thumbnail" tal:condition="article/image">

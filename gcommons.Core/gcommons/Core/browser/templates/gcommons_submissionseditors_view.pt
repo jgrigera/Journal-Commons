@@ -1,4 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="gcommons.Core">
@@ -10,13 +13,14 @@
 
   <div metal:fill-slot="main">
     <div metal:define-macro="body"
-		 tal:define="searchResultsForm string:gcommons_submissions_search">
+		 tal:define="searchResultsForm string:gcommons_submissions_search;
+                        	is_editable context/@@plone_context_state/is_editable;">
 
       <h1 tal:content="here/Title" class="documentFirstHeading" />
 
       <p class="portalMessage"
          i18n:translate="description_cannot_add_articles_before_opened"
-         tal:condition="python: is_editable and wtool.getInfoFor(here, 'review_state')=='private'">
+         tal:condition="python: is_editable and context.portal_workflow.getInfoFor(here, 'review_state')=='private'">
          Nobody can submit articles if this folder is
          'private'. Please change this using the 'state' drop down in the green bar above.
       </p>
@@ -134,7 +138,7 @@
                          <b>Sorry, this is not done. Will show submissions assigned to logged in user</b>
                      </p>
                   </div>
-                  <div class="issue-search-rss"> <!--  metal:fill-slot="rss-button"> 
+                  <div class="issue-search-rss" metal:fill-slot="rss-button"> 
                       <a href="" tal:attributes="href string:${here/absolute_url}/poi-issue-search-rss.xml?rssQUeryString">
                         <img i18n:attributes="title title_rss_feed_unconfirmed; alt label_rss_feed;"
                              tal:attributes="src string:$portal_url/rss.gif"
@@ -144,7 +148,6 @@
                       </a>
                   </div>
 
-<!-- 
             <metal:table use-macro="here/poi_issue_search_results/macros/issue_search_results">
 
                   <div metal:fill-slot="intro-text">

@@ -1,4 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="gcommons.Journal">
@@ -136,7 +139,7 @@
 			<tal:addcomment tal:condition="python:user.has_permission('gcommons.Core: Add Comment', here)">
 				<form method="post" action="createObject" name="addComment">
 					<input type="hidden" name="type_name" value="Comment" />
-		            <input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone">
+					<input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone" />
 				</form>
 			</tal:addcomment>            
 
@@ -217,14 +220,14 @@
 	    <tr><td>
             <form action="#" method="post" class="visualNoPrint"
                     tal:attributes="action string:${context/absolute_url}/content_status_modify">
-		<input name="workflow_action" value="confirm" type="hidden">
-                <input name="form.button.confirm" value="Confirm" type="submit">
+		<input name="workflow_action" value="confirm" type="hidden" />
+                <input name="form.button.confirm" value="Confirm" type="submit" />
             </form>
 	    </td><td>
             <form action="#" method="post" class="visualNoPrint"
                     tal:attributes="action string:${context/absolute_url}/content_status_modify">
-		<input name="workflow_action" value="decline" type="hidden">
-                <input name="form.button.decline" value="Decline" type="submit">
+		<input name="workflow_action" value="decline" type="hidden" />
+                <input name="form.button.decline" value="Decline" type="submit" />
             </form>
 	    </td></tr>
 	    </table>
@@ -235,7 +238,7 @@
 	<tal:letter tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') in ('confirmed', 'accepted') ">
             <form action="#" method="post" class="visualNoPrint"
             		tal:attributes="action view/getLetterUrl">
-                <input name="form.button.download_as_zip" value="Download Invitation Letter" type="submit">
+                <input name="form.button.download_as_zip" value="Download Invitation Letter" type="submit" />
             </form>
 	</tal:letter>
 
