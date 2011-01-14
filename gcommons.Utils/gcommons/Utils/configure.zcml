@@ -1,0 +1,30 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="gcommons.Utils">
+
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <include package="plone.contentrules" />
+  <include package="plone.contentrules" file="meta.zcml" />
+
+  <!-- Include the sub-packages that use their own configure.zcml files. -->
+  <include package=".browser" />
+  <include package=".actions" />
+  <include package=".content" />
+  <include package=".portlets" />
+
+
+  <!-- Register the installation GenericSetup extension profile -->
+  <genericsetup:registerProfile
+      name="default"
+      title="gcommons.Utils"
+      directory="profiles/default"
+      description="Various utilities"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  
+  <!-- -*- extra stuff goes here -*- -->
+
+</configure>
