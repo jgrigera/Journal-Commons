@@ -5,6 +5,21 @@
 
   <include package="plone.app.contentmenu" />
 
-  <!-- -*- extra stuff goes here -*- -->
+  <!-- Include z3c.form as dependency -->
+  <include package="plone.z3cform" />
+
+  <!-- Register the comment form -->
+  <browser:page
+        for="*"
+        name="addbook_wizard"
+        class=".addbook_wizard.FillBookDetailsView"
+        permission="zope2.View"
+        />
+        
+  <!-- Default widget value for "isbn" -->                                                                                                                                                      
+  <adapter                                                                                                                                                                                      
+		factory=".addbook_wizard.DefaultISBN"                                                                                                                                                            
+		name="default" />                                                                                                                                                                         
+	
 
 </configure>

@@ -6,14 +6,14 @@ from zope.component import testing, eventtesting
 
 from Testing import ZopeTestCase as ztc
 
-from journalcommons.Utils.tests import base
+from gcommons.Utils.tests import base
 
 def test_suite():
     return unittest.TestSuite([
 
         # Demonstrate the main content types
         ztc.ZopeDocFileSuite(
-            'README.txt', package='journalcommons.Utils',
+            'README.txt', package='gcommons.Utils',
             test_class=base.FunctionalTestCase,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE |
                 doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),

@@ -126,7 +126,6 @@ gcommons/Journal/skins/gcommons_journal_templates/redirect_parent_view.cpy
 gcommons/Journal/skins/gcommons_journal_templates/redirect_parent_view.cpy.metadata
 gcommons/Journal/skins/gcommons_journal_templates/register.cpy
 gcommons/Journal/skins/gcommons_journal_templates/register.cpy.metadata
-gcommons/Journal/skins/gcommons_journal_templates/selectdescription.pt
 gcommons/Journal/tests/__init__.py
 gcommons/Journal/tests/base.py
 gcommons/Journal/tests/base_articlelistportlet.py

@@ -2,7 +2,7 @@
 <rolemap>
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
-    <permission name="journalcommons.Utils: Add BookReview" acquire="False">
+    <permission name="gcommons.Utils: Add BookReview" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
     </permission>

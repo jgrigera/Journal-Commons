@@ -56,6 +56,7 @@ setup(name='gcommons.Utils',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
+ #                       'plone.app.z3cform',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
