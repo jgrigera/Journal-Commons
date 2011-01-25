@@ -13,6 +13,7 @@
                      getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                      templateId template/getId;
 		     toLocalizedTime nocall: context/@@plone/toLocalizedTime;
+		     site_properties context/portal_properties/site_properties;
                      here_url context/@@absolute_url">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
@@ -71,7 +72,7 @@
                         </tal:differentday>
 
                         <tal:sameday tal:condition="python:here.start().Date() == here.end().Date()"
-                                     tal:define="ampm python:here.site_properties.getProperty('localLongTimeFormat').find('%p') >= 0">
+                                     tal:define="ampm python:site_properties.getProperty('localLongTimeFormat').find('%p') >= 0">
                             <span tal:replace="python:toLocalizedTime(here.start())">
                                 Start Date Time</span> <br />
                             <span i18n:translate="event_from">from</span>  
