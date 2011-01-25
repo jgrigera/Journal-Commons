@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+
+    <!-- Form Auto Fill -->
+    <metal:view_macro define-macro="view">
+        <metal:use_macro use-macro="here/widgets/string/macros/view"/>
+    </metal:view_macro>
+
+    <metal:define define-macro="edit">
+
+
+		<script type="text/javascript">
+(function($) { $(function() {
+  $('.formautofilloverlay').prepOverlay(
+        {
+            subtype: 'ajax',
+            formselector: 'form',
+            closeselector: '.close',
+            noform: function(el) {return noformerrorshow(el, 'close');},
+        }
+    );
+    
+// the links for inserting referencens                                                                                                                                                        
+$('[id^=return_]').live('click', function(event) {
+    // HTML element should be, e.g.
+    // <a href="..." data-options="{JSON}" id="return_xx" />
+    var fillHash=$(this).data("options");
+    
+    // Workaround: HTML-5 attributes fail before jQuery 1.4.3:
+    if ((typeof array === "undefined") || array == null) { 
+        var litarray=$(this).attr("data-options");
+        alert(litarray);
+        fillHash = jQuery.parseJSON(litarray);
+    } 
+
+	for (var fieldName in fillHash) {
+        $('input[id='+fieldName+']').val(fillHash[fieldName]);
+    }
+    
+    // CAVEAT: We need at least one element to be the 'real' close, otherwise
+    // it is too hard to get the .overlay() created somewhere else
+    $('.close').click();
+    return false;
+});
+   
+
+});})(jQuery);
+		
+		</script>
+        <metal:use use-macro="here/widgets/string/macros/edit"/>
+
+		<tal:popup tal:define="helper_url 	python:getattr(widget, 'helper_url', None);
+								helper_text python:getattr(widget, 'helper_text', None);
+								icon		widget/icon;
+								at_url 		python:'/'.join(here.getPhysicalPath());
+								url 		python:'%s/%s?at_url=%s&%s=%s' % (portal_url, helper_url, at_url, fieldName, '9780140445701');
+								">
+			<a href="" tal:attributes="href url;" class="formautofilloverlay">
+				<img style="cursor: pointer" src="" alt=""
+	        	     tal:attributes="src string:${portal_url}/${icon};
+								 alt helper_text"/>
+			</a>
+		</tal:popup>
+		
+    </metal:define>
+
+    <div metal:define-macro="search">
+        <div metal:use-macro="here/widgets/string/macros/search" />
+    </div>
+
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 README.txt
 setup.cfg
 setup.py
+version.txt
 gcommons/__init__.py
 gcommons.recipe.apachevhosts.egg-info/PKG-INFO
 gcommons.recipe.apachevhosts.egg-info/SOURCES.txt
