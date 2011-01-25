@@ -81,7 +81,7 @@ class FillBookDetailsForm(form.Form):
 class FillBookDetailsView(FormWrapper):
     """ Render Plone frame around our form with little modifications """
     form = FillBookDetailsForm
-    index = FiveViewPageTemplateFile("fillbook_view.pt")
+    index = FiveViewPageTemplateFile("templates/addbook_wizard.pt")
 
     def __init__(self, context, request):
         # We can optionally set some variables in the constructor

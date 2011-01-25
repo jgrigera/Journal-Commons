@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="gcommons.Utils">
+<head>
+</head>
+<body tal:define="portal_url context/@@plone_portal_state/portal_url">
+
+      <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
+
+      <div id="skel-contents">
+        <span tal:replace="structure view/contents" />
+      </div>
+
+      <!-- Custom section goes here below the form -->
+      <div id="books" tal:condition="list" tal:define="list view/getList">
+	      <h2>Book(s) Found</h2>
+      	   
+      	  <span>
+	            We have found <b tal:content="python:len(list)"> books with that description.</b>
+		  </span>
+		  
+		  <table class="listing" summary="Book List">
+		  <tal:loop tal:repeat="book list">
+		    <tr tal:define="oddrow repeat/book/odd;
+		    			    count  repeat/book/index"
+		        tal:attributes="class python:oddrow and 'even' or 'odd'">
+			  	<td style="vertical-align: middle">
+			  			<a href="#" id="#" data-options="#" 
+			  			   tal:attributes="id string:return_${repeat/book/index};
+			  				               data-options python:view.getAsJson(book)">
+			  				Pick
+			  			</a>
+			  	</td>
+			  	<td><img src="" tal:attributes="src string:${portal_url}/book-nocover.jpg" height="71" alt="No cover image"/></td>
+			  	<td>
+			  		<span tal:omit-tag="" tal:content="book/author"/>,
+			  		<em tal:content="book/title" />,
+			  		<span class="discreet" tal:content="python:', '.join((book['publisher'],book['city'],book['year']))"/>
+			  	</td>
+		    </tr>
+		  </tal:loop>
+		  </table>
+
+		  <!-- Used by FormAutoFillWidget -->
+	      <a href="#" id="realclose" class="close" style="visibility:hidden" />
+      </div>
+</body>
+</html>
