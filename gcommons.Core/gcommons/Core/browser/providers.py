@@ -22,7 +22,7 @@ import logging
 
                                                                                                                                                                 
 
-class AllRelatortsViewlet(ViewletBase):                                                                                                                       
+class AllRelatorsViewlet(ViewletBase):                                                                                                                       
     def update(self):                                                                                                                                           
         super(AllRelatortsViewlet, self).update()                                                                                                             
         self.context_state = getMultiAdapter((self.context, self.request),                                                                                      

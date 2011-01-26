@@ -18,26 +18,26 @@
       />
 
     <browser:page
-	    for="*"
-	    name="gcommons_container_config_view"
-	    class=".ContainerConfigView.gcContainerConfigView"
-	    template="templates/gcommons_container_config_view.pt"
-	    allowed_interface=".ContainerConfigView.IGCContainerConfigView"
-	    permission="zope.Public"
-	    />
+        for="*"
+        name="gcommons_container_config_view"
+        class=".ContainerConfigView.gcContainerConfigView"
+        template="templates/gcommons_container_config_view.pt"
+        allowed_interface=".ContainerConfigView.IGCContainerConfigView"
+        permission="zope.Public"
+    />
 
     <!-- Provider to render authors of documents -->                                                                                                                         
     <browser:viewletManager                                                                                                                                     
-		name="gcommons.relatorsprovider"                                                                                                                          
-		provides=".interfaces.IgcommonsRelatorProvider"                                                                                                               
-		permission="zope2.View"                                                                                                                                 
-		class="plone.app.viewletmanager.manager.OrderedViewletManager"                                                                                          
-		/>                                                                                                                                                      
+         name="gcommons.relatorsprovider"                                                                                                                          
+         provides=".interfaces.IgcommonsRelatorProvider"                                                                                                               
+         permission="zope2.View"                                                                                                                                 
+         class="plone.app.viewletmanager.manager.OrderedViewletManager"                                                                                          
+     />                                                                                                                                                      
 
     <browser:viewlet                                                                                                                                            
         name="gcommons.relatorsprovider.allrelators"                                                                                                           
-		manager=".interfaces.IgcommonsRelatorProvider"                                                                                                               
-        class=".providers.AllRelatortsViewlet"                                                                                                                  
+        manager=".interfaces.IgcommonsRelatorProvider"                                                                                                               
+        class=".providers.AllRelatorsViewlet"                                                                                                                  
         permission="zope2.View"                                                                                                                                 
         />                                                                                                                                                      
 
