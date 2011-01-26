@@ -235,17 +235,16 @@ class RelatorsMixin:
         
         Caveat: order of evaluation in schema is relevant.
         """
-        creators = []
         for author in self.getRelators(relationship='aut'):
             try:
                 creator = author['name']
                 institution = author['institution']
                 if institution is not None and len(institution) > 0:
                     creator = creator + " (%s)" % institution
-                creators.append(creator)
+                self.addCreator(creator)
             except KeyError:
                 pass
-        return creators
+        return self.listCreators()
         
     def _compute_contributors(self):
         contributors = []
