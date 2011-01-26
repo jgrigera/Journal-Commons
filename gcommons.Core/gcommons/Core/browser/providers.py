@@ -1,28 +1,18 @@
 
 
-from AccessControl import getSecurityManager                                                                                                                    
-from Acquisition import aq_inner                                                                                                                                
-                                                                                                                                                                
-from zope.component import getMultiAdapter, queryMultiAdapter                                                                                                   
-from plone.memoize.instance import memoize                                                                                                                      
-                                                                                                                                                                
+from zope.component import getMultiAdapter
+                                                                                                                                                    
 from plone.app.layout.viewlets import ViewletBase                                                                                                               
                                                                                                                                                                 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile                                                                                         
-from Products.CMFCore.utils import _checkPermission                                                                                                             
-from Products.CMFCore.utils import getToolByName                                                                                                                
-from Products.CMFEditions.Permissions import AccessPreviousVersions                                                                                             
-                                                                                                                                                                
-from Products.CMFPlone import PloneMessageFactory as _                                                                                                          
-                                                                                                                                                                
-from Products.CMFCore.WorkflowCore import WorkflowException                                                                                                     
-from Products.CMFPlone.utils import log                                                                                                                         
 import logging                                                                                                                                                  
                                                                                                                                                                 
 
                                                                                                                                                                 
 
 class AllRelatorsViewlet(ViewletBase):                                                                                                                       
+    index = ViewPageTemplateFile("templates/gcommons_relators_provider.pt")                                                                                                          
+
     def update(self):                                                                                                                                           
         super(AllRelatorsViewlet, self).update()                                                                                                             
         self.context_state = getMultiAdapter((self.context, self.request),                                                                                      
@@ -30,5 +20,4 @@ class AllRelatorsViewlet(ViewletBase):
         self.tools = getMultiAdapter((self.context, self.request),                                                                                              
                                      name='plone_tools')                                                                                                        
 
-    index = ViewPageTemplateFile("templates/gcommons_relators_provider.pt")                                                                                                          
   

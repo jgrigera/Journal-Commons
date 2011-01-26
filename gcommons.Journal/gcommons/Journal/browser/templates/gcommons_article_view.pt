@@ -54,7 +54,7 @@
 	<h2 tal:content="here/Title" />
 
 	<!-- Authors and contributors -->	
-    <div tal:replace="structure provider:gcommons.relatorsprovider" />
+	<div tal:replace="structure provider:gcommons.relatorsprovider" />
 
 	<!-- Abstract and Keywords -->
 	<tal:abstract tal:condition="here/Description">

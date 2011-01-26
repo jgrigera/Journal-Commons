@@ -79,6 +79,7 @@ gcommons/Core/profiles/default/types/Comment.xml
 gcommons/Core/profiles/default/types/Draft.xml
 gcommons/Core/profiles/default/types/SubmissionsFolder.xml
 gcommons/Core/skins/gcommons_core/autofill.png
+gcommons/Core/skins/gcommons_core/book-nocover.jpg
 gcommons/Core/skins/gcommons_core/cfp_icon.png
 gcommons/Core/skins/gcommons_core/cfp_icon.png.metadata
 gcommons/Core/skins/gcommons_core/formautofill.pt

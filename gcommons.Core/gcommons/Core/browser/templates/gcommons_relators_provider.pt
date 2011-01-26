@@ -3,15 +3,11 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
-      metal:use-macro="here/main_template/macros/master"
       i18n:domain="gcommons.Core">
 
 <div id="relators"
       i18n:domain="cmf_default">
       
-testing
-
-<tal:comment>      
 	<tal:case tal:condition="here/getRelators">
 		<tal:loop tal:repeat="relator here/getRelators">
 			<div>
@@ -56,7 +52,7 @@ testing
     <span tal:omit-tag="" i18n:translate="">Last modified</span>
 	    <tal:span tal:content="here/ModificationDate">Today</tal:span>.
 	-->
-</tal:comment>
+
 </div>
 
 </html>
