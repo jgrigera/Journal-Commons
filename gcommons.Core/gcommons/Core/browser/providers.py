@@ -24,7 +24,7 @@ import logging
 
 class AllRelatorsViewlet(ViewletBase):                                                                                                                       
     def update(self):                                                                                                                                           
-        super(AllRelatortsViewlet, self).update()                                                                                                             
+        super(AllRelatorsViewlet, self).update()                                                                                                             
         self.context_state = getMultiAdapter((self.context, self.request),                                                                                      
                                              name=u'plone_context_state')                                                                                       
         self.tools = getMultiAdapter((self.context, self.request),                                                                                              
