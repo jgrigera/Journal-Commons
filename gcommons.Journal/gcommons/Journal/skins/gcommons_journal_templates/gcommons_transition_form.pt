@@ -1,10 +1,13 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<metal:macro metal:define-macro="master"
+><html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="context/main_template/macros/master"
       lang="en"
       i18n:domain="gcommons.Journal">
+<body>
+
 <head>
 </head>
 
@@ -100,3 +103,4 @@
 
 </body>
 </html>
+</metal:macro>

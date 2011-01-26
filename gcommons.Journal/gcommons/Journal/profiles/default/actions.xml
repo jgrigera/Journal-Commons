@@ -27,6 +27,7 @@
 	<property name="permissions">
 	    <element value="View"/>
 	    <element value="Modify Portal Content"/>
+	    <element value="gcommons.Core: Add Draft"/>
 	</property>
 	<property name="visible">True</property>
   </object>
