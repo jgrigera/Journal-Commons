@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tool-setup>
+    <required
+        tool_id="gcommons_votestorage"
+        class="gcommons.Core.utilities.VoteStorageTool"/>
+</tool-setup>

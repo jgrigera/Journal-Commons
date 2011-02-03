@@ -248,7 +248,7 @@ URL: %s
 
     """ Voting, probably to be moved to some common place soon
     """
-    security.declareProtected('vote', permission_Vote)
+    security.declareProtected(permission_Vote, 'vote')
     def vote(self, what):
         pass
         

@@ -1,5 +1,6 @@
 
 from zope.interface import implements
+
 from persistent import Persistent
 from persistent.dict import PersistentDict
 
@@ -38,5 +39,46 @@ class VoteStorage(Persistent):
         except KeyError:
             #TODO: exception!
             return False
-        
-        
+            
+
+#
+# if we create the utility with object= and using toolset.xml, then
+# this wrapper is used
+# good side of this is having tool in ZMI
+from OFS.SimpleItem import SimpleItem
+from Products.CMFCore.utils import registerToolInterface
+from Products.CMFCore.utils import UniqueObject
+from App.class_init import InitializeClass
+from AccessControl import ClassSecurityInfo
+from Products.CMFCore import permissions
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+
+class VoteStorageTool(VoteStorage, UniqueObject, SimpleItem):
+    """ This tool exposes the Vote Storage TTW
+    """
+
+    id = 'gcommons_votestorage'
+    meta_type= 'gcommons Vote Storage Tool'
+    security = ClassSecurityInfo()
+
+    def __init__(self, id, title=None):
+        super(VoteStorageTool, self).__init__()
+
+        self.id = id
+        self.title = title
+
+    manage_options=(
+        {'label':'Dump', 'action':'manage_dumpVotesForm'},
+        ) + SimpleItem.manage_options
+
+    security.declareProtected(permissions.ManagePortal, 'manage_dumpVotesForm')
+    manage_dumpVotesForm = PageTemplateFile('www/manage_dumpVotesForm', globals(),
+        __name__='manage_dumpVotesForm')
+
+    # well... this is to be used by ZMI only
+    def dump(self):
+        return self.polls
+
+
+InitializeClass(VoteStorageTool)
+registerToolInterface('gcommons_votestorage', IVoteStorage)

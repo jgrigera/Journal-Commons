@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<componentregistry>
+ <adapters/>
+ <utilities>
+  <utility
+     interface="gcommons.Core.interfaces.utilities.IVoteStorage"
+     object="gcommons_votestorage"/>
+ </utilities>
+</componentregistry>
