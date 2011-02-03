@@ -113,7 +113,6 @@
 		<permission-role>Manager</permission-role>
     </permission-map>
     <permission-map name="gcommons.Core: Vote" acquired="False">
-		<permission-role>Manager</permission-role>
     </permission-map>
     <permission-map name="gcommons.Journal: EditorsMeeting Change Date" acquired="False">
 		<permission-role>Manager</permission-role>

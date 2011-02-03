@@ -41,6 +41,20 @@
         permission="zope2.View"                                                                                                                                 
         />                                                                                                                                                      
 
+    <!-- Provider for eventish content -->
+    <browser:viewletManager
+         name="gcommons.eventishprovider"
+         provides=".interfaces.IgcommonsEventishProvider"
+         permission="zope2.View"
+         class="plone.app.viewletmanager.manager.OrderedViewletManager"
+     />
+
+    <browser:viewlet                                                                                                                                            
+        name="gcommons.eventishprovider.table"                                                                                                           
+        manager=".interfaces.IgcommonsEventishProvider"                                                                                                               
+        class=".providers.TableEventishViewlet"                                                                                                                  
+        permission="zope2.View"                                                                                                                                 
+        />                                                                                                                                                      
 
   <!-- Submissions views -->
   <browser:page

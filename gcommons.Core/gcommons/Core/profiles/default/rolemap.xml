@@ -30,5 +30,12 @@
 		<role name="EditorialBoard"/>    
     </permission>
 
+
+    <!-- Vote -->
+    <permission name="gcommons.Core: Vote" acquire="False">
+		<role name="Manager" />
+		<role name="EditorialBoard"/>    
+    </permission>
+
   </permissions>
 </rolemap>

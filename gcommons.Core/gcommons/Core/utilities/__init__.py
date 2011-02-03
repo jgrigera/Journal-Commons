@@ -1,0 +1,2 @@
+
+from votestorage import VoteStorage

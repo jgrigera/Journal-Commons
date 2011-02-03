@@ -9,7 +9,7 @@ from zope.app.container.constraints import containers
 
 class IgcContainer(Interface):
     """Any kind of item that can be handled in a Submissions Folder"""
-    def aq_getConfig(self):
+    def aq_getConfig():
         """
         Return configuration object containing all relevant info on types and subtypes
         of items that can be added to this container
@@ -18,7 +18,7 @@ class IgcContainer(Interface):
         """
         
         
-    def aq_getAvailableSubcontainers(self, type_container=None, type_addable=None):
+    def aq_getAvailableSubcontainers(type_container=None, type_addable=None):
         """
         Return a list of available subcontainers (such ass Issues, Panels, events, etc).
         type_container is the type of containers targetted

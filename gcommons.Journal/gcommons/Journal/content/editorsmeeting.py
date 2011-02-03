@@ -13,11 +13,17 @@ from Products.CMFCore.utils import getToolByName
 
 # Archetypes
 from Products.Archetypes import atapi
-from Products.ATContentTypes.content import folder
+from plone.app.folder import folder
 from Products.ATContentTypes.content import schemata
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
+from Products.DataGridField.DataGridWidget import DataGridWidget
+from Products.DataGridField.DataGridField import DataGridField
+from Products.DataGridField.Column import Column
+
 # Journal Commons
+from gcommons.Core.permissions import Vote as permission_Vote
+from gcommons.Core.permissions import EditorsMeetingChangeDate as permission_EditorsMeetingChangeDate
 from gcommons.Journal import JournalMessageFactory as _
 from gcommons.Journal.interfaces import IEditorsMeeting
 from gcommons.Journal.config import PROJECTNAME
@@ -51,7 +57,7 @@ EditorsMeetingSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=True,                  
         searchable=False,                  
         accessor='start',                  
-#TODO                  write_permission = ChangeEvents,                  
+        write_permission = permission_EditorsMeetingChangeDate,
         default_method=DateTime,                  
         languageIndependent=True,                  
         widget = atapi.CalendarWidget(                        
@@ -73,6 +79,22 @@ EditorsMeetingSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         expression='context._duration()',       
     ),
 
+    DataGridField(
+        name='pollOptions',
+        write_permission = permission_EditorsMeetingChangeDate,
+        widget=DataGridWidget(
+            label=_("Poll Options"),
+            description = _('List here the available options for the date poll.'),
+            columns={
+                'date': Column(_(u'Date')),
+                'time': Column(_(u'Time')),
+                'comment': Column(_('Comment')),
+            },
+        ),
+        allow_empty_rows=False,
+        required=False,
+        columns=('date', 'time', 'comment')
+    ),
 
     atapi.LinesField(
         name='agenda',
@@ -141,8 +163,6 @@ class EditorsMeeting(folder.ATFolder,CalendarSupportMixin):
     security       = ClassSecurityInfo()
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
-    
-    
     security.declareProtected(View, 'download_all_as_zip')
     def download_all_as_zip(self, **kwargs):
         """
@@ -225,8 +245,19 @@ URL: %s
         return None
     def contact_email(self):
         return None
-    
 
-    
+    """ Voting, probably to be moved to some common place soon
+    """
+    security.declareProtected('vote', permission_Vote)
+    def vote(self, what):
+        pass
+        
+    def _set_vote(self):
+        try:
+           self.votes = {}
+        except AttributeError:
+           self.votes = {}
+
+
 
 atapi.registerType(EditorsMeeting, PROJECTNAME)

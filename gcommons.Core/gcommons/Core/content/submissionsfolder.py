@@ -11,7 +11,7 @@ from Products.CMFCore.utils import getToolByName
 
 # Archetypes
 from Products.Archetypes import atapi
-from Products.ATContentTypes.content import folder
+from plone.app.folder import folder
 from Products.ATContentTypes.content import schemata
 
 # gcommons
@@ -27,9 +27,8 @@ from plone.app.portlets import portlets
 logger = logging.getLogger('gcommons.Core.content.SubmissionsFolder')
 
 
-#TODO: move this to gcommons
 
-SubmissionsFolderSchema = folder.ATBTreeFolderSchema.copy() + atapi.Schema((
+SubmissionsFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
     atapi.TextField(
@@ -100,18 +99,6 @@ SubmissionsFolderSchema = folder.ATBTreeFolderSchema.copy() + atapi.Schema((
         """,
     ),
 
-#    BooleanField(
-#        name='sendNotificationEmails',
-#        default=True,
-#        widget=BooleanWidget(
-#            label="Send notification emails",
-#            description="If selected, tracker managers will receive an email each time a new issue or response is posted, and issue submitters will receive an email when there is a new response and when an issue has been resolved, awaiting confirmation.",
-#            label_msgid='Poi_label_sendNotificationEmails',
-#            description_msgid='Poi_help_sendNotificationEmails',
-#            i18n_domain='Poi',
-#        )
-#    ),
-
 ))
 
 # Set storage on fields copied from ATFolderSchema, making sure
@@ -127,7 +114,7 @@ schemata.finalizeATCTSchema(
 )
 
 
-class SubmissionsFolder(folder.ATBTreeFolder):
+class SubmissionsFolder(folder.ATFolder):
     """Large folder to hold all pending gcommons Submissions"""
     implements(ISubmissionsFolder)
 

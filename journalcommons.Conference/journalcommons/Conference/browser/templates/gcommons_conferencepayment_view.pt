@@ -8,9 +8,8 @@
 <body>
 
   <metal:block fill-slot="top_slot"
-               tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
-  <metal:block fill-slot="column_two_slot" />
-
+               tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);
+			   disable_column_two python:request.set('disable_plone.rightcolumn',1);" /> 
 
   <div metal:fill-slot="main">
     <div metal:define-macro="body"
@@ -36,7 +35,7 @@ way, but MUST be dumped.
 <tal:anonymous  tal:condition="isAnon">
 	  <div class="login-required">
           <tal:block i18n:translate="login_required">
-            You need to register and log in before you can submit an article
+            You need to be logged in before you can register online for the conference
           </tal:block>
       </div>
 

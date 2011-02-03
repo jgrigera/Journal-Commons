@@ -20,4 +20,14 @@ class AllRelatorsViewlet(ViewletBase):
         self.tools = getMultiAdapter((self.context, self.request),                                                                                              
                                      name='plone_tools')                                                                                                        
 
-  
+
+class TableEventishViewlet(ViewletBase):
+    index = ViewPageTemplateFile("templates/gcommons_eventish_provider.pt")                                                                                                          
+
+    def update(self):                                                                                                                                           
+        super(TableEventishViewlet, self).update()                                                                                                             
+        self.context_state = getMultiAdapter((self.context, self.request),                                                                                      
+                                             name=u'plone_context_state')                                                                                       
+        self.tools = getMultiAdapter((self.context, self.request),                                                                                              
+                                     name='plone_tools')                                                                                                        
+      

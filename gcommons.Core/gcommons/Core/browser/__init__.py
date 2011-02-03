@@ -24,6 +24,11 @@ class gcommonsView(BrowserView):
     def portal_membership(self):
         return getToolByName(self.context, 'portal_membership')
 
+    @property
+    def portal_workflow(self):
+        return getToolByName(self.context, 'portal_workflow')
+
+
     def get_disable_border(self):
         """
         Let Plone display a border or not

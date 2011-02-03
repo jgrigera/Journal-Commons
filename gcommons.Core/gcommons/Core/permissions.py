@@ -18,12 +18,13 @@ AddDraft = 'gcommons.Core: Add Draft'
 AddComment = 'gcommons.Core: Add Comment'
 
 
+Vote = 'gcommons.Core: Vote'
+
 SubmissionsViewOverview = 'gcommons.Core: SubmissionsFolder View Overview'
-
-
+EditorsMeetingChangeDate = 'gcommons.Journal: EditorsMeeting Change Date'
 
 #security = ModuleSecurityInfo('gcommons.Core')
 #security.declarePublic('MyPermission')
-for newPermission in (SubmissionsViewOverview, ):
+for newPermission in (SubmissionsViewOverview, Vote, EditorsMeetingChangeDate):
     setDefaultRoles(newPermission, ())
 
