@@ -34,6 +34,10 @@ from Products.ATContentTypes.utils import DT2dt
 from Products.ATContentTypes.lib.calendarsupport import CalendarSupportMixin
 from Products.ATContentTypes.interfaces import ICalendarSupport
 
+# Voting
+from zope.component import getUtility
+from gcommons.Core.interfaces.utilities import IVoteStorage
+
 
 
 EditorsMeetingSchema = folder.ATFolderSchema.copy() + atapi.Schema((
@@ -53,34 +57,34 @@ EditorsMeetingSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     #
     # Dates
     atapi.DateTimeField(
-        name='startDate',                  
-        required=True,                  
-        searchable=False,                  
-        accessor='start',                  
+        name='startDate',  
+        required=True, 
+        searchable=False, 
+        accessor='start',
         write_permission = permission_EditorsMeetingChangeDate,
-        default_method=DateTime,                  
-        languageIndependent=True,                  
-        widget = atapi.CalendarWidget(                        
-                  description= '',                        
+        default_method=DateTime,
+        languageIndependent=True,
+        widget = atapi.CalendarWidget(
+                  description= '',
                   label=_(u'label_event_start', 
-                          default=u'Event Starts')          
+                          default=u'Event Starts')
         ),
     ),    
-    atapi.ComputedField('start_date',        
+    atapi.ComputedField('start_date',
         searchable=1,        
-        expression='context._start_date()',       
+        expression='context._start_date()',
     ),
-    atapi.ComputedField('end_date',        
+    atapi.ComputedField('end_date',
         searchable=1,        
-        expression='context._end_date()',       
+        expression='context._end_date()',
     ),
     atapi.ComputedField('duration',
-        searchable=1,        
-        expression='context._duration()',       
+        searchable=1,
+        expression='context._duration()',
     ),
 
     DataGridField(
-        name='pollOptions',
+        name='pollOptionsInput',
         write_permission = permission_EditorsMeetingChangeDate,
         widget=DataGridWidget(
             label=_("Poll Options"),
@@ -246,17 +250,56 @@ URL: %s
     def contact_email(self):
         return None
 
-    """ Voting, probably to be moved to some common place soon
+    """ Votes for poll
     """
-    security.declareProtected(permission_Vote, 'vote')
-    def vote(self, what):
-        pass
+    def getPollOptions(self):
+        if self.pollOptions is None:
+            self.pollOptions = {}
+        return self.pollOptions
         
-    def _set_vote(self):
-        try:
-           self.votes = {}
-        except AttributeError:
-           self.votes = {}
+    def setPollOptionsInput(self, data):
+        field = self.getField('pollOptionsInput')
+        field.set(self, data)
+        data = field.get(self) # After cleanup by DataGridField
+
+        self.pollOptions = {}
+        rid = 0
+        for row in data:
+            self.pollOptions[rid] = row
+            rid += 1
+    
+    @property
+    def vote_storage(self):
+        return getUtility(IVoteStorage)
+        
+    def vote_uid(self):
+        return '/'.join(self.getPhysicalPath())
+        
+    def voter_uid(self):
+        portal_membership = getToolByName(self,'portal_membership')
+        return portal_membership.getAuthenticatedMember().getId()
+
+    def hasVoted(self):
+        return self.vote_storage.has_voted(self.vote_uid(),self.voter_uid())
+        
+    def getVote(self):
+        return self.vote_storage.get_vote(self.vote_uid(),self.voter_uid())
+    
+    def storeVote(self, vote):
+        self.vote_storage.vote(self.vote_uid(),self.voter_uid(),vote)
+        
+    def getTotalVotes(self, optionId):
+        votes = self.vote_storage.get_votes(self.vote_uid())
+        count = 0
+        for who in votes:
+           if optionId in votes[who]:
+              count += 1 
+        return count
+        
+    def getTotalVoters(self):
+        votes = self.vote_storage.get_votes(self.vote_uid())
+        return len(votes)
+    
 
 
 

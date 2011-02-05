@@ -40,6 +40,12 @@ class VoteStorage(Persistent):
             #TODO: exception!
             return False
             
+    def get_votes(self,where):
+        try:
+            return self.polls[where]
+        except KeyError:
+            return None
+            
 
 #
 # if we create the utility with object= and using toolset.xml, then
@@ -75,9 +81,8 @@ class VoteStorageTool(VoteStorage, UniqueObject, SimpleItem):
     manage_dumpVotesForm = PageTemplateFile('www/manage_dumpVotesForm', globals(),
         __name__='manage_dumpVotesForm')
 
-    # well... this is to be used by ZMI only
-    def dump(self):
-        return self.polls
+    def dump_getPolls(self):
+        return self.polls.keys()
 
 
 InitializeClass(VoteStorageTool)

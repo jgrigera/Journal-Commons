@@ -1,5 +1,4 @@
 from zope.interface import implements, Interface
-from zope.component import getUtility
 
 
 from Products.Five import BrowserView
@@ -7,7 +6,6 @@ from Products.CMFCore.utils import getToolByName
 
 from gcommons.Core import permissions
 from gcommons.Core.browser import gcommonsView
-from gcommons.Core.interfaces.utilities import IVoteStorage
 from gcommons.Journal import JournalMessageFactory as _
 
 
@@ -28,10 +26,6 @@ class EditorsMeetingView(gcommonsView):
     """
     implements(IEditorsMeetingView)
     
-    @property
-    def vote_storage(self):
-        return getUtility(IVoteStorage)
-
     def getFolderContents(self):
         brains = self.context.listFolderContents()
         return brains
@@ -53,13 +47,11 @@ class EditorsMeetingView(gcommonsView):
     def isPollOpen(self):
         # checkPermission
         return self.portal_membership.checkPermission(permissions.Vote, self.context)
-
-    def hasVoted(self):
-        return self.vote_storage.has_voted('x','z')
         
-    def getVote(self):
-        return self.vote_storage.get_vote('x','z')
+    def getTotalVotes(self, optionId):
     
+        return 5
+
     
 
 
@@ -76,14 +68,3 @@ class MeetingDraftsAsZipView(BrowserView):
         self.request.RESPONSE.write( self.context.download_all_as_zip().getvalue() )
         return 
     
-
-class VoteFormView(gcommonsView):
-    """
-    A form to vote for meeting date
-    """
-    implements(IEditorsMeetingView)
-
-    def canVote(self):
-        return True
-        
-

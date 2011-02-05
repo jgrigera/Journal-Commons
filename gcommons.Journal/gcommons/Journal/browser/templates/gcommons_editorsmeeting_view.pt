@@ -13,9 +13,8 @@
                                     getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                                     templateId template/getId;
                                     toLocalizedTime nocall:context/@@plone/toLocalizedTime;
-		     site_properties context/portal_properties/site_properties;
-                     here_url context/@@absolute_url">
-
+                                    site_properties context/portal_properties/site_properties;
+                                    here_url context/@@absolute_url">
 
 
      <!-- Show 'portlet' with Event details if poll is over -->
@@ -30,9 +29,9 @@
         (function($) { $(function() {
           $('.voteoverlay').prepOverlay(  {
             subtype: 'ajax',
-            formselector: 'form',
-            closeselector: '.close',
-            noform: function(el) {return noformerrorshow(el, 'close');},
+            formselector: 'form:has(input[name="voteform.buttons.vote"])',
+            closeselector: '[name=form.buttons.cancel]',
+            noform: 'reload',
            } );
          });})(jQuery);
         </script>
@@ -41,25 +40,33 @@
         <p>&nbsp;</p>
         <h3>Poll Open</h3>
 
-        <b>You voted:</b> <br/>
+        <tal:vote tal:condition="here/hasVoted">
+               <b>You said you are available:</b> <br/>
+               <ul>
+               <tal:voted tal:repeat="optionId here/getVote" tal:define="options here/getPollOptions">
+                   <li tal:content="python:options[optionId]['date']+' - '+options[optionId]['time']" />
+               </tal:voted>
+               </ul>
+        </tal:vote>
         
-        <tal:voted tal:content="view/getVote" />
-        
-       <a href="gcommons_editorsmeeting_vote" class="voteoverlay" 
-          tal:content="python:view.hasVoted() and 'Change your vote' or 'Vote!'"> Vote! </a>
+        <a href="gcommons_editorsmeeting_vote" class="voteoverlay" 
+                    tal:content="python:here.hasVoted() and 'Change your vote' or 'Vote!'"> Vote! </a>
 
         <!-- Manager's overview -->
         <p>&nbsp;</p>
-        <h3>Overview</h3>
+        <h3>Poll Overview</h3>
 
-        <table class="listing">
+        <table class="listing" tal:define="options here/getPollOptions">
             <tr id="pollOptions" >
-               <th tal:repeat="option here/getPollOptions" tal:content="string:${option/date} - ${option/time}" />
+               <th  tal:repeat="optionId options" tal:content="python:options[optionId]['date']+' - '+options[optionId]['time']" />
             </tr>
-            <tr>
-               <td tal:repeat="option here/getPollOptions" style="text-align:center">
-                   <span tal:omit-tag="" tal:content="python:5" />
+            <tr class="even">
+               <td tal:repeat="optionId options" style="text-align:center">
+                   <span tal:omit-tag="" tal:content="python:here.getTotalVotes(optionId)" />
                </td>
+            </tr>
+            <tr class="odd">
+               <td colspan="#" tal:attributes="colspan python:len(options)" tal:content="string:Total voters: ${here/getTotalVoters}"/>
             </tr>
         </table>
     </metal:poll-open>
@@ -93,18 +100,17 @@
     </tal:foldercontents>
         
 
-		<div tal:condition="here/getAgenda">
-			<h3>Agenda</h3>
-			
-			<ul>
-				<tal:block tal:repeat="item here/getAgenda">
-					<li tal:content="item" />
-				</tal:block>
-			</ul>
-		</div>        
+	<div tal:condition="here/getAgenda">
+		<h3>Agenda</h3>
+		<ul>
+			<tal:block tal:repeat="item here/getAgenda">
+				<li tal:content="item" />
+			</tal:block>
+		</ul>
+	</div>        
 
-		<!--  Reading List -->        
-		<div tal:condition="here/getReadingList"
+	<!--  Reading List -->        
+	<div tal:condition="here/getReadingList"
 		 	tal:define="getInfoFor python:context.portal_workflow.getInfoFor;">
 
 			<h3>Reading List</h3>

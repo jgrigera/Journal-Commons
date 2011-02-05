@@ -18,9 +18,17 @@
       Form Title
     </h3>
 
+    <p>&nbsp;</p>
+    
+    <tal:dump tal:define="polls here/dump_getPolls" tal:repeat="pollid polls">
+	<h4 tal:content="pollid" /> 
 
-    <tal:dump tal:repeat="item here/dump">
-	<span tal:omit-tag="" tal:content="item"/>
+	<table>
+	    <tr tal:repeat="voter python:here.get_votes(pollid)">
+		<td tal:content="voter"/><td tal:content="python:here.get_vote(pollid,voter)"/>
+	    </tr>
+	</table>
+
     </tal:dump>
   </body>
 </html>
