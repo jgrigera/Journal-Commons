@@ -136,17 +136,17 @@
             </table>
 
 
-			<tal:addcomment tal:condition="python:user.has_permission('gcommons.Core: Add Comment', here)">
-				<form method="post" action="createObject" name="addComment">
-					<input type="hidden" name="type_name" value="Comment" />
-					<input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone" />
-				</form>
-			</tal:addcomment>            
+		<tal:addcomment tal:condition="python:user.has_permission('gcommons.Core: Add Comment', here)">
+			<form method="post" action="createObject" name="addComment">
+				<input type="hidden" name="type_name" value="Comment" />
+				<input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone" />
+			</form>
+		</tal:addcomment>            
 
 
-			<!--  
-			Show list of drafts if more than one
-			 -->            
+	<!--  
+	Show list of drafts if more than one
+	 -->            
             <tal:batch 
             	tal:define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')"
             	tal:condition="python:len(drafts)>1" >
@@ -171,8 +171,8 @@
                     <td tal:content="draft/getWordCount" style="text-align:center"  />
                     <td tal:content="draft/getPageEstimate" style="text-align:center" />
                     <td>
-						<metal:field use-macro="python:draft.widget('file', mode='view')">
-		            		File
+			<metal:field use-macro="python:draft.widget('file', mode='view')">
+				File
                         </metal:field>
                     </td>
                     <td>                    
