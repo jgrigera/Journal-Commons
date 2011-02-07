@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+
+    <metal:view_macro define-macro="view">
+        <metal:use_macro use-macro="here/widgets/keyword/macros/view"/>
+    </metal:view_macro>
+
+    <metal:define define-macro="edit">
+
+    <script type="text/javascript" tal:define="widgetjs nocall:here/@@widget_ajaxkeywords_manage"
+                tal:content="structure python: widgetjs(field,context)">
+    </script>
+
+    <div metal:use-macro="field_macro | context/widgets/field/macros/edit">
+        <div metal:fill-slot="widget_body">
+
+        <ul id="ajaxkeywords">
+        </ul>
+
+        </div>
+    </div>
+    </metal:define>
+
+    <div metal:define-macro="search">
+        <div metal:use-macro="here/widgets/string/macros/search" />
+    </div>
+
+</body>
+
+</html>
