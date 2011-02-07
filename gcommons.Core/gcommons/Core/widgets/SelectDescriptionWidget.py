@@ -57,7 +57,7 @@ jq('#%(name)s').change(function() {
 """ % values
     
     def getArrayJS(self, field, context): 
-        method = getattr(context, field.vocabulary, None)                                                                                                                  
+        method = getattr(context, field.vocabulary, None)
         if method and callable(method):
             args = []                                                                                                                                                        
             kw = { 'content_instance' : context,                                                                                                                         

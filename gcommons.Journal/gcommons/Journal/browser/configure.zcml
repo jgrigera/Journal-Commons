@@ -93,6 +93,13 @@
       permission="zope.Public"
       />
 
+  <browser:page
+        for="*"
+        name="gcommons_article_assigneditor"
+        class=".articleassigneditor.AssignEditorView"
+        permission="zope2.View"
+        />
+
 
   <!-- Issue views -->
   <browser:page
@@ -122,21 +129,5 @@
       permission="zope2.Public"
       />
 
-  <browser:page
-        for="*"
-        name="gcommons_editorsmeeting_vote"
-        class=".editorsmeetingvote.VoteFormView"
-        permission="zope2.View"
-        />
-
-<!--
-  <browser:page
-        for="*"
-        name="gcommons_editorsmeeting_vote"
-        class=".editorsmeetingview.VoteFormView"
-        template="templates/gcommons_editorsmeeting_vote.pt"
-        permission="zope2.View"
-        />
--->
 
 </configure>

@@ -11,6 +11,25 @@
 	    class=".SelectDescriptionWidget.ManageDescription"
 	    permission="zope.Public"
 	    />
-                                                                                                                                                                                       
-                            
+
+  <browser:view
+	    name="widget_ajaxkeywords_manage"
+	    for="Products.Archetypes.interfaces.IBaseObject"
+	    class=".AjaxKeywordsWidget.ManageAjax"
+	    permission="zope.Public"
+	    />
+
+  <browser:view
+	    name="widget_ajaxkeywords_update"
+	    for="Products.Archetypes.interfaces.IBaseObject"
+	    class=".AjaxKeywordsWidget.UpdateAjax"
+	    permission="zope.Public"
+	    />
+
+  <browser:resourceDirectory
+        name="gcommons.Core.widgets.static" 
+        directory="static/"
+        />
+
+
 </configure>

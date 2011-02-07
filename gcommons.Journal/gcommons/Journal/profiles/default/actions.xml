@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <object name="portal_actions" meta_type="Plone Actions Tool"  xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
- <object name="gcommons_article_actions" meta_type="CMF Action Category">
+ <object name="object_quick_article_actions" meta_type="CMF Action Category">
   <property name="title"></property>
+
   <!-- Friendly actions for portlet in article view -->
   <object name="edit" meta_type="CMF Action" i18n:domain="plone">
 	<property name="title" i18n:translate="">Edit Abstract</property>
@@ -11,7 +12,6 @@
 	<property name="icon_expr">string:edit.gif</property>
 	<property name="available_expr"></property>
 	<property name="permissions">
-	    <element value="View"/>
 	    <element value="Modify Portal Content"/>
 	</property>
 	<property name="visible">True</property>
@@ -25,13 +25,27 @@
 	<property name="icon_expr">string:upload_icon.gif</property>
 	<property name="available_expr"></property>
 	<property name="permissions">
-	    <element value="View"/>
-	    <element value="Modify Portal Content"/>
 	    <element value="gcommons.Core: Add Draft"/>
 	</property>
 	<property name="visible">True</property>
   </object>
 
+
+  <!-- Editors -->
+  <object name="assign_actioneditor" meta_type="CMF Action" i18n:domain="plone">
+	<property name="title" i18n:translate="">Assign to editor</property>
+	<property name="description" i18n:translate="">Assign the piece to an Action Editor</property>
+	<property name="url_expr">string:$object_url/gcommons_article_assigneditor</property>
+	<property name="icon_expr">string:user.png</property>
+	<property name="available_expr"></property>
+	<property name="permissions">
+	    <element value="gcommons.Core: Add Draft"/>
+	</property>
+	<property name="visible">True</property>
+  </object>
+
+
+  <!-- Workflow -->
   <object name="submittoeb" meta_type="CMF Action" i18n:domain="plone">
 	<property name="title" i18n:translate="">Submit to Editors</property>
 	<property name="description" i18n:translate="">Finish editing and submit the piece to be evaluated</property>
@@ -40,7 +54,6 @@
 <!-- maybe this can be action=workflow and improve condition in workflow, -->
 	<property name="available_expr"></property>
 	<property name="permissions">
-	    <element value="View"/>
 	    <element value="Modify Portal Content"/>
 	</property>
 	<property name="visible">True</property>

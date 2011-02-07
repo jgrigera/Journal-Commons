@@ -46,14 +46,12 @@ SubmissionsFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
       <h2>Welcome to the registration and paper submission system</h2>
         <p>
         To register or submit your piece, follow these steps:</p>
-        <dl><dt>1. Create account</dt>
+        <dl><dt>1. Create account (if you dont have one)</dt>
         Click on "Create account" and fill out the form. An account will be created and an e-mail is sent to you for confirmation.</dl>
-        <dl><dt>2. Login </dt>
-        You may log in right after receiving an email by using the "Login" link.</dl>
+        <dl><dt>2. Login </dt>        You may log in right after receiving an email by using the "Login" link.</dl>
         <dl><dt>3. Submit your abstract </dt></dl>
-        <dl><dt>4. Finish editing and send to editors</dt>
-        Click on "Submit to Editors"</dl>
-        You are done! Thanks for submitting the product of your work.
+        <dl><dt>4. Finish editing and send to editors</dt>    Click on "Submit to Editors"</dl>
+        You are done! Thanks for submitting the product of your research.
          
         """,
         default_output_type='text/html',

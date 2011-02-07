@@ -22,6 +22,7 @@ gcommons/Journal/browser/articlepublishview.py
 gcommons/Journal/browser/articleview.py
 gcommons/Journal/browser/configure.zcml
 gcommons/Journal/browser/editorsmeetingview.py
+gcommons/Journal/browser/editorsmeetingvote.py
 gcommons/Journal/browser/gcfrontpageview.py
 gcommons/Journal/browser/issueview.py
 gcommons/Journal/browser/journalview.py
@@ -83,6 +84,7 @@ gcommons/Journal/profiles/default/types/SpecialIssue.xml
 gcommons/Journal/profiles/default/types/gcFrontPage.xml
 gcommons/Journal/profiles/default/workflows/articlePR_IE_workflow/definition.xml
 gcommons/Journal/profiles/default/workflows/articlePR_workflow/definition.xml
+gcommons/Journal/profiles/default/workflows/editorsmeeting_workflow/definition.xml
 gcommons/Journal/profiles/default/workflows/journal_workflow/definition.xml
 gcommons/Journal/profiles/uninstall/factorytool.xml
 gcommons/Journal/profiles/uninstall/skins.xml

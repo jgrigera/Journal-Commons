@@ -9,6 +9,7 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from gcommons.Core.widgets.SelectDescriptionWidget import SelectDescriptionWidget
+from gcommons.Core.widgets.AjaxKeywordsWidget import AjaxKeywordsWidget
 
 from gcommons.Core.lib.relators import RelatorsMixin
 from gcommons.Journal import JournalMessageFactory as _
@@ -195,8 +196,12 @@ def finalizeArticleSchema(schema):
     schema['description'].widget.label = _('Abstract')
     schema['description'].widget.description = _('A short summary of your article.')
     schema['subject'].storage = atapi.AnnotationStorage()
-    schema['subject'].widget.label = _('Keywords')
-    schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your article.')
+    #schema['subject'].widget.label = _('Keywords')
+    #schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your article.')
+    schema['subject'].widget = AjaxKeywordsWidget(
+                label=_('Keywords'),
+                description=('Please select among the existing keywords or add new ones to describe the subjects of your article.')
+    )
  
     # Reorder
     schema.moveField('description', after=RelatorsMixin.lastField)

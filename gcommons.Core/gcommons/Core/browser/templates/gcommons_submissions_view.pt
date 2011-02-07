@@ -28,8 +28,10 @@
 
   <div metal:fill-slot="main">
     <div metal:define-macro="body"
-	 tal:define="isAnon context/@@plone_portal_state/anonymous;
-		     is_editable context/@@plone_context_state/is_editable;">
+	 tal:define="site_portal  context/@@plone_portal_state;
+                     isAnon       site_portal/anonymous;
+                     portal_url   site_portal/portal_url;
+                     is_editable  context/@@plone_context_state/is_editable;">
 
 
       <h1 tal:content="here/Title" 
@@ -41,157 +43,50 @@
        -->
 
 
-<!-- Anonymous form -->
-<tal:anonymous  tal:condition="isAnon">
-	  <div class="login-required">
+    <!-- Anonymous form: present Login and Registration links -->
+    <tal:anonymous  tal:condition="isAnon">
+      <div class="login-required">
           <tal:block i18n:translate="login_required">
-            You need to register and log in before you can submit an article
+            You need to be registered and logged in before you can submit an article
           </tal:block>
+
+          <div tal:content="structure here/helptextanon"/>
+          
+          <!--  from plone_ecmascript/popups.js 
+            -->
+          <script type="text/javascript">
+              var common_content_filter = '#content>*:not(div.configlet),dl.portalMessage.error,dl.portalMessage.info';
+              
+              jQuery(function($){
+                $('.gcommons-quick-login-join a[href$=/@@register]').prepOverlay(  {
+                     subtype: 'ajax',
+                     filter: common_content_filter,
+                     formselector: 'form.kssattr-formname-register'   }
+                );
+                
+                $('.gcommons-quick-login-join a[href$=/login_form]').prepOverlay(  {
+                    subtype: 'ajax',
+                    filter: common_content_filter,
+                    formselector: 'form#login_form',
+                    noform: function () {
+                            if (location.href.search(/pwreset_finish$/) >= 0) {    return 'redirect';
+                            } else {   return 'reload';     }
+                    },
+                    redirect: function () {
+                            var href = location.href;
+                            if (href.search(/pwreset_finish$/) >= 0) {
+                                return href.slice(0, href.length-14) + 'logged_in';
+                            } else {   return href;   }
+                    }
+                });
+              });
+          </script>
+          <h3 class="gcommons-quick-login-join">
+               <a href="#" tal:attributes="href string:${portal_url}/login_form">Login</a>&nbsp;&nbsp;
+               <a href="#" tal:condition="view/get_enable_self_reg" tal:attributes="href string:${portal_url}/@@register">Register</a>
+          </h3>
       </div>
-
-      <div tal:content="structure here/helptextanon"/>
-      
-      <div id="hcommons-quick-login-box">				
-			<dl class="portlet portletLogin">
-			    <dt class="portletHeader">
-			        <span class="portletTopLeft"></span>
-			        <a href="#"                         
-			           class="tile"                     
-			           tal:attributes="href view/login_form"
-			           i18n:translate="box_sign_in">Log in</a>
-			        <span class="portletTopRight"></span>     
-			    </dt>                                         
-			
-			    <dd class="portletItem odd"
-			        tal:define="ac_name view/login_name;
-			                    ac_password view/login_password">
-			        <form action="login_form"                    
-			              name="loginform"                       
-			              method="post"                          
-			              tal:attributes="action view/login_form">
-			
-			            <input type="hidden" name="form.submitted" value="1" />
-			            <input type="hidden" name="came_from" value=""         
-			              tal:attributes="value context/@@plone_context_state/current_page_url" />
-			            <input type="hidden" name="js_enabled" id="js_enabled" value="0" />       
-			            <input type="hidden" name="cookies_enabled" id="cookies_enabled" value="" />
-			            <input type="hidden" name="login_name" id="login_name" value="" />          
-			            <input type="hidden" name="pwd_empty" id="pwd_empty" value="0" />           
-			
-			            <div class="field">
-			                <label for=""  
-			                       tal:attributes="for ac_name"
-			                       i18n:translate="label_login_name">Login Name</label>
-			                <br />                                                     
-			                <input type="text"                                         
-			                       size="40"                                           
-			                       alt="Login Name"                                    
-			                       tal:attributes="name ac_name; id ac_name;           
-			                                       value python:request.get(ac_name, '');"
-			                       i18n:attributes="alt label_login_name;"/>              
-			            </div>                                                            
-			                                                                              
-			            <div class="field">                                               
-			                <label for=""                                                 
-			                       tal:attributes="for ac_password"                       
-			                       i18n:translate="label_password">Password</label>       
-			                <br />                                                        
-			                <input type="password"                                        
-			                       size="40"                                              
-			                       alt="Password"                                         
-			                       tal:attributes="name ac_password; id ac_password;"     
-			                       i18n:attributes="alt label_password;"/>                
-			            </div>                                                            
-			
-			            <div i18n:translate="enable_cookies_message_before_login"
-			                 class="cookiesMessage portalMessage"                
-			                 style="display:none">                               
-			                Cookies are not enabled. You must enable cookies before you
-			                can log in.                                                
-			            </div>                                                         
-			                                                                           
-			            <div class="formControls">                                     
-			                                                                           
-			                <input class="context"                                     
-			                       type="submit"                                       
-			                       name="submit"                                       
-			                       value="Log in"                                      
-			                       alt="Log in"                                        
-			                       i18n:attributes="value label_log_in; alt label_log_in;"/>
-			            </div>                                                              
-			        </form>                                                                 
-			    </dd>                                                                       
-			                                                                                
-			    <dd class="portletItem even" tal:condition="view/login_can_request_password">     
-			        <a href="mail_password_form"                                            
-			           class="tile"
-			           tal:attributes="href view/login_mail_password_form">
-			           <tal:block replace="structure context/info_icon.gif"/>
-			           <span tal:omit-tag="" i18n:translate="box_forgot_password_option">Forgot your password?</span>
-			        </a>
-			    </dd>
-			</dl>
-	</div>
-	
-	<!--
-	    registration
-	    
-	    only if self registration there
-	    -->
-	<div id="gcommons-quick-join-box"
-		 tal:condition="view/get_enable_self_reg">
-					<dl class="portlet portletLogin">
-					    <dt class="portletHeader">
-					        <span class="portletTopLeft"></span>
-					        <a href="#"                         
-					           class="tile"                     
-					           tal:attributes="href view/join_form"
-					           i18n:translate="box_sign_in">Register</a>
-					        <span class="portletTopRight"></span>     
-					    </dt>                                         
-					
-					    <dd class="portletItem odd">
-		             
-		              <span tal:omit-tag="" i18n:translate="box_new_user_option">New user?</span>
-
-		              <form
-		                  	tal:attributes="action view/join_form">
-		                <div class="formControls">
-
-			            <div class="field">
-			                <label for="email"  
-			                       i18n:translate="label_email_name">E-mail</label>
-			                <br />                                                     
-			                <input type="text"                                         
-			                       size="40"                                           
-			                       alt="email"   
-			                       name="email"
-			                       id="email"
-			                       tal:attributes="value python:request.get('email', '');"
-			                       i18n:attributes="alt label_email_name;"/>              
-			            </div>                                                            
-
-				            <tal:block replace="structure context/user.gif"/>
-
-				            <input type="hidden" name="came_from" value=""         
-				              		tal:attributes="value context/@@plone_context_state/current_page_url" />
-
-		                  <input class="context"
-		                         type="submit"
-		                         value="Register"
-		                         i18n:domain="plone"
-		                         i18n:attributes="value label_register;"
-		                         />
-		                </div>
-		              </form>
-		              
-					        <span class="portletBottomLeft"></span>
-					        <span class="portletBottomRight"></span>
-		              </dd>
-					</dl>		              
-	</div>
-
-</tal:anonymous>
+    </tal:anonymous>
       
 	
 <tal:not-anonymous  

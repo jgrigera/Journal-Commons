@@ -126,8 +126,9 @@ class ArticleView(BrowserView):
         This method
         """
         results = []
-        for action_id in  self.portal_actions.listFilteredActionsFor(object=self.context)["gcommons_article_actions"]:
-            results.append(action_id)
+        for action_id in self.portal_actions.listActionInfos(object=self.context, check_permissions=1, check_condition=1):
+            if action_id['category'] == 'object_quick_article_actions':
+                results.append(action_id)
         return results
 
 
