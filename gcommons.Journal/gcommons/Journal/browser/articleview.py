@@ -26,6 +26,52 @@ class IArticleView(Interface):
         """return list of drafts"""
 
 
+class SimpleActionView:
+    def __init__(self, values, context=None, request=None):
+        self.values = values
+
+    def __call__(self):
+        return """<a href="%(url)s" title="%(description)s"> <img alt="*" src="%(icon)s"/> %(title)s</a>""" % self.values
+
+#
+#
+# TEMP HACK TO TEST SOMETHING
+#
+from gcommons.Journal.browser.forms.articleassigneditor import AssignEditorForm,AssignEditorView
+from Acquisition import aq_inner
+from plone.z3cform.interfaces import IWrappedForm
+from plone.z3cform import z2
+from z3c.form.interfaces import IFormLayer
+
+class InlineFormActionView:
+    def __init__(self, values, context=None, request=None):
+        self.values = values
+
+        self.form = AssignEditorForm(aq_inner(context), request)
+        z2.switch_on(self.form, request_layer=IFormLayer)
+        alsoProvides(self.form, IWrappedForm)
+
+        self.form.update()
+        self.values["form"] = self.form.render()
+
+    def __call__(self):
+        return """
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    $('.quick-actions-inline').click(function() {
+        $(this).next().toggle('slow');
+        return false;
+    }).next().hide();
+});
+</script>
+           <a class="quick-actions-inline"
+              href="%(url)s" title="%(description)s">
+              <img alt="*" src="%(icon)s"/> %(title)s
+           </a>
+           <div>%(form)s</div>
+        """ % self.values
+
+
 class ArticleView(BrowserView):
     """
     Article browser view
@@ -128,7 +174,10 @@ class ArticleView(BrowserView):
         results = []
         for action_id in self.portal_actions.listActionInfos(object=self.context, check_permissions=1, check_condition=1):
             if action_id['category'] == 'object_quick_article_actions':
-                results.append(action_id)
+                if action_id['url'] == '#':
+                    results.append(InlineFormActionView(action_id, context=self.context, request=self.request))
+                else:
+                    results.append(SimpleActionView(action_id))
         return results
 
 

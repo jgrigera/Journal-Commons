@@ -36,13 +36,7 @@
 			<ul class="configlets">
 				<tal:loop tal:repeat="action state_actions">
 				    <li>
-					<a href="#" 
-					   title="#"
-				         tal:attributes="href action/url;
-				        		title action/description">
-				         <img alt="" src="#" tal:attributes="src action/icon" />
-				         <span tal:omit-tag="" tal:content="action/title" />
-				    </a>
+				        <tal:action tal:replace="structure action" />
 				    </li>
 				</tal:loop>
 			</ul>

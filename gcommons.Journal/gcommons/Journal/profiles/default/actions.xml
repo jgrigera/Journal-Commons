@@ -35,7 +35,10 @@
   <object name="assign_actioneditor" meta_type="CMF Action" i18n:domain="plone">
 	<property name="title" i18n:translate="">Assign to editor</property>
 	<property name="description" i18n:translate="">Assign the piece to an Action Editor</property>
+<!--
 	<property name="url_expr">string:$object_url/gcommons_article_assigneditor</property>
+-->	
+	<property name="url_expr">string:#</property>
 	<property name="icon_expr">string:user.png</property>
 	<property name="available_expr"></property>
 	<property name="permissions">

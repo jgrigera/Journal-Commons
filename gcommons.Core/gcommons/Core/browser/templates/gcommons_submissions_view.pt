@@ -13,15 +13,9 @@
 
 <metal:javascript fill-slot="javascript_head_slot">
      <script type="text/javascript" charset="utf-8">
-			jq(document).ready(function() {
-					// for option B  
-					// hide the all of the element with class msg_body
-					jq(".jq_dynamic_msg_body").hide();
-  				    // let head manage body
-					jq(".jq_dynamic_msg_head").click(function() {
-					    jq(this).next(".jq_dynamic_msg_body").slideToggle(600);
-					});
-			});
+        jq(document).ready(function() {
+	     jq( "#accordion" ).accordion({ collapsible: true });
+        });
      </script>
 </metal:javascript>
 
@@ -147,19 +141,20 @@
               
               <form action="createObject">
 					
-                    <div class="jq_dynamic_msg_list" tal:condition="item/subtypes"
-                    		tal:repeat="type item/subtypes">
-						<h4 class="jq_dynamic_msg_head" tal:content="type/name" />
-						<div class="jq_dynamic_msg_body"> 
-							<span tal:content="structure type/description" />
-							<span tal:condition="type/requirements">
-								<b>Requirements:</b>
-								<span tal:omit-tag="" tal:content="structure type/requirements" />
-							</span>
-						</div>
-					</div>
-
-					<span style="padding:0em 0.5em 2em 0.5em" />
+                    <div id="accordion" tal:condition="item/subtypes">
+                        <tal:subtypes tal:repeat="type item/subtypes">
+                        <h3><a href="#" tal:content="type/name" /></h3>
+                        <div>
+                            <span tal:content="structure type/description" />
+                            <span tal:condition="type/requirements">
+                              <b>Requirements:</b>
+                              <span tal:omit-tag="" tal:content="structure type/requirements" />
+                            </span>
+                        </div>
+                        </tal:subtypes>
+                    </div>
+                    
+                    <span style="padding:0em 0.5em 2em 0.5em" />
 
 
 					 

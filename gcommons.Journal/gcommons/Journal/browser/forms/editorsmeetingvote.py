@@ -12,7 +12,7 @@ from zope.app.pagetemplate import ViewPageTemplateFile as Zope3PageTemplateFile
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
 
 
-logger = logging.getLogger('gcommons.Journal.browser.editorsmeetingvote')
+logger = logging.getLogger('gcommons.Journal.browser.forms.editorsmeetingvote')
 
 
 class EditorsMeetingPollVoteForm(form.Form):

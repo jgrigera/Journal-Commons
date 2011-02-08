@@ -26,8 +26,11 @@
     <metal:poll-open tal:condition="view/isPollOpen">
         <!-- Overlay for vote -->
         <script type="text/javascript">
+         var common_content_filter = '#content>*:not(div.configlet),dl.portalMessage.error,dl.portalMessage.info'; 
+
         (function($) { $(function() {
           $('.voteoverlay').prepOverlay(  {
+            filter: common_content_filter,
             subtype: 'ajax',
             formselector: 'form:has(input[name="voteform.buttons.vote"])',
             closeselector: '[name=form.buttons.cancel]',
