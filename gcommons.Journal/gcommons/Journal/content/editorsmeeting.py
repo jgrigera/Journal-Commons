@@ -291,9 +291,10 @@ URL: %s
     def getTotalVotes(self, optionId):
         votes = self.vote_storage.get_votes(self.vote_uid())
         count = 0
-        for who in votes:
-           if optionId in votes[who]:
-              count += 1 
+        if votes is not None:
+           for who in votes:
+               if optionId in votes[who]:
+                   count += 1 
         return count
         
     def getTotalVoters(self):

@@ -48,9 +48,6 @@ class EditorsMeetingView(gcommonsView):
         # checkPermission
         return self.portal_membership.checkPermission(permissions.Vote, self.context)
         
-    def getTotalVotes(self, optionId):
-    
-        return 5
 
     
 
