@@ -299,7 +299,10 @@ URL: %s
         
     def getTotalVoters(self):
         votes = self.vote_storage.get_votes(self.vote_uid())
+        if votes is None:
+           return 0
         return len(votes)
+        
     
 
 
