@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="gcommons.Utils">
+
+  <!-- Include z3c.form as dependency -->
+  <include package="plone.z3cform" />
+
+
+  <browser:page
+        for="*"
+        name="gcommons_editorsmeeting_vote"
+        class=".editorsmeetingvote.VoteFormView"
+        permission="zope2.View"
+        />
+
+  <!-- Default widget value for "action editor" -->
+  <adapter
+        factory=".articleassigneditor.DefaultActionEditor"
+        name="default" />
+
+
+</configure>
