@@ -126,7 +126,9 @@ class SubmissionsFolder(folder.ATFolder):
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
     helptext = atapi.ATFieldProperty('helpText')
     helptextanon  = atapi.ATFieldProperty('helpTextAnon')
-    
+
+    # Plone 4 compatibility with BaseBTree
+    _ordering = 'unordered'     # old large folder remain unordered at first 
     
     # Helpers
     def getSubmittablePortalTypes(self):

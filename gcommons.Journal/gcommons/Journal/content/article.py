@@ -199,7 +199,7 @@ def finalizeArticleSchema(schema):
     #schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your article.')
     schema['subject'].widget = AjaxKeywordsWidget(
                 label=_('Keywords'),
-                description=('Please select among the existing keywords or add new ones to describe the subjects of your article.')
+                description=('Please select among the existing keywords or add new ones to describe the subjects of your article. Use semicolon or press ENTER to add a tag.')
     )
  
     # Reorder

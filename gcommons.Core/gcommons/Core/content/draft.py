@@ -42,6 +42,7 @@ DraftSchema = ATFile.schema.copy() + atapi.Schema((
             description_msgid="gcommons_help_draft_subtype",            
         ),
         required=True,
+        default = 'first',
         storage = atapi.AnnotationStorage(),
         vocabulary="getDraftTypesVocabulary",        
         searchable=False   
@@ -86,7 +87,8 @@ class Draft(ATFile):
         Get the vocabulary of available draft types
         """        
         vocab = atapi.DisplayList()        
-        vocab.add('draft', 'Draft', 'draft')        
+        vocab.add('first', 'New Submission', 'first')        
+        vocab.add('draft', 'Reworked Draft', 'draft')        
         vocab.add('copyedited', 'Copy Edited Version', 'copyedited')        
         vocab.add('published', 'Published Version', 'published')        
         return vocab
