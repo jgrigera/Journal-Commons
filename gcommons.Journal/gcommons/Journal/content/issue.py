@@ -4,12 +4,13 @@
 from zope.interface import implements
 
 from Products.Archetypes import atapi
-from Products.ATContentTypes.content import folder
+from plone.app.folder import folder
 from Products.ATContentTypes.content import schemata
 
 from gcommons.Journal import JournalMessageFactory as _
 from gcommons.Journal.interfaces import IIssue
 from gcommons.Journal.config import PROJECTNAME
+
 
 IssueSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
