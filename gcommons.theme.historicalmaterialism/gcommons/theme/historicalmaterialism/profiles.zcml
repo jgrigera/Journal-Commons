@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="gcommons.theme.historicalmaterialism">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="gcommons.theme.historicalmaterialism"
+      directory="profiles/default"
+      description='Extension profile for the "historicalmaterialism" Plone theme.'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:importStep
+      name="gcommons.theme.historicalmaterialism.various"
+      title="historicalmaterialism: miscellaneous import steps"
+      description="Various import steps that are not handled by GS import/export handlers."
+      handler="gcommons.theme.historicalmaterialism.setuphandlers.setupVarious">
+    <depends name="skins"/>
+  </genericsetup:importStep>
+
+</configure>

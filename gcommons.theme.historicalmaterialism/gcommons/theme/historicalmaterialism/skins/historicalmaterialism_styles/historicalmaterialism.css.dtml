@@ -1,0 +1,2522 @@
+/*
+  This file is based on the ploneCustom.css.dtml shipped with Plone.
+
+  <dtml-with base_properties> (do not remove this)
+  <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either)
+*/
+
+/* YOUR CSS RULES START HERE */
+
+/* Pingpower Coolblue base.css.dtml */
+body {
+	  margin: 0; 
+	  padding: 0;
+      background:url("bg.jpg") repeat scroll 0 0 #FFFFFF;
+	  color: #777;
+      font: 12px/170% 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+	  }
+table {
+       margin:10px 25px;
+	   border-collapse:collapse;
+      }
+tr {
+
+    }
+th, td {
+        border-style:solid;
+        border-width:1px;
+        text-align:left;
+       }
+th {
+    padding:0.8em 1em; 
+	background:none repeat scroll 0 0 #999999;
+    border-color:#308ABA #308ABA #246F97;
+    color:#FFFFFF;
+    font-weight:bold;
+    }
+td {
+     padding:0.7em 1em;
+	 border-color:#E9E9E9;
+   }
+a:link{
+       color:#777777;
+       text-decoration:none;
+      }
+a:visited {
+           color:#777777;
+           text-decoration:none;
+		   }
+a:hover {
+         color:#999999;
+		}
+
+		
+img {
+    border: none;
+    vertical-align: middle;
+}
+p {
+   margin:10px 25px;
+   padding:0;
+   border:0 none;
+   font-family:inherit;
+   font-size:12px;
+   font-style:inherit;
+   font-weight:inherit;
+   outline:0 none;
+   vertical-align:baseline;
+  }
+p img {
+    border: none;
+    margin: 0;
+}
+hr {
+    border: 0;
+    height: &dtml-borderWidth;;
+    color: &dtml-globalBorderColor;;
+    background-color: &dtml-globalBorderColor;;
+    margin: 0.5em 0 1em 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: &dtml-fontColor;;
+    font-family: <dtml-var headingFontFamily>;
+    margin: 0.75em 0 0.25em 0;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+      color: &dtml-fontColor;
+      text-decoration: none;
+     }
+h1, h2, h3, h4 {
+                color:#555555;
+                font:bold 1em/1.5em 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+               }
+h1 {
+     font-size:3em;
+     font-weight:normal;
+     letter-spacing:-2px;
+    }
+h2 {
+    font-size:2.8em;
+    font-weight:normal;
+    }
+h3 {
+    font-size:2.2em;
+    font-weight:normal;
+    letter-spacing:-0.5px;
+    padding-top:15px;
+    }
+h4 {
+    font-size:1.5em;
+   }
+h5 {
+    font-size: 100%;
+    border-bottom: none;
+    font-weight: bold;
+}
+h6 {
+    font-size: &dtml-fontSmallSize;;
+    border-bottom: none;
+    font-weight: bold;
+}
+ul {
+    line-height: 1.5em;
+    padding: 0 20px;
+}
+ol {
+    line-height: 1.5em;
+    padding: 0;
+}
+li {
+    margin-bottom: 0.5em;
+}
+dt {
+    margin:0.5em 0 0 0.5em;
+    color:#1980AF;
+    font-weight: bold;
+}
+dd {
+    line-height: 1.5em;
+    margin-bottom: 1em;
+}
+abbr, acronym, .explain {
+    border-bottom: &dtml-borderWidth; dotted &dtml-fontColor;;
+    color: &dtml-fontColor;;
+    background-color: transparent;
+    cursor: help;
+}
+abbr .explain {
+    border-bottom: none;
+}
+q {
+    font-family: Baskerville, Georgia, serif;
+    font-style: italic;
+    font-size: 120%;
+}
+blockquote {
+            margin:10px 25px;
+            padding:10px 20px 10px 32px;
+			background:url("quote.gif") no-repeat scroll 12px 12px #F8F8F8;
+            border:1px solid #F0F0F0;
+            color:#555555;
+            font-family:Georgia,'Times New Roman',Times,Serif;
+            font-size:17px;
+            font-style:italic;
+            font-weight:normal;
+            line-height:1.5em;
+            }
+code, tt {
+          display:block;
+		  overflow:auto;
+		  margin:3px 0;
+          padding:20px;      
+          background:none repeat scroll 0 0 #F8F8F8;
+          border:1px solid #F0F0F0;
+          color:#555555;
+          font:500 1em/1.5em 'Lucida Console','Courier New',Monospace;
+          text-align:left;
+          }
+pre {
+    font-family: Monaco, "Courier New", Courier, monospace;
+    font-size: 100%;
+    padding: 1em;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    color: &dtml-fontColor;;
+    background-color: &dtml-globalBackgroundColor;;
+    overflow: auto;
+}
+ins {
+    color: green;
+    text-decoration: none;
+}
+del {
+    color: #777777;
+    text-decoration: line-through;
+}
+th, td {
+
+       }
+/* End of Pingpower Coolblue base.css.dtml */
+
+/* Pingpower Coolblue public.css.dtml */
+
+/* Accessibility elements, applied by JS */
+body.largeText { font-size: 95%; }
+body.smallText { font-size: 60%; }
+
+/* Padding for the columns */
+
+#portal-column-one .visualPadding {
+    padding: 0em 0em 1em 2em;
+}
+#portal-column-two .visualPadding {
+    padding: 0em 2em 1em 0em;
+}
+
+/* Content area */
+h1, h2 {
+    font-weight: normal;
+}
+/* Compensate for the inline editing hover, since we have a 1px border */
+body.kssActive h2.inlineEditable:hover,
+body.kssActive h1.inlineEditable:hover,
+body.kssActive h2.formlibInlineEditable:hover,
+body.kssActive h1.formlibInlineEditable:hover {
+    padding-bottom: 1px;
+}
+
+
+h3, h4, h5, h6 {
+                border-bottom: none;
+               }
+
+.documentFirstHeading {
+    margin-top: 0;
+}
+
+.documentContent {
+                 }
+.documentContent ul {
+                      list-style:disc outside none;
+                      margin: 0.5em 0 0 1.5em;
+                     }
+.documentContent ol {
+    margin: 0.5em 0 0 2.5em;
+}
+
+/* Links with differently colored link underlines - only for content */
+.documentContent p a {
+    text-decoration: none;
+    border-bottom: 1px #ccc solid;
+}
+.documentContent p a:visited {
+
+                             }
+.documentContent p a:active {
+    color: &dtml-linkActiveColor;;
+    background-color: transparent;
+}
+#content a:target {
+    background-color: #fd7 !important;
+}
+.documentContent li a {
+    text-decoration: none;
+    border-bottom: 1px #cccccc solid;
+}
+.documentContent li a:visited {
+    color: &dtml-linkVisitedColor;;
+}
+.documentContent li a:active {
+    color: &dtml-linkActiveColor;;
+}
+.documentContent dd a {
+    text-decoration: none;
+    border-bottom: 1px #cccccc solid;
+}
+.documentContent dd a:visited {
+    color: &dtml-linkVisitedColor;;
+    background-color: transparent;
+}
+.documentContent dd a:active {
+    color: &dtml-linkActiveColor;;
+    background-color: transparent;
+}
+/* End links */
+
+/* End edit form elements */
+
+#visual-portal-wrapper {
+    margin: 0;
+    padding: 0;
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+/* Logo properties */
+#portal-logo img {
+                  position: ralative;
+                  padding: 0;
+                  margin: 4.3em 0em 1em 2.5em;
+                  border: 0;
+                  }
+
+/* The skin switcher at the top, only shows up if you have multiple skins available */
+#portal-skinswitcher {
+}
+#portal-skinswitcher a {
+    display: block;
+    float: left;
+}
+#portal-top {
+    /* Top section */
+    background:url("header-bg.jpg") repeat-x scroll 0 0 transparent;
+    height:180px;
+    width:100%;
+}
+
+/* Site-wide action menu - font size, contact, index, sitemap etc */
+#portal-siteactions {
+    background-color: transparent;
+    white-space: nowrap;
+    list-style-image: none;
+    list-style-type: none;
+    margin: 1px 0 0 0;
+    height: auto;
+    line-height: normal;
+    float: right;
+    padding: 3px 2em 3px 0;
+}
+#portal-siteactions li {
+    display: inline;
+}
+#portal-siteactions li a {
+    background-color: transparent;
+    border: 1px solid &dtml-backgroundColor;;
+    color: &dtml-discreetColor;;
+    height: auto;
+    padding: 0.2em;
+    margin-right: 0.2em;
+    text-decoration: none;
+    text-transform: &dtml-textTransform;;
+}
+#portal-siteactions li.selected a {
+    background-color: &dtml-globalBackgroundColor;;
+    color: &dtml-globalFontColor;;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+}
+#portal-siteactions li a:hover {
+    background-color: &dtml-globalBackgroundColor;;
+    color: &dtml-globalFontColor;;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+}
+
+/* Searchbox style and positioning */
+
+#portal-searchbox {
+                   position:absolute;
+                   margin:0;
+                   padding:0;
+                   right:12px;
+                   top:95px;
+                   width:250px;
+				   background:none repeat scroll 0 0 transparent;
+                   border:medium none;
+                   }
+#livesearch0 {
+              margin: 0;
+			  padding: 0;
+			  }
+#portal-advanced-search {
+    margin-top: 0.2em;
+    clear: both;
+}
+#portal-advanced-search a {
+    color: &dtml-discreetColor;;
+    text-decoration: none;
+    text-transform: &dtml-textTransform;;
+}
+
+/* Search results elements */
+
+dl.searchResults dt {
+    font-size: 140%;
+    font-weight: normal;
+}
+
+form.searchPage {
+    text-align: center;
+}
+
+input.searchPage {
+    font-size: 200% !important;
+}
+
+form.searchPage input.searchButton {
+    background:url("searchbotton.jpg") no-repeat scroll 0 0 transparent;
+    background-position:5px 7px;
+    padding:1px 10px 1px 25px;
+}
+
+/* LiveSearch styles */
+.LSRes {
+    font-family:  <dtml-var fontFamily>;
+    visibility: visible;
+    color: &dtml-globalFontColor;;
+    background-color: &dtml-backgroundColor;;
+    vertical-align: middle;
+    display:block;
+    list-style-image: none;
+    list-style-type: none;
+    text-align: left;
+    min-width: 16.5em;
+    text-transform: none;
+    margin-left: 0;
+    line-height: 1.1em;
+}
+#LSHighlight,
+.LSHighlight {
+    background-color: &dtml-globalBackgroundColor;;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    color: &dtml-globalFontColor;;
+}
+.LSTable {
+    margin: 1em 0;
+}
+.LSRow {
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-backgroundColor;;
+    white-space: normal;
+    padding:0;
+    margin: 0;
+    list-style-image: none;
+    list-style-type: none;
+}
+.LSRow a {
+    text-decoration: none;
+    font-weight:bold;
+    white-space:nowrap
+}
+.LSDescr {
+    color: &dtml-discreetColor;;
+    font-size: &dtml-fontSmallSize;;
+    font-weight: normal;
+    margin-left: 2.5em;
+}
+.LSResult {
+    position: relative;
+    display: block;
+    text-align: right;
+    padding-top: 5px;
+    margin: 0;
+    left: 3px;
+    z-index: 3;
+}
+.LSShadow {
+    position: relative;
+    text-align: right;
+}
+.livesearchContainer {
+    background-color: &dtml-backgroundColor;;
+    margin-top: 0;
+    padding: 0 !important;
+    position: absolute;
+    right: 0px;
+    /* Currently exposes a rendering bug in Mozilla */
+    top: 0;
+    white-space: normal;
+    font-family:  <dtml-var fontFamily>;
+    visibility: visible;
+    text-align: left;
+    color: &dtml-globalFontColor;;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    width: 30em;
+    text-transform: none;
+}
+* html .livesearchContainer {
+    padding: &dtml-borderWidth; !important;
+    padding-top: 0 !important;
+    background-color: &dtml-globalBorderColor;;
+    border: 0;
+}
+#livesearchLegend {
+    line-height: 1em;
+    margin-top: -2em;
+    margin-left: -0.1em;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    border-bottom: 0;
+}
+* html #livesearchLegend {
+    margin-top: -1.9em;
+    margin-left: -8px;
+    position: relative;
+}
+
+/* Workaround for Internet Explorer's broken z-index implementation */
+.LSIEFix {
+    background-color: &dtml-backgroundColor;;
+    padding: 0.5em !important;
+    z-index: 20;
+}
+.LSBox {
+        margin:0;
+        padding:0;
+		height:40px;
+        width:250px;
+		background:url("search.gif") no-repeat scroll 0 0 transparent;
+        border:medium none;
+        }
+#LSNothingFound {
+    text-align: center;
+    padding: 2px;
+}
+.LSBox label {
+    font-weight: normal;
+}
+
+/* The global section tabs. */
+#portal-globalnav {
+                   position:absolute;
+				   top:25px;
+				   left:15px;
+                   margin:0;
+                   padding:0;
+                   width:750px;
+                   }
+#portal-globalnav li {
+    display: inline;
+}
+#portal-globalnav li a {
+    /* The normal, unselected tabs. They are all links */
+                        float:left;
+                        margin:0;
+                        padding:0 15px 29px ; 
+						*padding:0 15px 30px;
+						font:bold 12px 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+						text-decoration:none;
+						color:#BAA7A7;
+						text-shadow: 1px 2px 0 rgba(0, 0, 0, 0.9);
+                        }
+* html #portal-globalnav li a {
+                               
+						     }
+#portal-globalnav li.selected a {
+    /* The selected tab. There's only one of this */
+    background:url("current.png") no-repeat scroll center bottom transparent;
+    color:#FFFFFF;
+}
+#portal-globalnav li a:hover {
+                              border:medium none;
+							  color:#FFFFFF;
+                             }
+#portal-globalnav li a:visited {
+                                text-decoration:none;
+							    }
+#portal-personaltools {
+    /* Bar with personalized menu (user preferences, favorites etc) */
+    background-color: #000000; 
+    border-top-color: #000000;
+    border-top-style: &dtml-borderStyle;;
+    border-top-width: &dtml-borderWidth;;
+    border-bottom-color: #000000;
+    border-bottom-style: &dtml-borderStyle;;
+    border-bottom-width: &dtml-borderWidth;;
+    line-height: 1.6em;
+    color: &dtml-fontColor;;
+    padding: 0em 3em 0em 3em;
+    margin: 0;
+    text-align: right;
+    text-transform: &dtml-textTransform;;
+    list-style: none;
+}
+#portal-personaltools .portalUser {
+    background: transparent url(&dtml-portal_url;/user.gif) center left no-repeat;
+    padding-left: 18px;
+}
+#portal-personaltools .portalNotLoggedIn {
+    /* Used on all descriptions relevant to those not logged in */
+    color: &dtml-fontColor;;
+    padding: 0;
+    background: transparent;
+    background-image: none;
+}
+#portal-personaltools li {
+    color: &dtml-globalFontColor;;
+    margin-left: 1em;
+    display: inline;
+}
+#portal-personaltools li a {
+    text-decoration: none;
+    color: &dtml-globalFontColor;;
+}
+#portal-personaltools .visualIconPadding {
+    padding-left: 10px;
+}
+.visualCaseSensitive {
+    text-transform: none;
+}
+#portal-languageselector {
+    margin: 0 1em 0 1em;
+    float:right;
+}
+#portal-languageselector li {
+    display: inline;
+}
+#portal-breadcrumbs {
+    /* The path bar, including breadcrumbs and add to favorites */
+    border-bottom-color: &dtml-globalBorderColor;;
+    border-bottom-style: &dtml-borderStyle;;
+    border-bottom-width: &dtml-borderWidth;;
+    padding-left: 2em;
+    padding-right: 2em;
+    text-transform: &dtml-textTransform;;
+    line-height: 1.6em;
+}
+#portal-breadcrumbs a {
+    text-decoration: none;
+}
+.breadcrumbSeparator {
+    font-size: 120%;
+}
+.addFavorite {
+    vertical-align: bottom;
+}
+.documentEditable {
+		width:738px;
+}
+#content-news h1 {
+    margin-bottom: 1em;
+}
+
+/* Only h5/h6 headlines in the content area should have the discreet color */
+#content h5,
+#content h6 {
+    color: &dtml-discreetColor;;
+}
+.newsItem {
+    margin-bottom: 1em;
+    border-bottom: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+}
+.newsImage {
+    border: 1px solid #ccc;
+}
+.newsImageContainer {
+    float:right;
+    margin: 0 0 0.5em 1em;
+    width: 202px;
+}
+.newsContent {
+    padding: 0 1em 1em 1em;
+}
+.newsContent ul,
+.newsContent li {
+    display: block;
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+}
+.newsAbout {
+    display: block;
+    color: &dtml-discreetColor;;
+    font-size: &dtml-fontSmallSize;;
+    padding: 0;
+    margin-top: 0;
+    list-style: none;
+    list-style-image: none;
+    float: right;
+    text-align: right;
+}
+.newsAbout li {
+    display: inline;
+}
+.newsFooter {
+
+}
+.newsFooter li {
+    display: inline;
+    margin: 0 1em 0 0;
+}
+.documentActions {
+    margin: 1em 0;
+    padding: 0;
+    text-align: right;
+    border-top: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+}
+.documentActions ul {
+    margin: 0;
+    padding: 0 0.5em;
+    display: block;
+    margin-top: -0.9em;
+    list-style-type: none;
+    list-style-image: none;
+}
+.documentActions li {
+    display: inline;
+    font-size: &dtml-fontSmallSize;;
+    margin: 0 0.5em;
+    padding: 0 0.25em;
+    background-color: &dtml-backgroundColor;;
+}
+.documentActions a {
+    border: none !important;
+    text-decoration: none;
+}
+
+/* Status messages */
+
+dl.portalMessage {
+    font-size: &dtml-fontSmallSize;;
+    background-color: #ffffe3; 
+    border: 1px solid #996;    
+}
+dl.portalMessage a {
+    color: black;
+    border: none;
+    text-decoration: underline;
+}
+dl.portalMessage dt {
+    background-color: #996; 
+    font-weight: bold;
+    float: left;
+    margin: 0 0.5em 0 0;
+    padding: 0.5em 0.75em;
+    color: White;
+    line-height: 1.25em;
+}
+dl.portalMessage dd {
+    padding: 0.5em 0.5em; 
+    margin: 0;
+    line-height: 1.25em;
+}
+dl.warning {
+    border-color: #d80;
+}
+dl.warning dt {
+    background-color: #d80;
+}
+dl.error {
+    border-color: #d00;    
+}
+dl.error dt {
+    background-color: #d00; 
+}
+dl.warning {
+    border-color: #d80;    
+}
+dl.warning dd {
+    background-color: #fd7; 
+}
+dl.error {
+    border-color: #d80;    
+}
+dl.error dd {
+    background-color: #fd7; 
+}
+
+.documentDescription {
+    /* The summary text describing the document */
+    font-weight: bold;
+    display: block;
+    margin: 0em 0em 0.5em 2em;
+    line-height: 1.5em;
+}
+.documentByLine {
+    font-size: &dtml-fontSmallSize;;
+    font-weight: normal;
+    color: &dtml-discreetColor;;
+    margin-bottom: 0.5em;
+}
+dl.searchResults span.documentByLine {
+    display: block;
+}
+.discussion {
+    margin-top: 1em;
+}
+.even {
+
+}
+.odd {
+    background-color: &dtml-oddRowBackgroundColor;;
+}
+.visualHighlight {
+    background-color: #ffc;
+}
+.discreet {
+    color: &dtml-discreetColor;;
+    font-size: &dtml-fontSmallSize;;
+    font-weight: normal;
+}
+.pullquote {
+    padding: 0 1em 0 1em;
+    margin: 0 0 1em 1em;
+    font-weight: bold;
+    color: #CC9933;
+    float: right;
+    width: 35%;
+    clear: right;
+    background-color: &dtml-backgroundColor;;
+    border-left: 4px solid &dtml-globalBorderColor;;
+}
+.callout {
+    font-weight: bold;
+    color: #CC9933;
+    padding: 0px 1em;
+}
+
+.notify,
+.documentEditable * .notify {
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-notifyBorderColor;;
+}
+.card {
+    background-color: &dtml-globalBackgroundColor;;
+    border-color: &dtml-globalBorderColor;;
+    border-width: &dtml-borderWidth;;
+    border-style: &dtml-borderStyle;;
+    float: left;
+    margin: 1em;
+    text-align: center;
+    width: 110px;
+    padding: 1em 0;
+}
+.card a {
+    text-decoration: none;
+}
+.portrait {
+    background-color: &dtml-globalBackgroundColor;;
+    border-color: &dtml-globalBorderColor;;
+    border-width: &dtml-borderWidth;;
+    border-style: &dtml-borderStyle;;
+    font-size: &dtml-fontSmallSize;;
+    margin: 0.5em;
+    padding: 1em 0 0.5em 0;
+    text-align: center;
+    width: 100px;
+}
+.portraitPhoto {
+    border: 1px solid black;
+}
+
+/* The table used for listings - horizontal and vertical variants */
+table.listing,
+.stx table {
+    /* The default table for document listings. Contains name, document types, modification times etc in a file-browser-like fashion */
+    border-collapse: collapse;
+    border-spacing: 0;    
+    border-left: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    border-bottom: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    font-size: &dtml-fontSmallSize;;
+    margin: 1em 0em 1em 0em;
+}
+table.listing th,
+.stx table th {
+    background: &dtml-globalBackgroundColor;;
+    border-top: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    border-bottom: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    border-right: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    font-weight: normal;
+    padding: 0.25em 0.5em;
+    text-transform: &dtml-textTransform;;
+}
+table.listing .top {
+    border-left: &dtml-borderWidth; &dtml-borderStyle; &dtml-backgroundColor;;
+    border-top: &dtml-borderWidth; &dtml-borderStyle; &dtml-backgroundColor; ! important;
+    border-right: &dtml-borderWidth; &dtml-borderStyle; &dtml-backgroundColor; ! important;
+    text-align: right ! important;
+    padding: 0em 0em 1em 0em;
+}
+table.listing .listingCheckbox {
+    text-align: center;
+}
+table.listing td,
+.stx table td {
+    border-right: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    padding: 0.25em 0.5em;
+}
+table.listing a {
+    text-decoration: none;
+}
+table.listing a:hover {
+    text-decoration: underline;
+}
+table.listing img {
+    vertical-align: middle;
+}
+table.listing td a label,
+.stx table td a label {
+    cursor: pointer;
+}
+
+/* Vertical addition class */
+table.vertical {
+    background-color: &dtml-backgroundColor;;	
+}
+table.vertical th {
+    padding: 0.5em;
+}
+table.vertical td {
+    border-top: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    padding: 0.5em;
+}
+
+/* grid addition class */
+
+table.grid td {
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    padding: 0.5em;
+}
+
+/* plain table class with light gray borders */
+
+table.plain,
+table.plain td,
+table.plain th {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    border-collapse: collapse;
+}
+
+/* Batch selector */
+.listingBar {
+    background-color: &dtml-globalBackgroundColor;;
+    border-color: &dtml-globalBorderColor;;
+    border-style: &dtml-borderStyle;;
+    border-width: &dtml-borderWidth;;
+    padding: 0em 1em;
+    text-align: center;
+    text-transform: &dtml-textTransform;;
+    vertical-align: top;
+    margin: 1em 0em;
+    font-size: 94%;
+    clear: both;
+}
+.listingBar span.previous,
+.listingPrevious {
+    text-align: left;
+    float: left;
+    margin-right: 1em;
+}
+.listingBar span.next,
+.listingNext {
+    text-align: right;
+    float: right;
+    margin-left: 1em;
+}
+.listingBar img {
+    vertical-align: middle;
+}
+.listingBar a {
+    text-decoration: none;
+}
+.tileItem {
+    border-top: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    padding-top: 0.5em;
+    margin-top: 0.5em;
+}
+.tileHeadline {
+    border: none;
+    font-size: 110%;
+    font-weight: bold;
+}
+.tileHeadline a {
+    text-decoration: none;
+}
+.tileBody {
+    margin-bottom: 0.5em;
+}
+.tileImage {
+    float: right;
+    margin: 0 0 0.5em 0.5em;
+    border: 1px solid black;
+}
+.eventDetails {
+    float: right;
+    clear: right;
+    margin: 0 0 0.5em 1em;
+}
+
+/* Useful deviations from regular style on elements */
+
+/* List classes without markers */
+ul.visualNoMarker,
+ol.visualNoMarker {
+    list-style-type: none;
+    list-style-image: none;
+    margin: 0.5em 0 0 0;
+    line-height: 1em;
+}
+
+ul.discreet {
+    list-style-image: none;    
+    list-style-type: disc;
+}
+
+textarea.proportional {
+    font: 100% <dtml-var fontFamily>;
+}
+.productCredits {
+    text-align: right;
+    font-size: &dtml-fontSmallSize;;
+    clear: both;
+    font-weight: normal;
+    color: &dtml-discreetColor;;
+}
+#portal-footer {
+				overflow:hidden;
+				clear:both;
+                padding-top:40px;
+				padding-bottom: 20px;
+				background:url("bg.jpg") repeat scroll 0 0 #FFFFFF;
+                color:#C2DBE7;
+                font-family:'Trebuchet MS','Helvetica Neue',Arial,sans-serif;
+                font-size:0.9em;
+				text-align: center;
+				text-shadow:0 1px 1px rgba(0, 0, 0, 0.6);
+               }
+#portal-footer p {
+                 margin: 0.25em 0;
+	            color:#C2DBE7;
+                font-family:'Trebuchet MS','Helvetica Neue',Arial,sans-serif;
+                font-size:1em;
+				text-align: center;
+				text-shadow:0 1px 1px rgba(0, 0, 0, 0.6);
+                }
+#portal-footer a {
+    text-decoration: none;
+    color:#FFFFFF;
+    border: none;
+}
+#portal-footer a:visited {
+       color:#FFFFFF;
+}
+#portal-footer a:hover {
+    color:#99CCFF;
+}
+#portal-colophon {
+                  float: right;
+                  margin: 0em 2em 4em 0em;
+				  *margin: 0em 1em 2em 0;
+                  padding-top:30px;
+				  *padding-top:40px;
+                  text-align: center;
+                  color: #666;
+                  }
+#portal-colophon ul {
+    list-style-image: none;
+    list-style-type: none;
+}
+#portal-colophon ul li {
+    display: inline !important;
+    font-size: &dtml-fontSmallSize;;
+    padding: 0 0.75em;
+}
+#portal-colophon ul li a {
+	                      color:#C2DBE7;
+                          font-family:'Trebuchet MS','Helvetica Neue',Arial,sans-serif;
+                          font-size:1em;
+						  *font-size:0.9em;
+				          text-align: center;
+				          text-shadow:0 1px 1px rgba(0, 0, 0, 0.6);
+                         }
+
+.feedButton {
+    display: block; 
+    float: right; 
+    margin-top: 1px;
+}
+.poweredBy {
+    display: block;
+    clear: both;
+    font-size: &dtml-fontSmallSize;;
+    font-weight: normal;
+    color: &dtml-discreetColor;;
+    text-align: right;
+}
+
+/* Sitemap styles */
+#portal-sitemap {
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    font-size: 90%;
+    border: none;
+}
+#portal-sitemap a {
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-backgroundColor;;
+}
+#portal-sitemap a:hover {
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+}
+#portal-sitemap .navTreeLevel1 {
+    padding-left: 1em;
+    border-left: 0.5em solid &dtml-globalBorderColor;;
+    margin: 0 0 0 0.5em;
+}
+#portal-sitemap .navTreeLevel2 {
+    padding-left: 1em;
+    border-left: 0.5em solid &dtml-globalBackgroundColor;;
+    margin: 0 0 0 0.6em;
+}
+
+/* Album view classes */
+.photoAlbumEntry {
+    float: left;
+    position:relative;
+    overflow: hidden;
+    height: 185px;
+    width: 143px;
+    margin: 0em;
+    padding: 0px 6px 0px 9px;
+    text-align: center;
+    background-image: url('&dtml-portal_url;/polaroid-single.png');
+    background-repeat: no-repeat;
+}
+.photoAlbumEntry img {
+    border: 1px solid #ccc;
+    display: block;
+    margin: 0 auto;
+}
+.photoAlbumEntryWrapper {
+    /*display: block;*/
+    height: 130px;
+    width: 128px;
+    margin-bottom: 7px;
+}
+.photoAlbumEntry a {
+    display: block;
+    text-decoration: none;
+    font-size: &dtml-fontSmallSize;;
+    height: 169px;
+    width: 130px;
+    margin: 16px auto 0px;
+}
+.photoAlbumFolder {
+    background-image: url('&dtml-portal_url;/polaroid-multi.png');
+    background-repeat: no-repeat;
+}
+.photoAlbumEntryTitle {
+    color: &dtml-discreetColor;;
+    display: block;
+    width: 128px;
+    height: 3.6em;
+}
+
+/* Link types */
+a.link-parent {
+    display: block;
+    background: transparent url(&dtml-portal_url;/arrowUp.gif) 4px 5px no-repeat;
+    padding: 1px 0px 10px 16px;
+    font-size: &dtml-fontSmallSize;;
+    text-decoration: none;
+}
+#content .link-category {
+    color: #74ae0b !important;
+}
+#content .link-user {
+    background: transparent url(&dtml-portal_url;/user.gif) 0 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content .link-comment {
+    background: transparent url(&dtml-portal_url;/discussionitem_icon.gif) center left no-repeat;
+    padding: 1px 0px 1px 16px !important; /* value:  */
+}
+#content .link-anchor {
+    color: &dtml-discreetColor;;
+    text-decoration: none;
+    font-weight: normal;
+}
+#content .link-presentation {
+    font-size: 90%;
+    text-align: center;
+}
+
+#content .link-wiki-add {
+    color: red;
+}
+
+
+/* Handling external links */
+#content span.link-external a {
+    background: transparent url(&dtml-portal_url;/link_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content span.link-https a {
+    background: transparent url(&dtml-portal_url;/lock_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+/* Protocol-specific links */
+#content span.link-mailto  a {
+    background: transparent url(&dtml-portal_url;/mail_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content span.link-news a {
+    background: transparent url(&dtml-portal_url;/topic_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content span.link-ftp a {
+    background: transparent url(&dtml-portal_url;/file_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content span.link-irc a {
+    background: transparent url(&dtml-portal_url;/discussionitem_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content span.link-callto a {
+    background: transparent url(&dtml-portal_url;/phone_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content span.link-webcal a {
+    background: transparent url(&dtml-portal_url;/event_icon.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+#content span.link-feed a {
+    background: transparent url(&dtml-portal_url;/rss.gif) 0px 1px no-repeat;
+    padding: 1px 0px 1px 18px;
+}
+
+#content .link-plain {
+    background-image: none !important;
+    padding: 0 !important;
+}
+
+/* For ghosted elements */
+.visualGhosted {
+    opacity: 0.2;
+}
+
+/* Fullscreen
+**
+** Fullscreen mode is disabled by default. The styles below are used only in case you have it
+** enabled.
+*/
+
+body.fullscreen #portal-logo,
+body.fullscreen #portal-siteactions {
+    display: none;
+}
+body.fullscreen #portal-globalnav {
+    margin-top: 4em;
+}
+body.fullscreen #portal-searchbox {
+    margin: 0.5em 2em 0 0.5em;
+    padding: 0;
+    position: relative;
+    z-index: 3;
+}
+
+
+/* Kupu image alignment classes */
+.image-left {
+   float: left;
+   clear: both;
+   margin: 0.5em 1em 0.5em 0;
+   border: 1px solid Black;
+}
+.image-inline {
+              display:block; 
+			  clear:both;
+              padding:12px;
+			  background:none repeat scroll 0 0 #F3F4F5;
+              border:1px solid #E2E3E7;
+			  -moz-border-radius:4px 4px 4px 4px;
+              -moz-box-shadow:3px 3px 3px #F3F4F5, -3px -3px 3px #F3F4F5;
+              }
+.image-right {
+   float: right;
+   clear: both;
+   margin: 0.5em;
+   border: 1px solid Black;
+}
+dd.image-caption {
+   text-align:left;
+   padding: 0; margin:0;
+}
+dl.captioned {
+   padding: 10px;
+}
+
+/* Dashboard */
+#dashboard-info-message {
+    padding-top: 0.5em;
+}
+
+#dashboard {
+    width: 68em;
+}
+
+#dashboard-portlets1,
+#dashboard-portlets2,
+#dashboard-portlets3
+{
+    float:left;
+    width:16em;
+    padding:0.7em 1.3em 0 0;
+}
+
+#dashboard-portlets4 {
+    float:left;
+    width:16em;
+    padding-top:0.7em;
+}
+
+#dashboard-portlets1 a,
+#dashboard-portlets2 a,
+#dashboard-portlets3 a,
+#dashboard-portlets4 a {
+    border-bottom:medium none;
+}
+
+#dashboard-portlets1 dl.portlet,
+#dashboard-portlets2 dl.portlet,
+#dashboard-portlets3 dl.portlet,
+#dashboard-portlets4 dl.portlet {
+    margin-bottom:1.5em;
+}
+
+div.managedPortlet.portlet {
+    border-bottom:none;
+}
+#dashboard select {
+    width:100%;
+}
+
+.portletAssignments {
+    margin-top:1.5em;
+}
+
+#dashboard-portlets1 div.managedPortlet a,
+#dashboard-portlets2 div.managedPortlet a,
+#dashboard-portlets3 div.managedPortlet a,
+#dashboard-portlets4 div.managedPortlet a {
+    text-decoration: none;
+    color: &dtml-globalFontColor;;
+    border-bottom:1px solid &dtml-globalFontColor;;
+}
+
+#dashboard-portlets1 div.managedPortlet span a,
+#dashboard-portlets2 div.managedPortlet span a,
+#dashboard-portlets3 div.managedPortlet span a,
+#dashboard-portlets4 div.managedPortlet span a{
+    border-bottom:none;
+}
+
+#dashboard-actions {
+    float:right;
+}
+
+#dashboard-actions ul {
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;    
+    margin-top:0;
+}
+
+#dashboard-actions ul li {
+    display:inline;
+    padding-left:0.7em;
+}
+
+#dashboard-actions ul li.portalUser {
+    padding-left:18px;
+}
+
+/* manage portlets */
+
+.section div {
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+}
+
+/* End of Pingpower Coolblue public.css.dtml */
+
+/* Pingpower Coolbule forms.css.dtml */
+
+textarea {
+        margin:5px 0;
+        padding:7px 6px;
+        border-color:#D4D4D4 #EBEBEB #EBEBEB #D4D4D4;
+        border-style:solid;
+        border-width:1px;
+        color:#6A6969;
+        font:11px 'Lucida Grande',Verdana,Helvetica,sans-serif;
+       }
+input {
+       margin:0;
+       padding:7px 6px;
+	   border-color:#D4D4D4 #EBEBEB #EBEBEB #D4D4D4;
+       border-style:solid;
+       border-width:1px;
+       color:#6A6969;
+       font:11px 'Lucida Grande',Verdana,Helvetica,sans-serif;
+       }
+
+/* Code to work around IE's lacking support of sub-elements of the input element */
+.noborder,
+.documentEditable * .noborder {
+    border: none;
+    margin: 0;
+    background: none;
+    background-color: transparent;
+}
+
+input[type=checkbox] {
+    border: none;
+    margin: 0;
+    background: none;
+    background-color: transparent;
+}
+
+
+#searchGadget {
+                margin:0px 0 10px 10px;
+                width:180px;
+				border:none;
+				background:none repeat scroll 0 0 transparent;
+                color:#7D8285;
+                font-weight:bold;
+               }
+
+button {
+    font-family: <dtml-var fontFamily>;
+    visibility: visible;
+    border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
+    color: &dtml-inputFontColor;;
+    vertical-align: middle;
+    background-color: &dtml-globalBackgroundColor;;
+    padding: 1px;
+    cursor: pointer;
+    font-size: &dtml-fontSmallSize;;
+    text-transform: &dtml-textTransform;;    
+}
+select {
+        margin:5px 0;
+        padding:7px 6px;
+        border-color:#D4D4D4 #EBEBEB #EBEBEB #D4D4D4;
+        border-style:solid;
+        border-width:1px;
+        color:#6A6969;
+        font:11px 'Lucida Grande',Verdana,Helvetica,sans-serif;
+       }
+form {
+      margin:10px 25px;
+      padding:10px 25px 25px;
+	  background:none repeat scroll 0 0 #FFFFFF;
+      border:none;
+     }
+#loginform {
+            margin:10px 0;
+			}
+fieldset {
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+    margin: 1em 0em 1em 0em;
+    padding: 0em 1em 1em 1em;
+    line-height: 1.5em;
+    width: auto;
+}
+legend {
+    background: &dtml-backgroundColor;;
+    padding: 0.5em;
+    font-size: 90%;
+}
+label {
+       font-weight: bold;
+	   font-size: 12px;
+       }
+optgroup {
+  font-style: normal;
+  font-weight: bold;
+  color: #999;
+  padding-left: 0.25em;
+}
+option {
+  color: black;
+}
+optgroup > option {
+  padding: 0 0.25em 0 1em;
+}
+
+dl.enableFormTabbing dd {
+    margin-left: 0;
+    padding-top: 2em;
+}
+
+#login-form {
+    width: 30em; 
+    margin: 0 auto;
+}
+#login-form .field {
+    clear: none;
+}
+#login-form input {
+    font-size: 150%;
+}
+#login-form input.context {
+    padding: 1px 10px 1px 20px;
+    background-position: 9px 5px;
+    margin-bottom: 1em;
+}
+
+#forgotten-password {
+    float: right; 
+    width: 35%; 
+    margin: 0 1em;
+}
+
+.standalone,
+.documentEditable * .standalone {
+                               margin:0;
+							   padding:2px 3px;background:none repeat scroll 0 0 #2C76A6;
+							   height:30px;
+							   border-color:#86BBDF #245F86 #245F86 #86BBDF;
+							   border-style:solid;
+							   border-width:1px;
+							   color:#FFFFFF;
+							   cursor:pointer;
+							   font:bold 12px Arial,Sans-serif;
+                              }
+.context,
+.formControls .actionButtons .button,
+.documentEditable * .context {
+                               margin:0;
+							   padding:2px 3px;background:none repeat scroll 0 0 #2C76A6;
+							   height:30px;
+							   border-color:#86BBDF #245F86 #245F86 #86BBDF;
+							   border-style:solid;
+							   border-width:1px;
+							   color:#FFFFFF;
+							   cursor:pointer;
+							   font:bold 12px Arial,Sans-serif;
+                             }
+.destructive,
+.documentEditable * .destructive {
+                               margin:0;
+							   padding:2px 3px;background:none repeat scroll 0 0 #2C76A6;
+							   height:30px;
+							   border-color:#86BBDF #245F86 #245F86 #86BBDF;
+							   border-style:solid;
+							   border-width:1px;
+							   color:#FFFFFF;
+							   cursor:pointer;
+							   font:bold 12px Arial,Sans-serif;
+                              }
+input.searchButton {
+					padding: 0;
+					width: 40px;
+					height:40px;
+					background:transparent;
+                    border:none;
+					border-width:0;
+					cursor:pointer;
+                    text-indent:-9999px;
+                    }
+.searchSection {
+    color: &dtml-discreetColor;;
+    margin-top: 0.25em;
+}
+.searchSection label:hover {
+    color: &dtml-fontColor;;
+}
+
+/* The edit form elements */
+.field {
+    top: 0;
+    left: 0;
+    margin: 0 1em 1em 0;
+    clear: both;
+}
+.field .field {
+    margin: 0;
+}
+.fieldRequired {
+    background: url(&dtml-portal_url;/required.gif) center left no-repeat;
+    padding: 0 0 0 8px;
+    color: &dtml-backgroundColor;;
+}
+.fieldUploadFile {
+    text-align: right; 
+    margin-right: 0.75em;
+    display: none;
+}
+.fieldTextFormat {
+    text-align: right;
+    margin-right: 0.75em
+}
+.formHelp {
+    font-size: 90%;
+    color: &dtml-discreetColor;;
+    margin: 0 0 0.2em 0;
+}
+.formHelp:hover {
+    color: &dtml-fontColor;;
+    cursor: default;
+}
+div.error {
+    /* Class for error indication in forms */
+    background-color: #fdc; 
+    border: 1px solid #d00;
+    padding: 0.5em;
+    margin: 0 0 1em 0;
+    width: 95%;
+}
+.error .fieldRequired {
+   color: #d00;
+}
+
+
+/* Styles to make the editing widgets look more like their view counterparts */
+#archetypes-fieldname-title input, input#form\.title {
+    font-size: 160%;
+    font-family: <dtml-var headingFontFamily>;
+    font-weight: normal;
+    width: 99%;
+}
+#archetypes-fieldname-description textarea, textarea#form\.description {
+    font: 100% <dtml-var fontFamily>;
+    font-weight: bold;
+}
+input.inputLabelActive {
+  color: &dtml-discreetColor;;
+}
+
+textarea#form\.description {
+    height: 6em;
+    width: 99%;
+}
+
+tr.selected { 
+    background-color: #ffa;
+}
+
+.kupu-save-message {
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  padding: 0.3em;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
+
+/* End of Pingpower Coolbule forms.css.dtml */
+
+/* Pingpower Coolblue columns.css.dtml */
+
+#portal-columns {
+                 margin:0 auto;
+                 overflow:hidden;
+                 padding:0 0 20px;
+                 width:1000px;
+				 background:url("content.gif") repeat-y scroll center top #FFFFFF;
+
+                }
+#portal-column-one {
+    vertical-align: top;
+    width: <dtml-var columnOneWidth missing="16em">;
+    border-collapse: collapse;
+    padding: 0;
+}
+#portal-column-content {
+                        margin: 0em 0em 0em 0em;
+						padding: 0.7em 0;
+	                    width: auto; 
+						vertical-align: top;
+						background-color:#FFFFFF;
+						border-collapse: collapse;
+						border-width: 0;
+                       }
+#portal-column-two {
+                    float:right;    
+                    margin:0 0 0 20px;
+                    padding:0;
+					width:245px;
+					vertical-align: top;
+                    font-size:0.95em;
+                    border-collapse: collapse;   
+					border-width: 0;
+                    }
+
+/* fullscreen */
+body.fullscreen #portal-column-one,
+body.fullscreen #portal-column-two {
+    display: none;
+}
+body.fullscreen #portal-column-content { 
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+}
+
+/* End of Pingpower Coolblue columns.css.dtml */
+
+/* Pingpower Coolblue portlets.css.dtml */
+
+.managePortletsFallback {
+    margin: 0 0 0 1em;
+}
+
+/* Main portlet elements */
+.portlet {
+    margin: 1px 0 1em 0;
+    border-bottom: none;
+    background-color: &dtml-backgroundColor;;
+}
+.portlet a {
+    text-decoration: none;
+}
+.portlet a.tile {
+    display: block;
+}
+
+.portletItem ul {
+                  margin:10px 15px 10px 0px;
+                  padding:0;
+                  text-align:left;
+                 }
+.portletItem ul li {
+                    margin:0;
+                    padding:7px 5px;
+					border-bottom:1px solid #EFEFEF;
+                    font-size:11px;
+                    list-style:none outside none;
+                   }
+* html body .portletItem ul li {
+                                  height:1%;
+                                }
+.portletItem ul li a:link,
+.portletItem ul li a:visited {
+                           padding-left:0;color:#666666;
+                           font-weight:bold;
+                           text-transform:uppercase;
+                           }
+.portletItem ul li a span {
+                           color:#959595;
+                           font-family:'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+                           font-style:normal;
+                           font-weight:normal;
+                           text-transform:none;
+                           }
+.portletItem ul li a:hover {
+                            color:#000000;
+                           }
+/* XXX: The two below rules should really be in the rule above, but that makes the items grow/shrink on :hover (navtree) - need to investigate how to make it not do that. ~limi, Dec 2005 */
+.portletItem a,
+.portletFooter a {
+    border-bottom: none;
+}
+
+.portletItem a:visited,
+.portletFooter a:visited {
+
+}
+.portletHeader,
+.managedPortlet .portletHeader {
+								padding-top:15px;
+								color:#333333;
+								font:bold 1.7em 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+								letter-spacing:0.2px;
+                                }
+.portletHeader a, .managedPortlet .portletHeader a {
+    color: &dtml-fontColor;;
+}
+.inheritedPortlet .portletHeader {
+  background-color: transparent;
+}
+.portletItem {
+              margin: 0;
+              padding:0;
+              }
+.portletItem ol {
+    margin: 0 0 0 1em;
+}
+.portletItemDetails {
+    text-align: right;
+    display: block;
+    color: &dtml-fontColor;;
+}
+.portletFooter {
+                margin: 0;
+                padding: 0.25em 1em;
+				background-color:transparent;
+                border-top-width:0;
+                text-align: right;
+                }
+
+/* Elements that enable layout with rounded corners */
+.portletTopLeft {}
+.portletTopRight {}
+.portletBottomLeft {}
+.portletBottomRight {}
+
+/*
+** Calendar elements - used in the calendar rendering
+*/
+.dayPopup {
+    background-color: &dtml-helpBackgroundColor;;
+    border: &dtml-borderWidth; &dtml-borderStyle; Black;
+    padding: 0.2em;
+    position: absolute;
+    visibility: hidden;
+    width: 12em;
+    z-index: 2;
+}
+.date {
+    font-weight: bold;
+}
+.portletCalendar {
+    width: 100%;
+    margin: 1px 0 1em 0;
+    width: 100%;
+}
+.portletCalendar dt {
+                     border-bottom: none;
+					 line-height: 1.6em;
+					 color: black;
+					 font:bold 1.7em 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+                     text-align: center;
+                     }
+.portletCalendar dd {
+    margin: 0;
+    padding: 0;
+}
+.portletCalendar a {
+    text-decoration: none;
+}
+.portletCalendar a:hover {
+    text-decoration: none;
+}
+.ploneCalendar {
+                margin:0;
+                border-collapse: collapse;
+                border-spacing:0;
+                width: 100%;
+               }
+.ploneCalendar td {
+    background-color: transparent;
+    width: 14%;
+    text-align: center;
+    padding: 2px;
+}
+.ploneCalendar .weekdays th {
+                             padding: 2px;
+						   	 background:none repeat scroll 0 0 #999999;
+                             color:#FFFFFF;
+                             font-weight:bold;
+							 text-align: center;
+                             }
+.ploneCalendar .event {
+    background-color: &dtml-globalBackgroundColor;;
+    font-weight: bold;
+}
+.ploneCalendar .todayevent {
+    background-color: &dtml-globalBackgroundColor;;
+    border: 2px &dtml-borderStyle; &dtml-notifyBorderColor;;
+    font-weight: bold;
+}
+.ploneCalendar .todaynoevent {
+    border-collapse: collapse;
+    border: 2px &dtml-borderStyle; &dtml-notifyBorderColor;;
+}
+
+.managePortletsLink {
+    text-align: center;
+}
+
+div.portlets-manager div.section {
+    padding-top: 1em !important;
+}
+
+div.managedPortlet {
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    background-color: transparent;
+}
+
+.managedPortlet .portletHeader {
+    min-height: 3em !important;
+}
+
+.managedPortlet a {
+    text-decoration: underline;
+}
+
+.managedPortletActions {
+    display:block;
+    float:right;
+}
+
+.managedPortletActions a {
+    text-decoration: none;
+}
+
+.managedPortletActions a.up,
+.managedPortletActions a.down {
+    color:blue !important;
+}
+
+.managedPortletActions a.delete {
+    color:red !important;
+}
+
+/* Table of Contents styling - essentially a portlet with smaller fonts and aligned right + limited in width */
+.toc {
+    float: right;
+    width: 30%;
+    font-size: 90%;
+    margin: 0 0 0.5em 0.5em;
+}
+
+.toc .TOC1Digit {
+    margin-left: 1em;
+}
+
+.toc .TOC2Digit {
+    margin-left: 2em;
+}
+
+.toc .TOC3Digit {
+    margin-left: 3em;
+}
+
+/* Static text portlet */
+.portletStaticText ul {
+    list-style-image: url(&dtml-portal_url;/bullet.gif);
+    list-style-type: square; 
+    margin: 0.5em 0 0 1.5em;
+}
+
+.portletStaticText ol {
+    margin: 0.5em 0 0 2em;
+}
+
+/* LiveSearch portlet tweaks, since positioning changes */
+#portal-column-one fieldset.livesearchContainer {
+    right: inherit !important;
+    top: 1.5em !important;
+}
+
+<dtml-comment>
+/* Commented out for now, since the calendar markup has changed slightly ~limi */
+
+
+.calendarPrevious {
+    background-image: url(&dtml-portal_url;/arrowLeft.gif);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    float: left;
+}
+.calendarNext {
+    background-image: url(&dtml-portal_url;/arrowRight.gif);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    float: right;
+}
+.calendarPrevious,
+.calendarNext {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    padding-top: <dtml-var "_['arrowLeft.gif'].height">px;
+    height: 0px !important;
+    height /**/: <dtml-var "_['arrowLeft.gif'].height">px;
+    cursor: pointer;
+}
+.calendarNext {
+    padding-top: <dtml-var "_['arrowRight.gif'].height">px;
+    height: 0px !important;
+    height /**/: <dtml-var "_['arrowRight.gif'].height">px;
+}
+
+</dtml-comment>
+
+/* End of Pingpower coolblue portlets.css.dtml */
+
+/* Pingpower coolblue navtree.css.dtml */
+.portletNavigationTree {
+    padding: 0; 
+    list-style: none !important;
+    list-style-image: none !important; 
+    line-height: 1em;
+}
+.navTree {
+    list-style: none; 
+    list-style-image: none; 
+    margin-top: 1px;
+}
+.navTree li {
+    margin-bottom: 1px;
+}
+.navTreeItem {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+.navTreeItem a,
+dd.portletItem .navTreeItem a {
+                               padding-left:0;
+                               color:#666666;
+                               font-weight:bold;
+                               text-transform:uppercase;
+                               }
+.navTreeItem a span,
+dd.portletItem .navTreeItem a span {
+                                    padding-left:0;
+                                    color:#777777;
+                                    font-weight:bold;
+                                    text-transform:uppercase;
+                                   }
+.navTreeItem a:hover span,
+dd.portletItem .navTreeItem a:hover span{
+                                         color:#000000;
+                                        }
+li.navTreeCurrentNode {
+                     background:none repeat scroll 0 0 #F3F4F5;
+                     color:#000000;
+                     }
+
+li.navTreeCurrentItem {
+    display: block;
+    padding: 0 0 0 1px;
+    margin: 0 0 2px -1px;
+	color:#000000;
+}
+li.navTreeCurrentItem a,
+li.navTreeCurrentItem a:hover {
+    display: block;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBackgroundColor;;
+    min-height: 1.6em;
+    line-height: 1.6em;
+    height: auto;
+	color:#000000;
+}
+
+/* Another workaround for broken Internet Explorer */
+* html li.navTreeCurrentItem a,
+* html li.navTreeCurrentItem a:hover {
+    height: 1.6em;
+}
+
+.navTreeLevel0 { margin: 0; }
+.navTreeLevel1 { margin-left: 1em;}
+.navTreeLevel2 { margin-left: 0.75em; }
+.navTreeLevel3 { margin-left: 0.75em; }
+.navTreeLevel4 { margin-left: 0.75em; }
+.navTreeLevel5 { margin-left: 0.75em; }
+
+/* End of Pingpower coolblue navtree.css.dtml */
+
+/*Pingpower Coolblue custom css */
+#portal-header {
+                 position:relative;  
+				 margin:0 auto;
+                 width:1000px;
+				 }
+#portal-logo {
+
+			  }
+h1#logo-text a {
+                position:absolute;
+				margin:0;
+				padding:0 5px 0 0;
+				top:82px;
+				left:25px;
+				color:#333333;
+                font:bold 55px 'Trebuchet MS','Helvetica Neue',Arial,Sans-Serif;
+                letter-spacing:-4px;
+                text-decoration:none;
+               }
+#rss {
+      position:absolute;
+	  right:17px;
+	  top:15px;
+	  margin:0;
+      padding:0;
+      height:50px;
+      width:175px;
+      text-align:right;
+     }
+#rss a{
+       margin:0;
+       padding:10px 0 0 30px;
+	   display:block;
+	   height:30px;
+	   background:url("rss.gif") no-repeat scroll left center transparent;
+       color:#BAA7A7;
+       font:bold 12px 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+       }
+#slogan {
+         position:absolute;
+         top:142px;
+         left:30px;
+         margin:0;
+         padding:0 5px 0 0;
+         color:#0D6684;
+         font-family:'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+         font-size:11px;
+         font-style:normal;
+         font-weight:bold;
+         letter-spacing:-0.5px;
+         line-height:1.8em;
+         }
+form#searchform {
+                   padding: 0;
+				   background:none repeat scroll 0 0 #FFFFFF;
+                   border:none;
+				 }
+#content h1 {
+    font-weight: bold;
+    font-size: 3em;
+} 
+#content h2 {
+    font-weight: bold;
+    font-size: 2.2em;
+}
+#content h2 a {
+    color:#333333;
+    font-weight: bold;
+}
+table.listing th, 
+.stx table th {
+    padding: 0.8em 1em;	
+    background: none repeat scroll 0 0 #999999;
+    border-color: #666666 #666666 #246F97;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+table.listing td, 
+.stx table td {
+    padding: 0.7em 1em;
+	border-color: #E9E9E9;
+	border-width:1px;
+	border-style:solid;
+}
+acronym {
+          color:#777777;
+          border-bottom:1px dotted #777777;
+          cursor:help;
+         }
+.portlets-manager{
+		text-align: center;
+}
+#description{
+		width:99%;
+}
+form{
+		border: none;
+		margin:0;
+}
+div.widget input.searchButton{
+    margin: 0;
+    padding: 2px 3px;
+    background: none repeat scroll 0 0 #2C76A6;
+    border-color: #86BBDF #245F86 #245F86 #86BBDF;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font: bold 12px Arial,Sans-serif;
+    height: 30px;
+	width:50px;
+    text-indent:0;
+}
+/* blog content areas */
+.post {
+       overflow:hidden;
+       margin:5px 0 20px;
+       padding:0 0 20px;
+	   width: 700px;
+       border-bottom:1px solid #EEEEEE;
+      }
+.right {
+        display:inline;
+        float:right;
+        width:520px;
+        }
+.right h2{
+          margin-top:0;
+		  margin-bottom:0;
+          padding-bottom:0;
+          color:#333333;
+		  border: none;
+          font:bold 3.2em/1em 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+          letter-spacing:-2px;
+          outline:0 none;
+          vertical-align:baseline;
+         }
+.right h2 a{
+            color:#333333;
+			text-decoration:none;
+			font-size: 100%;
+		   }
+.left p.dateinfo {
+           margin:12px 0 0 70px;
+           padding:8px 0 0 1px;
+           height:83px;
+           width:68px;
+           background:url("date-bg.gif") no-repeat scroll 0 0 transparent;
+           color:#FFFFFF;
+           font:bold 15px Arial,Helvetica,sans-serif;
+           letter-spacing:2px;
+           text-align:center;
+           text-transform:uppercase;
+		   text-shadow:0 1px 1px rgba(0, 0, 0, 0.6);
+           }
+.left p.dateinfo span {
+                       display:block;
+					   margin:8px 0 0;
+                       padding:0;
+					   color:#555555;
+                       font:bold 30px Arial,Helvetica,sans-serif;
+                       letter-spacing:0;
+					   text-shadow:none;
+					  }
+.left .post-meta {             
+                  margin:5px 0 20px;
+                  padding:0;
+                  width:140px;
+				  font-size:0.9em;
+				 }
+.left .post-meta h4 {
+                     margin:0 5px 10px;
+                     padding:0;
+                     color:#555555;
+                     text-align:right;
+					 }
+.left .post-meta ul {
+                     margin:0;
+                     padding:0;
+					 border-top:1px solid #F1F1F1;
+                     list-style:none outside none;
+                     }
+.left .post-meta ul li {
+                        margin:0;
+                        padding:3px 5px; 
+						border-bottom:1px solid #F1F1F1;
+                        color:#FFFFFF;
+                        list-style:none outside none;
+                        text-align:right;
+                        }
+* html body .left .post-meta ul li {
+                                    height:1%;
+                                   }
+.left .post-meta ul.tags li {
+                              background:url("tag.gif") no-repeat scroll 2px center transparent;
+                            }
+.left .post-meta ul li.user {
+                              background:url("user.gif") no-repeat scroll 2px center transparent;
+                            }
+.left .post-meta ul li.time {
+                             background:url("clock.gif") no-repeat scroll 2px center transparent;
+                             }
+.left .post-meta ul li.comments {
+                                background:url("comment.gif") no-repeat scroll 2px center transparent;
+                                border-top: none;
+								border-left:none;
+								border-right:none;
+								}
+.left .post-meta ul li.permalink {
+                                  background:url("permalink.gif") no-repeat scroll 2px center transparent;
+                                 }
+.left .post-meta ul li a {
+                          color:#FFFFFF;
+						  border-bottom:none;
+                         }
+.left .post-meta ul li a:hover {
+                                color:#333333;
+								border-bottom:none;
+                               }
+a.more:link, a.more:visited {
+background-color:#227BAD;
+border:1px solid #2177A5;
+color:#FFFFFF;
+float:left;
+font-weight:bold;
+margin-right:5px;
+margin-top:20px;
+padding:6px 8px;
+text-decoration:none;
+text-transform:lowercase;
+}
+a.more:hover {
+background-color:#FF3399;
+border:1px solid #FF2B95;
+}
+/* End of blog content areas */
+
+/* portlets area */
+
+.portletItem p img {
+                    padding:8px;
+                     background:none repeat scroll 0 0 #F3F4F5;
+                     border:1px solid #E2E4E7;
+					 -moz-border-radius:4px 4px 4px 4px;
+                   }
+/* End of portlets area */
+.portletItem ul li.navTreeCurrentNode span     {
+                                                 color:#000000;
+                                                }
+
+/* Footer area */
+#portal-footer p.bottom-left {
+                              display:inline;
+                              float:left;
+                              margin:0 0 30px 20px;
+                              padding:0;
+                              text-align:left;
+							  width:450px;
+							}
+#portal-footer p.bottom-right {
+								display:inline;
+								float:right;
+								margin:0 30px 30px 0;
+								padding:0;
+								text-align:right;
+								width:480px;
+								}
+#footer-bottom {
+                margin: 0 auto;
+                width:1000px;
+				}
+/* discussion tools area */
+form#reply {
+            margin: 0 25px;
+            padding:0;
+			border: none;
+            }
+form#delete {
+             margin:0 25px;
+             padding: 0;
+			 border: none;
+			 } 
+#viewlet-below-content{
+		    border-bottom: 1px solid #EEEEEE;
+    margin: 10px 0 20px;
+    overflow: hidden;
+    padding: 0 0 20px;
+    position: relative;
+    width: 738px;
+}
+.discussion h2{
+    display: inline;   
+	left: 0;  
+    top: 5px;
+    margin-top: 20px;
+    width: 70px; 
+	text-align: right;
+    color: #555555;
+    font: bold 1.5em 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+}
+.discussion form{
+		display:inline;	
+		margin:0;
+		padding:0;
+		border:none;
+}
+.comment{
+		display:block;
+		padding-right: 15px;
+		width: 560px;
+		background: none repeat scroll 0 0 #FFFFFF;
+		border-color: #EAECEE;
+		border-style: solid;
+		border-width: 1px;
+}
+.documentByLine{
+		display: block;
+		margin: 0;
+		padding: 5px 65px 5px 20px;
+		color: #555555; 
+		font-style: normal;
+		font-weight: bold;
+		font-size:12px;
+}
+.documentByLine span{
+		font-size:9.6px;
+}
+.commentBody{
+		clear: both;
+		margin: 0;
+		padding: 0 20px 25px;
+}
+/* End of discussion tools area */
+/* kupu editor */
+body.documentContent  {
+                       background:none repeat scroll 0 0 #FFFFFF;
+					  }
+/* End of kupu editor */
+/* End of Pingpower Coolblue custom css */
+
+/* Pingpower style patch for plone4*/
+.post,
+#content {
+    font-size:100%;
+    padding:1em 0.5em 2em !important;
+}
+.post ol,
+#content-core ol {
+	margin: 0.5em 0 0 2.5em;
+}
+.post ul,
+#content-core ul{
+    margin: 0.5em 0 0 1.5em;
+	list-style-image: url("bullet.gif");
+    list-style-type: square;
+}
+#login-form div.field label {
+		display:block;
+}
+
+/* End of Pingpower style patch */
+/*patch for login box */
+div.overlay {
+    display: none;
+    font-size: 80%;
+    height: auto;
+    margin: 1em;
+    width: auto;
+}
+div.overlay-iframe, div.overlay-ajax {
+    min-height: 100px;
+    width: 60%;
+    z-index: 99;
+}
+div.overlay-iframe {
+    height: 60%;
+}
+div.overlaybg div.close, div.overlay div.close {
+    background-image: url("pb_close.png");
+    cursor: pointer;
+    height: 30px;
+    left: -14px;
+    position: absolute;
+    top: -14px;
+    width: 30px;
+}
+.pb-ajax {
+    overflow-y: auto;
+}
+.pb-ajax, .pb-image {
+    -moz-box-shadow: 0 0 3em 0.5em #666666;
+    background-color: #FFFFFF;
+    border: 1px solid #999999;
+    white-space: normal;
+}
+.pb-ajax > div {
+    padding: 3em 1em 1em 1em;
+}
+.pb-ajax .documentActions {
+    display: none;
+}
+div.overlay div.close span {
+    display: block;
+    height: 1px;
+    margin: -1px 0 0 -1px;
+    overflow: hidden;
+    padding: 0;
+    width: 1px;
+}
+div.overlay textarea {
+    width: 100%;
+}
+div.overlay .link-parent {
+    display: none;
+}
+div.overlay #createGroup legend {
+    display: none;
+}
+div.overlay #createGroup fieldset {
+    border: medium none;
+}
+div.overlay p {
+    margin-bottom: 1em;
+}
+div.overlay label {
+    margin-bottom: 0.25em;
+}
+div.overlay a:hover {
+    color: #75AD0A;
+}
+div.overlay a.selected {
+    color: #000000;
+}
+div.overlay .formTab {
+    font-weight: bold;
+    margin-right: 1em;
+}
+div.overlay .formTab.lastFormTab {
+    margin-right: 0;
+}
+div.overlay .formControls a {
+    display: block;
+    margin: 0.75em;
+}
+#fieldset-openid-login input, #login-form input {
+    font-size: 150%;
+}
+body.template-register #content input, body.template-new-user #content input {
+    font-size: 150%;
+    width: inherit;
+}
+#fieldset-openid-login label, #login-form label {
+    display: inline-block;
+    margin-right: 0.5em;
+    padding-top: 0.2em;
+    text-align: left;
+    width: 10em;
+}
+#fieldset-openid-login .formControls input, #login-form .formControls input {
+    margin-left: 0.25em;
+}
+/* End of patch for login box */
+/* YOUR CSS RULES STOP HERE */
+
+/* </dtml-with> */
+
+/* Latest version of the documentation on pre-defined properties from Plone 
+   can be found in CMFPlone/skins/plone_styles/ploneCustom.css.dtml */
+

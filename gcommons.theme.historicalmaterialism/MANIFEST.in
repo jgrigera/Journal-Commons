@@ -1,0 +1,2 @@
+recursive-include gcommons.theme *
+global-exclude *pyc
