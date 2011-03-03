@@ -4,6 +4,7 @@
     i18n_domain="gcommons.Journal">
 
   <include package="plone.app.contentmenu" />
+  <include package=".forms" />
 
   <!-- -*- extra stuff goes here -*- -->
 
@@ -119,13 +120,6 @@
       allowed_interface=".editorsmeetingview.IEditorsMeetingView"
       permission="zope.Public"
       />
-
-  <browser:page
-        for="*"
-        name="gcommons_editorsmeeting_vote"
-        class=".forms.editorsmeetingvote.VoteFormView"
-        permission="zope2.View"
-        />
 
   <browser:page
       for="*"

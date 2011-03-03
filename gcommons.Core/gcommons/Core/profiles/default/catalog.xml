@@ -10,4 +10,5 @@
         <indexed_attr value="getPrimaryAuthor"/>
     </index>
     <column value="get_item_subtype" name="gcommons_subtype" />
+    <column value="get_action_editor" name="gcommons_action_editor" />
 </object>

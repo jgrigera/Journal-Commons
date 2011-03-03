@@ -38,7 +38,7 @@
 <!--
 	<property name="url_expr">string:$object_url/gcommons_article_assigneditor</property>
 -->	
-	<property name="url_expr">string:#</property>
+	<property name="url_expr">string:#AssignEditorForm</property>
 	<property name="icon_expr">string:user.png</property>
 	<property name="available_expr"></property>
 	<property name="permissions">
@@ -47,20 +47,6 @@
 	<property name="visible">True</property>
   </object>
 
-
-  <!-- Workflow -->
-  <object name="submittoeb" meta_type="CMF Action" i18n:domain="plone">
-	<property name="title" i18n:translate="">Submit to Editors</property>
-	<property name="description" i18n:translate="">Finish editing and submit the piece to be evaluated</property>
-	<property name="url_expr">string:$object_url/jc_content_submittoeb_form</property>
-	<property name="icon_expr">string:action_icon.gif</property>
-<!-- maybe this can be action=workflow and improve condition in workflow, -->
-	<property name="available_expr"></property>
-	<property name="permissions">
-	    <element value="Modify Portal Content"/>
-	</property>
-	<property name="visible">True</property>
-  </object>
 
  </object>
 </object>

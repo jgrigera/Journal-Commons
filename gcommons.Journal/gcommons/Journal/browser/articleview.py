@@ -1,17 +1,26 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
+
 from zope.interface import implements, Interface, alsoProvides
+from zope.component import getMultiAdapter, queryMultiAdapter
 
 from plone.app.layout.globals.interfaces import IViewView
-
 from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+
+# z3c.form
+from Acquisition import aq_inner
+from plone.z3cform.interfaces import IWrappedForm
+from plone.z3cform import z2
+from z3c.form.interfaces import IFormLayer
+
+# gcommons
 from gcommons.Core import permissions
 from gcommons.Core.lib.gctime import gcommons_userfriendly_date
 from gcommons.Core.lib.container import gcommons_aq_container
-import logging
 
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+import logging
 logger = logging.getLogger("gcommons.Journal.browser.articleview")
 
 
@@ -33,15 +42,18 @@ class SimpleActionView:
     def __call__(self):
         return """<a href="%(url)s" title="%(description)s"> <img alt="*" src="%(icon)s"/> %(title)s</a>""" % self.values
 
+class WorkflowActionView:
+    def __init__(self, values, context=None, request=None):
+        self.values = values
+
+    def __call__(self):
+        return """<a href="%(url)s" title="Workflow Transition"> <img alt="*" src="action_icon.gif"/> %(title)s</a>""" % self.values
+
 #
 #
 # TEMP HACK TO TEST SOMETHING
 #
-from gcommons.Journal.browser.forms.articleassigneditor import AssignEditorForm,AssignEditorView
-from Acquisition import aq_inner
-from plone.z3cform.interfaces import IWrappedForm
-from plone.z3cform import z2
-from z3c.form.interfaces import IFormLayer
+from gcommons.Journal.browser.forms.articleassigneditor import AssignEditorForm
 
 class InlineFormActionView:
     def __init__(self, values, context=None, request=None):
@@ -178,6 +190,18 @@ class ArticleView(BrowserView):
                     results.append(InlineFormActionView(action_id, context=self.context, request=self.request))
                 else:
                     results.append(SimpleActionView(action_id))
+                    
+        # Now add workflow actions
+        locking_info = queryMultiAdapter((self.context, self.request), name='plone_lock_info')
+        if locking_info and locking_info.is_locked_for_current_user():
+            return results
+        
+        workflowActions = self.portal_workflow.listActionInfos(object=self.context)
+        for action in workflowActions:
+            logger.info(action)
+            if action['category'] == 'workflow':
+                results.append(WorkflowActionView(action))
+
         return results
 
 

@@ -88,14 +88,13 @@ ArticleSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy() + ata
     ),
 
     atapi.StringField(
-        name='manager',
+        name='actioneditor',
         required=False,
         searchable=False,
         write_permission='Manage Portal',
-        #default='',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Responsible Manager"),
+            label=_(u"Action Editor"),
             description=_(u"Editor in charge of dealing with this article"),
             visible = {'edit': 'invisible', 'view': 'invisible'},
         ),
@@ -235,6 +234,7 @@ class Article(folder.ATFolder,RelatorsMixin):
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
     articleType = atapi.ATFieldProperty('articleType')
+    actioneditor = atapi.ATFieldProperty('actioneditor')
     pages = atapi.ATFieldProperty('pages')
     teaserHead = atapi.ATFieldProperty('teaserHead')
     teaserBody = atapi.ATFieldProperty('teaserBody')
@@ -275,11 +275,16 @@ class Article(folder.ATFolder,RelatorsMixin):
     def _compute_bibreference(self):
         return "TODO: bibreference"
 
-    def get_responsible_manager(self):
-        if self.manager is not None:
-            return self.manager
+    def get_action_editor(self):
+        if self.actioneditor is not None:
+            portal_membership = getToolByName(self, 'portal_membership')
+            member = portal_membership.getMemberById(self.actioneditor)
+            return member
         else:
-            return "UNASSIGNED"
+            return None
+    
+    def set_action_editor(self, editorid):
+        self.actioneditor = editorid
 
     # Common...
     def get_container(self):
