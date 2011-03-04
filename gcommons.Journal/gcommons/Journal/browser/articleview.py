@@ -186,7 +186,7 @@ class ArticleView(BrowserView):
         results = []
         for action_id in self.portal_actions.listActionInfos(object=self.context, check_permissions=1, check_condition=1):
             if action_id['category'] == 'object_quick_article_actions':
-                if action_id['url'] == '#':
+                if action_id['url'][0] == '#':
                     results.append(InlineFormActionView(action_id, context=self.context, request=self.request))
                 else:
                     results.append(SimpleActionView(action_id))
