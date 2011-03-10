@@ -352,6 +352,15 @@ class Article(folder.ATFolder,RelatorsMixin):
             return folder.ATFolder.SearchableText(self) + current_draft.SearchableText()
         else:
             return folder.ATFolder.SearchableText(self)
+            
+    """
+    Workflow guards
+    """
+    def wfguard_canSubmitToEB(self):
+        if self.get_no_drafts() > 0:
+           return True
+        else:
+           return False
       
 
 atapi.registerType(Article, PROJECTNAME)

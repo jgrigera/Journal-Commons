@@ -291,6 +291,7 @@
 	<action url="%(content_url)s/jc_content_submittoeb_form"
 		  category="workflow">Submit to Editorial Board</action>
 	<guard>
+		<guard-expression>here/wfguard_canSubmitToEB</guard-expression>
 		<guard-role>Manager</guard-role>
 		<guard-role>Owner</guard-role>
 	</guard>

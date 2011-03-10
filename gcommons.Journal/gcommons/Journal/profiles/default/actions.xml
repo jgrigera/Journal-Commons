@@ -12,7 +12,7 @@
 	<property name="icon_expr">string:edit.gif</property>
 	<property name="available_expr"></property>
 	<property name="permissions">
-	    <element value="Modify Portal Content"/>
+	    <element value="Modify portal content"/>
 	</property>
 	<property name="visible">True</property>
   </object>
@@ -39,7 +39,7 @@
 	<property name="icon_expr">string:user.png</property>
 	<property name="available_expr"></property>
 	<property name="permissions">
-	    <element value="Modify Portal Content"/>
+	    <element value="Manage Portal"/>
 	</property>
 	<property name="visible">True</property>
   </object>
