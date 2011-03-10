@@ -35,24 +35,6 @@
 
       <div class="visualClear"><!---->&nbsp;<br/></div>
 
-      <!--  Search submissions -->
-      <div id="submissions-quicksearch-box">
-         <form action="" tal:attributes="action string:${searchResultsForm}">
-            <input type="hidden" name="title" value="Search results" />
-            <input type="text" name="SearchableText" size="20" />
-            <input class="searchButton" type="submit" value="Search" i18n:attributes="value"/>
-         </form>
-		 <!--
-          <a id="submissions-search-link"
-            tal:attributes="href string:${here/absolute_url}/gcommons_submissions_search_form"
-            i18n:translate="advanced_article_search">Advanced Article search</a>
- 		 -->            
-      </div>
-
-      <div class="visualClear"><!---->&nbsp;<br/></div>
-
-
-
 
       <div id="submissions-by-type" class="submissions-bycriteria-box">
           <h3 i18n:translate="gcommons_submissions_by_type">By type</h3>

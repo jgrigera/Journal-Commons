@@ -439,6 +439,7 @@ li.formTab {
     display: inline;
     margin: 0;
     padding: 0;
+    color: #000000;
 }
 li.formTab a {
     /* this isn't supported by all browsers, so we keep it in a separate rule */
@@ -463,10 +464,13 @@ li.lastFormTab a {
     border-right: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
 }
 li.formTab a.selected {
-    background: &dtml-globalBackgroundColor;;
+    background: #2C76A6 none repeat scroll 0 0;
+    font-weight: bold;
+    color:#FFFFFF;
 }
 li.formTab a:hover {
-    background: &dtml-globalBackgroundColor;;
+    background: #2C76A6 none repeat scroll 0 0;
+    color:#FFFFFF;
 }
 li.formTab a.notify {
     background-color: &dtml-notifyBackgroundColor;;

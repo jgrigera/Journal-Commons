@@ -9,24 +9,23 @@
 
 /* Pingpower Coolblue base.css.dtml */
 body {
-	  margin: 0; 
-	  padding: 0;
-      background:url("bg.jpg") repeat scroll 0 0 #FFFFFF;
-	  color: #777;
+      margin: 0; 
+      padding: 0;
+      background: #FFFFFF;
+      color: #777;
       font: 12px/170% 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
-	  }
+}
 table {
        margin:10px 25px;
-	   border-collapse:collapse;
-      }
+       border-collapse:collapse;
+}
 tr {
-
-    }
+}
 th, td {
         border-style:solid;
         border-width:1px;
         text-align:left;
-       }
+}
 th {
     padding:0.8em 1em; 
 	background:none repeat scroll 0 0 #999999;
@@ -93,22 +92,21 @@ h6 a {
      }
 h1, h2, h3, h4 {
                 color:#555555;
-                font:bold 1em/1.5em 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+                font:bold 1em/1em 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
                }
 h1 {
-     font-size:3em;
+     font-size:2.8em;
      font-weight:normal;
      letter-spacing:-2px;
     }
 h2 {
-    font-size:2.8em;
+    font-size:2.4em;
     font-weight:normal;
     }
 h3 {
-    font-size:2.2em;
+    font-size:1.8em;
     font-weight:normal;
-    letter-spacing:-0.5px;
-    padding-top:15px;
+    padding-top:8px;
     }
 h4 {
     font-size:1.5em;
@@ -140,7 +138,7 @@ dt {
     font-weight: bold;
 }
 dd {
-    line-height: 1.5em;
+    line-height: 1em;
     margin-bottom: 1em;
 }
 abbr, acronym, .explain {
@@ -2164,6 +2162,37 @@ div.widget input.searchButton{
 	width:50px;
     text-indent:0;
 }
+div.field input.searchButton{
+    margin: 0;
+    padding: 2px 3px;
+    background: none repeat scroll 0 0 #2C76A6;
+    border-color: #86BBDF #245F86 #245F86 #86BBDF;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font: bold 12px Arial,Sans-serif;
+    height: 30px;
+	width:50px;
+    text-indent:0;
+}
+div.field #searchGadget {
+    margin:0px 0 10px 10px;
+    width:180px;
+    border-color: #86BBDF #245F86 #245F86 #86BBDF;
+    border-style: solid;
+    border-width: 1px;
+    background:none repeat scroll 0 0 transparent;
+    font-weight:bold;
+}
+
+.datagridwidget-cell input {
+    padding: 0px;
+}
+table .datagridwidget-table-edit {
+    margin: 0px;
+}
+
 /* blog content areas */
 .post {
        overflow:hidden;

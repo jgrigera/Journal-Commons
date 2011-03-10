@@ -40,7 +40,7 @@
         </script>
         
         <!-- Your vote -->
-        <p>&nbsp;</p>
+        <span class="visualClear"><!-- -->&nbsp;<br/></span>
         <h3>Poll Open</h3>
 
         <tal:vote tal:condition="here/hasVoted">
@@ -56,7 +56,7 @@
                     tal:content="python:here.hasVoted() and 'Change your vote' or 'Vote!'"> Vote! </a>
 
         <!-- Manager's overview -->
-        <p>&nbsp;</p>
+        <span class="visualClear"><!-- -->&nbsp;<br/></span>
         <h3>Poll Overview</h3>
 
         <table class="listing" tal:define="options here/getPollOptions">
