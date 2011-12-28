@@ -28,6 +28,11 @@ gcommons/Core/browser/providers.py
 gcommons/Core/browser/submissionseditorsview.py
 gcommons/Core/browser/submissionssearchview.py
 gcommons/Core/browser/submissionsview.py
+gcommons/Core/browser/forms/__init__.py
+gcommons/Core/browser/forms/configure.zcml
+gcommons/Core/browser/forms/editorsmeetingvote.py
+gcommons/Core/browser/forms/gcommons_transition_form.pt
+gcommons/Core/browser/forms/wftransition.py
 gcommons/Core/browser/templates/gcommons_callforpapers_view.pt
 gcommons/Core/browser/templates/gcommons_container_config_view.pt
 gcommons/Core/browser/templates/gcommons_eventish_provider.pt
@@ -69,7 +74,9 @@ gcommons/Core/portlets/configure.zcml
 gcommons/Core/profiles/default/actions.xml
 gcommons/Core/profiles/default/catalog.xml
 gcommons/Core/profiles/default/componentregistry.xml
+gcommons/Core/profiles/default/cssregistry.xml
 gcommons/Core/profiles/default/factorytool.xml
+gcommons/Core/profiles/default/jsregistry.xml
 gcommons/Core/profiles/default/metadata.xml
 gcommons/Core/profiles/default/portlets.xml
 gcommons/Core/profiles/default/propertiestool.xml
@@ -90,11 +97,7 @@ gcommons/Core/skins/gcommons_core/cfp_icon.png.metadata
 gcommons/Core/skins/gcommons_core/formautofill.pt
 gcommons/Core/skins/gcommons_core/icon_export_google.png
 gcommons/Core/skins/gcommons_core/icon_export_google.png.metadata
-gcommons/Core/skins/gcommons_core/jquery.taghandler.css
-gcommons/Core/skins/gcommons_core/jquery.taghandler.js
-gcommons/Core/skins/gcommons_core/loader.gif
 gcommons/Core/skins/gcommons_core/selectdescription.pt
-gcommons/Core/skins/gcommons_core/tag_update.png
 gcommons/Core/tests/__init__.py
 gcommons/Core/tests/base.py
 gcommons/Core/tests/test_doctest.py
@@ -109,3 +112,10 @@ gcommons/Core/widgets/ReferenceColumn.py
 gcommons/Core/widgets/SelectDescriptionWidget.py
 gcommons/Core/widgets/__init__.py
 gcommons/Core/widgets/configure.zcml
+gcommons/Core/widgets/static/jquery.taghandler.css
+gcommons/Core/widgets/static/jquery.taghandler.js
+gcommons/Core/widgets/static/taghandler_loader.gif
+gcommons/Core/widgets/static/taghandler_remove.cur
+gcommons/Core/widgets/static/taghandler_tag.png
+gcommons/Core/widgets/static/taghandler_update.png
+gcommons/Core/widgets/static/ui-icons_205c90_256x240.png

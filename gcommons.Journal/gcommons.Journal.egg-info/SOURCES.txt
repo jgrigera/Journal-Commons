@@ -22,11 +22,14 @@ gcommons/Journal/browser/articlepublishview.py
 gcommons/Journal/browser/articleview.py
 gcommons/Journal/browser/configure.zcml
 gcommons/Journal/browser/editorsmeetingview.py
-gcommons/Journal/browser/editorsmeetingvote.py
 gcommons/Journal/browser/gcfrontpageview.py
 gcommons/Journal/browser/issueview.py
 gcommons/Journal/browser/journalview.py
 gcommons/Journal/browser/researchthreadview.py
+gcommons/Journal/browser/forms/__init__.py
+gcommons/Journal/browser/forms/articleassigneditor.py
+gcommons/Journal/browser/forms/configure.zcml
+gcommons/Journal/browser/forms/editorsmeetingvote.py
 gcommons/Journal/browser/templates/gc_articlepublish_view.pt
 gcommons/Journal/browser/templates/gc_researchthread_view.pt
 gcommons/Journal/browser/templates/gc_rt_published_simple_view.pt

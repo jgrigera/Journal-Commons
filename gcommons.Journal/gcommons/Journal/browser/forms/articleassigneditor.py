@@ -78,7 +78,7 @@ class IAssignEditor(interface.Interface):
 #
 # retrieve default ISBN value from isbn= if it is there in the request 
 def defaultActionEditor(value):
-    actioneditor = value.context.get_action_editor()
+    actioneditor = value.context.get_action_editor(memberObject=True)
     if actioneditor is None:
        return 'Unassigned'
     name = actioneditor.getProperty('fullname')

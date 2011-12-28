@@ -275,16 +275,25 @@ class Article(folder.ATFolder,RelatorsMixin):
     def _compute_bibreference(self):
         return "TODO: bibreference"
 
-    def get_action_editor(self):
-        if self.actioneditor is not None:
+    def get_action_editor(self, memberObject=False):
+        """ 
+        Returs current action editor for this article
+        if memberObject is true, an object from portal_membership is returned
+        otherwise, a string with memberId
+        """
+        if self.actioneditor is None:
+            return None
+            
+        if memberObject is True:
             portal_membership = getToolByName(self, 'portal_membership')
             member = portal_membership.getMemberById(self.actioneditor)
             return member
         else:
-            return None
+            return self.actioneditor
     
     def set_action_editor(self, editorid):
         self.actioneditor = editorid
+        self.reindexObject()
 
     # Common...
     def get_container(self):

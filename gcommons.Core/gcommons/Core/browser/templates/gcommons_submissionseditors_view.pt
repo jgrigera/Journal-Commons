@@ -5,6 +5,13 @@
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="gcommons.Core">
+
+<head>
+   <metal:block metal:fill-slot="head_slot">
+        <link href="my-data.js" type="application/json" rel="exhibit/data" />
+    </metal:block>
+</head>
+
 <body>
 
   <metal:block fill-slot="top_slot"

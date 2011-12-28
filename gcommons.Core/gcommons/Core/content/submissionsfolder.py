@@ -186,6 +186,11 @@ class SubmissionsFolder(folder.ATFolder):
 #	    { 'column': 3, 'title': 'Part of Panel?',  'value': 'isPartPanel' },
 	]
 	
+	# Cell Style
+	style = xls.Style.XFStyle()
+	style.alignment.wrap = xls.Formatting.Alignment.WRAP_AT_RIGHT
+	style.alignment.vert = xls.Formatting.Alignment.VERT_TOP
+
 	# Header
 	for field in Fields:
 	    ws0.write(0, field['column'], field['title'])
@@ -203,7 +208,7 @@ class SubmissionsFolder(folder.ATFolder):
 		    
 		    value = schemafield.getAccessor(obj)()
 		    if value is not None:
-			ws0.write(n, field['column'], unicode(value))
+			ws0.write(n, field['column'], value.decode('utf-8','ignore'), style)
 		except UnicodeDecodeError:
 		    ws0.write(n,field['column'], "UNICODE ERROR!!")
 	
