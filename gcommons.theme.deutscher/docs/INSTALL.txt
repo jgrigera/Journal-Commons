@@ -1,0 +1,33 @@
+Installation
+=============
+
+Add Plone site
+---------------------
+
+Install Plone 4.1 with `plone.app.theming`_ and create a Plone site (if you have not already)
+with Diazo theming configured.
+
+Zip file
+---------------------
+
+If you are an end user, you might enjoy installation via zip file import.
+
+1. Download the zip file: http://svn.plone.org/svn/c
+2. Import the theme from the Diazo theme control panel.
+
+Buildout
+---------------------
+
+If you are a developer, you might enjoy installation via buildout.
+
+Add ``gcommons.theme.deutscher`` to your ``plone.recipe.zope2instance`` section's *eggs* parameter e.g.::
+
+    [instance]
+    eggs =
+        Plone
+        gcommons.theme.deutscher
+
+Select theme
+---------------------
+
+Select and enable the theme from the Diazo control panel. That's it!

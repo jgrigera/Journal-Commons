@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules
+    xmlns="http://namespaces.plone.org/diazo"
+    xmlns:css="http://namespaces.plone.org/diazo/css"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+    <theme href="home.html" css:if-content="#homepage-div-signal"/>
+    <theme href="index.html" css:if-content="#visual-portal-wrapper"/>
+
+    <replace content="/html/head/title" theme="/html/head/title" />
+    <replace content="/html/head/base" theme="/html/head/base" />
+    <replace content="/html/head/meta" theme="/html/head/meta" />
+    <before content='/html/head' theme='/html/head' />
+
+    <!-- Pull in Plone CSS and JS
+    <prepend content="/html/head/link | /html/head/style " theme="/html/head"/>
+    <after content="/html/head/script" theme="/html/head"/>-->
+
+    <!-- Body class -->
+    <copy attributes="class" css:theme="body" css:content="body"/>
+    
+    <copy content='//*[@id="portal-globalnav"]' theme='//*[@id="menu"]' />
+    <drop attributes="id" css:content="#portal-globalnav"/>
+
+    <prepend content='//*[@id="portal-personaltools-wrapper"]' theme='//*[@id="header"]' />
+    <prepend content='//*[@id="portal-searchbox"]' theme='//*[@id="logo"]' />
+
+    <!-- Pull in content -->
+    <copy content='//*[@id="content"]' theme='//*[@id="wrapper-content"]' />
+<!--    <drop attributes="class" css:content="#portal-column-content"/>
+    <drop content='//*[@id="viewlet-above-content"]' />
+-->
+    <drop content='//*[@id="viewlet-social-like"]' />
+<!--
+    <drop css:theme="#content div"/>
+    <before css:theme-children="#page" css:content="#viewlet-above-content"/>
+    <before css:theme-children="#page" css:content="#edit-bar"/>
+    <append css:theme="#content" css:content-children="#content"/>
+    <append css:theme="#content" css:content="#viewlet-below-content"/>
+-->
+
+    <!-- Pull in columns -->
+    <copy content='//*[@id="portal-column-one"]' theme='//*[@id="portlets1"]' />
+	<drop attributes="class" css:content="#portal-column-one"/> 
+
+   <copy content='//*[@id="portal-column-two"]' theme='//*[@id="portlets2"]' />
+	<drop attributes="class" css:content="#portal-column-two"/>
+
+    <copy content='//*[@id="portal-footer"]' theme='//*[@id="footer"]' />
+	<append content='//*[@id="portal-colophon"]' theme='//*[@id="footer"]' />
+	<append content='//*[@id="portal-siteactions"]' theme='//*[@id="footer"]' />
+
+    <!--copy content='//*[@id="portal-logo"]' theme='//*[@id="logo"]' /-->
+	<copy attributes="href title" css:content='#portal-logo' css:theme='#logo h1 a' />
+
+    <copy content='//*[@id="portal-breadcrumbs"]' theme='//*[@id="special"]' />
+
+
+</rules>
