@@ -13,6 +13,7 @@
 */dist/*
 */SOURCES.txt
 */*.egg-info/*
+*.egg-info
 
 # Eclipse
 .settings
