@@ -1,0 +1,40 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+    <resource 
+        name="collective.js.metrojs.js"
+        file="static/MetroJs.js"
+        />
+
+    <resource
+        name="collective.js.metrojs.css"
+        file="static/MetroJs.css"
+	/>
+
+    <resource
+        name="collective.js.metrojs.1pixel.gif"
+        file="static/images/1pixel.gif"
+        />
+    <resource
+        name="collective.js.metrojs.metroIcons.jpg"
+        file="static/images/metroIcons.jpg"
+        />
+    <resource
+        name="collective.js.metrojs.metroIcons_light.jpg"
+        file="static/images/metroIcons_light.jpg"
+        />
+
+
+    <genericsetup:registerProfile
+        name="default"
+        title="MetroJS Integration"
+        directory="profiles/default"
+        description="Profile for Plone's MetroJS resources."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFCore.interfaces.ISiteRoot"
+        />
+
+
+</configure>

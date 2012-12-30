@@ -1,0 +1,45 @@
+Only in static: 01resources.patch
+diff -cr static.orig/MetroJs.css static/MetroJs.css
+*** static.orig/MetroJs.css	2012-12-30 23:40:27.000000000 +0000
+--- static/MetroJs.css	2012-12-30 23:45:16.000000000 +0000
+***************
+*** 534,541 ****
+  }
+  
+  .light .appbar-buttons li a { color:#000; }
+! .appbar-buttons a>img { background-image:url('images/metroIcons.jpg'); background-repeat:no-repeat; height:64px; width:64px; border:none;}
+! .light .appbar-buttons a>img { background-image:url('images/metroIcons_light.jpg'); }
+  .appbar-buttons a.home>img { background-position:-104px -12px; }
+  .appbar-buttons a.about>img { background-position:-198px -99px;  }
+  .appbar-buttons a.twitter>img { background-position:-198px -12px;  }
+--- 534,541 ----
+  }
+  
+  .light .appbar-buttons li a { color:#000; }
+! .appbar-buttons a>img { background-image:url('++resource++collective.js.metrojs.metroIcons.jpg'); background-repeat:no-repeat; height:64px; width:64px; border:none;}
+! .light .appbar-buttons a>img { background-image:url('++resource++collective.js.metrojs..metroIcons_light.jpg'); }
+  .appbar-buttons a.home>img { background-position:-104px -12px; }
+  .appbar-buttons a.about>img { background-position:-198px -99px;  }
+  .appbar-buttons a.twitter>img { background-position:-198px -12px;  }
+diff -cr static.orig/MetroJs.js static/MetroJs.js
+*** static.orig/MetroJs.js	2012-12-30 23:40:27.000000000 +0000
+--- static/MetroJs.js	2012-12-30 23:46:18.000000000 +0000
+***************
+*** 1297,1303 ****
+      expandHeight: "320px",                                  // height the application bar to expand to when opened
+      collapseHeight: "60px",                                 // height the application bar will collapse back to when closed
+      bindKeyboard: true,                                     // should up and down keys on keyborad be bound to the application bar
+!     metroLightUrl: 'images/metroIcons_light.jpg',  // the url for the metro light icons (only needed if preload 'preloadAltBaseTheme' is true)
+!     metroDarkUrl: 'images/metroIcons.jpg',         // the url for the metro dark icons (only needed if preload 'preloadAltBaseTheme' is true)
+      preloadAltBaseTheme: false                             // should the applicationBar icons be pre loaded for the alternate theme to enable fast theme switching    
+  };})();
+\ No newline at end of file
+--- 1297,1303 ----
+      expandHeight: "320px",                                  // height the application bar to expand to when opened
+      collapseHeight: "60px",                                 // height the application bar will collapse back to when closed
+      bindKeyboard: true,                                     // should up and down keys on keyborad be bound to the application bar
+!     metroLightUrl: '++resource++collective.js.metrojs.metroIcons_light.jpg',  // the url for the metro light icons (only needed if preload 'preloadAltBaseTheme' is true)
+!     metroDarkUrl: '++resource++collective.js.metrojs.metroIcons.jpg',         // the url for the metro dark icons (only needed if preload 'preloadAltBaseTheme' is true)
+      preloadAltBaseTheme: false                             // should the applicationBar icons be pre loaded for the alternate theme to enable fast theme switching    
+  };})();
+\ No newline at end of file
