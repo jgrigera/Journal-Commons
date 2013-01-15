@@ -391,7 +391,7 @@ dd {
     display: block;
 }
 
-li, .state-published {
+#portlet li, .state-published {
     color: #ffffff !important;
 }
 
@@ -409,3 +409,4 @@ li, .state-published {
     border: none;
     color: #436976;
 }
+

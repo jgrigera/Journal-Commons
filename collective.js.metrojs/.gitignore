@@ -1,0 +1,9 @@
+*.swp
+*.pyc
+*.pyo
+
+/bin/
+/dist/
+/include/
+/lib/
+/plone.app.jquery.egg-info/
