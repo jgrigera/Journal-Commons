@@ -10,6 +10,16 @@
 	position:relative;
 	width: 180px;
 }
+.large-live-tile
+{
+	color:#fff;
+	float:left;
+	height: 280px;
+	margin:15px;
+	overflow:hidden;
+	position:relative;
+	width: 280px;
+}
 .live-tile.two-wide, .list-tile.two-wide { width:390px; }
 .live-tile.two-tall, .list-tile.two-tall { height:390px; }
 .live-tile img, .list-tile img { border:none; }

@@ -3,6 +3,9 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
 
+    <!-- Include the sub-packages that use their own configure.zcml files. -->
+    <include package=".browser" />
+
     <resource 
         name="collective.js.metrojs.js"
         file="static/MetroJs.js"
