@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="gcommons.Journal">
+
+  <!-- -*- extra stuff goes here -*- -->
+
+  <!-- Journal views -->
+  <browser:page
+      for="Products.ATContentTypes.interface.IATFolder"
+      name="folder_metrojs_view"
+      class=".foldermetrojsview.FolderMetroJSView"
+      template="templates/folder_metrojs_view.pt"
+      permission="zope2.View"
+      />
+
+
+</configure>
