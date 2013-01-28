@@ -17,6 +17,9 @@ from plone.app.textfield import RichText
 from z3c.relationfield.schema import RelationList, RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
+import logging
+
+logger = logging.getLogger('gcommons.deutscher.content.homepage')
 from gcommons.deutscher import MessageFactory as _
 
 
@@ -32,18 +35,26 @@ class IDeutscherHomepage(form.Schema, IImageScaleTraversable):
 	banner01 = NamedImage(
 		title=_(u"First Banner Image"),
 		description=_(u"Please upload an image sized 1000x526"),
-		required=False,
+		required=True,
 	)
 	banner02 = NamedImage(
 		title=_(u"Second Banner Image"),
 		description=_(u"Please upload an image"),
-		required=False,
+		required=True,
+	)
+	banner03 = NamedImage(
+		title=_(u"Third Banner Image"),
+		description=_(u"Please upload an image"),
+		required=True,
 	)
 
 
 
 class DeutscherHomepage(dexterity.Item):
     grok.implements(IDeutscherHomepage)
+    
+    def getAvailableSizes(self):
+		logger.info("HHHHHHHHHHH")
     
     # Add your class methods and properties here
 

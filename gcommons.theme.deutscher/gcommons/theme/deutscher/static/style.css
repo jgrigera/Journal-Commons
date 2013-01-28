@@ -12,7 +12,7 @@ body {
 	background-color:#000;
 }
 
-@font-face {font-family: EngelLight; src: url('../fonts/EngelLight_ltd.ttf');}
+@font-face {font-family: EngelLight; src: url('fonts/EngelLight_ltd.ttf');}
 strong {color:#0d9ce0; font-weight:normal;}
 
 #slide {width:1000px; margin-left:-500px; left:50%; position:absolute;}
