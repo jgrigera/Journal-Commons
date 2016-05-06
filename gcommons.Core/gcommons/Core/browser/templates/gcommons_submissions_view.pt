@@ -132,8 +132,8 @@
           <tr>
             <tal:loop tal:repeat="item view/get_addable_items_list">
             <td	valign="top"
-            	tal:define="len repeat/item/length"
-            	tal:attributes="width python:'%d%%' % (1./int(len)*100);">
+            	tal:define="thelen repeat/item/length"
+            	tal:attributes="width python:'%d%%' % (1./int(thelen)*100);">
             	
               <h3 tal:content="item/name" />
               
