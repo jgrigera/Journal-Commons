@@ -2,10 +2,6 @@
 from zope import schema
 from zope.interface import Interface, Attribute
 
-from zope.app.container.constraints import contains
-from zope.app.container.constraints import containers
-
-
 
 class IgcContainer(Interface):
     """Any kind of item that can be handled in a Submissions Folder"""
