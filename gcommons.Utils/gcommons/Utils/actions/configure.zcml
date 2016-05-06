@@ -2,7 +2,10 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone">
-              
+
+    <include package="Products.CMFCore"
+	file="permissions.zcml" />              
+
     <!-- Email action definition -->
      <adapter factory=".newsmail.NewsMailActionExecutor" />
 
