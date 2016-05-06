@@ -4,7 +4,9 @@
     xmlns:css="http://namespaces.plone.org/diazo/css"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<!--
     <theme href="home.html" css:if-content="#homepage-div-signal"/>
+-->
     <theme href="index.html" css:if-content="#visual-portal-wrapper"/>
 
     <replace content="/html/head/title" theme="/html/head/title" />

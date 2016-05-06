@@ -9,7 +9,8 @@ from Products.Archetypes import atapi
 from Products.Archetypes.utils import mapply  
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from archetypes.referencebrowserwidget import archetypes.referencebrowserwidget.ReferenceBrowserWidget
+
 
 # gcommons
 from gcommons.Core.lib.relators import RelatorsMixin

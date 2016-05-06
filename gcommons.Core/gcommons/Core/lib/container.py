@@ -11,7 +11,7 @@ from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
 from plone.memoize.instance import memoize, clearbefore
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from archetypes.referencebrowserwidget import archetypes.referencebrowserwidget.ReferenceBrowserWidget
 
 # Core
 from gcommons.Core.permissions import roles

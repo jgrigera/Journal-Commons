@@ -9,7 +9,7 @@ from Products.DCWorkflow.utils import modifyRolesForPermission
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from archetypes.referencebrowserwidget import archetypes.referencebrowserwidget.ReferenceBrowserWidget
 
 from gcommons.Core import CoreMessageFactory as _
 from gcommons.Core.interfaces import IComment

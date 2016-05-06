@@ -15,7 +15,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
 from plone.app.folder import folder
 from Products.ATContentTypes.content import schemata
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from archetypes.referencebrowserwidget import archetypes.referencebrowserwidget.ReferenceBrowserWidget
+
 
 from Products.DataGridField.DataGridWidget import DataGridWidget
 from Products.DataGridField.DataGridField import DataGridField

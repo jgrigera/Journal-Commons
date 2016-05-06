@@ -22,6 +22,17 @@ import logging
 logger = logging.getLogger('gcommons.deutscher.content.homepage')
 from gcommons.deutscher import MessageFactory as _
 
+# TODO: how to make this useful
+BannerSizes = {'large': (768, 768),
+              'preview': (400, 400),
+              'mini': (200, 200),
+              'thumb': (128, 128),
+              'tile': (64, 64),
+              'icon': (32, 32),
+              'listing': (16, 16),
+              'banner': (1000, 526),
+}
+
 
 # Interface class; used to define content-type schema.
 class IDeutscherHomepage(form.Schema, IImageScaleTraversable):

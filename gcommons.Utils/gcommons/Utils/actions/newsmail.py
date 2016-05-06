@@ -99,7 +99,7 @@ class NewsMailActionExecutor(object):
         event_url = obj.absolute_url()
         event_text = safe_unicode(obj.getText())
         # TODO: awful. But this need to be in Ascii AFAIK, MIMEText dies on Unicode
-        event_text = event_text.encode('ascii', 'replace')
+        event_text = event_text.encode('ascii', 'xmlcharrefreplace')
         
         message_body = self.element.message.replace("${url}", event_url)
         message_body = message_body.replace("${title}", event_title)

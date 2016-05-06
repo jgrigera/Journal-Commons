@@ -27,8 +27,8 @@ ul, ol {
 
 	/* override the root element to enable scrolling */
 	.css-panes {
-        height: 410px;
-        width: 702px;
+		height: 526px;
+		width: 1000px;
 		position:relative;
 		overflow:hidden;
 		clear:both;
@@ -39,9 +39,10 @@ ul, ol {
 	.css-panes div {
 		float:left;
 		display:block;
-		width:660px;
+		width:1000px;
 		font-size:14px;
-        background-color: transparent;
+		background-color: transparent;
+		padding: 0px 0px;
 	}
  
 	/* our additional wrapper element for the items */
@@ -66,8 +67,6 @@ ul, ol {
         deutscher_homepage_templates/<span tal:replace="template/id" />
     </h2>
 
-    <div tal:content="context/Title">Title inserted here</div>
-
 
 
 <!-- tab panes -->
@@ -77,26 +76,45 @@ ul, ol {
     <div class="items">
  
       <!-- the items -->
-      <div tal:define="picture nocall:context/banner01" 
-           tal:condition="nocall:picture">
+      <div>
 		  <a href="#"
 			 tal:attributes="href python:'algo'">
 			<img src="" alt=""
-				 tal:replace="structure context/@@images/banner01/mini" />
+			      tal:define="scales context/@@images;
+					  banner  python:scales.scale('banner01', width=1000, height=526);"
+			      tal:condition="banner"
+			      tal:attributes="src banner/url;
+				      width banner/width;
+				      height banner/height;
+				      alt  python:'Winner 2012'" />
+
 		  </a>
 	  </div>
       <div> 
       	  <a href="#"
 			 tal:attributes="href python:'algo'">
 			<img src="" alt=""
-				 tal:replace="structure context/@@images/banner02/mini" />
+			      tal:define="scales context/@@images;
+					  banner  python:scales.scale('banner02', width=1000, height=526);"
+			      tal:condition="banner"
+			      tal:attributes="src banner/url;
+				      width banner/width;
+				      height banner/height;
+				      alt  python:'Winner 2012'" />
+
 		  </a>
       </div>
       <div> 
       	  <a href="#"
 			 tal:attributes="href python:'algo'">
 			<img src="" alt=""
-				 tal:replace="structure context/@@images/banner03/mini" />
+			      tal:define="scales context/@@images;
+                			  banner  python:scales.scale('banner03', width=1000, height=526);"
+			      tal:condition="banner"
+			      tal:attributes="src banner/url;
+				      width banner/width;
+				      height banner/height;
+				      alt  python:'Winner 2012'" />
 		  </a>
   	  </div>
  
@@ -104,12 +122,12 @@ ul, ol {
  
   </div>
 
-<!-- tabs work as navigator for scrollable -->
-<ul id="tabs" class="css-tabs navi">
-  <li><a id="t1" class="current" href="#story">The Story</a></li>
-  <li><a id="t2" href="#features">Features</a></li>
-  <li><a id="t3" href="#plugins">Plugins</a></li>
-</ul>
+  <!-- tabs work as navigator for scrollable -->
+  <ul id="tabs" class="css-tabs navi">
+    <li><a id="t1" class="current" href="#story">Isaac and Tamara</a></li>
+    <li><a id="t2" href="#features">2012 Winner</a></li>
+    <li><a id="t3" href="#plugins">2013 Prize</a></li>
+  </ul>
   
   
 <script type="text/javascript">
