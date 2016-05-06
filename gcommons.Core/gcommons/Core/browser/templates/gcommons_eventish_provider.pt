@@ -11,7 +11,6 @@
                  getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                  templateId template/getId;
                  toLocalizedTime nocall:context/@@plone/toLocalizedTime;
-                 site_properties context/portal_properties/site_properties;
                  here_url context/@@absolute_url">
 
 	<table class="vertical listing"
@@ -63,8 +62,6 @@
 					</tal:differentday>
 
 					<tal:sameday tal:condition="python:context.start().Date() == context.end().Date()"
-								 tal:define="ampm
-								 python:site_properties.getProperty('localLongTimeFormat').find('%p') >= 0"
 								 i18n:translate="event_when_sameday">
 						<span tal:replace="python:toLocalizedTime(context.start())"
 							  i18n:name="date">
