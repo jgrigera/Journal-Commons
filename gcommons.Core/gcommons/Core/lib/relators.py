@@ -9,7 +9,7 @@ from Products.Archetypes import atapi
 
 # Widgets
 from Products.CMFCore.utils import getToolByName
-from archetypes.referencebrowserwidget import archetypes.referencebrowserwidget.ReferenceBrowserWidget
+from archetypes.referencebrowserwidget import ReferenceBrowserWidget
 from Products.DataGridField.DataGridWidget import DataGridWidget
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.Column import Column
