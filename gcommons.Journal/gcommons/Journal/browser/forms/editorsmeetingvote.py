@@ -8,7 +8,7 @@ from z3c.form.browser import checkbox
 from plone.z3cform.widget import singlecheckboxwidget_factory
 
 # Do not mix with Products.Five.browser.pagetemplatefile.ViewPageTemplateFile
-from zope.app.pagetemplate import ViewPageTemplateFile as Zope3PageTemplateFile
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile as Zope3PageTemplateFile
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
 
 

@@ -7,7 +7,7 @@ from plone.z3cform.layout import FormWrapper, wrap_form
 from z3c.form import subform
 
 # Do not mix with Products.Five.browser.pagetemplatefile.ViewPageTemplateFile
-from zope.app.pagetemplate import ViewPageTemplateFile as Zope3PageTemplateFile
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile as Zope3PageTemplateFile
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
                                                                                                                                                                                               
 # z3c.form Choice
