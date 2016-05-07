@@ -21,7 +21,7 @@
 		<role name="Manager" />
 		<role name="Contributor" />
 		<role name="EditorialBoard" />    
-		<role name="JournalAuthor" />    
+		<role name="Authenticated" />    
     </permission>
 
     <permission name="gcommons.Core: Add Comment" acquire="False">

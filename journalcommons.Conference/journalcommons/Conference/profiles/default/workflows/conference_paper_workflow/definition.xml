@@ -21,21 +21,21 @@
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="List folder contents"  acquired="False">
 	<permission-role>Manager</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
 	<permission-role>Manager</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
 
     <!-- Modify -->
@@ -63,21 +63,21 @@
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="List folder contents"  acquired="False">
 	<permission-role>Manager</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
 	<permission-role>Manager</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
 
     <!-- Modify -->
@@ -103,19 +103,19 @@
 	<permission-role>Manager</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="List folder contents"  acquired="False">
 	<permission-role>Manager</permission-role>
 	<permission-role>Owner</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
 	<permission-role>Manager</permission-role>
 	<permission-role>Owner</permission-role>
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
 	<permission-role>EditorialBoard</permission-role>
     </permission-map>
 
@@ -141,7 +141,7 @@
 	<permission-role>Manager</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="List folder contents"  acquired="False">
 	<permission-role>Anonymous</permission-role>
@@ -149,13 +149,13 @@
 	<permission-role>Owner</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
 	<permission-role>Anonymous</permission-role>
 	<permission-role>Manager</permission-role>
 	<permission-role>Owner</permission-role>
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
 	<permission-role>EditorialBoard</permission-role>
     </permission-map>
 
@@ -180,7 +180,7 @@
 	<permission-role>Manager</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<permission-role>Owner</permission-role>
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="List folder contents"  acquired="False">
 	<permission-role>Anonymous</permission-role>
@@ -188,13 +188,13 @@
 	<permission-role>Owner</permission-role>
 	<permission-role>EditorialBoard</permission-role>
 	<!-- maybe this just for panels... -->
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="View" acquired="False">
 	<permission-role>Anonymous</permission-role>
 	<permission-role>Manager</permission-role>
 	<permission-role>Owner</permission-role>
-	<permission-role>JournalAuthor</permission-role>
+	<permission-role>Authenticated</permission-role>
 	<permission-role>EditorialBoard</permission-role>
     </permission-map>
 
