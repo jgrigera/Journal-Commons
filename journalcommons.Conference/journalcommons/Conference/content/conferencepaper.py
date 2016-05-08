@@ -7,8 +7,7 @@ from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import mapply  
-#from Products.ATContentTypes.content import folder
-from plone.app.folder import folder
+from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from archetypes.referencebrowserwidget import ReferenceBrowserWidget
 

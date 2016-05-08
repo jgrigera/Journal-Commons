@@ -9,12 +9,12 @@
     <permission name="journalcommons.Conference: Add ConferenceEvent" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
-      <role name="JournalAuthor" />
+      <role name="Authenticated" />
     </permission>
     <permission name="journalcommons.Conference: Add ConferencePaper" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
-      <role name="JournalAuthor" />
+      <role name="Authenticated" />
     </permission>
     <permission name="journalcommons.Conference: Add Conference" acquire="False">
       <role name="Manager" />
