@@ -35,8 +35,8 @@ ConferencePaperSchema = folder.ATFolderSchema.copy() + RelatorsMixin.schema.copy
         #default='',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Special Requirements"),
-            description=_(u"Does your paper require any specific requirements? Type any special requirements here (such as Powerpoint, video equipment, etc)"),
+            label=_(u"Special Requirements or Time Constraints"),
+            description=_(u"Does your paper require any specific requirements? Type any special requirements here including any time constraints you might have."),
         ),
     ),
 
@@ -69,6 +69,7 @@ def finalizeConferenceSchema(schema):
     schema['description'].required = True
     schema['description'].widget.label = _('Abstract')
     schema['description'].widget.description = _('A short summary of your article.')
+    schema['description'].widget.rows = 10
     schema['subject'].storage = atapi.AnnotationStorage()
     schema['subject'].widget.label = _('Keywords')
     schema['subject'].widget.description  = _('Please select among the existing keywords or add new ones to describe the subjects of your submission.')
