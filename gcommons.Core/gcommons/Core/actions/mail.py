@@ -115,7 +115,6 @@ class mail(Action):
             from_name = portal.getProperty('email_from_name', '')
         if not from_address:
             raise ValueError, 'You must provide a source address for this action or enter an email in the portal properties'
-        from_name = portal.getProperty('email_from_name')
         source = "%s <%s>" % (from_name, from_address)
 
 
