@@ -6,15 +6,17 @@ from zope.component.interfaces import ComponentLookupError
 from gcommons.Core.actions import Action
 from Acquisition import aq_inner, aq_parent      
 
+from plone import api
 from Products.CMFCore.utils import getToolByName       
 from Products.CMFPlone.utils import safe_unicode
 
+
 # Python 2.5
-# from email.mime.multipart import MIMEMultipart
-# from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 # Python 2.4
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+#from email.MIMEMultipart import MIMEMultipart
+#from email.MIMEText import MIMEText
 from email.Charset import Charset
 
  
@@ -101,13 +103,16 @@ class mail(Action):
 
 
         # Now send the email
-        logger.info("AFTER PATCH")
-        logger.info(email_text)
         recipients = ["%(creatorfullname)s <%(creatoremail)s>" % values,]
 
         # Get From Address
-        email_charset = portal.getProperty('email_charset')
-        from_address = portal.getProperty('email_from_address')
+        try:
+           from_address = api.portal.get_registry_record('plone.email_from_address')
+           from_name = api.portal.get_registry_record('plone.email_from_name')
+        except InvalidParameterError:
+            # Before Plone 5.0b2 these were stored in portal_properties
+            from_address = portal.getProperty('email_from_address', '')
+            from_name = portal.getProperty('email_from_name', '')
         if not from_address:
             raise ValueError, 'You must provide a source address for this action or enter an email in the portal properties'
         from_name = portal.getProperty('email_from_name')
