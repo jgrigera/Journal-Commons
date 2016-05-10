@@ -60,6 +60,6 @@
     name="conferencepaper_edit"
     template="templates/conferencepaper_edit.pt"
       permission="zope2.Public"
-    />    
+    />
   
 </configure>

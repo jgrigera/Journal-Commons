@@ -19,10 +19,14 @@ journalcommons/Conference/configure.zcml
 journalcommons/Conference/permission.py
 journalcommons/Conference/browser/__init__.py
 journalcommons/Conference/browser/conferenceeventview.py
+journalcommons/Conference/browser/conferencepaperview.py
 journalcommons/Conference/browser/conferencepaymentoverview.py
 journalcommons/Conference/browser/conferencepaymentview.py
 journalcommons/Conference/browser/conferenceview.py
 journalcommons/Conference/browser/configure.zcml
+journalcommons/Conference/browser/templates/conferencepaper_edit.pt
+journalcommons/Conference/browser/templates/conferencepaper_edit.pt~
+journalcommons/Conference/browser/templates/gcommons_conferencepaper_view.pt
 journalcommons/Conference/browser/templates/gcommons_conferencepayment_overview.pt
 journalcommons/Conference/browser/templates/gcommons_conferencepayment_view.pt
 journalcommons/Conference/browser/templates/jcommons_conference_view.pt

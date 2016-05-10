@@ -1,0 +1,10 @@
+
+Caveats
+-------
+
+On upgrades, check the following:
+
+a. content_edit.cpy from Archetypes skin has been modified
+    This allows to have a save&publish in conference_edit.pt
+    (<contenttype>_edit is a hook that allows to add slots, but there was no hook for the forms themselves)
+

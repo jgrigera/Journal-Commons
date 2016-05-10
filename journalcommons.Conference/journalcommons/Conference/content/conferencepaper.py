@@ -3,12 +3,15 @@
 
 from zope.interface import implements
 from Acquisition import aq_inner
+from AccessControl import ClassSecurityInfo
+from Products.CMFCore import permissions
 
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from archetypes.referencebrowserwidget import ReferenceBrowserWidget
+from Products.statusmessages.interfaces import IStatusMessage
 
 # gcommons
 from gcommons.Core.lib.relators import RelatorsMixin
@@ -19,7 +22,6 @@ from journalcommons.Conference.config import PROJECTNAME
 import logging
 logger = logging.getLogger('jcommons.Conference.content.ConferencePaper')
 
-from Products.Archetypes.utils import mapply  
 
 
 #####################################
@@ -95,7 +97,7 @@ def finalizeConferenceSchema(schema):
 class ConferencePaper(folder.ATFolder, RelatorsMixin):
     """A paper submitted to a conference"""
     implements(IConferencePaper)
-
+    security = ClassSecurityInfo()
     meta_type = "ConferencePaper"
     schema = finalizeConferenceSchema(ConferencePaperSchema)
     
@@ -126,6 +128,7 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
         else:
             field.set(self, None)
         return
+
         
     ###COMMON!
     def get_container(self):

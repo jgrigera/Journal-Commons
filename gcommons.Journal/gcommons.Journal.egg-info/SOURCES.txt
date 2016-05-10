@@ -16,7 +16,6 @@ gcommons/Journal/README.txt
 gcommons/Journal/__init__.py
 gcommons/Journal/config.py
 gcommons/Journal/configure.zcml
-gcommons/Journal/patch.py
 gcommons/Journal/browser/__init__.py
 gcommons/Journal/browser/articlepublishview.py
 gcommons/Journal/browser/articleview.py
@@ -129,8 +128,6 @@ gcommons/Journal/skins/gcommons_journal_templates/jc_content_reviseandresubmit_f
 gcommons/Journal/skins/gcommons_journal_templates/jc_content_submittoeb_form.pt
 gcommons/Journal/skins/gcommons_journal_templates/redirect_parent_view.cpy
 gcommons/Journal/skins/gcommons_journal_templates/redirect_parent_view.cpy.metadata
-gcommons/Journal/skins/gcommons_journal_templates/register.cpy
-gcommons/Journal/skins/gcommons_journal_templates/register.cpy.metadata
 gcommons/Journal/tests/__init__.py
 gcommons/Journal/tests/base.py
 gcommons/Journal/tests/base_articlelistportlet.py

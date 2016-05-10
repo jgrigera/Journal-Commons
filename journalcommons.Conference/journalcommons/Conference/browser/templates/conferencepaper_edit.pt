@@ -1,0 +1,41 @@
+<html 
+    i18n:domain="zope">
+
+  <metal:macro define-macro="body"> 
+    <metal:macro use-macro="here/edit_macros/macros/body">
+
+    <metal:block fill-slot="buttons">
+      <input class="standalone"
+             type="submit"
+             name="form.button.cancel"
+             value="Cancel"
+             i18n:attributes="value label_cancel;"
+             />
+      <input class="context"
+             type="submit"
+             name="form.button.save"
+             value="Save as a Draft"
+             i18n:attributes="value label_save;"
+             />
+      
+    </metal:block>
+
+    
+    <metal:slot fill-slot="extra_buttons">
+
+ <metal:buttons metal:define-macro="extra_buttons">
+   <input class="context"
+	  type="submit"
+	  name="form.button.edit_and_publish"
+	  value="Save and Submit"
+	  i18n:attributes="value label_edit_and_publish;"
+	/>
+
+ </metal:buttons> 
+      </metal:slot>
+    </metal:macro>
+  </metal:macro>
+
+
+</html>
+
