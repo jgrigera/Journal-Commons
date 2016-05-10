@@ -45,5 +45,21 @@
       allowed_interface=".conferenceview.IConferenceView"
       permission="zope.Public"
       />
+
+  <browser:page
+      for="*"
+      name="gcommons_conferencepaper_view"
+      class=".conferencepaperview.ConferencePaperView"
+      template="templates/gcommons_conferencepaper_view.pt"
+      allowed_interface=".conferencepaperview.IConferencePaperView"
+      permission="zope2.Public"
+      />
+
+  <browser:page
+    for="*"
+    name="conferencepaper_edit"
+    template="templates/conferencepaper_edit.pt"
+      permission="zope2.Public"
+    />    
   
 </configure>

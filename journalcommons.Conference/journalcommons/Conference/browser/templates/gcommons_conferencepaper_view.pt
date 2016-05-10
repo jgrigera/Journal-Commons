@@ -1,0 +1,245 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Journal">
+<head>
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:view.get_disable_border() and request.set('disable_border',1) or request.set('enable_border',1);" />
+
+</head>
+<body>
+    <div metal:fill-slot="main"
+         tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+                     drafts_start request/drafts_start | python:0;
+                     drafts_size  request/drafts_size | python:20;
+                     drafts view/get_drafts | python:None;
+                     state_actions	view/get_actions;
+                     template_id string:gcommons_article_view">
+
+        <tal:main-macro metal:define-macro="main">
+
+
+	<!-- Print div with Simple Actions -->
+	<div tal:condition="state_actions"
+	     style="float: right; margin-left: 2em; margin-right: 0em;">
+	     
+	<dl class="portlet">
+	    <span class="portletTopLeft"></span>
+	    <dt class="portletHeader">
+			Actions
+	    </dt>
+	    <span class="portletTopRight"></span>
+		<dd class="portletItem">
+			<ul class="configlets">
+				<tal:loop tal:repeat="action state_actions">
+				    <li>
+				        <tal:action tal:replace="structure action" />
+				    </li>
+				</tal:loop>
+			</ul>
+		</dd>
+    	</dl>
+        </div>
+
+	<!-- Article Metadata -->
+	<h2 tal:content="here/Title" />
+
+	<!-- Authors and contributors -->	
+	<div tal:replace="structure provider:gcommons.relatorsprovider" />
+
+	<!-- Abstract and Keywords -->
+	<tal:abstract tal:condition="here/Description">
+	 	<h3>Abstract</h3>
+	 		<div class="article-abstract" tal:content="here/Description" />
+			<p/><p/>
+		<tal:loop tal:repeat="keyword here/Subject">
+			    <tal:case tal:condition="not: repeat/keyword/start">
+				-
+			    </tal:case><b tal:content="keyword" />
+		</tal:loop>
+	</tal:abstract>
+	
+	
+	<!-- Is this article part of special issue/dossier/panel? -->
+	<tal:containers tal:condition="here/get_container"
+					tal:define="container here/get_container">
+		
+		<span class="visualClear"><!-- -->&nbsp;<br/></span>
+					
+		<b>This article is part of</b> <a href="#" 
+				tal:content="container/Title" 
+				tal:attributes="href container/absolute_url"/> 
+				<span class="discreet">(<span tal:replace="container/Description"/>)</span>
+	</tal:containers>
+	
+	<span class="visualClear" />
+	
+	<!-- Now list the other drafts -->
+	<tal:drafts tal:condition="view/are_drafts_allowed">
+        <div tal:condition="not:drafts">
+            <b i18n:translate="no_drafts_added">No drafts have been added yet for this article.</b>
+        </div>
+        
+        <div tal:condition="drafts">
+            <h3 i18n:translate="drafts">Current Draft</h3>
+            <table class="vertical listing"
+            		tal:define="draft here/get_current_draft">
+                <tr>
+                    <th i18n:translate="Title">Type</th>             
+                    <td>
+						<metal:field use-macro="python:draft.widget('subtype', mode='view')" />
+					</td>
+                </tr>
+                <tr>
+                    <th i18n:translate="Title">When</th>             
+                    <td tal:content="python:view.get_draft_modification_date(draft,full=True)" />
+                </tr>
+                <tr>
+                    <th i18n:translate="Word Count">Word Count</th>             
+                    <td tal:content="draft/getWordCount" />
+                    
+                </tr>
+                <tr tal:condition="draft/getPageEstimate">
+                    <th i18n:translate="PageEstimate">Page Estimate</th>             
+                    <td tal:content="draft/getPageEstimate" />
+                </tr> 
+                <tr>
+                    <th i18n:translate="download">Download file</th>             
+                    <td>
+						<metal:field use-macro="python:draft.widget('file', mode='view')" /><br/>
+                		<i>Alternative formats:</i> <a href="#" tal:attributes="href string:${draft/absolute_url}/preview_as_html">View as HTML</a>
+                    </td>
+                </tr>
+            <tal:comments tal:define="comments python:view.get_comments_by_type('current')"
+            			tal:condition="comments">
+                <tr tal:repeat="comment_type comments">
+		            	<th tal:content="comment_type"></th>
+		            	<td>
+		            		<tal:block tal:repeat="comment python:comments[comment_type]">
+		            			<tal:user tal:define="fullname	python:comment.listCreators()[0];">
+			            			<a href="#" tal:attributes="href string:${comment/absolute_url}/view" 
+			            						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
+			            		</tal:user>
+			            	</tal:block>
+		            	</td>
+		        </tr>
+            </tal:comments>
+            </table>
+
+
+		<tal:addcomment tal:condition="python:user.has_permission('gcommons.Core: Add Comment', here)">
+			<form method="post" action="createObject" name="addComment">
+				<input type="hidden" name="type_name" value="Comment" />
+				<input type="submit" value="Add Comment" style="margin-bottom: 1.25em;" class="standalone" />
+			</form>
+		</tal:addcomment>            
+
+
+	<!--  
+	Show list of drafts if more than one
+	 -->            
+            <tal:batch 
+            	tal:define="batch_drafts python:Batch(drafts, drafts_size, int(drafts_start), orphan=1, b_start_str='drafts_start')"
+            	tal:condition="python:len(drafts)>1" >
+
+            <h4 i18n:translate="drafts">Draft History</h4>
+            <table class="listing">
+                <tr>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Words</th>
+                    <th>Pages</th>
+                    <th>Download</th>
+                    <th>Comments</th>
+                </tr>
+                <tal:block repeat="draft batch_drafts">
+
+                <tr tal:define="oddrow repeat/draft/odd;"
+                    tal:attributes="class python:oddrow and 'even' or 'odd'">
+                   
+                    <td tal:content="draft/getSubtype" />
+                    <td tal:content="python:view.get_draft_modification_date(draft)" />
+                    <td tal:content="draft/getWordCount" style="text-align:center"  />
+                    <td tal:content="draft/getPageEstimate" style="text-align:center" />
+                    <td>
+			<metal:field use-macro="python:draft.widget('file', mode='view')">
+				File
+                        </metal:field>
+                    </td>
+                    <td>                    
+               		<tal:comment_type tal:define="comments python:view.get_comments_by_type(draft.getId())"
+                						  tal:repeat="comment_type comments">
+                		<em tal:content="string:${comment_type}:"/>
+
+						<tal:block tal:repeat="comment python:comments[comment_type]">
+							<metal:user tal:define="fullname python:comment.listCreators()[0];">
+					 			<a href="#" tal:attributes="href string:${comment/absolute_url}/view" 
+						 						tal:content="fullname" /><tal:case tal:condition="not: repeat/comment/end">, </tal:case>
+					 		</metal:user>
+					 	</tal:block>
+					 		<br/>
+
+                		</tal:comment_type>
+		            </td>
+		        </tr>
+
+                </tal:block>
+            </table>
+            </tal:batch>
+
+            <br/>
+
+<!-- 
+            <form action="#" method="post" class="visualNoPrint"
+                    tal:attributes="action string:${context/absolute_url}">
+                <input name="form.button.download_as_zip" value="Download all as a Zip" 
+                		type="submit" i18n:attributes="value label_downlaod_as_zip">
+            </form>
+-->
+        </div>
+        </tal:drafts>
+
+        <br/>
+	
+
+	<!-- Merge this in the future in view -->
+	<tal:accept tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') == 'accepted' ">
+	
+	    <h3>Please could you respond below indicating <br/>whether or not you will be attending the conference?</h3>
+
+	    <table>
+	    <tr><td>
+            <form action="#" method="post" class="visualNoPrint"
+                    tal:attributes="action string:${context/absolute_url}/content_status_modify">
+		<input name="workflow_action" value="confirm" type="hidden" />
+                <input name="form.button.confirm" value="Confirm" type="submit" />
+            </form>
+	    </td><td>
+            <form action="#" method="post" class="visualNoPrint"
+                    tal:attributes="action string:${context/absolute_url}/content_status_modify">
+		<input name="workflow_action" value="decline" type="hidden" />
+                <input name="form.button.decline" value="Decline" type="submit" />
+            </form>
+	    </td></tr>
+	    </table>
+	    
+	</tal:accept>
+
+	<!-- Letter of invitation -->
+	<tal:letter tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') in ('confirmed', 'accepted') ">
+            <form action="#" method="post" class="visualNoPrint"
+            		tal:attributes="action view/getLetterUrl">
+                <input name="form.button.download_as_zip" value="Download Invitation Letter" type="submit" />
+            </form>
+	</tal:letter>
+
+		<div tal:replace="structure provider:plone.belowcontentbody" />
+    
+
+        </tal:main-macro>
+    </div>
+</body>
+</html>
