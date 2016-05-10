@@ -14,9 +14,6 @@ from Products.CMFCore import utils
 
 JournalMessageFactory = MessageFactory('gcommons.Journal')
 
-# import monkeys
-from gcommons.Journal import patch
-
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.

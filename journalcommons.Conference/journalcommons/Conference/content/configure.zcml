@@ -11,19 +11,11 @@
         permission="zope2.View"
         interface="..interfaces.IConferencePayment"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IConferencePayment"
-        />
   </class>
   <class class=".conference.Conference">
     <require
         permission="zope2.View"
         interface="..interfaces.IConference"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IConference"
         />
   </class>
 
@@ -32,20 +24,12 @@
         permission="zope2.View"
         interface="..interfaces.IConferencePaper"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IConferencePaper"
-        />
   </class>
 
   <class class=".conferenceevent.ConferenceEvent">
     <require
         permission="zope2.View"
         interface="..interfaces.IConferenceEvent"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IConferenceEvent"
         />
   </class>
 

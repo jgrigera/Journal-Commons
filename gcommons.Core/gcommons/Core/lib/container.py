@@ -57,7 +57,6 @@ gcContainerSchema_base = atapi.Schema ((
         relationship = 'refEditors',
         required = False,
         multiValued = True,
-        searchable=1,
         allowed_types=('gcPerson',),
         storage=atapi.AnnotationStorage(),
         
