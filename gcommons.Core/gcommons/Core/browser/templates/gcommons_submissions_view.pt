@@ -120,7 +120,7 @@
          i18n:translate="description_manager_see_overview"
          tal:condition="view/condition_show_overview">
          Since you are an editor, you can go to the <a href="submit/gcommons_submissionseditors_view">Overview</a> of
-         current submissions and their status.
+         current submissions or try the new <a href="submit/gcommons_submissions_exhibit">Faceted Overview</a>.
       </p>
 
       <p>&nbsp;</p>
