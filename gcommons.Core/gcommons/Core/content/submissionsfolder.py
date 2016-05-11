@@ -198,9 +198,9 @@ class SubmissionsFolder(folder.ATFolder):
 	n=0
 	for item in self.searchSubmissions():
 	    n = n + 1
+	    obj = item.getObject()
 	    for field in Fields:
 		try:
-		    obj = item.getObject()
 		    schemafield = obj.Schema().getField( field['value'] )
 		    if schemafield is None:
 			logger.info("Wrong field %s in item type %s" % (field['value'], item.portal_type))
