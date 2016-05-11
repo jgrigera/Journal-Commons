@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="gcommons.Core">
+
+<head>
+   <metal:block metal:fill-slot="head_slot">
+        <script src="http://api.simile-widgets.org/exhibit/STABLE/exhibit-api.js" ></script> 
+        <link rel="exhibit/data" type="application/json" href="#"
+            tal:attributes="href python:context.absolute_url()+'/gcommons_submissions_json';"
+        />    
+    </metal:block>
+</head>
+
+<body>
+
+
+  <div metal:fill-slot="main">
+	<div data-ex-role="view" data-ex-label="Submissions" />
+	<div data-ex-role="lens"> 
+            <span data-ex-content=".Author"></span>: <span data-ex-content=".Title"></span> 
+        </div> 
+        <div data-ex-role="facet" data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="10px"></div> 
+        <div data-ex-role="facet" data-ex-expression=".Keywords" data-ex-facet-class="Cloud" data-ex-show-missing="false"></div> 
+  </div>
+</body>
+
+</html>
+

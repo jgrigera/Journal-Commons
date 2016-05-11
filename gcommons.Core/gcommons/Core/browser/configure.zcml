@@ -92,6 +92,19 @@
       permission="zope2.Public"
       />
 
+  <browser:page
+      for="*"
+      name="gcommons_submissions_exhibit"
+      template="templates/gcommons_submissions_exhibit.pt"
+      permission="zope.Public"
+      />
+  <browser:page
+      name="gcommons_submissions_json"
+      for="*"
+      class=".submissionsjson.SubmissionsJsonView"
+      permission="zope2.View"
+        />
+
   
 
 </configure>

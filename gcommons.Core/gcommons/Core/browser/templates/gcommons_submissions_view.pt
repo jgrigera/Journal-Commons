@@ -119,7 +119,7 @@
       <p class="portalMessage"
          i18n:translate="description_manager_see_overview"
          tal:condition="view/condition_show_overview">
-         Since you are an editor, you can go to the <a href="gcommons_submissionseditors_view">Overview</a> of
+         Since you are an editor, you can go to the <a href="submit/gcommons_submissionseditors_view">Overview</a> of
          current submissions and their status.
       </p>
 
