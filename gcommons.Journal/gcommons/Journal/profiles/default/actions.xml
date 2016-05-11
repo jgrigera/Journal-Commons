@@ -9,7 +9,7 @@
 	<property name="title" i18n:translate="">Edit Abstract</property>
 	<property name="description" i18n:translate="">Edit the title, abstract or keywords of this piece</property>
 	<property name="url_expr">string:$object_url/edit</property>
-	<property name="icon_expr">string:edit.gif</property>
+	<property name="icon_expr">string:$portal_url/extedit_icon.png</property>
 	<property name="available_expr"></property>
 	<property name="permissions">
 	    <element value="Modify portal content"/>

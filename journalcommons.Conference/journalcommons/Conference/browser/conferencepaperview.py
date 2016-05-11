@@ -199,7 +199,6 @@ class ConferencePaperView(BrowserView):
         
         workflowActions = self.portal_workflow.listActionInfos(object=self.context)
         for action in workflowActions:
-            logger.info(action)
             if action['category'] == 'workflow':
                 results.append(WorkflowActionView(action))
 
