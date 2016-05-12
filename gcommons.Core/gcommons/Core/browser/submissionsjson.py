@@ -52,12 +52,10 @@ class SubmissionsJsonView(BrowserView):
         context = self.context
         self.request.response.setHeader("Content-type", "application/json")
 	Fields = [ 
-	    { 'title': 'Author',          'value': 'primaryAuthor' },
-	    { 'title': 'Authors',         'value': 'unconfirmedExtraAuthors' },
 	    { 'title': 'Title',           'value': 'title' },
 	    { 'title': 'Abstract',        'value': 'description' },
 	    { 'title': 'Requirements',    'value': 'specialRequirements' },
-	    { 'title': 'Keywords',        'value': 'description' },
+	    { 'title': 'Keywords',        'value': 'subject' },
 	]
 	
 	results = []
@@ -77,130 +75,9 @@ class SubmissionsJsonView(BrowserView):
 		except UnicodeDecodeError:
 		    row[field['column']] = "UNICODE ERROR!!"
 		
+	    row['Authors'] = obj.getRelators()
 	    row['State'] = obj.get_review_state()
 	    results.append(row)
 	
 	return json_dumps({'items':results})
-
-        try:
-            vocabulary = self.get_vocabulary()
-        except VocabLookupException, e:
-            return json_dumps({'error': e.message})
-
-        results_are_brains = False
-        if hasattr(vocabulary, 'search_catalog'):
-            query = self.parsed_query()
-            results = vocabulary.search_catalog(query)
-            results_are_brains = True
-        elif hasattr(vocabulary, 'search'):
-            try:
-                query = self.parsed_query()['SearchableText']['query']
-            except KeyError:
-                results = iter(vocabulary)
-            else:
-                results = vocabulary.search(query)
-        else:
-            results = vocabulary
-
-        try:
-            total = len(results)
-        except TypeError:
-            # do not error if object does not support __len__
-            # we'll check again later if we can figure some size
-            # out
-            total = 0
-
-        # get batch
-        batch = _parseJSON(self.request.get('batch', ''))
-        if batch and ('size' not in batch or 'page' not in batch):
-            batch = None  # batching not providing correct options
-        if batch:
-            # must be slicable for batching support
-            page = int(batch['page'])
-            size = int(batch['size'])
-            if size > MAX_BATCH_SIZE:
-                raise Exception('Max batch size is 500')
-            # page is being passed in is 1-based
-            start = (max(page - 1, 0)) * size
-            end = start + size
-            # Try __getitem__-based slice, then iterator slice.
-            # The iterator slice has to consume the iterator through
-            # to the desired slice, but that shouldn't be the end
-            # of the world because at some point the user will hopefully
-            # give up scrolling and search instead.
-            try:
-                results = results[start:end]
-            except TypeError:
-                results = itertools.islice(results, start, end)
-
-        # build result items
-        items = []
-
-        attributes = _parseJSON(self.request.get('attributes', ''))
-        if isinstance(attributes, basestring) and attributes:
-            attributes = attributes.split(',')
-
-        translate_ignored = [
-            'Creator', 'Date', 'Description', 'Title', 'author_name',
-            'cmf_uid', 'commentators', 'created', 'effective', 'end',
-            'expires', 'getIcon', 'getId', 'getRemoteUrl', 'in_response_to',
-            'listCreators', 'location', 'modified', 'start', 'sync_uid',
-            'path', 'getURL', 'EffectiveDate', 'getObjSize', 'id',
-            'UID', 'ExpirationDate', 'ModificationDate', 'CreationDate',
-        ]
-        if attributes:
-            base_path = getNavigationRoot(context)
-            for vocab_item in results:
-                if not results_are_brains:
-                    vocab_item = vocab_item.value
-                item = {}
-                for attr in attributes:
-                    key = attr
-                    if ':' in attr:
-                        key, attr = attr.split(':', 1)
-                    if attr in _unsafe_metadata:
-                        continue
-                    if key == 'path':
-                        attr = 'getPath'
-                    val = getattr(vocab_item, attr, None)
-                    if callable(val):
-                        if attr in _safe_callable_metadata:
-                            val = val()
-                        else:
-                            continue
-                    if key == 'path':
-                        val = val[len(base_path):]
-                    if key not in translate_ignored and isinstance(val, basestring):
-                        item[key] = translate(_(safe_unicode(val)), context=self.request)
-                    else:
-                        item[key] = val
-                items.append(item)
-        else:
-            for item in results:
-                items.append({'id': item.value, 'text': item.title})
-
-        if total == 0:
-            total = len(items)
-
-        return json_dumps({
-            'results': items,
-            'total': total
-        })
-
-    def parsed_query(self, ):
-        query = _parseJSON(self.request.get('query', ''))
-        if isinstance(query, basestring):
-            query = {'SearchableText': {'query': query}}
-        elif query:
-            parsed = queryparser.parseFormquery(
-                self.get_context(), query['criteria'])
-            if 'sort_on' in query:
-                parsed['sort_on'] = query['sort_on']
-            if 'sort_order' in query:
-                parsed['sort_order'] = str(query['sort_order'])
-            query = parsed
-        else:
-            query = {}
-        return query
-
 

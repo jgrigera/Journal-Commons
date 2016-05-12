@@ -178,12 +178,10 @@ class SubmissionsFolder(folder.ATFolder):
 	ws0 = wb.add_sheet('Abstracts')
 	
 	Fields = [ 
-	    { 'column': 0, 'title': 'Author',          'value': 'primaryAuthor' },
-	    { 'column': 1, 'title': 'Authors',         'value': 'unconfirmedExtraAuthors' },
+	    { 'column': 0, 'title': 'Authors',         'value': 'creators' },
 	    { 'column': 2, 'title': 'Title',           'value': 'title' },
 	    { 'column': 3, 'title': 'Abstract',        'value': 'description' },
 	    { 'column': 4, 'title': 'Requirements',    'value': 'specialRequirements' },
-#	    { 'column': 3, 'title': 'Part of Panel?',  'value': 'isPartPanel' },
 	]
 	
 	# Cell Style
