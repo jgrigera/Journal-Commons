@@ -55,10 +55,18 @@
       permission="zope2.Public"
       />
 
+  <!-- Patch edit forms to have "Save and Submit" buttons (form.button.edit_and_publish) -->
   <browser:page
     for="*"
     name="conferencepaper_edit"
     template="templates/conferencepaper_edit.pt"
+      permission="zope2.Public"
+    />
+
+  <browser:page
+    for="*"
+    name="conferenceevent_edit"
+    template="templates/conferenceevent_edit.pt"
       permission="zope2.Public"
     />
   
