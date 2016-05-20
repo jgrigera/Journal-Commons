@@ -48,11 +48,11 @@ class ManageDescription(BrowserView):
         values['array'] = self.getArrayJS(field, context)
         # maybe use AJAX: jq.getJSON('%(absolute_url)s/@@masterselect-jsonvalue', function(json) { 
         return """
-jq('#%(name)s').change(function() {
-            var sel = jq("#%(name)s").val();
+$('#%(name)s').change(function() {
+            var sel = $("#%(name)s").val();
             var values = %(array)s;
             var text = values[sel];
-            jq("#%(name)s-selectdescription").html(text);
+            $("#%(name)s-selectdescription").html(text);
         });
 """ % values
     
@@ -67,7 +67,4 @@ jq('#%(name)s').change(function() {
             value = mapply(method, *args, **kw)           
         return json.dumps ( value )
     #( ["'%s':'%s'" % (k,v) for k,v in value.iteritems()] )
-
-
-
 
