@@ -70,13 +70,18 @@ class SubmissionsJsonView(BrowserView):
 			continue
 		    
 		    value = schemafield.getAccessor(obj)()
-		    if value is not None:
-			row[field['title']] = value.decode('utf-8','ignore')
+		    if value is not None and isinstance(value,basestring):
+			row[field['title']] = value.decode('utf8','ignore')
+		    else:
+			row[field['title']] = value
 		except UnicodeDecodeError:
 		    row[field['column']] = "UNICODE ERROR!!"
 		
-	    row['Authors'] = obj.getRelators()
+	    row['Authors'] = obj.getRelators_text(brief=True)
 	    row['State'] = obj.get_review_state()
+	    row['url'] = obj.absolute_url()
+	    row['Type'] = obj.portal_type
+	    row['SubType'] = obj.get_item_subtype()
 	    results.append(row)
 	
 	return json_dumps({'items':results})

@@ -21,9 +21,10 @@
   <div metal:fill-slot="main">
 	<div data-ex-role="view" data-ex-label="Submissions" />
 	<div data-ex-role="lens"> 
-            <span data-ex-content=".Author"></span>: <span data-ex-content=".Title"></span> 
+                <span data-ex-content=".Authors"></span>: <a data-href-content=".url"><span data-ex-content=".Title" /></a>
         </div> 
-        <div data-ex-role="facet" data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="10px"></div> 
+        <div data-ex-role="facet" data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="60px"></div> 
+        <div data-ex-role="facet" data-ex-expression=".Type" data-ex-show-missing="false" data-ex-height="60px"></div> 
         <div data-ex-role="facet" data-ex-expression=".Keywords" data-ex-facet-class="Cloud" data-ex-show-missing="false"></div> 
   </div>
 </body>
