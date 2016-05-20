@@ -11,19 +11,11 @@
         permission="zope2.View"
         interface="..interfaces.IgcFrontPage"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IgcFrontPage"
-        />
   </class>
   <class class=".specialissue.SpecialIssue">
     <require
         permission="zope2.View"
         interface="..interfaces.ISpecialIssue"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.ISpecialIssue"
         />
   </class>
   <class class=".journal.Journal">
@@ -31,19 +23,11 @@
         permission="zope2.View"
         interface="..interfaces.IJournal"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IJournal"
-        />
   </class>
   <class class=".section.Section">
     <require
         permission="zope2.View"
         interface="..interfaces.ISection"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.ISection"
         />
   </class>
   <class class=".article.Article">
@@ -51,29 +35,17 @@
         permission="zope2.View"
         interface="..interfaces.IArticle"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IArticle"
-        />
   </class>
   <class class=".issue.Issue">
     <require
         permission="zope2.View"
         interface="..interfaces.IIssue"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IIssue"
-        />
   </class>
   <class class=".editorsmeeting.EditorsMeeting">
     <require
         permission="zope2.View"
         interface="..interfaces.IEditorsMeeting"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IEditorsMeeting"
         />
   </class>
 
