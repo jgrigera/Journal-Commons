@@ -328,14 +328,17 @@ class RelatorsMixin:
         return sorted( relators, key=itemgetter('order'))
 
         
-    def getRelators_text(self, relationship=None):
+    def getRelators_text(self, relationship=None, brief=True):
         """
         return a list of authors, translators, chairs, coordinators, etc for this piece
         but only as text
         
+        brief = True: name, name, name (editor), name (translator)
         """
-        relators = self.getRelators()
+        relators = self.getRelators(relationship=relationship)
         
+        if brief:
+            return ', '.join( [ "%s" % relator['name'] if relator['relationship'] == 'Author' else "%s (%s)" % (relator['name'],relator['relationship'])   for relator in relators ] )
         return 'TODO'
 
 
