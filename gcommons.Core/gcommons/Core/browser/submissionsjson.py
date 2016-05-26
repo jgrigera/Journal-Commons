@@ -1,27 +1,9 @@
 # -*- coding: utf-8 -*-
-from AccessControl import getSecurityManager
-from plone.app.layout.navigation.interfaces import INavigationRoot
-from plone.app.layout.navigation.root import getNavigationRoot
 from Products.Five import BrowserView
-from logging import getLogger
 from plone.app.content.utils import json_dumps
-from plone.app.content.utils import json_loads
-from plone.app.querystring import queryparser
-from plone.app.widgets.interfaces import IFieldPermissionChecker
-from plone.autoform.interfaces import WRITE_PERMISSIONS_KEY
-from plone.supermodel.utils import mergedTaggedValueDict
-from types import FunctionType
-from zope.component import getUtility
-from zope.component import queryAdapter
-from zope.component import queryUtility
-from zope.schema.interfaces import ICollection
-from zope.schema.interfaces import IVocabularyFactory
-from zope.security.interfaces import IPermission
-from Products.CMFPlone import PloneMessageFactory as _
-from zope.i18n import translate
-from Products.CMFPlone.utils import safe_unicode
-import inspect
-import itertools
+from logging import getLogger
+import hashlib
+
 
 logger = getLogger(__name__)
 
@@ -52,8 +34,6 @@ class SubmissionsJsonView(BrowserView):
         context = self.context
         self.request.response.setHeader("Content-type", "application/json")
 	Fields = [ 
-	    { 'title': 'Title',           'value': 'title' },
-	    { 'title': 'Abstract',        'value': 'description' },
 	    { 'title': 'Requirements',    'value': 'specialRequirements' },
 	    { 'title': 'Keywords',        'value': 'subject' },
 	]
@@ -62,27 +42,33 @@ class SubmissionsJsonView(BrowserView):
 	for item in context.searchSubmissions():
 	    row = {}
 	    obj = item.getObject()
-	    for field in Fields:
-		try:
-		    schemafield = obj.Schema().getField( field['value'] )
-		    if schemafield is None:
-			logger.info("Wrong field %s in item type %s" % (field['value'], item.portal_type))
-			continue
-		    
-		    value = schemafield.getAccessor(obj)()
-		    if value is not None and isinstance(value,basestring):
-			row[field['title']] = value.decode('utf8','ignore')
-		    else:
-			row[field['title']] = value
-		except UnicodeDecodeError:
-		    row[field['column']] = "UNICODE ERROR!!"
-		
+	    row['id'] = obj.UID()
+	    row['label'] = obj.Title()
+            row['Title'] = obj.Title()
 	    row['Authors'] = obj.getRelators_text(brief=True)
+            row['Keywords'] = obj.Subject()
 	    row['State'] = obj.get_review_state()
 	    row['url'] = obj.absolute_url()
-	    row['Type'] = obj.portal_type
+	    row['type'] = obj.portal_type
 	    row['SubType'] = obj.get_item_subtype()
+
+            abstract = obj.Description()
+            abstracted = {}
+            abstracted['id'] = hashlib.md5(abstract).hexdigest()
+            abstracted['label'] = abstract
+            abstracted['type'] = 'Details'
+	    abstracted['short'] = 'More details...'
+            abstracted['url'] = obj.absolute_url()
+            row['Abstract'] = abstracted['id']
 	    results.append(row)
-	
-	return json_dumps({'items':results})
+
+            results.append(abstracted)
+            
+	return json_dumps(
+	    {'items' : results,
+             'properties' :  [{ 'Abstract': 'item' }],
+	     'types': [{ 'ConferencePaper': {'pluralLabel': 'Papers',} },
+		       { 'Details' :  {'pluralLabel': 'Papers',}  }],
+	    }
+        )
 

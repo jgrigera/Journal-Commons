@@ -18,14 +18,41 @@
 <body>
 
 
-  <div metal:fill-slot="main">
-	<div data-ex-role="view" data-ex-label="Submissions" />
-	<div data-ex-role="lens"> 
-                <span data-ex-content=".Authors"></span>: <a data-href-content=".url"><span data-ex-content=".Title" /></a>
-        </div> 
-        <div data-ex-role="facet" data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="60px"></div> 
-        <div data-ex-role="facet" data-ex-expression=".Type" data-ex-show-missing="false" data-ex-height="60px"></div> 
-        <div data-ex-role="facet" data-ex-expression=".Keywords" data-ex-facet-class="Cloud" data-ex-show-missing="false"></div> 
+<div metal:fill-slot="main">
+  <div data-ex-role="exhibit-collection" data-ex-item-types="ConferencePaper" />
+  <div id="exhibit-view-panel" data-ex-role="viewPanel">
+       <div data-ex-item-types="ConferencePaper" data-ex-role="exhibit-lens" style="display: none"> 
+         Paper: <span data-ex-content=".Authors"></span>: <a data-ex-href-content=".url" target="_blank"><span data-ex-content=".Title" /></a> ee <span data-ex-content=".Abstract" />
+      </div>
+      <!-- expand to show abstract -->
+      <div class="item" data-ex-role="exhibit-lens" data-ex-item-types="Details" style="display: none">
+                        <p><span data-ex-content=".label"></span></p>
+                        <p><a data-ex-href-content=".url" target="_blank">Many xore details...</a></p>
+      </div>
+
+      <div data-ex-role="view"
+           data-ex-viewClass="Tile"
+           data-ex-label="Titles"
+           data-ex-orders=".Authors,.Title"
+           data-ex-possibleOrders=".Authors, .Title"
+           data-ex-grouped="false" 
+           data-ex-pageSize="50"
+           />
+<!--
+      <div data-ex-role="view"
+           data-ex-viewClass="Tabular"
+           data-ex-label="Table"
+           data-ex-columns=".Authors, .Title"
+           data-ex-columnFormats="text,text"
+           data-ex-columnLabels="Authors, Title"
+           data-ex-sortColumn="1"
+           data-ex-sortAscending="true"
+           />
+-->
+      <div data-ex-role="facet" data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="60px"></div> 
+      <div data-ex-role="facet" data-ex-expression=".Type" data-ex-show-missing="false" data-ex-height="60px"></div> 
+      <div data-ex-role="facet" data-ex-expression=".Keywords" data-ex-facet-class="Cloud" data-ex-show-missing="false"></div>
+    </div>
   </div>
 </body>
 
