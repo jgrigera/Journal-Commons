@@ -43,7 +43,7 @@ class SubmissionsJsonView(BrowserView):
 	    row = {}
 	    obj = item.getObject()
 	    row['id'] = obj.UID()
-	    row['label'] = obj.Title()
+	    row['label'] = 'More details'
             row['Title'] = obj.Title()
 	    row['Authors'] = obj.getRelators_text(brief=True)
             row['Keywords'] = obj.Subject()
@@ -59,6 +59,7 @@ class SubmissionsJsonView(BrowserView):
             abstracted['type'] = 'Details'
 	    abstracted['short'] = 'More details...'
             abstracted['url'] = obj.absolute_url()
+            abstracted['Paper'] = obj.UID()
             row['Abstract'] = abstracted['id']
 	    results.append(row)
 
@@ -66,7 +67,7 @@ class SubmissionsJsonView(BrowserView):
             
 	return json_dumps(
 	    {'items' : results,
-             'properties' :  [{ 'Abstract': 'item' }],
+             'properties' :  [{ 'Abstract': 'item', 'Paper': 'item' }],
 	     'types': [{ 'ConferencePaper': {'pluralLabel': 'Papers',} },
 		       { 'Details' :  {'pluralLabel': 'Papers',}  }],
 	    }

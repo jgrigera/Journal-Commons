@@ -19,15 +19,20 @@
 
 
 <div metal:fill-slot="main">
-  <div data-ex-role="exhibit-collection" data-ex-item-types="ConferencePaper" />
+  <div data-ex-role="exhibit-collection" data-ex-item-types="ConferencePaper,ConferenceEvent" />
   <div id="exhibit-view-panel" data-ex-role="viewPanel">
-       <div data-ex-item-types="ConferencePaper" data-ex-role="exhibit-lens" style="display: none"> 
-         Paper: <span data-ex-content=".Authors"></span>: <a data-ex-href-content=".url" target="_blank"><span data-ex-content=".Title" /></a> ee <span data-ex-content=".Abstract" />
+      <div data-ex-item-types="ConferencePaper,ConferenceEvent" data-ex-role="exhibit-lens" style="display: none"> 
+         <span data-ex-content=".Authors"></span>: <a data-ex-href-content=".url" target="_blank"><span data-ex-content=".Title" /></a> (<span data-ex-content="!Paper" />)
       </div>
+
       <!-- expand to show abstract -->
       <div class="item" data-ex-role="exhibit-lens" data-ex-item-types="Details" style="display: none">
-                        <p><span data-ex-content=".label"></span></p>
-                        <p><a data-ex-href-content=".url" target="_blank">Many xore details...</a></p>
+	<h3 data-ex-content="!Abstract.Title" />
+	<span data-ex-content="!Abstract.Authors" />
+
+        <h4>Abstract</h4>
+        <p><span data-ex-content=".label"></span></p>
+        <p><a data-ex-href-content=".url" target="_blank">More details...</a></p>
       </div>
 
       <div data-ex-role="view"
@@ -42,18 +47,30 @@
       <div data-ex-role="view"
            data-ex-viewClass="Tabular"
            data-ex-label="Table"
-           data-ex-columns=".Authors, .Title"
-           data-ex-columnFormats="text,text"
-           data-ex-columnLabels="Authors, Title"
-           data-ex-sortColumn="1"
-           data-ex-sortAscending="true"
+           data-ex-columns=".Authors, .Title, !Paper"
+           data-ex-column-formats="text,text,item"
+           data-ex-column-labels="Authors, Title, Abstract"
+           data-ex-sort-column="1"
+           data-ex-sort-ascending="true"
            />
 -->
-      <div data-ex-role="facet" data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="60px"></div> 
-      <div data-ex-role="facet" data-ex-expression=".Type" data-ex-show-missing="false" data-ex-height="60px"></div> 
-      <div data-ex-role="facet" data-ex-expression=".Keywords" data-ex-facet-class="Cloud" data-ex-show-missing="false"></div>
     </div>
+</div>
+
+<div metal:fill-slot="portlets_one_slot">
+  <div id="exhibit-browse-panel">
+    <div data-ex-facet-label="Status" data-ex-role="facet"
+	 data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="60px"></div> 
+    <div data-ex-facet-label="Type" data-ex-role="facet"
+	 data-ex-expression=".SubType" data-ex-show-missing="false" data-ex-height="60px"></div> 
+    <div data-ex-role="facet" data-ex-expression=".Keywords" data-ex-facet-class="Cloud" data-ex-show-missing="false"></div>
+    <div data-ex-facet-label="Free text search" data-ex-role="facet" data-ex-facet-class="TextSearch"></div>
   </div>
+
+</div>
+
+<metal:block fill-slot="column_two_slot" />
+
 </body>
 
 </html>
