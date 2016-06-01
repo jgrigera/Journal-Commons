@@ -3,11 +3,7 @@ from Products.Five import BrowserView
 from plone.app.content.utils import json_dumps
 from logging import getLogger
 import hashlib
-
-
 logger = getLogger(__name__)
-
-MAX_BATCH_SIZE = 500  # prevent overloading server
 
 
 
@@ -40,31 +36,35 @@ class SubmissionsJsonView(BrowserView):
 	
 	results = []
 	for item in context.searchSubmissions():
-	    row = {}
-	    obj = item.getObject()
-	    row['id'] = obj.UID()
-	    row['label'] = 'More details'
-            row['Title'] = obj.Title()
-	    row['Authors'] = obj.getRelators_text(brief=True)
-            row['Keywords'] = obj.Subject()
-	    row['State'] = obj.get_review_state()
-	    row['url'] = obj.absolute_url()
-	    row['type'] = obj.portal_type
-	    row['SubType'] = obj.get_item_subtype()
+            try:
+	        row = {}
+	        obj = item.getObject()
+	        row['id'] = obj.UID()
+	        row['label'] = 'More details'
+                row['Title'] = obj.Title()
+	        row['Authors'] = obj.getRelators_text(brief=True)
+                row['Keywords'] = obj.Subject()
+	        row['State'] = obj.get_review_state()
+	        row['url'] = obj.absolute_url()
+	        row['type'] = obj.portal_type
+	        row['SubType'] = obj.get_item_subtype()
 
-            abstract = obj.Description()
-            abstracted = {}
-            abstracted['id'] = hashlib.md5(abstract).hexdigest()
-            abstracted['label'] = abstract
-            abstracted['type'] = 'Details'
-	    abstracted['short'] = 'More details...'
-            abstracted['url'] = obj.absolute_url()
-            abstracted['Paper'] = obj.UID()
-            row['Abstract'] = abstracted['id']
-	    results.append(row)
+                abstract = obj.Description()
+                abstracted = {}
+                abstracted['id'] = hashlib.md5(abstract).hexdigest()
+                abstracted['label'] = 'Abstract'
+                abstracted['abstract'] = abstract
+                abstracted['type'] = 'Details'
+	        abstracted['short'] = 'More details...'
+                abstracted['url'] = obj.absolute_url()
+                abstracted['Paper'] = obj.UID()
+                row['Abstract'] = abstracted['id']
+	        results.append(row)
 
-            results.append(abstracted)
-            
+                results.append(abstracted)
+            except UnicodeDecodeError:
+                results.append({'id':00,'label':'unicode error', 'url':obj.absolute_url()})
+                
 	return json_dumps(
 	    {'items' : results,
              'properties' :  [{ 'Abstract': 'item', 'Paper': 'item' }],

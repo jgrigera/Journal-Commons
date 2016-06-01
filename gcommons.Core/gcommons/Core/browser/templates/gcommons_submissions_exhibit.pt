@@ -31,7 +31,7 @@
 	<span data-ex-content="!Abstract.Authors" />
 
         <h4>Abstract</h4>
-        <p><span data-ex-content=".label"></span></p>
+        <p><span data-ex-content=".abstract"></span></p>
         <p><a data-ex-href-content=".url" target="_blank">More details...</a></p>
       </div>
 
