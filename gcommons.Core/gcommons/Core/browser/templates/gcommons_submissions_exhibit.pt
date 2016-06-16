@@ -41,7 +41,7 @@
            data-ex-orders=".Authors,.Title"
            data-ex-possibleOrders=".Authors, .Title"
            data-ex-grouped="false" 
-           data-ex-pageSize="50"
+           data-ex-page-size="50"
            />
 <!--
       <div data-ex-role="view"
@@ -63,8 +63,10 @@
 	 data-ex-expression=".State" data-ex-show-missing="false" data-ex-height="60px"></div> 
     <div data-ex-facet-label="Type" data-ex-role="facet"
 	 data-ex-expression=".SubType" data-ex-show-missing="false" data-ex-height="60px"></div> 
+    <div data-ex-facet-label="Free text search" data-ex-role="facet"
+	 data-ex-facet-class="TextSearch"></div>
     <div data-ex-role="facet" data-ex-expression=".Keywords" data-ex-facet-class="Cloud" data-ex-show-missing="false"></div>
-    <div data-ex-facet-label="Free text search" data-ex-role="facet" data-ex-facet-class="TextSearch"></div>
+
   </div>
 
 </div>
