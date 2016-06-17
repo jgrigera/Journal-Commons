@@ -40,7 +40,8 @@
            data-ex-label="Titles"
            data-ex-orders=".Authors,.Title"
            data-ex-possibleOrders=".Authors, .Title"
-           data-ex-grouped="false" 
+           data-ex-grouped="false"
+	   data-ex-paginate="true"
            data-ex-page-size="50"
            />
 <!--
