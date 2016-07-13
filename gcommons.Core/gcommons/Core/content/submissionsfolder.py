@@ -206,6 +206,8 @@ class SubmissionsFolder(folder.ATFolder):
 		    
 		    value = schemafield.getAccessor(obj)()
 		    if value is not None:
+			if not isinstance(value, basestring):
+				value = str(value)
 			ws0.write(n, field['column'], value.decode('utf-8','ignore'), style)
 		except UnicodeDecodeError:
 		    ws0.write(n,field['column'], "UNICODE ERROR!!")
