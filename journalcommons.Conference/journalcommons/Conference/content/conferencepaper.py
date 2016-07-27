@@ -1,6 +1,8 @@
 """Definition of the ConferencePaper content type
 """
 
+import os
+import tempfile
 from zope.interface import implements
 from Acquisition import aq_inner
 from AccessControl import ClassSecurityInfo
@@ -129,6 +131,27 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
         else:
             field.set(self, None)
         return
+
+    @propery
+    def _tempd(self):
+        return tempfile.mkdtemp()
+
+    def download_invitationletter(self):
+        if not self.get_review_state in ('accepted', 'confirmed'):
+            return "Error"
+        
+        from appy.pod.renderer import Renderer
+        values = {
+            'title':  self.title
+            'name':   ','.join(self.creators)
+        }
+
+        pdfoutput = os.path.join(self._tempd(), "TODOx.pdf")
+        templatename = os.path.join("/tmp", "Letter.odt")
+        renderer = Renderer(templatename, values, pdfoutput)
+        renderer.run()
+
+        return "y"
 
         
     ###COMMON!
