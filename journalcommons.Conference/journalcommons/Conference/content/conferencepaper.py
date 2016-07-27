@@ -132,23 +132,23 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
             field.set(self, None)
         return
 
-    @propery
+    @property
     def _tempd(self):
         return tempfile.mkdtemp()
 
     def download_invitationletter(self):
-        if not self.get_review_state in ('accepted', 'confirmed'):
-            return "Error"
+        if not self.get_review_state() in ('accepted', 'confirmed'):
+            return "Error: paper not accepted?"
         
         from appy.pod.renderer import Renderer
         values = {
-            'title':  self.title
+            'title':  self.title,
             'name':   ','.join(self.creators)
         }
 
-        pdfoutput = os.path.join(self._tempd(), "TODOx.pdf")
+        pdfoutput = os.path.join(self._tempd, "TODOx.pdf")
         templatename = os.path.join("/tmp", "Letter.odt")
-        renderer = Renderer(templatename, values, pdfoutput)
+        renderer = Renderer(templatename, values, pdfoutput, pythonWithUnoPath='/usr/bin/python3') 
         renderer.run()
 
         return "y"
