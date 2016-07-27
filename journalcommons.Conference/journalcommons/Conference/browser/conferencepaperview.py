@@ -34,6 +34,9 @@ class IConferencePaperView(Interface):
     def get_drafts():
         """return list of drafts"""
 
+class IConferencePaperInvitationLetterDownloadView(Interface):
+    pass
+
 #
 #
 # TEMP HACK TO TEST SOMETHING
@@ -85,7 +88,7 @@ class WorkflowActionView:
 
 
 
-class ConferencePaperView(BrowserView):
+class ConferencePaperView(gcommonsView):
     """
     ConferencePaper browser view
     """
@@ -237,6 +240,6 @@ class ConferencePaperInvitationLetterDownloadView(gcommonsView):
         """
         self.request.RESPONSE.setHeader('Content-Type','application/pdf')
         self.request.RESPONSE.addHeader("Content-Disposition","attachment;filename=Letter.pdf")
-        self.request.RESPONSE.write( self.context.download_invitationletter() )
+        self.request.RESPONSE.write( self.context.download_invitationletter().getvalue() )
         return 
     

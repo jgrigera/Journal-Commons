@@ -3,6 +3,7 @@
 
 import os
 import tempfile
+from cStringIO import StringIO
 from zope.interface import implements
 from Acquisition import aq_inner
 from AccessControl import ClassSecurityInfo
@@ -134,7 +135,7 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
 
     @property
     def _tempd(self):
-        return tempfile.mkdtemp()
+        return tempfile.mkdtemp(prefix="letters")
 
     def download_invitationletter(self):
         if not self.get_review_state() in ('accepted', 'confirmed'):
@@ -142,7 +143,7 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
         
         from appy.pod.renderer import Renderer
         values = {
-            'title':  self.title,
+            'title':  self.title.strip(),
             'name':   ','.join(self.creators)
         }
 
@@ -151,7 +152,17 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
         renderer = Renderer(templatename, values, pdfoutput, pythonWithUnoPath='/usr/bin/python3') 
         renderer.run()
 
-        return "y"
+
+        pdffile = open(pdfoutput, "rb")
+
+        output = StringIO()
+        output.write(pdffile.read())
+
+        ### TODO del file
+        pdffile.close()
+        
+        output.seek(0)
+        return output
 
         
     ###COMMON!
