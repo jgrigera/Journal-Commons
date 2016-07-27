@@ -144,7 +144,7 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
         from appy.pod.renderer import Renderer
         values = {
             'title':  self.title.strip(),
-            'name':   ','.join(self.creators)
+            'name':   ','.join(self.Creators())
         }
 
         pdfoutput = os.path.join(self._tempd, "TODOx.pdf")
