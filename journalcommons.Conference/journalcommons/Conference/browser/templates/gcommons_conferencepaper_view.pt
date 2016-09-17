@@ -52,14 +52,17 @@
 
 	<!-- Abstract and Keywords -->
 	<tal:abstract tal:condition="here/Description">
-	 	<h3>Abstract</h3>
-	 		<div class="article-abstract" tal:content="here/Description" />
-			<p/><p/>
-		<tal:loop tal:repeat="keyword here/Subject">
-			    <tal:case tal:condition="not: repeat/keyword/start">
-				-
-			    </tal:case><b tal:content="keyword" />
-		</tal:loop>
+	  <h3>Abstract</h3>
+ 	  <div class="article-abstract"
+                             tal:define="pps python:modules['Products.PythonScripts.standard'];
+					 newDesc  python:pps.newline_to_br(pps.html_quote(here.Description()))"
+	 		     tal:content="structure newDesc" />
+	  <p/><p/>
+	  <tal:loop tal:repeat="keyword here/Subject">
+	    <tal:case tal:condition="not: repeat/keyword/start">
+	      -
+	    </tal:case><b tal:content="keyword" />
+	  </tal:loop>
 	</tal:abstract>
 	
 	
@@ -192,13 +195,6 @@
 
             <br/>
 
-<!-- 
-            <form action="#" method="post" class="visualNoPrint"
-                    tal:attributes="action string:${context/absolute_url}">
-                <input name="form.button.download_as_zip" value="Download all as a Zip" 
-                		type="submit" i18n:attributes="value label_downlaod_as_zip">
-            </form>
--->
         </div>
         </tal:drafts>
 
@@ -231,8 +227,8 @@
 	<!-- Letter of invitation -->
 	<tal:letter tal:condition="python:here.portal_workflow.getInfoFor(here, 'review_state') in ('confirmed', 'accepted') ">
             <form action="#" method="post" class="visualNoPrint"
-            		tal:attributes="action view/getLetterUrl">
-                <input name="form.button.download_as_zip" value="Download Invitation Letter" type="submit" />
+            		tal:attributes="action string:${context/absolute_url}/gcommons_conferencepaper_invitationletter_download">
+                <input name="form.button.download_letter" value="Download Invitation Letter" type="submit" />
             </form>
 	</tal:letter>
 

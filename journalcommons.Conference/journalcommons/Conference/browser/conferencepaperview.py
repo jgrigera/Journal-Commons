@@ -5,7 +5,7 @@ from zope.interface import implements, Interface, alsoProvides
 from zope.component import getMultiAdapter, queryMultiAdapter
 
 from plone.app.layout.globals.interfaces import IViewView
-from Products.Five import BrowserView
+from gcommons.Core.browser import gcommonsView 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
@@ -33,6 +33,9 @@ class IConferencePaperView(Interface):
     
     def get_drafts():
         """return list of drafts"""
+
+class IConferencePaperInvitationLetterDownloadView(Interface):
+    pass
 
 #
 #
@@ -85,7 +88,7 @@ class WorkflowActionView:
 
 
 
-class ConferencePaperView(BrowserView):
+class ConferencePaperView(gcommonsView):
     """
     ConferencePaper browser view
     """
@@ -222,3 +225,21 @@ class ConferencePaperView(BrowserView):
         else:
             return False
 
+
+
+class ConferencePaperInvitationLetterDownloadView(gcommonsView):
+    implements(IConferencePaperInvitationLetterDownloadView)
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        """
+        This method gets called everytime the template needs to be rendered
+        """
+        self.request.RESPONSE.setHeader('Content-Type','application/pdf')
+        self.request.RESPONSE.addHeader("Content-Disposition","attachment;filename=Letter.pdf")
+        self.request.RESPONSE.write( self.context.download_invitationletter().getvalue() )
+        return 
+    
