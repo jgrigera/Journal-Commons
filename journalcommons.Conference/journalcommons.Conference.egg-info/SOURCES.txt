@@ -24,6 +24,7 @@ journalcommons/Conference/browser/conferencepaymentoverview.py
 journalcommons/Conference/browser/conferencepaymentview.py
 journalcommons/Conference/browser/conferenceview.py
 journalcommons/Conference/browser/configure.zcml
+journalcommons/Conference/browser/templates/conferenceevent_edit.pt
 journalcommons/Conference/browser/templates/conferencepaper_edit.pt
 journalcommons/Conference/browser/templates/conferencepaper_edit.pt~
 journalcommons/Conference/browser/templates/gcommons_conferencepaper_view.pt

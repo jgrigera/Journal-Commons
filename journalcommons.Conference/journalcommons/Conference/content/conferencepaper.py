@@ -139,7 +139,7 @@ class ConferencePaper(folder.ATFolder, RelatorsMixin):
         return "Paper"
     
     def get_review_state(self):
-        review_state = self.portal_workflow.getInfoFor(self, 'review_state');
+        review_state = self.portal_workflow.getInfoFor(self, 'review_state')
         return review_state
     
     def get_state_comments(self):

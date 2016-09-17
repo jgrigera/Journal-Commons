@@ -38,10 +38,10 @@
       <div data-ex-role="view"
            data-ex-viewClass="Tile"
            data-ex-label="Titles"
-           data-ex-orders=".Authors,.Title"
-           data-ex-possibleOrders=".Authors, .Title"
+           data-ex-orders=".Authors,.Title,.date_changed"
+           data-ex-possible-orders=".Authors,.Title,.date_changed"
            data-ex-grouped="false"
-	   data-ex-paginate="true"
+           data-ex-paginate="true"
            data-ex-page-size="50"
            />
 <!--

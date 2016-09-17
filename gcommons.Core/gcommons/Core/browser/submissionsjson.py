@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.Five import BrowserView
+from Products.CMFCore.utils import getToolByName
 from plone.app.content.utils import json_dumps
 from logging import getLogger
 import hashlib
@@ -27,12 +28,9 @@ class SubmissionsJsonView(BrowserView):
             size: size of paged results
         }
         """
-        context = self.context
+        context = self.context 
+        portal_workflow = getToolByName(context, 'portal_workflow')
         self.request.response.setHeader("Content-type", "application/json")
-	Fields = [ 
-	    { 'title': 'Requirements',    'value': 'specialRequirements' },
-	    { 'title': 'Keywords',        'value': 'subject' },
-	]
 	
 	results = []
 	for item in context.searchSubmissions():
@@ -48,6 +46,7 @@ class SubmissionsJsonView(BrowserView):
 	        row['url'] = obj.absolute_url()
 	        row['type'] = obj.portal_type
 	        row['SubType'] = obj.get_item_subtype()
+                row['date_changed'] = portal_workflow.getInfoFor(obj,'time')
 
                 abstract = obj.Description()
                 abstracted = {}
