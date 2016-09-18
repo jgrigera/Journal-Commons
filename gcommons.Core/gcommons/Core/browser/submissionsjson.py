@@ -32,6 +32,7 @@ class SubmissionsJsonView(BrowserView):
         portal_workflow = getToolByName(context, 'portal_workflow')
         self.request.response.setHeader("Content-type", "application/json")
 	
+        logger.info("Hello!")
 	results = []
 	for item in context.searchSubmissions():
             try:
@@ -46,7 +47,7 @@ class SubmissionsJsonView(BrowserView):
 	        row['url'] = obj.absolute_url()
 	        row['type'] = obj.portal_type
 	        row['SubType'] = obj.get_item_subtype()
-                row['date_changed'] = portal_workflow.getInfoFor(obj,'time')
+                row['date_changed'] = str( portal_workflow.getInfoFor(obj,'time') )
 
                 abstract = obj.Description()
                 abstracted = {}
