@@ -6,6 +6,7 @@ from operator import itemgetter
 
 from Acquisition import aq_inner
 from Products.Archetypes import atapi
+from Products.CMFPlone.utils import safe_unicode
 
 # Widgets
 from Products.CMFCore.utils import getToolByName
@@ -335,10 +336,16 @@ class RelatorsMixin:
         
         brief = True: name, name, name (editor), name (translator)
         """
-        relators = self.getRelators(relationship=relationship)
+        try:
+            relators = self.getRelators(relationship=relationship)
+        except UnicodeDecodeError, e:
+            logger.error("UnicodeDecodeError at getRelators!")
+            raise e
         
         if brief:
-            return ', '.join( [ "%s" % relator['name'] if relator['relationship'] == 'Author' else "%s (%s)" % (relator['name'],relator['relationship'])   for relator in relators ] )
+            return u', '.join( [ u"%s" % safe_unicode(relator['name']) if relator['relationship'] == 'Author' 
+                                          else u"%s (%s)" % (safe_unicode(relator['name']),relator['relationship'])   
+                                          for relator in relators ] )
         return 'TODO'
 
 

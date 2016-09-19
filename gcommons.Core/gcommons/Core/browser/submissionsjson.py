@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from Products.Five import BrowserView
-from Products.CMFCore.utils import getToolByName
 from plone.app.content.utils import json_dumps
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from logging import getLogger
 import hashlib
 logger = getLogger(__name__)
@@ -39,30 +40,31 @@ class SubmissionsJsonView(BrowserView):
 	        obj = item.getObject()
 	        row['id'] = obj.UID()
 	        row['label'] = 'More details'
-                row['Title'] = obj.Title().encode('utf-8','ignore')
-	        row['Authors'] = obj.getRelators_text(brief=True).encode('utf-8','ignore')
-                row['Keywords'] = obj.Subject().encode('utf-8','ignore')
+                row['Title'] = safe_unicode(obj.Title())
+	        row['Authors'] = safe_unicode(obj.getRelators_text(brief=True))
+                row['Keywords'] = safe_unicode(obj.Subject())
 	        row['State'] = obj.get_review_state()
 	        row['url'] = obj.absolute_url()
 	        row['type'] = obj.portal_type
 	        row['SubType'] = obj.get_item_subtype()
                 row['date_changed'] = str( portal_workflow.getInfoFor(obj,'time') )
 
-                abstract = obj.Description()
+
+                abstract = safe_unicode(obj.Description())
                 abstracted = {}
-                abstracted['id'] = hashlib.md5(abstract).hexdigest()
+                abstracted['id'] = hashlib.md5(abstract.encode('utf-8')).hexdigest()
                 abstracted['label'] = 'Abstract'
-                abstracted['abstract'] = abstract.encode('utf-8','ignore')
+                abstracted['abstract'] = abstract
                 abstracted['type'] = 'Details'
 	        abstracted['short'] = 'More details...'
                 abstracted['url'] = obj.absolute_url()
                 abstracted['Paper'] = obj.UID()
-                row['Abstract'] = abstracted['id']
+                #row['Abstract'] = abstracted['id']
 	        results.append(row)
 
                 results.append(abstracted)
             except UnicodeDecodeError,e:
-                logger.error("Unicode error! At %s" % obj.absolute_url())
+                logger.error("3 Unicode error! At %s" % obj.absolute_url())
                 raise e
                 
 	return json_dumps(
