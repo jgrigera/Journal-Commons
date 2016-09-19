@@ -64,7 +64,7 @@ class SubmissionsJsonView(BrowserView):
 
                 results.append(abstracted)
             except UnicodeDecodeError,e:
-                logger.error("3 Unicode error! At %s" % obj.absolute_url())
+                logger.error("Unicode error! At %s" % obj.absolute_url())
                 raise e
                 
 	return json_dumps(
