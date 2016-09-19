@@ -39,9 +39,9 @@ class SubmissionsJsonView(BrowserView):
 	        obj = item.getObject()
 	        row['id'] = obj.UID()
 	        row['label'] = 'More details'
-                row['Title'] = obj.Title()
+                row['Title'] = obj.Title().encode('utf-8','ignore')
 	        row['Authors'] = obj.getRelators_text(brief=True).encode('utf-8','ignore')
-                row['Keywords'] = obj.Subject()
+                row['Keywords'] = obj.Subject().encode('utf-8','ignore')
 	        row['State'] = obj.get_review_state()
 	        row['url'] = obj.absolute_url()
 	        row['type'] = obj.portal_type
