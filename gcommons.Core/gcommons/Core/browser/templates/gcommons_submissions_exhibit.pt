@@ -43,6 +43,8 @@
            data-ex-grouped="false"
            data-ex-paginate="true"
            data-ex-page-size="50"
+           data-always-show-paging-controls="true"
+           data-paging-control-locations="bottom"
            />
 <!--
       <div data-ex-role="view"
