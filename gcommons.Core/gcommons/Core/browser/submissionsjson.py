@@ -32,7 +32,6 @@ class SubmissionsJsonView(BrowserView):
         portal_workflow = getToolByName(context, 'portal_workflow')
         self.request.response.setHeader("Content-type", "application/json")
 	
-        logger.info("Hello!")
 	results = []
 	for item in context.searchSubmissions():
             try:
@@ -41,7 +40,7 @@ class SubmissionsJsonView(BrowserView):
 	        row['id'] = obj.UID()
 	        row['label'] = 'More details'
                 row['Title'] = obj.Title()
-	        row['Authors'] = obj.getRelators_text(brief=True)
+	        row['Authors'] = obj.getRelators_text(brief=True).encode('utf-8','ignore')
                 row['Keywords'] = obj.Subject()
 	        row['State'] = obj.get_review_state()
 	        row['url'] = obj.absolute_url()
@@ -53,7 +52,7 @@ class SubmissionsJsonView(BrowserView):
                 abstracted = {}
                 abstracted['id'] = hashlib.md5(abstract).hexdigest()
                 abstracted['label'] = 'Abstract'
-                abstracted['abstract'] = abstract
+                abstracted['abstract'] = abstract.encode('utf-8','ignore')
                 abstracted['type'] = 'Details'
 	        abstracted['short'] = 'More details...'
                 abstracted['url'] = obj.absolute_url()
@@ -62,8 +61,9 @@ class SubmissionsJsonView(BrowserView):
 	        results.append(row)
 
                 results.append(abstracted)
-            except UnicodeDecodeError:
-                results.append({'id':00,'label':'unicode error', 'url':obj.absolute_url()})
+            except UnicodeDecodeError,e:
+                logger.error("Unicode error! At %s" % obj.absolute_url())
+                raise e
                 
 	return json_dumps(
 	    {'items' : results,
