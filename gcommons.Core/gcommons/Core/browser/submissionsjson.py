@@ -59,7 +59,7 @@ class SubmissionsJsonView(BrowserView):
 	        abstracted['short'] = 'More details...'
                 abstracted['url'] = obj.absolute_url()
                 abstracted['Paper'] = obj.UID()
-                #row['Abstract'] = abstracted['id']
+                row['Abstract'] = abstracted['id']
 	        results.append(row)
 
                 results.append(abstracted)
